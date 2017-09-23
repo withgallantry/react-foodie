@@ -1,5 +1,8 @@
 # back-end.txt
 
+# will create admin userface for entering this kind of json
+# into my db. This is some kind of template for the json data though.
+
 ../restaurant/sv
 
 [{
@@ -9,8 +12,8 @@
   hours : ["11.00", "23.00"],
   address : "Scheelegatan 6, 112 23 Stockholm",
   images : {
-    gallery : "http://dizz.se/res/gal1.png",
-    banner : "http://dizz.se/res/ban1.png"
+    gallery : "img/gal1.png",
+    banner : "img/ban1.png"
   },
   menu : {
     name : "Kyckling",
