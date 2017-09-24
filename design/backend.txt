@@ -19,7 +19,8 @@
     name : "Kyckling",
     items : {
       name : "Kycklingrulle",
-      desc : "Kyckling, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås.",
+      desc : "Kyckling, isbergssallad, tomat,
+        lök, fefferoni, tomatsås och vitlökssås.",
       price : "90 SEK"
     }
   }

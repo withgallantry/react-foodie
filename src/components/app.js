@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Home from './home';
-import Admin from './admin';
+import Home from './home/home';
+import Admin from './admin/admin';
 
 const App = () => {
   return (
