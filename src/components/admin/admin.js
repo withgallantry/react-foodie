@@ -8,17 +8,19 @@ import FoodPlaceSelect from './food_place_select';
 const URL = 'http://localhost:5000/foodplace';
 
 export const Event = Object.freeze({
-  NEW  : 0,
-  SAVE : 1,
-  COPY : 2,
-  SHOW : 3,
-  LANG_CHANGE : 4,
-  NAME_CHANGE : 5,
-  TAGS_CHANGE : 6,
-  HOURS_CHANGE : 7,
-  ADDRESS_CHANGE : 8,
-  MENU_CHANGE : 9,
-  DELETE : 10
+  NEW             : 0,
+  SAVE            : 1,
+  COPY            : 2,
+  SHOW            : 3,
+  LANG_CHANGE     : 4,
+  NAME_CHANGE     : 5,
+  TAGS_CHANGE     : 6,
+  HOURS_CHANGE    : 7,
+  ADDRESS_CHANGE  : 8,
+  MENU_CHANGE     : 9,
+  DELETE          : 10,
+  SEARCH          : 11,
+  ADD_TEMPLATE    : 12
 });
 
 const eventLut = [];
@@ -44,8 +46,10 @@ class Admin extends Component {
     };
 
     this.onClick = this.onClick.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onChangeDebounced = _.debounce(this.onChange, 300);
+    this.onChangeForm = this.onChangeForm.bind(this);
+    this.onChangeSearch = this.onChangeSearch.bind(this);
+    this.onChangeFormDebounced = _.debounce(this.onChangeForm, 300);
+    this.onChangeSearchDebounced = _.debounce(this.onChangeSearch, 300);
   }
 
   componentDidMount() {
@@ -187,9 +191,9 @@ class Admin extends Component {
     }
   }
 
-  onChange(label, ...args) {
+  onChangeForm(label, ...args) {
     var event = eventLut[label];
-    console.log(`onChange[${event}](${args[0]})`);
+    console.log(`onChangeForm[${event}](${args[0]})`);
 
     if (event === Event.LANG_CHANGE)   { this.setState({ [label] : args[0] }); }
     if (event === Event.NAME_CHANGE)   { this.setState({ [label] : args[0] }); }
@@ -198,8 +202,17 @@ class Admin extends Component {
     if (event === Event.ADRESS_CHANGE) { this.setState({ [label] : args[0] }); }
   }
 
-  onSubmit(id, ...args) {
-
+  onChangeSearch(value) {
+    value = value.toLowerCase();
+    console.log(`onChangeSearch(${value})`);
+    const foodPlaces = this.state.foodPlace;
+    var index = _.findIndex(this.state.foodPlaces, (foodPlace) => {
+      var name = `${foodPlace.name} (${foodPlace.lang})`.toLowerCase();
+      return _.includes(name, value);
+    });
+    if (index >= 0) {
+      this.show(this.state.foodPlaces[index]._id);
+    }
   }
 
   render() {
@@ -207,11 +220,12 @@ class Admin extends Component {
       <div>
         <FoodPlaceSelect
           onClick={this.onClick}
+          onChange={this.onChangeSearchDebounced}
           foodPlaces={
             _.map(this.state.foodPlaces, (foodPlace) => {
               return {
                 name: foodPlace.name,
-                id: foodPlace._id,
+                id:   foodPlace._id,
                 lang: foodPlace.lang
               };
             })
@@ -225,8 +239,8 @@ class Admin extends Component {
           hours={this.state.hours}
           menu={this.state.menu}
           onClick={this.onClick}
-          onChange={this.onChangeDebounced}
-          onSubmit={this.onSubmit}/>
+          onChange={this.onChangeFormDebounced}
+        />
       </div>
     );
   }

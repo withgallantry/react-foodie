@@ -2,13 +2,22 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Event } from './admin';
 
-const style = {
+const dropDownStyle = {
   marginLeft: '160px',
   marginTop: '20px',
   marginBottom: '10px'
 };
 
-const FoodPlaceSelect = ({onClick, foodPlaces}) => {
+const searchStyle = {
+  marginLeft: '160px',
+  marginBottom: '10px'
+};
+
+const buttonStyle = {
+  marginLeft: '10px'
+};
+
+const FoodPlaceSelect = ({onClick, onChange, foodPlaces}) => {
   if (foodPlaces === null) {
     return (
       <div style={style}>
@@ -20,7 +29,7 @@ const FoodPlaceSelect = ({onClick, foodPlaces}) => {
   var items = _.map(foodPlaces, (foodPlace) => {
     return (
       <li onClick={() => onClick(Event.SHOW, foodPlace.id)} key={foodPlace.id}>
-        <a href='#'>{`(${foodPlace.lang}) ${foodPlace.name}`}</a>
+        <a href='#'>{`${foodPlace.name} (${foodPlace.lang})`}</a>
       </li>
     );
   });
@@ -30,20 +39,38 @@ const FoodPlaceSelect = ({onClick, foodPlaces}) => {
   });
 
   return (
-    <div style={style} className="dropdown">
-      <button
-        className="btn btn-primary dropdown-toggle"
-        type="button"
-        data-toggle="dropdown">
-        Food places &nbsp;
-        <span className="caret"></span>
-      </button>
-      <ul className="dropdown-menu">
-        {/*<li onClick={() => onClick(Event.NEW)}>
-          <a href='#'>--- New ---</a>
-        </li>*/}
-        {items}
-      </ul>
+    <div>
+      <div style={dropDownStyle} className="dropdown">
+        <button
+          className="btn btn-primary dropdown-toggle"
+          type="button"
+          data-toggle="dropdown">
+          Food places &nbsp;
+          <span className="caret"></span>
+        </button>
+        <ul className="dropdown-menu">
+          {/*<li onClick={() => onClick(Event.NEW)}>
+            <a href='#'>--- New ---</a>
+          </li>*/}
+          {items}
+        </ul>
+        <button
+          style={buttonStyle}
+          type="button"
+          className="btn btn-default"
+          onClick={() => onClick(Event.ADD_TEMPLATE)}>
+          Add Template
+        </button>
+      </div>
+      <div>
+        <input
+          style={searchStyle}
+          type="text"
+          size='32'
+          placeholder="Search..."
+          onChange={(event) => onChange(event.target.value)}>
+        </input>
+      </div>
     </div>
   );
 };

@@ -2,13 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import { Event } from './admin';
 
-const formStyle = {
-  marginLeft: '40px'
-};
-
 const labelStyle = {
   display: 'inline-block',
-  width: '100px',
+  width: '140px',
   textAlign: 'right',
   marginRight: '20px'
 };
@@ -17,12 +13,12 @@ const formRowStyle = {
   marginTop: '2px'
 };
 
-const saveBtnStyle = {
+const firstBtnStyle = {
   marginTop: '10px',
-  marginLeft: '120px'
+  marginLeft: '160px'
 };
 
-const newBtnStyle = {
+const otherBtnStyle = {
   marginTop: '10px',
   marginLeft: '10px'
 };
@@ -69,37 +65,35 @@ const FoodPlaceForm = (props) => {
 
   return (
     <div>
-      <form style={formStyle}>
-        {formRows}
-        <button
-          style={saveBtnStyle}
-          type="button"
-          className="btn btn-default"
-          onClick={() => props.onClick(Event.SAVE)}>
-          Save
-        </button>
-        <button
-          style={newBtnStyle}
-          type="button"
-          className="btn btn-default"
-          onClick={() => props.onClick(Event.NEW)}>
-          New
-        </button>
-        <button
-          style={newBtnStyle}
-          type="button"
-          className="btn btn-default"
-          onClick={() => props.onClick(Event.COPY)}>
-          Copy
-        </button>
-        <button
-          style={newBtnStyle}
-          type="button"
-          className="btn btn-default"
-          onClick={() => props.onClick(Event.DELETE)}>
-          Delete
-        </button>
-      </form>
+      {formRows}
+      <button
+        style={firstBtnStyle}
+        type="button"
+        className="btn btn-default"
+        onClick={() => props.onClick(Event.SAVE)}>
+        Save
+      </button>
+      <button
+        style={otherBtnStyle}
+        type="button"
+        className="btn btn-default"
+        onClick={() => props.onClick(Event.NEW)}>
+        New
+      </button>
+      <button
+        style={otherBtnStyle}
+        type="button"
+        className="btn btn-default"
+        onClick={() => props.onClick(Event.COPY)}>
+        Copy
+      </button>
+      <button
+        style={otherBtnStyle}
+        type="button"
+        className="btn btn-default"
+        onClick={() => props.onClick(Event.DELETE)}>
+        Delete
+      </button>
     </div>
   );
 };
