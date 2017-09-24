@@ -171,6 +171,30 @@ class Admin extends Component {
     }
   }
 
+  addTemplate() {
+    axios.post(URL, {
+      lang: 'sv',
+      name: 'Stockholm Pizza',
+      address: 'Scheelegatan 6, 112 23 Stockholm',
+      hours: ["11.00", "23.00"],
+      tags: ["Pizza", "Kebab", "Sallad"],
+      menu: [{
+        name: 'Kyckling',
+        items: {
+          name: 'Kycklingrulle',
+          desc: 'Kyckling, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }
+      }],
+      modified: new Date().toISOString()
+    }).then((response) => {
+      console.log('added food place');
+      this.load();
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
   new() {
     this.reset();
     this.load();
@@ -188,6 +212,8 @@ class Admin extends Component {
       this.show(args[0]);
     } else if (id === Event.DELETE) {
       this.delete();
+    } else if (id === Event.ADD_TEMPLATE) {
+      this.addTemplate();
     }
   }
 
