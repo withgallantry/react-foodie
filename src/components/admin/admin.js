@@ -41,7 +41,7 @@ class Admin extends Component {
       address: '',
       hours: '',
       tags: '',
-      menu: [],
+      menu: null,
       currentId: null
     };
 
@@ -64,7 +64,7 @@ class Admin extends Component {
       address: '',
       hours: '',
       tags: '',
-      menu: [],
+      menu: null,
       currentId: null
     });
   }

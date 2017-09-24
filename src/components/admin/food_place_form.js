@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import FoodPlaceFormMenu from './food_place_form_menu';
 import { Event } from './admin';
 
 const labelStyle = {
@@ -63,9 +64,20 @@ const FoodPlaceForm = (props) => {
     );
   });
 
+  var menus = _.map(props.menu, (menu) => {
+    return (
+      <FoodPlaceFormMenu
+        key={menu.name}
+        menu={menu}
+        onClick={props.onClick}
+      />
+    );
+  });
+
   return (
     <div>
       {formRows}
+      {menus}
       <button
         style={firstBtnStyle}
         type="button"
