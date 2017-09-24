@@ -92,19 +92,28 @@ class Admin extends Component {
 
   save() {
     var currentId = this.state.currentId;
+    var item = {
+      lang: this.state.lang,
+      name: this.state.name,
+      address: this.state.address,
+      hours: this.state.hours,
+      tags: this.state.tags,
+      menu: this.state.menu,
+      modified: new Date().toISOString()
+    };
     if (currentId !== null) {
-      axios.put(this.getUrl(currentId), {
-        lang: this.state.lang,
-        name: this.state.name,
-        address: this.state.address,
-        hours: this.state.hours,
-        tags: this.state.tags,
-        menu: this.state.menu,
-        modified: new Date().toISOString()
-      }).then((response) => {
+      axios.put(this.getUrl(currentId), item).then((response) => {
         console.log(`updated food place with id ${currentId}`);
-        this.loadFoodPlaces();
+        this.load();
       }).catch((error) => {
+        console.log(error);
+      });
+    } else {
+      axios.post(URL, item).then((response) => {
+        console.log('added food place');
+        this.load();
+      })
+      .catch((error) => {
         console.log(error);
       });
     }
@@ -158,10 +167,15 @@ class Admin extends Component {
     }
   }
 
+  new() {
+    this.reset();
+    this.load();
+  }
+
   onClick(id, ...args) {
     console.log(`onClick[${id}](${args[0]}, ${args[1]}, ${args[2]})`);
     if (id === Event.NEW) {
-
+      this.new();
     } else if (id === Event.SAVE) {
       this.save();
     } else if (id === Event.COPY) {
