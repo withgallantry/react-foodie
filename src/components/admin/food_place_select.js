@@ -19,7 +19,7 @@ const FoodPlaceSelect = ({onClick, foodPlaces}) => {
 
   var items = _.map(foodPlaces, (foodPlace) => {
     return (
-      <li onClick={() => onClick(Event.SHOW, foodPlace._id)} key={foodPlace.name}>
+      <li onClick={() => onClick(Event.SHOW, foodPlace.id)} key={foodPlace.id}>
         <a href='#'>{`(${foodPlace.lang}) ${foodPlace.name}`}</a>
       </li>
     );
