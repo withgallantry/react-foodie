@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import FoodPlaceForm from './food_place_form';
-import FoodPlaceSelect from './food_place_select';
+import FoodPlaceForm from './form';
+import FoodPlaceSelect from './select';
 
 //const URL = 'https://agile-taiga-67906.herokuapp.com/';
 const URL = 'http://localhost:5000/foodplace';
 
 export const Event = Object.freeze({
-  NEW             : 0,
-  SAVE            : 1,
-  COPY            : 2,
-  SHOW            : 3,
-  LANG_CHANGE     : 4,
-  NAME_CHANGE     : 5,
-  TAGS_CHANGE     : 6,
-  HOURS_CHANGE    : 7,
-  ADDRESS_CHANGE  : 8,
-  MENU_CHANGE     : 9,
-  DELETE          : 10,
-  SEARCH          : 11,
-  ADD_TEMPLATE    : 12
+  NEW               : 0,
+  SAVE              : 1,
+  COPY              : 2,
+  SHOW              : 3,
+  LANG_CHANGE       : 4,
+  NAME_CHANGE       : 5,
+  TAGS_CHANGE       : 6,
+  HOURS_CHANGE      : 7,
+  ADDRESS_CHANGE    : 8,
+  MENU_CHANGE_ITEM  : 9,
+  DELETE            : 10,
+  SEARCH            : 11,
+  ADD_TEMPLATE      : 12
 });
 
 const eventLut = [];
@@ -29,6 +29,10 @@ eventLut['name']    = Event.NAME_CHANGE;
 eventLut['address'] = Event.ADDRESS_CHANGE;
 eventLut['hours']   = Event.HOURS_CHANGE;
 eventLut['tags']    = Event.TAGS_CHANGE;
+
+const hrStyle = {
+  marginTop: '10px'
+};
 
 class Admin extends Component {
   constructor() {
@@ -48,7 +52,6 @@ class Admin extends Component {
     this.onClick = this.onClick.bind(this);
     this.onChangeForm = this.onChangeForm.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
-    this.onChangeFormDebounced = _.debounce(this.onChangeForm, 300);
     this.onChangeSearchDebounced = _.debounce(this.onChangeSearch, 300);
   }
 
@@ -88,6 +91,11 @@ class Admin extends Component {
       });
 
       this.setState({ foodPlaces });
+
+      // while testing
+      if (foodPlaces.length > 0) {
+        this.show(foodPlaces[0]._id);
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -172,22 +180,7 @@ class Admin extends Component {
   }
 
   addTemplate() {
-    axios.post(URL, {
-      lang: 'sv',
-      name: 'Stockholm Pizza',
-      address: 'Scheelegatan 6, 112 23 Stockholm',
-      hours: ["11.00", "23.00"],
-      tags: ["Pizza", "Kebab", "Sallad"],
-      menu: [{
-        name: 'Kyckling',
-        items: {
-          name: 'Kycklingrulle',
-          desc: 'Kyckling, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }
-      }],
-      modified: new Date().toISOString()
-    }).then((response) => {
+    axios.post(URL, this.getTemplateItem()).then((response) => {
       console.log('added food place');
       this.load();
     }).catch((error) => {
@@ -195,9 +188,63 @@ class Admin extends Component {
     });
   }
 
+  getTemplateItem() {
+    return {
+      lang: 'sv',
+      name: 'Stockholm Pizza',
+      address: 'Scheelegatan 6, 112 23 Stockholm',
+      hours: ["11.00", "23.00"],
+      tags: ["Pizza", "Kebab", "Sallad"],
+      menu: [{
+        name: 'Kyckling',
+        items: [{
+          name: 'Kycklingrulle',
+          desc: 'Kyckling, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }, {
+          name: 'Kycklingtallrik',
+          desc: 'Kyckling, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }, {
+          name: 'Kycklingsallad',
+          desc: 'Kyckling, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }]
+      }, {
+        name: 'Kebab',
+        items: [{
+          name: 'Kebabrulle',
+          desc: 'Kebab, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }, {
+          name: 'Kebabtallrik',
+          desc: 'Kebab, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }, {
+          name: 'Kebabsallad',
+          desc: 'Kebab, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }]
+      }],
+      modified: new Date().toISOString()
+    };
+  }
+
   new() {
     this.reset();
     this.load();
+  }
+
+  changeMenuItem(menuIndex, itemIndex, prop, value) {
+    var menu = this.state.menu;
+    menu[menuIndex].items[itemIndex][prop] = value;
+    this.setState({ menu });
+  }
+
+  changeMenuName(menuIndex, value) {
+    var menu = this.state.menu;
+    menu[menuIndex].name = value;
+    this.setState({ menu });
   }
 
   onClick(id, ...args) {
@@ -219,13 +266,23 @@ class Admin extends Component {
 
   onChangeForm(label, ...args) {
     var event = eventLut[label];
-    console.log(`onChangeForm[${event}](${args[0]})`);
+    if (event) {
+      console.log(`onChangeForm[${event}](${args[0]})`);
+    } else {
+      console.log(`onChangeForm[${label}](${args[0]}), (${args[1]}), (${args[2]}), (${args[3]})`);
+    }
 
     if (event === Event.LANG_CHANGE)   { this.setState({ [label] : args[0] }); }
     if (event === Event.NAME_CHANGE)   { this.setState({ [label] : args[0] }); }
     if (event === Event.TAGS_CHANGE)   { this.setState({ [label] : args[0] }); }
     if (event === Event.HOURS_CHANGE)  { this.setState({ [label] : args[0] }); }
     if (event === Event.ADRESS_CHANGE) { this.setState({ [label] : args[0] }); }
+
+    if (label === Event.MENU_CHANGE_ITEM) {
+      this.changeMenuItem(args[0], args[1], args[2], args[3]);
+    } else if (label === Event.MENU_CHANGE_NAME) {
+      this.changeMenuName(args[0], args[1]);
+    }
   }
 
   onChangeSearch(value) {
@@ -257,6 +314,7 @@ class Admin extends Component {
             })
           }
         />
+        <hr style={hrStyle}/>
         <FoodPlaceForm
           lang={this.state.lang}
           name={this.state.name}
@@ -265,7 +323,7 @@ class Admin extends Component {
           hours={this.state.hours}
           menu={this.state.menu}
           onClick={this.onClick}
-          onChange={this.onChangeFormDebounced}
+          onChange={this.onChangeForm}
         />
       </div>
     );

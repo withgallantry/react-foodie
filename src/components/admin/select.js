@@ -17,7 +17,7 @@ const buttonStyle = {
   marginLeft: '10px'
 };
 
-const FoodPlaceSelect = ({onClick, onChange, foodPlaces}) => {
+const Select = ({onClick, onChange, foodPlaces}) => {
   if (foodPlaces === null) {
     return (
       <div style={style}>
@@ -62,17 +62,15 @@ const FoodPlaceSelect = ({onClick, onChange, foodPlaces}) => {
           Add Template
         </button>
       </div>
-      <div>
-        <input
-          style={searchStyle}
-          type="text"
-          size='32'
-          placeholder="Search..."
-          onChange={(event) => onChange(event.target.value)}>
-        </input>
-      </div>
+      <input
+        style={searchStyle}
+        type="text"
+        size='32'
+        placeholder="Search for restaurant name..."
+        onChange={(event) => onChange(event.target.value)}>
+      </input>
     </div>
   );
 };
 
-export default FoodPlaceSelect;
+export default Select;
