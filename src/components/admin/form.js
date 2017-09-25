@@ -27,11 +27,24 @@ const Form = (props) => {
     };
   });
 
+  // remove 'menu' from rows, it is handled by specific component
   var menuIndex = _.findIndex(rows, (row) => {
     return row.label === 'menu';
   });
   if (menuIndex >= 0) {
-    var menu = rows.splice(menuIndex, 1)[0];
+    rows.splice(menuIndex, 1);
+  }
+
+  // remove 'images' from rows, modify and add back.
+  var imagesIndex = _.findIndex(rows, (row) => {
+    return row.label === 'images';
+  });
+  if (imagesIndex >= 0) {
+    var images = rows.splice(imagesIndex, 1)[0];
+    if (images.value) {
+      rows.push({ label: 'images.gallery', value: images.value.gallery });
+      rows.push({ label: 'images.banner',  value: images.value.banner });
+    }
   }
 
   var formRows = _.map(rows, (row) => {

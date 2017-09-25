@@ -8,27 +8,31 @@ import FoodPlaceSelect from './select';
 const URL = 'http://localhost:5000/foodplace';
 
 export const Event = Object.freeze({
-  NEW               : 0,
-  SAVE              : 1,
-  COPY              : 2,
-  SHOW              : 3,
-  LANG_CHANGE       : 4,
-  NAME_CHANGE       : 5,
-  TAGS_CHANGE       : 6,
-  HOURS_CHANGE      : 7,
-  ADDRESS_CHANGE    : 8,
-  MENU_CHANGE_ITEM  : 9,
-  DELETE            : 10,
-  SEARCH            : 11,
-  ADD_TEMPLATE      : 12
+  NEW                   : 0,
+  SAVE                  : 1,
+  COPY                  : 2,
+  SHOW                  : 3,
+  LANG_CHANGE           : 4,
+  NAME_CHANGE           : 5,
+  TAGS_CHANGE           : 6,
+  HOURS_CHANGE          : 7,
+  ADDRESS_CHANGE        : 8,
+  MENU_CHANGE_ITEM      : 9,
+  DELETE                : 10,
+  SEARCH                : 11,
+  ADD_TEMPLATE          : 12,
+  IMAGES_GALLERY_CHANGE : 13,
+  IMAGES_BANNER_CHANGE  : 14
 });
 
 const eventLut = [];
-eventLut['lang']    = Event.LANG_CHANGE;
-eventLut['name']    = Event.NAME_CHANGE;
-eventLut['address'] = Event.ADDRESS_CHANGE;
-eventLut['hours']   = Event.HOURS_CHANGE;
-eventLut['tags']    = Event.TAGS_CHANGE;
+eventLut['lang']            = Event.LANG_CHANGE;
+eventLut['name']            = Event.NAME_CHANGE;
+eventLut['address']         = Event.ADDRESS_CHANGE;
+eventLut['hours']           = Event.HOURS_CHANGE;
+eventLut['tags']            = Event.TAGS_CHANGE;
+eventLut['images.gallery']  = Event.IMAGES_GALLERY_CHANGE;
+eventLut['images.banner']   = Event.IMAGES_BANNER_CHANGE;
 
 const hrStyle = {
   marginTop: '10px'
@@ -67,6 +71,7 @@ class Admin extends Component {
       address: '',
       hours: '',
       tags: '',
+      images: null,
       menu: null,
       currentId: null
     });
@@ -86,6 +91,7 @@ class Admin extends Component {
           hours: foodPlace.hours,
           tags: foodPlace.tags,
           menu: foodPlace.menu,
+          images: foodPlace.images,
           _id: foodPlace._id
         };
       });
@@ -104,6 +110,7 @@ class Admin extends Component {
 
   save() {
     var currentId = this.state.currentId;
+    console.log(this.state.images);
     var item = {
       lang: this.state.lang,
       name: this.state.name,
@@ -111,6 +118,7 @@ class Admin extends Component {
       hours: this.state.hours,
       tags: this.state.tags,
       menu: this.state.menu,
+      images: this.state.images,
       modified: new Date().toISOString()
     };
     if (currentId !== null) {
@@ -142,6 +150,7 @@ class Admin extends Component {
         address: foodPlace.address,
         hours: foodPlace.hours,
         tags: foodPlace.tags,
+        images: foodPlace.images,
         menu: foodPlace.menu,
         currentId: id
       });
@@ -155,6 +164,7 @@ class Admin extends Component {
       address: this.state.address,
       hours: this.state.hours,
       tags: this.state.tags,
+      images: this.state.images,
       menu: this.state.menu,
       modified: new Date().toISOString()
     }).then((response) => {
@@ -195,6 +205,10 @@ class Admin extends Component {
       address: 'Scheelegatan 6, 112 23 Stockholm',
       hours: ["11.00", "23.00"],
       tags: ["Pizza", "Kebab", "Sallad"],
+      images: {
+        gallery : 'img/gallery1.png',
+        banner : 'img/banner1.png',
+      },
       menu: [{
         name: 'Kyckling',
         items: [{
@@ -272,13 +286,22 @@ class Admin extends Component {
       console.log(`onChangeForm[${label}](${args[0]}), (${args[1]}), (${args[2]}), (${args[3]})`);
     }
 
-    if (event === Event.LANG_CHANGE)   { this.setState({ [label] : args[0] }); }
-    if (event === Event.NAME_CHANGE)   { this.setState({ [label] : args[0] }); }
-    if (event === Event.TAGS_CHANGE)   { this.setState({ [label] : args[0] }); }
-    if (event === Event.HOURS_CHANGE)  { this.setState({ [label] : args[0] }); }
-    if (event === Event.ADRESS_CHANGE) { this.setState({ [label] : args[0] }); }
-
-    if (label === Event.MENU_CHANGE_ITEM) {
+    if      (event === Event.LANG_CHANGE)   { this.setState({ [label] : args[0] }); }
+    else if (event === Event.NAME_CHANGE)   { this.setState({ [label] : args[0] }); }
+    else if (event === Event.TAGS_CHANGE)   { this.setState({ [label] : args[0] }); }
+    else if (event === Event.HOURS_CHANGE)  { this.setState({ [label] : args[0] }); }
+    else if (event === Event.ADRESS_CHANGE) { this.setState({ [label] : args[0] }); }
+    else if (event === Event.IMAGES_GALLERY_CHANGE) {
+      var images = this.state.images;
+      images.gallery = args[0];
+      this.setState({ images });
+    }
+    else if (event === Event.IMAGES_BANNER_CHANGE) {
+      var images = this.state.images;
+      images.banner = args[0];
+      this.setState({ images });
+    }
+    else if (label === Event.MENU_CHANGE_ITEM) {
       this.changeMenuItem(args[0], args[1], args[2], args[3]);
     } else if (label === Event.MENU_CHANGE_NAME) {
       this.changeMenuName(args[0], args[1]);
@@ -319,6 +342,7 @@ class Admin extends Component {
           lang={this.state.lang}
           name={this.state.name}
           tags={this.state.tags}
+          images={this.state.images}
           address={this.state.address}
           hours={this.state.hours}
           menu={this.state.menu}
