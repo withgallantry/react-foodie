@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import FormMenu from './form_menu';
 import { Event } from './admin';
+
+const selectStyle = {
+  height: '118px'
+};
 
 const dropDownStyle = {
   marginLeft: '160px',
   marginTop: '20px',
-  marginBottom: '10px'
+  marginBottom: '10px',
+  paddingTop: '5px'
 };
 
 const searchStyle = {
@@ -39,7 +45,7 @@ const Select = ({onClick, onChange, foodPlaces}) => {
   });
 
   return (
-    <div>
+    <div style={selectStyle}>
       <div style={dropDownStyle} className="dropdown">
         <button
           className="btn btn-primary dropdown-toggle"
@@ -66,6 +72,7 @@ const Select = ({onClick, onChange, foodPlaces}) => {
         placeholder="Search for restaurant name..."
         onChange={(event) => onChange(event.target.value)}>
       </input>
+      <FormMenu onClick={onClick}/>
     </div>
   );
 };

@@ -38,10 +38,6 @@ eventLut['tags']            = Event.TAGS_CHANGE;
 eventLut['images.gallery']  = Event.IMAGES_GALLERY_CHANGE;
 eventLut['images.banner']   = Event.IMAGES_BANNER_CHANGE;
 
-const hrStyle = {
-  marginTop: '10px'
-};
-
 class Admin extends Component {
   constructor() {
     super();
@@ -242,6 +238,21 @@ class Admin extends Component {
           desc: 'Kebab, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
           price: '90 SEK'
         }]
+      }, {
+        name: 'Gyros',
+        items: [{
+          name: 'Gyrosrulle',
+          desc: 'Gyros, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }, {
+          name: 'Gyrostallrik',
+          desc: 'Gyros, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }, {
+          name: 'Gyrossallad',
+          desc: 'Gyros, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
+          price: '90 SEK'
+        }]
       }],
       modified: new Date().toISOString()
     };
@@ -380,7 +391,7 @@ class Admin extends Component {
             })
           }
         />
-        <hr style={hrStyle}/>
+        <hr />
         <FoodPlaceForm
           lang={this.state.lang}
           name={this.state.name}

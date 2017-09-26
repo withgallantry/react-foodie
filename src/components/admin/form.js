@@ -1,8 +1,22 @@
 import React from 'react';
 import _ from 'lodash';
 import FormItem from './form_item';
-import FormMenu from './form_menu';
 import { Event } from './admin';
+
+const formStyle = {
+  position: 'absolute',
+  top: '160px',
+  left: '0px',
+  right: '0px',
+  bottom: '0px',
+  overflowY: 'scroll'
+};
+
+const hrStyle = {
+  margin: '0px',
+  padding: '0px',
+  boxSizing: 'border-box'
+};
 
 const labelStyle = {
   display: 'inline-block',
@@ -16,7 +30,8 @@ const formRowStyle = {
 };
 
 const newMenuBtnStyle = {
-  marginLeft: '160px'
+  marginLeft: '160px',
+  marginBottom: '40px'
 };
 
 const Form = (props) => {
@@ -92,22 +107,22 @@ const Form = (props) => {
   }
 
   return (
-    <div>
-      {formRows}
-      {
-        _.forEach(items, (item) => {
-          return item;
-        })
-      }
-      <hr />
+    <div style={formStyle}>
+      <div style={{marginTop : '10px'}}>
+        {formRows}
+        {
+          _.forEach(items, (item) => {
+            return item;
+          })
+        }
+      </div>
+      <hr style={hrStyle}/>
       <button
         style={newMenuBtnStyle}
         type='button'
         onClick={() => props.onClick(Event.NEW_MENU)}>
         <span className='glyphicon glyphicon-plus'></span>
       </button>
-      <hr />
-      <FormMenu onClick={props.onClick}/>
     </div>
   );
 };
