@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import FormItem from './form_item';
+import FormRow from './form_row';
+import Button from '../util/button';
 import { Event } from './admin';
 
 const formStyle = {
@@ -62,23 +64,23 @@ const Form = (props) => {
 
   var formRows = _.map(rows, (row) => {
     return (
-      <div
-        style={formRowStyle}
-        className="block"
-        key={row.label}>
-        <label
-          style={labelStyle}
-          htmlFor={row.label}>
-          {row.label}:
-        </label>
-        <input
-          type="text"
-          size='35'
-          id={row.label}
-          onChange={(event) => props.onChange(row.label, event.target.value)}
-          value={row.value}
-        />
-      </div>
+      <FormRow
+        key={row.label}
+        div={{ style : formRowStyle }}
+        label={{
+          style : labelStyle,
+          htmlFor : row.label,
+          text : row.label
+        }}
+        input={{
+          id : row.label,
+          value : row.value,
+          onChange : {
+            func : props.onChange,
+            args : [row.label]
+          }
+        }}
+      />
     );
   });
 
@@ -111,6 +113,8 @@ const Form = (props) => {
         }
       </div>
       <hr />
+      <Button
+      />
       <button
         style={newMenuBtnStyle}
         type='button'

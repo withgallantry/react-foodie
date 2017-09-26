@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import FormMenu from './form_menu';
+import Button from '../util/button';
+import FormCrud from './form_crud';
 import { Event } from './admin';
 
 const selectStyle = {
@@ -72,7 +73,7 @@ const Select = ({onClick, onChange, foodPlaces}) => {
         placeholder="Search for restaurant name..."
         onChange={(event) => onChange(event.target.value)}>
       </input>
-      <FormMenu onClick={onClick}/>
+      <FormCrud onClick={onClick}/>
     </div>
   );
 };

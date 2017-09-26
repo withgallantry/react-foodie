@@ -340,11 +340,11 @@ class Admin extends Component {
       console.log(`onChangeForm[${label}](${args[0]}), (${args[1]}), (${args[2]}), (${args[3]})`);
     }
 
-    if      (event === Event.LANG_CHANGE)   { console.log("wtf");this.setState({ [label] : args[0] }); }
-    else if (event === Event.NAME_CHANGE)   { console.log("wtf");this.setState({ [label] : args[0] }); }
-    else if (event === Event.TAGS_CHANGE)   { console.log("wtf");this.setState({ [label] : args[0] }); }
-    else if (event === Event.HOURS_CHANGE)  { console.log("wtf");this.setState({ [label] : args[0] }); }
-    else if (event === Event.ADDRESS_CHANGE) { console.log("wtf");this.setState({ [label] : args[0] }); }
+    if      (event === Event.LANG_CHANGE)   { this.setState({ [label] : args[0] }); }
+    else if (event === Event.NAME_CHANGE)   { this.setState({ [label] : args[0] }); }
+    else if (event === Event.TAGS_CHANGE)   { this.setState({ [label] : args[0] }); }
+    else if (event === Event.HOURS_CHANGE)  { this.setState({ [label] : args[0] }); }
+    else if (event === Event.ADDRESS_CHANGE) { this.setState({ [label] : args[0] }); }
     else if (event === Event.IMAGES_GALLERY_CHANGE) {
       var images = this.state.images;
       images.gallery = args[0];

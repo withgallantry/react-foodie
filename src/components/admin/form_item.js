@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
+import InputText from '../util/input_text';
 import { Event } from './admin';
+import Button from '../util/button';
+import ButtonAddItem from './button_add_item';
 
 const labelStyle = {
   display: 'inline-block',
@@ -76,9 +79,8 @@ const FormItem = ({menu, index, onChange, onClick}) => {
             }
             value={item.desc}
           />
-          <input
+          <InputText
             style={itemInputStyle}
-            type="text"
             size={inputItemPriceSize}
             id={item.price}
             onChange={(event) => onChange(
@@ -120,12 +122,10 @@ const FormItem = ({menu, index, onChange, onClick}) => {
         })
       }
       <div>
-        <button
-          style={btnNewItemStyle}
-          type='button'
-          onClick={() => onClick(Event.NEW_MENU_ITEM, index)}>
-          <span className='glyphicon glyphicon-plus'></span>
-        </button>
+        <ButtonAddItem
+          onClick={onClick}
+          arg={index}
+        />
       </div>
     </div>
   );
