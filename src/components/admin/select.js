@@ -49,9 +49,6 @@ const Select = ({onClick, onChange, foodPlaces}) => {
           <span className="caret"></span>
         </button>
         <ul className="dropdown-menu">
-          {/*<li onClick={() => onClick(Event.NEW)}>
-            <a href='#'>--- New ---</a>
-          </li>*/}
           {items}
         </ul>
         <button

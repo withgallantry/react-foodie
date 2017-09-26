@@ -15,6 +15,10 @@ const formRowStyle = {
   marginTop: '2px'
 };
 
+const newMenuBtnStyle = {
+  marginLeft: '160px'
+};
+
 const Form = (props) => {
   // exclude on... events
   var keys = _.filter(Object.keys(props), (key) => {
@@ -80,6 +84,7 @@ const Form = (props) => {
             menu={menu}
             index={i}
             onChange={props.onChange}
+            onClick={props.onClick}
           />
         </div>
       ));
@@ -94,6 +99,13 @@ const Form = (props) => {
           return item;
         })
       }
+      <hr />
+      <button
+        style={newMenuBtnStyle}
+        type='button'
+        onClick={() => props.onClick(Event.NEW_MENU)}>
+        <span className='glyphicon glyphicon-plus'></span>
+      </button>
       <hr />
       <FormMenu onClick={props.onClick}/>
     </div>

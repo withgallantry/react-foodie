@@ -18,12 +18,21 @@ const itemInputStyle = {
   marginRight: '4px'
 };
 
+const btnStyle = {
+  marginRight: '12px'
+};
+
+const btnNewItemStyle = {
+  marginLeft: '160px',
+  marginTop: '2px'
+};
+
 const inputMenuNameSize = '35';
 const inputItemDescSize = '100';
 const inputItemNameSize = inputMenuNameSize;
 const inputItemPriceSize = '4';
 
-const FormItem = ({menu, index, onChange}) => {
+const FormItem = ({menu, index, onChange, onClick}) => {
   var items = [];
   for (var i = 0; i < menu.items.length; ++i) {
     ((x) => {
@@ -33,6 +42,12 @@ const FormItem = ({menu, index, onChange}) => {
           style={formRowStyle}
           className="block"
           key={`menu${index}.item${i}`}>
+          <button
+            style={btnStyle}
+            type="button"
+            onClick={() => onClick(Event.REMOVE_MENU_ITEM, index, x)}>
+            <span className='glyphicon glyphicon-trash'></span>
+          </button>
           <input
             style={itemInputStyle}
             type="text"
@@ -86,6 +101,12 @@ const FormItem = ({menu, index, onChange}) => {
         style={labelStyle}>
         {`menu${index + 1}`}:
       </label>
+      <button
+        style={btnStyle}
+        type="button"
+        onClick={() => onClick(Event.REMOVE_MENU, index)}>
+        <span className='glyphicon glyphicon-trash'></span>
+      </button>
       <input
         type="text"
         size={inputMenuNameSize}
@@ -98,6 +119,14 @@ const FormItem = ({menu, index, onChange}) => {
           return item;
         })
       }
+      <div>
+        <button
+          style={btnNewItemStyle}
+          type='button'
+          onClick={() => onClick(Event.NEW_MENU_ITEM, index)}>
+          <span className='glyphicon glyphicon-plus'></span>
+        </button>
+      </div>
     </div>
   );
 };

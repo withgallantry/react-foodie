@@ -22,7 +22,11 @@ export const Event = Object.freeze({
   SEARCH                : 11,
   ADD_TEMPLATE          : 12,
   IMAGES_GALLERY_CHANGE : 13,
-  IMAGES_BANNER_CHANGE  : 14
+  IMAGES_BANNER_CHANGE  : 14,
+  REMOVE_MENU_ITEM      : 15,
+  REMOVE_MENU           : 16,
+  NEW_MENU_ITEM         : 17,
+  NEW_MENU              : 18
 });
 
 const eventLut = [];
@@ -110,7 +114,6 @@ class Admin extends Component {
 
   save() {
     var currentId = this.state.currentId;
-    console.log(this.state.images);
     var item = {
       lang: this.state.lang,
       name: this.state.name,
@@ -250,6 +253,7 @@ class Admin extends Component {
   }
 
   changeMenuItem(menuIndex, itemIndex, prop, value) {
+    console.log("blä");
     var menu = this.state.menu;
     menu[menuIndex].items[itemIndex][prop] = value;
     this.setState({ menu });
@@ -259,6 +263,37 @@ class Admin extends Component {
     var menu = this.state.menu;
     menu[menuIndex].name = value;
     this.setState({ menu });
+  }
+
+  removeMenuItem(menuIndex, itemIndex) {
+    var menu = this.state.menu;
+    menu[menuIndex].items.splice(itemIndex, 1);
+    this.setState({ menu });
+  }
+
+  removeMenu(menuIndex) {
+    var menu = this.state.menu;
+    menu.splice(menuIndex, 1);
+    this.setState({ menu });
+  }
+
+  newMenuItem(menuIndex) {
+    var menu = this.state.menu;
+    menu[menuIndex].items.push({
+      name :  '',
+      desc :  '',
+      price : ''
+    });
+    this.setState({ menu });
+  }
+
+  newMenu() {
+    var menu = this.state.menu;
+    menu.push({
+      name  : '',
+      items : []
+    });
+    this.setState({ menu })
   }
 
   onClick(id, ...args) {
@@ -275,6 +310,14 @@ class Admin extends Component {
       this.delete();
     } else if (id === Event.ADD_TEMPLATE) {
       this.addTemplate();
+    } else if (id === Event.REMOVE_MENU_ITEM) {
+      this.removeMenuItem(args[0], args[1]);
+    } else if (id === Event.REMOVE_MENU) {
+      this.removeMenu(args[0]);
+    } else if (id === Event.NEW_MENU_ITEM) {
+      this.newMenuItem(args[0])
+    } else if (id === Event.NEW_MENU) {
+      this.newMenu();
     }
   }
 
@@ -286,11 +329,11 @@ class Admin extends Component {
       console.log(`onChangeForm[${label}](${args[0]}), (${args[1]}), (${args[2]}), (${args[3]})`);
     }
 
-    if      (event === Event.LANG_CHANGE)   { this.setState({ [label] : args[0] }); }
-    else if (event === Event.NAME_CHANGE)   { this.setState({ [label] : args[0] }); }
-    else if (event === Event.TAGS_CHANGE)   { this.setState({ [label] : args[0] }); }
-    else if (event === Event.HOURS_CHANGE)  { this.setState({ [label] : args[0] }); }
-    else if (event === Event.ADRESS_CHANGE) { this.setState({ [label] : args[0] }); }
+    if      (event === Event.LANG_CHANGE)   { console.log("wtf");this.setState({ [label] : args[0] }); }
+    else if (event === Event.NAME_CHANGE)   { console.log("wtf");this.setState({ [label] : args[0] }); }
+    else if (event === Event.TAGS_CHANGE)   { console.log("wtf");this.setState({ [label] : args[0] }); }
+    else if (event === Event.HOURS_CHANGE)  { console.log("wtf");this.setState({ [label] : args[0] }); }
+    else if (event === Event.ADDRESS_CHANGE) { console.log("wtf");this.setState({ [label] : args[0] }); }
     else if (event === Event.IMAGES_GALLERY_CHANGE) {
       var images = this.state.images;
       images.gallery = args[0];

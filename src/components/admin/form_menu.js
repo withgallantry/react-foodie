@@ -1,6 +1,10 @@
 import React from 'react';
 import { Event } from './admin';
 
+const btnMenuStyle = {
+  marginBottom: '20px'
+};
+
 const firstBtnStyle = {
   marginLeft: '160px'
 };
@@ -11,7 +15,7 @@ const otherBtnStyle = {
 
 const FormMenu = ({onClick}) => {
   return (
-    <div>
+    <div style={btnMenuStyle}>
       <button
         style={firstBtnStyle}
         type="button"
