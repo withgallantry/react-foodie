@@ -12,12 +12,6 @@ const formStyle = {
   overflowY: 'scroll'
 };
 
-const hrStyle = {
-  margin: '0px',
-  padding: '0px',
-  boxSizing: 'border-box'
-};
-
 const labelStyle = {
   display: 'inline-block',
   width: '140px',
@@ -116,7 +110,7 @@ const Form = (props) => {
           })
         }
       </div>
-      <hr style={hrStyle}/>
+      <hr />
       <button
         style={newMenuBtnStyle}
         type='button'
