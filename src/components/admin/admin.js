@@ -26,7 +26,8 @@ export const Event = Object.freeze({
   REMOVE_MENU_ITEM      : 15,
   REMOVE_MENU           : 16,
   NEW_MENU_ITEM         : 17,
-  NEW_MENU              : 18
+  NEW_MENU              : 18,
+  MENU_CHANGE_NAME      : 19
 });
 
 const eventLut = [];
@@ -277,6 +278,7 @@ class Admin extends Component {
   }
 
   removeMenuItem(menuIndex, itemIndex) {
+    console.log(menuIndex + " " + itemIndex);
     var menu = this.state.menu;
     menu[menuIndex].items.splice(itemIndex, 1);
     this.setState({ menu });
@@ -300,6 +302,9 @@ class Admin extends Component {
 
   newMenu() {
     var menu = this.state.menu;
+    if (! menu) {
+      menu = [];
+    }
     menu.push({
       name  : '',
       items : []
@@ -307,8 +312,13 @@ class Admin extends Component {
     this.setState({ menu })
   }
 
-  onClick(id, ...args) {
-    console.log(`onClick[${id}](${args[0]}, ${args[1]}, ${args[2]})`);
+  onClick(id, args) {
+    if (args) {
+      console.log(`onClick[${id}](${args[0]}, ${args[1]}, ${args[2]})`);
+    } else {
+      console.log(`onClick[${id}](undefined)`);
+    }
+
     if (id === Event.NEW) {
       this.new();
     } else if (id === Event.SAVE) {
@@ -332,12 +342,13 @@ class Admin extends Component {
     }
   }
 
-  onChangeForm(label, ...args) {
+  onChangeForm(value, args) {
+    var label = args[0];
     var event = eventLut[label];
     if (event) {
-      console.log(`onChangeForm[${event}](${args[0]})`);
+      console.log(`onChangeForm[${event}]()val=${value}`);
     } else {
-      console.log(`onChangeForm[${label}](${args[0]}), (${args[1]}), (${args[2]}), (${args[3]})`);
+      console.log(`onChangeForm[${label}](${args[1]}), (${args[2]}), (${args[3]})val=${value}`);
     }
 
     if      (event === Event.LANG_CHANGE)   { this.setState({ [label] : args[0] }); }
@@ -356,9 +367,10 @@ class Admin extends Component {
       this.setState({ images });
     }
     else if (label === Event.MENU_CHANGE_ITEM) {
-      this.changeMenuItem(args[0], args[1], args[2], args[3]);
+      console.log("pls");
+      this.changeMenuItem(args[1], args[2], args[3], value);
     } else if (label === Event.MENU_CHANGE_NAME) {
-      this.changeMenuName(args[0], args[1]);
+      this.changeMenuName(args[1], value);
     }
   }
 

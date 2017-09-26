@@ -7,14 +7,14 @@ const style = {
   marginTop: '2px'
 };
 
-const ButtonAddItem = ({onClick, arg}) => {
+const ButtonAddMenuItem = ({onClick, index}) => {
   return (
     <Button
       style={style}
       onClick={{
         func : onClick,
         id : Event.NEW_MENU_ITEM,
-        arg
+        args : [index]
       }}
       classes=''
       glyphicon='plus'
@@ -22,4 +22,4 @@ const ButtonAddItem = ({onClick, arg}) => {
   );
 };
 
-export default ButtonAddItem;
+export default ButtonAddMenuItem;

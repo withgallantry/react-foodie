@@ -1,8 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import FormItem from './form_item';
-import FormRow from './form_row';
+import FormRowSingleLine from './form_row_single_line';
+import FormRowMultiLine from './form_row_multi_line';
 import Button from '../util/button';
+import ButtonAddMenu from './button_add_menu';
 import { Event } from './admin';
 
 const formStyle = {
@@ -42,7 +43,7 @@ const Form = (props) => {
     };
   });
 
-  // remove 'menu' from rows, it is handled by specific component
+  // remove dynamic 'menu' from rows, it is handled by specific component
   var menuIndex = _.findIndex(rows, (row) => {
     return row.label === 'menu';
   });
@@ -62,9 +63,10 @@ const Form = (props) => {
     }
   }
 
-  var formRows = _.map(rows, (row) => {
+  // single line form rows
+  var singleLineFormRows = _.map(rows, (row) => {
     return (
-      <FormRow
+      <FormRowSingleLine
         key={row.label}
         div={{ style : formRowStyle }}
         label={{
@@ -84,14 +86,15 @@ const Form = (props) => {
     );
   });
 
-  var items = [];
+  // multi line form rows
+  var multiLineFormRows = [];
   if (props.menu) {
     for (var i = 0; i < props.menu.length; ++i) {
       var menu = props.menu[i];
-      items.push((
+      multiLineFormRows.push((
         <div key={`menu${i}`}>
           <hr />
-          <FormItem
+          <FormRowMultiLine
             menu={menu}
             index={i}
             onChange={props.onChange}
@@ -105,22 +108,15 @@ const Form = (props) => {
   return (
     <div style={formStyle}>
       <div style={{marginTop : '10px'}}>
-        {formRows}
+        {singleLineFormRows}
         {
-          _.forEach(items, (item) => {
-            return item;
+          _.forEach(multiLineFormRows, (row) => {
+            return row;
           })
         }
       </div>
       <hr />
-      <Button
-      />
-      <button
-        style={newMenuBtnStyle}
-        type='button'
-        onClick={() => props.onClick(Event.NEW_MENU)}>
-        <span className='glyphicon glyphicon-plus'></span>
-      </button>
+      <ButtonAddMenu onClick={props.onClick}/>
     </div>
   );
 };

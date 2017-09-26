@@ -9,7 +9,7 @@ const InputText = (props) => {
         id={props.id}
         onChange={
           props.onChange !== undefined
-            ? (event) => props.onChange.func(props.onChange.args, event.target.value)
+            ? (event) => props.onChange.func(event.target.value, props.onChange.args)
             : void(0)}
         value={props.value !== undefined ? props.value : ''}
         placeholder={props.placeholder !== undefined ? props.placeholder : ''}>
