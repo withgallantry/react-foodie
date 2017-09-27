@@ -59,12 +59,29 @@ class Admin extends Component {
       lang: '',
       name: '',
       address: '',
-      hours: '',
-      tags: '',
+      hours: [],
+      tags: [],
       deleteEnabled: true,
       images: null,
       menu: null,
       currentId: null
+    };
+  }
+
+  getCurrentItem() {
+    return {
+      lang: this.state.lang,
+      name: this.state.name,
+      address: this.state.address,
+      hours: this.state.hours.constructor === Array
+        ? this.state.hours
+        : this.state.hours.replace(/\s/g,'').split(','),
+      tags: this.state.tags.constructor === Array
+        ? this.state.tags
+        : this.state.tags.replace(/\s/g,'').split(','),
+      menu: this.state.menu,
+      images: this.state.images,
+      modified: new Date().toISOString()
     };
   }
 
@@ -87,6 +104,8 @@ class Admin extends Component {
         };
       });
 
+      console.log(foodPlaces);
+
       this.setState({ foodPlaces });
       if (onFinished) {
         onFinished(foodPlaces);
@@ -99,18 +118,8 @@ class Admin extends Component {
 
   save() {
     var currentId = this.state.currentId;
-    var item = {
-      lang: this.state.lang,
-      name: this.state.name,
-      address: this.state.address,
-      hours: this.state.hours,
-      tags: this.state.tags,
-      menu: this.state.menu,
-      images: this.state.images,
-      modified: new Date().toISOString()
-    };
     if (currentId !== null) {
-      axios.put(this.getUrl(currentId), item).then((response) => {
+      axios.put(this.getUrl(currentId), this.getCurrentItem()).then((response) => {
         console.log(`updated food place with id ${currentId}`);
         this.load();
       }).catch((error) => {
@@ -150,16 +159,9 @@ class Admin extends Component {
   }
 
   copy() {
-    axios.post(URL, {
-      lang: this.state.lang,
-      name: `${this.state.name} (copy)`,
-      address: this.state.address,
-      hours: this.state.hours,
-      tags: this.state.tags,
-      images: this.state.images,
-      menu: this.state.menu,
-      modified: new Date().toISOString()
-    }).then((response) => {
+    var item = this.getCurrentItem();
+    item.name = `${item.name} (copy)`;
+    axios.post(URL, item).then((response) => {
       console.log('added food place');
       this.load((foodplaces) => {
         var match = _.find(foodplaces, (obj) => {
@@ -292,16 +294,10 @@ class Admin extends Component {
     const events = [
       Event.LANG_CHANGE, Event.NAME_CHANGE,
       Event.TAGS_CHANGE, Event.HOURS_CHANGE, Event.ADDRESS_CHANGE];
+
     if (events.includes(event)) {
       this.setState({ [label] : value })
-    }
-
-    if      (event === Event.LANG_CHANGE)   { this.setState({ [label] : value }); }
-    else if (event === Event.NAME_CHANGE)   { this.setState({ [label] : value }); }
-    else if (event === Event.TAGS_CHANGE)   { this.setState({ [label] : value }); }
-    else if (event === Event.HOURS_CHANGE)  { this.setState({ [label] : value }); }
-    else if (event === Event.ADDRESS_CHANGE) { this.setState({ [label] : value }); }
-    else if (event === Event.IMAGES_GALLERY_CHANGE) {
+    } else if (event === Event.IMAGES_GALLERY_CHANGE) {
       var images = this.state.images;
       images.gallery = value;
       this.setState({ images });
@@ -312,7 +308,6 @@ class Admin extends Component {
       this.setState({ images });
     }
     else if (label === Event.MENU_CHANGE_ITEM) {
-      console.log("pls");
       this.changeMenuItem(args[1], args[2], args[3], value);
     } else if (label === Event.MENU_CHANGE_NAME) {
       this.changeMenuName(args[1], value);

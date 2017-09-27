@@ -60,9 +60,9 @@ const FormRowMultiLine = ({menu, index, onChange, onClick}) => {
             menu={index}
             item={i}
           />
-          {createInputText(itemInputStyle, inputItemNameSize,  onChange, [Event.MENU_CHANGE_ITEM, index, i, 'name'],  item.name)}
-          {createInputText(itemInputStyle, inputItemDescSize,  onChange, [Event.MENU_CHANGE_ITEM, index, i, 'desc'],  item.desc)}
-          {createInputText(itemInputStyle, inputItemPriceSize, onChange, [Event.MENU_CHANGE_ITEM, index, i, 'price'], item.price)}
+          {createInputText(itemInputStyle, inputItemNameSize,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'name'],  item.name)}
+          {createInputText(itemInputStyle, inputItemDescSize,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'desc'],  item.desc)}
+          {createInputText(itemInputStyle, inputItemPriceSize, onChange, [Event.CHANGE_MENU_ITEM, index, i, 'price'], item.price)}
         </div>
       ));
   }
@@ -79,7 +79,7 @@ const FormRowMultiLine = ({menu, index, onChange, onClick}) => {
         onClick={() => onClick(Event.REMOVE_MENU, index)}>
         <span className='glyphicon glyphicon-trash'></span>
       </button>
-      {createInputText({}, inputMenuNameSize, onChange, [Event.MENU_CHANGE_NAME, index], menu.name)}
+      {createInputText({}, inputMenuNameSize, onChange, [Event.CHANGE_MENU_NAME, index], menu.name)}
       {
         _.forEach(items, (item) => {
           return item;
