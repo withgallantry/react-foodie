@@ -13,17 +13,7 @@ class Admin extends Component {
   constructor() {
     super();
 
-    this.state = {
-      foodPlaces: null,
-      lang: '',
-      name: '',
-      address: '',
-      hours: '',
-      tags: '',
-      deleteEnabled: true,
-      menu: null,
-      currentId: null
-    };
+    this.state = this.getDefaultState();
 
     this.onClick = this.onClick.bind(this);
     this.onChangeForm = this.onChangeForm.bind(this);
@@ -58,21 +48,13 @@ class Admin extends Component {
   }
 
   clearForm() {
-    this.setState({
-      lang: '',
-      name: '',
-      address: '',
-      hours: '',
-      tags: '',
-      deleteEnabled: true,
-      images: null,
-      menu: null,
-      currentId: null
-    });
+    var state = this.getDefaultState();
+    state.foodPlaces = this.state.foodPlaces;
+    this.setState(state);
   }
 
-  reset() {
-    this.setState({
+  getDefaultState() {
+    return {
       foodPlaces: null,
       lang: '',
       name: '',
@@ -83,7 +65,7 @@ class Admin extends Component {
       images: null,
       menu: null,
       currentId: null
-    });
+    };
   }
 
   getUrl(id) {
@@ -206,9 +188,11 @@ class Admin extends Component {
           if (foodPlaces.length > 0) {
             if (index >= 1) {
               this.show(foodPlaces[index - 1]._id);
+            } else {
+              this.show(foodPlaces[0]._id);
             }
           } else {
-            this.reset();
+            this.clearForm();
           }
         });
       })
