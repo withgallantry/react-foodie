@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import Button from '../util/button';
 import FormCrud from './form_crud';
-import { Event } from './admin';
+import InputText from '../util/input_text';
+import Event from './event';
 
 const selectStyle = {
   height: '118px'
@@ -24,10 +25,10 @@ const buttonStyle = {
   marginLeft: '10px'
 };
 
-const Select = ({onClick, onChange, foodPlaces}) => {
-  if (foodPlaces === null) {
+const Select = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
+  if (foodPlaces == null) {
     return (
-      <div style={style}>
+      <div>
         Loading food places...
       </div>
     );
@@ -35,7 +36,7 @@ const Select = ({onClick, onChange, foodPlaces}) => {
 
   var items = _.map(foodPlaces, (foodPlace) => {
     return (
-      <li onClick={() => onClick(Event.SHOW, foodPlace.id)} key={foodPlace.id}>
+      <li onClick={() => onClick(Event.SHOW, [foodPlace.id])} key={foodPlace.id}>
         <a href='#'>{`${foodPlace.name} (${foodPlace.lang})`}</a>
       </li>
     );
@@ -52,28 +53,27 @@ const Select = ({onClick, onChange, foodPlaces}) => {
           className="btn btn-primary dropdown-toggle"
           type="button"
           data-toggle="dropdown">
-          Food places &nbsp;
+          Food places ({items.length}) &nbsp;
           <span className="caret"></span>
         </button>
         <ul className="dropdown-menu">
           {items}
         </ul>
-        <button
+        <Button
           style={buttonStyle}
-          type="button"
-          className="btn btn-default"
-          onClick={() => onClick(Event.ADD_TEMPLATE)}>
-          Add Template
-        </button>
+          label='Add Template'
+          onClick={{ func : onClick, id : Event.ADD_TEMPLATE }}
+        />
       </div>
-      <input
+      <InputText
         style={searchStyle}
-        type="text"
-        size='32'
-        placeholder="Search for restaurant name..."
-        onChange={(event) => onChange(event.target.value)}>
-      </input>
-      <FormCrud onClick={onClick}/>
+        placeholder={'Search for restaurant name...'}
+        onChange={{ func : onChange }}
+      />
+      <FormCrud
+        onClick={onClick}
+        deleteEnabled={deleteEnabled}
+      />
     </div>
   );
 };

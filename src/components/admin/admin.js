@@ -3,41 +3,11 @@ import axios from 'axios';
 import _ from 'lodash';
 import FoodPlaceForm from './form';
 import FoodPlaceSelect from './select';
+import { getTemplateItem } from '../util/util';
+import Event, { propToEvent } from './event';
 
 //const URL = 'https://agile-taiga-67906.herokuapp.com/';
 const URL = 'http://localhost:5000/foodplace';
-
-export const Event = Object.freeze({
-  NEW                   : 0,
-  SAVE                  : 1,
-  COPY                  : 2,
-  SHOW                  : 3,
-  LANG_CHANGE           : 4,
-  NAME_CHANGE           : 5,
-  TAGS_CHANGE           : 6,
-  HOURS_CHANGE          : 7,
-  ADDRESS_CHANGE        : 8,
-  MENU_CHANGE_ITEM      : 9,
-  DELETE                : 10,
-  SEARCH                : 11,
-  ADD_TEMPLATE          : 12,
-  IMAGES_GALLERY_CHANGE : 13,
-  IMAGES_BANNER_CHANGE  : 14,
-  REMOVE_MENU_ITEM      : 15,
-  REMOVE_MENU           : 16,
-  NEW_MENU_ITEM         : 17,
-  NEW_MENU              : 18,
-  MENU_CHANGE_NAME      : 19
-});
-
-const eventLut = [];
-eventLut['lang']            = Event.LANG_CHANGE;
-eventLut['name']            = Event.NAME_CHANGE;
-eventLut['address']         = Event.ADDRESS_CHANGE;
-eventLut['hours']           = Event.HOURS_CHANGE;
-eventLut['tags']            = Event.TAGS_CHANGE;
-eventLut['images.gallery']  = Event.IMAGES_GALLERY_CHANGE;
-eventLut['images.banner']   = Event.IMAGES_BANNER_CHANGE;
 
 class Admin extends Component {
   constructor() {
@@ -50,6 +20,7 @@ class Admin extends Component {
       address: '',
       hours: '',
       tags: '',
+      deleteEnabled: true,
       menu: null,
       currentId: null
     };
@@ -58,10 +29,46 @@ class Admin extends Component {
     this.onChangeForm = this.onChangeForm.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onChangeSearchDebounced = _.debounce(this.onChangeSearch, 300);
+
+    this.events = [];
+    const assign = (array, func, id) => {
+      func = func.bind(this);
+      array[id] = func;
+    }
+
+    // assign functors for events
+    assign(this.events, this.new,             Event.NEW);
+    assign(this.events, this.save,            Event.SAVE);
+    assign(this.events, this.copy,            Event.COPY);
+    assign(this.events, this.show,            Event.SHOW);
+    assign(this.events, this.delete,          Event.DELETE);
+    assign(this.events, this.addTemplate,     Event.ADD_TEMPLATE);
+    assign(this.events, this.removeMenuItem,  Event.REMOVE_MENU_ITEM);
+    assign(this.events, this.removeMenu,      Event.REMOVE_MENU);
+    assign(this.events, this.newMenuItem,     Event.NEW_MENU_ITEM);
+    assign(this.events, this.newMenu,         Event.NEW_MENU);
   }
 
   componentDidMount() {
-    this.load();
+    this.load((foodPlaces) => {
+      if (foodPlaces.length > 0) {
+        this.show(foodPlaces[0]._id);
+      }
+    });
+  }
+
+  clearForm() {
+    this.setState({
+      lang: '',
+      name: '',
+      address: '',
+      hours: '',
+      tags: '',
+      deleteEnabled: true,
+      images: null,
+      menu: null,
+      currentId: null
+    });
   }
 
   reset() {
@@ -72,6 +79,7 @@ class Admin extends Component {
       address: '',
       hours: '',
       tags: '',
+      deleteEnabled: true,
       images: null,
       menu: null,
       currentId: null
@@ -82,7 +90,7 @@ class Admin extends Component {
     return `${URL}/${id}`;
   }
 
-  load() {
+  load(onFinished) {
     axios.get(URL).then((response) => {
       const foodPlaces = _.map(response.data, (foodPlace) => {
         return {
@@ -98,10 +106,8 @@ class Admin extends Component {
       });
 
       this.setState({ foodPlaces });
-
-      // while testing
-      if (foodPlaces.length > 0) {
-        this.show(foodPlaces[0]._id);
+      if (onFinished) {
+        onFinished(foodPlaces);
       }
     })
     .catch((error) => {
@@ -139,7 +145,11 @@ class Admin extends Component {
     }
   }
 
-  show(id) {
+  show(args) {
+    var id = args;
+    if (args.constructor === Array) {
+      id = args[0];
+    }
     var foodPlace = _.find(this.state.foodPlaces, (foodPlace) => {
       return foodPlace._id === id;
     });
@@ -160,7 +170,7 @@ class Admin extends Component {
   copy() {
     axios.post(URL, {
       lang: this.state.lang,
-      name: this.state.name,
+      name: `${this.state.name} (copy)`,
       address: this.state.address,
       hours: this.state.hours,
       tags: this.state.tags,
@@ -169,7 +179,14 @@ class Admin extends Component {
       modified: new Date().toISOString()
     }).then((response) => {
       console.log('added food place');
-      this.load();
+      this.load((foodplaces) => {
+        var match = _.find(foodplaces, (obj) => {
+          return obj._id === response.data._id;
+        });
+        if (match) {
+          this.show(match._id);
+        }
+      });
     }).catch((error) => {
       console.log(error);
     });
@@ -177,11 +194,23 @@ class Admin extends Component {
 
   delete() {
     const currentId = this.state.currentId;
+    var index = _.findIndex(this.state.foodPlaces, (obj) => {
+      return obj._id === currentId;
+    });
     if (currentId) {
+      this.setState({ deleteEnabled : false });
       axios.delete(this.getUrl(currentId)).then((response) => {
         console.log(`deleted food place with id ${currentId}`);
-        this.reset();
-        this.load();
+        this.load((foodPlaces) => {
+          this.setState({ deleteEnabled : true });
+          if (foodPlaces.length > 0) {
+            if (index >= 1) {
+              this.show(foodPlaces[index - 1]._id);
+            }
+          } else {
+            this.reset();
+          }
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -190,78 +219,23 @@ class Admin extends Component {
   }
 
   addTemplate() {
-    axios.post(URL, this.getTemplateItem()).then((response) => {
+    axios.post(URL, getTemplateItem()).then((response) => {
       console.log('added food place');
-      this.load();
+      this.load((foodPlaces) => {
+        var match = _.find(foodPlaces, (obj) => {
+          return obj._id === response.data._id;
+        });
+        if (match) {
+          this.show(match._id);
+        }
+      });
     }).catch((error) => {
       console.log(error);
     });
   }
 
-  getTemplateItem() {
-    return {
-      lang: 'sv',
-      name: 'Stockholm Pizza',
-      address: 'Scheelegatan 6, 112 23 Stockholm',
-      hours: ["11.00", "23.00"],
-      tags: ["Pizza", "Kebab", "Sallad"],
-      images: {
-        gallery : 'img/gallery1.png',
-        banner : 'img/banner1.png',
-      },
-      menu: [{
-        name: 'Kyckling',
-        items: [{
-          name: 'Kycklingrulle',
-          desc: 'Kyckling, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }, {
-          name: 'Kycklingtallrik',
-          desc: 'Kyckling, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }, {
-          name: 'Kycklingsallad',
-          desc: 'Kyckling, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }]
-      }, {
-        name: 'Kebab',
-        items: [{
-          name: 'Kebabrulle',
-          desc: 'Kebab, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }, {
-          name: 'Kebabtallrik',
-          desc: 'Kebab, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }, {
-          name: 'Kebabsallad',
-          desc: 'Kebab, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }]
-      }, {
-        name: 'Gyros',
-        items: [{
-          name: 'Gyrosrulle',
-          desc: 'Gyros, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }, {
-          name: 'Gyrostallrik',
-          desc: 'Gyros, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }, {
-          name: 'Gyrossallad',
-          desc: 'Gyros, isbergssallad, tomat, lök, fefferoni, tomatsås och vitlökssås',
-          price: '90 SEK'
-        }]
-      }],
-      modified: new Date().toISOString()
-    };
-  }
-
   new() {
-    this.reset();
-    this.load();
+    this.clearForm();
   }
 
   changeMenuItem(menuIndex, itemIndex, prop, value) {
@@ -277,20 +251,23 @@ class Admin extends Component {
     this.setState({ menu });
   }
 
-  removeMenuItem(menuIndex, itemIndex) {
-    console.log(menuIndex + " " + itemIndex);
+  removeMenuItem(args) {
+    const menuIndex = args[0];
+    const itemIndex = args[1];
     var menu = this.state.menu;
     menu[menuIndex].items.splice(itemIndex, 1);
     this.setState({ menu });
   }
 
-  removeMenu(menuIndex) {
+  removeMenu(args) {
+    const menuIndex = args[0];
     var menu = this.state.menu;
     menu.splice(menuIndex, 1);
     this.setState({ menu });
   }
 
-  newMenuItem(menuIndex) {
+  newMenuItem(args) {
+    const menuIndex = args[0];
     var menu = this.state.menu;
     menu[menuIndex].items.push({
       name :  '',
@@ -319,51 +296,35 @@ class Admin extends Component {
       console.log(`onClick[${id}](undefined)`);
     }
 
-    if (id === Event.NEW) {
-      this.new();
-    } else if (id === Event.SAVE) {
-      this.save();
-    } else if (id === Event.COPY) {
-      this.copy();
-    } else if (id === Event.SHOW) {
-      this.show(args[0]);
-    } else if (id === Event.DELETE) {
-      this.delete();
-    } else if (id === Event.ADD_TEMPLATE) {
-      this.addTemplate();
-    } else if (id === Event.REMOVE_MENU_ITEM) {
-      this.removeMenuItem(args[0], args[1]);
-    } else if (id === Event.REMOVE_MENU) {
-      this.removeMenu(args[0]);
-    } else if (id === Event.NEW_MENU_ITEM) {
-      this.newMenuItem(args[0])
-    } else if (id === Event.NEW_MENU) {
-      this.newMenu();
-    }
+    this.events[id](args);
   }
 
   onChangeForm(value, args) {
     var label = args[0];
-    var event = eventLut[label];
-    if (event) {
-      console.log(`onChangeForm[${event}]()val=${value}`);
-    } else {
-      console.log(`onChangeForm[${label}](${args[1]}), (${args[2]}), (${args[3]})val=${value}`);
+    var event = propToEvent(label);
+    console.log(`onChangeForm(${value}, ${args})[event=${event}]`);
+
+    // events where only prop and value is needed
+    const events = [
+      Event.LANG_CHANGE, Event.NAME_CHANGE,
+      Event.TAGS_CHANGE, Event.HOURS_CHANGE, Event.ADDRESS_CHANGE];
+    if (events.includes(event)) {
+      this.setState({ [label] : value })
     }
 
-    if      (event === Event.LANG_CHANGE)   { this.setState({ [label] : args[0] }); }
-    else if (event === Event.NAME_CHANGE)   { this.setState({ [label] : args[0] }); }
-    else if (event === Event.TAGS_CHANGE)   { this.setState({ [label] : args[0] }); }
-    else if (event === Event.HOURS_CHANGE)  { this.setState({ [label] : args[0] }); }
-    else if (event === Event.ADDRESS_CHANGE) { this.setState({ [label] : args[0] }); }
+    if      (event === Event.LANG_CHANGE)   { this.setState({ [label] : value }); }
+    else if (event === Event.NAME_CHANGE)   { this.setState({ [label] : value }); }
+    else if (event === Event.TAGS_CHANGE)   { this.setState({ [label] : value }); }
+    else if (event === Event.HOURS_CHANGE)  { this.setState({ [label] : value }); }
+    else if (event === Event.ADDRESS_CHANGE) { this.setState({ [label] : value }); }
     else if (event === Event.IMAGES_GALLERY_CHANGE) {
       var images = this.state.images;
-      images.gallery = args[0];
+      images.gallery = value;
       this.setState({ images });
     }
     else if (event === Event.IMAGES_BANNER_CHANGE) {
       var images = this.state.images;
-      images.banner = args[0];
+      images.banner = value;
       this.setState({ images });
     }
     else if (label === Event.MENU_CHANGE_ITEM) {
@@ -376,7 +337,6 @@ class Admin extends Component {
 
   onChangeSearch(value) {
     value = value.toLowerCase();
-    console.log(`onChangeSearch(${value})`);
     const foodPlaces = this.state.foodPlace;
     var index = _.findIndex(this.state.foodPlaces, (foodPlace) => {
       var name = `${foodPlace.name} (${foodPlace.lang})`.toLowerCase();
@@ -402,6 +362,7 @@ class Admin extends Component {
               };
             })
           }
+          deleteEnabled={this.state.deleteEnabled}
         />
         <hr />
         <FoodPlaceForm

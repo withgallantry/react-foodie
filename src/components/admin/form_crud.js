@@ -1,5 +1,5 @@
 import React from 'react';
-import { Event } from './admin';
+import Event from './event';
 import Button from '../util/button';
 
 const btnMenuStyle = {
@@ -14,23 +14,24 @@ const secondBtnStyle = {
   marginLeft: '10px'
 };
 
-const createButton = (style, func, id, label) => {
+const createButton = (style, func, disabled, id, label) => {
   return (
     <Button
       style={style}
       onClick={{ func, id }}
       label={label}
+      disabled={disabled}
     />
   );
 };
 
-const FormCrud = ({onClick}) => {
+const FormCrud = ({onClick, deleteEnabled}) => {
   return (
     <div style={{btnMenuStyle}}>
-      {createButton(firstBtnStyle,  onClick, Event.SAVE,   'Save')}
-      {createButton(secondBtnStyle, onClick, Event.NEW,    'New')}
-      {createButton(secondBtnStyle, onClick, Event.COPY,   'Copy')}
-      {createButton(secondBtnStyle, onClick, Event.DELETE, 'Delete')}
+      {createButton(firstBtnStyle,  onClick, false,          Event.SAVE,   'Save')}
+      {createButton(secondBtnStyle, onClick, false,          Event.NEW,    'New')}
+      {createButton(secondBtnStyle, onClick, false,          Event.COPY,   'Copy')}
+      {createButton(secondBtnStyle, onClick, !deleteEnabled, Event.DELETE, 'Delete')}
     </div>
   );
 };

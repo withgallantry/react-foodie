@@ -11,8 +11,8 @@ const InputText = (props) => {
           props.onChange !== undefined
             ? (event) => props.onChange.func(event.target.value, props.onChange.args)
             : void(0)}
-        value={props.value !== undefined ? props.value : ''}
-        placeholder={props.placeholder !== undefined ? props.placeholder : ''}>
+        value={props.value !== undefined ? props.value : void(0)}
+        placeholder={props.placeholder !== undefined ? props.placeholder : void(0)}>
       </input>
     );
 };

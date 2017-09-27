@@ -43,7 +43,8 @@ const Form = (props) => {
     };
   });
 
-  // remove dynamic 'menu' from rows, it is handled by specific component
+  // remove dynamic 'menu' from rows, it is handled by specific
+  // multi line component.
   var menuIndex = _.findIndex(rows, (row) => {
     return row.label === 'menu';
   });

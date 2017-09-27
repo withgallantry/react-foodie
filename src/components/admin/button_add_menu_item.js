@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../util/button';
-import { Event } from './admin';
+import Event from './event';
 
 const style = {
   marginLeft: '160px',
