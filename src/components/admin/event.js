@@ -21,6 +21,11 @@ const Event = Object.freeze({
   REMOVE_MENU           : 17,
   NEW_MENU_ITEM         : 18,
   NEW_MENU              : 19,
+
+  MOVE_MENU_ITEM_UP     : 20,
+  MOVE_MENU_ITEM_DOWN   : 21,
+  MOVE_MENU_UP          : 22,
+  MOVE_MENU_DOWN        : 23,
 });
 
 const lut = {

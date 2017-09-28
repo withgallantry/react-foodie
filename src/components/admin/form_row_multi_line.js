@@ -4,6 +4,7 @@ import InputText from '../util/input_text';
 import Event from './event';
 import ButtonAddMenuItem from './button_add_menu_item';
 import ButtonRemoveMenuItem from './button_remove_menu_item';
+import { createButton } from './button_row';
 
 const labelStyle = {
   display: 'inline-block',
@@ -21,13 +22,9 @@ const itemInputStyle = {
   marginRight: '4px'
 };
 
-const btnStyle = {
-  marginRight: '12px'
-};
-
-const btnNewItemStyle = {
+const btnNewMenuStyle = {
   marginLeft: '160px',
-  marginTop: '2px'
+  marginTop: '3px'
 };
 
 const inputMenuNameSize = '35';
@@ -46,6 +43,10 @@ const createInputText = (style, size, onChange, args, value) => {
   );
 };
 
+const btnStyle = {
+  marginRight: '6px'
+};
+
 const FormRowMultiLine = ({menu, index, onChange, onClick}) => {
   var items = [];
   for (var i = 0; i < menu.items.length; ++i) {
@@ -55,11 +56,9 @@ const FormRowMultiLine = ({menu, index, onChange, onClick}) => {
           style={formRowStyle}
           className="block"
           key={`menu${index}.item${i}`}>
-          <ButtonRemoveMenuItem
-            onClick={onClick}
-            menu={index}
-            item={i}
-          />
+          {createButton('trash',      onClick, Event.REMOVE_MENU_ITEM,    [index, i], btnStyle)}
+          {createButton('arrow-up',   onClick, Event.MOVE_MENU_ITEM_UP,   [index, i], btnStyle)}
+          {createButton('arrow-down', onClick, Event.MOVE_MENU_ITEM_DOWN, [index, i], btnStyle)}
           {createInputText(itemInputStyle, inputItemNameSize,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'name'],  item.name)}
           {createInputText(itemInputStyle, inputItemDescSize,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'desc'],  item.desc)}
           {createInputText(itemInputStyle, inputItemPriceSize, onChange, [Event.CHANGE_MENU_ITEM, index, i, 'price'], item.price)}
@@ -73,12 +72,9 @@ const FormRowMultiLine = ({menu, index, onChange, onClick}) => {
         style={labelStyle}>
         {`menu${index + 1}`}:
       </label>
-      <button
-        style={btnStyle}
-        type="button"
-        onClick={() => onClick(Event.REMOVE_MENU, index)}>
-        <span className='glyphicon glyphicon-trash'></span>
-      </button>
+      {createButton('trash',      onClick, Event.REMOVE_MENU,    [index], btnStyle)}
+      {createButton('arrow-up',   onClick, Event.MOVE_MENU_UP,   [index], btnStyle)}
+      {createButton('arrow-down', onClick, Event.MOVE_MENU_DOWN, [index], btnStyle)}
       {createInputText({}, inputMenuNameSize, onChange, [Event.CHANGE_MENU_NAME, index], menu.name)}
       {
         _.forEach(items, (item) => {
@@ -86,10 +82,7 @@ const FormRowMultiLine = ({menu, index, onChange, onClick}) => {
         })
       }
       <div>
-        <ButtonAddMenuItem
-          onClick={onClick}
-          index={index}
-        />
+        {createButton('plus', onClick, Event.ADD_MENU_ITEM, [index], btnNewMenuStyle)}
       </div>
     </div>
   );

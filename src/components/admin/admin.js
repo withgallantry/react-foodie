@@ -27,16 +27,20 @@ class Admin extends Component {
     }
 
     // assign functors for events
-    assign(this.events, this.new,             Event.NEW);
-    assign(this.events, this.save,            Event.SAVE);
-    assign(this.events, this.copy,            Event.COPY);
-    assign(this.events, this.show,            Event.SHOW);
-    assign(this.events, this.delete,          Event.DELETE);
-    assign(this.events, this.addTemplate,     Event.ADD_TEMPLATE);
-    assign(this.events, this.removeMenuItem,  Event.REMOVE_MENU_ITEM);
-    assign(this.events, this.removeMenu,      Event.REMOVE_MENU);
-    assign(this.events, this.newMenuItem,     Event.NEW_MENU_ITEM);
-    assign(this.events, this.newMenu,         Event.NEW_MENU);
+    assign(this.events, this.new,              Event.NEW);
+    assign(this.events, this.save,             Event.SAVE);
+    assign(this.events, this.copy,             Event.COPY);
+    assign(this.events, this.show,             Event.SHOW);
+    assign(this.events, this.delete,           Event.DELETE);
+    assign(this.events, this.addTemplate,      Event.ADD_TEMPLATE);
+    assign(this.events, this.removeMenuItem,   Event.REMOVE_MENU_ITEM);
+    assign(this.events, this.removeMenu,       Event.REMOVE_MENU);
+    assign(this.events, this.newMenuItem,      Event.NEW_MENU_ITEM);
+    assign(this.events, this.newMenu,          Event.NEW_MENU);
+    assign(this.events, this.moveMenuItemUp,   Event.MOVE_MENU_ITEM_UP);
+    assign(this.events, this.moveMenuItemDown, Event.MOVE_MENU_ITEM_DOWN);
+    assign(this.events, this.moveMenuUp,       Event.MOVE_MENU_UP);
+    assign(this.events, this.moveMenuDown,     Event.MOVE_MENU_DOWN);
   }
 
   componentDidMount() {
@@ -103,8 +107,6 @@ class Admin extends Component {
           _id: foodPlace._id
         };
       });
-
-      console.log(foodPlaces);
 
       this.setState({ foodPlaces });
       if (onFinished) {
@@ -273,6 +275,60 @@ class Admin extends Component {
       items : []
     });
     this.setState({ menu })
+  }
+
+  moveMenuItemUp(args) {
+    var menu = args[0];
+    var item = args[1];
+    var menus = this.state.menu;
+    menu = menus[menu];
+    if (menu.items.length > 1) {
+      var target = item - 1;
+      if (target < 0) {
+        target = menu.items.length - 1;
+      }
+      var temp = menu.items[target];
+      menu.items[target] = menu.items[item];
+      menu.items[item] = temp;
+      this.setState({ menu : menus });
+    }
+  }
+
+  moveMenuItemDown(args) {
+    var menu = args[0];
+    var item = args[1];
+    var menus = this.state.menu;
+    menu = menus[menu];
+    if (menu.items.length > 1) {
+      var target = item + 1;
+      if (target >= menu.items.length) {
+        target = 0;
+      }
+      var temp = menu.items[target];
+      menu.items[target] = menu.items[item];
+      menu.items[item] = temp;
+      this.setState({ menu : menus });
+    }
+  }
+
+  moveMenuUp(args) {
+    var menu = args[0];
+    var menus = this.state.menu;
+    menu = menus[menu];
+    if (menu.items.length > 1) {
+      var target = item - 1;
+      if (target < 0) {
+        target = menu.items.length - 1;
+      }
+      var temp = menu.items[target];
+      menu.items[target] = menu.items[item];
+      menu.items[item] = temp;
+      this.setState({ menu : menus });
+    }
+  }
+
+  moveMenuDown(menu) {
+
   }
 
   onClick(id, args) {
