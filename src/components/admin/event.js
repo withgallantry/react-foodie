@@ -23,7 +23,7 @@ const Event = Object.freeze({
   NEW_MENU              : 19,
 });
 
-const events = {
+const lut = {
   lang : Event.LANG_CHANGE,
   name : Event.NAME_CHANGE,
   address : Event.ADDRESS_CHANGE,
@@ -42,9 +42,9 @@ export const propToEvent = (prop) => {
 
   if (prop.indexOf('.') >= 0) {
     var props = prop.split('.');
-    return events[props[0]][props[1]];
+    return lut[props[0]][props[1]];
   }
-  return events[prop];
+  return lut[prop];
 }
 
 export default Event;

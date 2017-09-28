@@ -25,7 +25,9 @@ const buttonStyle = {
   marginLeft: '10px'
 };
 
-const Select = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
+const searchSize = '32';
+
+const Menu = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
   if (foodPlaces == null) {
     return (
       <div>
@@ -66,6 +68,7 @@ const Select = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
         />
       </div>
       <InputText
+        size={searchSize}
         style={searchStyle}
         placeholder={'Search for restaurant name...'}
         onChange={{ func : onChange }}
@@ -78,4 +81,4 @@ const Select = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
   );
 };
 
-export default Select;
+export default Menu;

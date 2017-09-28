@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import FoodPlaceForm from './form';
-import FoodPlaceSelect from './select';
+import Form from './form';
+import Menu from './menu';
 import { getTemplateItem } from '../util/util';
 import Event, { propToEvent } from './event';
 
@@ -329,7 +329,7 @@ class Admin extends Component {
   render() {
     return (
       <div>
-        <FoodPlaceSelect
+        <Menu
           onClick={this.onClick}
           onChange={this.onChangeSearchDebounced}
           foodPlaces={
@@ -344,7 +344,7 @@ class Admin extends Component {
           deleteEnabled={this.state.deleteEnabled}
         />
         <hr />
-        <FoodPlaceForm
+        <Form
           lang={this.state.lang}
           name={this.state.name}
           tags={this.state.tags}
