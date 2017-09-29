@@ -3,8 +3,8 @@ import _ from 'lodash';
 import FormRowSingleLine from './form_row_single_line';
 import FormRowMultiLine from './form_row_multi_line';
 import Button from '../util/button';
-import ButtonAddMenu from './button_add_menu';
-import { Event } from './admin';
+import { createButton } from './button_row';
+import Event from './event';
 
 const formStyle = {
   position: 'absolute',
@@ -117,7 +117,7 @@ const Form = (props) => {
         }
       </div>
       <hr />
-      <ButtonAddMenu onClick={props.onClick}/>
+      {createButton('plus', props.onClick, Event.NEW_MENU, 0, newMenuBtnStyle)}
     </div>
   );
 };

@@ -2,8 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import InputText from '../util/input_text';
 import Event from './event';
-import ButtonAddMenuItem from './button_add_menu_item';
-import ButtonRemoveMenuItem from './button_remove_menu_item';
 import { createButton } from './button_row';
 
 const labelStyle = {
