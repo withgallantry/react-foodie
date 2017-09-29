@@ -353,6 +353,7 @@ class Admin extends Component {
 
   onChangeForm(value, args) {
     var label = args[0];
+    console.log(label);
     var event = propToEvent(label);
     console.log(`onChangeForm(${value}, ${args})[event=${event}]`);
 
@@ -373,9 +374,9 @@ class Admin extends Component {
       images.banner = value;
       this.setState({ images });
     }
-    else if (label === Event.MENU_CHANGE_ITEM) {
+    else if (label === Event.CHANGE_MENU_ITEM) {
       this.changeMenuItem(args[1], args[2], args[3], value);
-    } else if (label === Event.MENU_CHANGE_NAME) {
+    } else if (label === Event.CHANGE_MENU_NAME) {
       this.changeMenuName(args[1], value);
     }
   }
