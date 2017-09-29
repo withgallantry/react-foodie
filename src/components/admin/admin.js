@@ -412,12 +412,14 @@ class Admin extends Component {
         />
         <hr />
         <Form
-          lang={this.state.lang}
-          name={this.state.name}
-          tags={this.state.tags}
-          images={this.state.images}
-          address={this.state.address}
-          hours={this.state.hours}
+          singleInput={{
+            lang: this.state.lang,
+            name: this.state.name,
+            tags: this.state.tags,
+            images: this.state.images,
+            address: this.state.address,
+            hours: this.state.hours
+          }}
           menu={this.state.menu}
           onClick={this.onClick}
           onChange={this.onChangeForm}

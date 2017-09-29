@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import FormRowSingleLine from './form_row_single_line';
-import FormRowMultiLine from './form_row_multi_line';
+import FormRowSingleInput from './form_row_single_input';
+import FormRowMultiInput from './form_row_multi_input';
 import Button from '../util/button';
 import { createButton } from './button_row';
 import Event from './event';
@@ -32,25 +32,12 @@ const newMenuBtnStyle = {
 };
 
 const Form = (props) => {
-  // exclude on... events
-  var keys = _.filter(Object.keys(props), (key) => {
-    return key.substring(0, 2) !== 'on'
-  });
-  var rows = _.map(keys, (key) => {
+  var rows = _.map(Object.keys(props.singleInput), (key) => {
     return {
       label: key,
-      value: props[key]
+      value: props.singleInput[key]
     };
   });
-
-  // remove dynamic 'menu' from rows, it is handled by specific
-  // multi line component.
-  var menuIndex = _.findIndex(rows, (row) => {
-    return row.label === 'menu';
-  });
-  if (menuIndex >= 0) {
-    rows.splice(menuIndex, 1);
-  }
 
   // remove 'images' from rows, modify and add back.
   var imagesIndex = _.findIndex(rows, (row) => {
@@ -64,10 +51,10 @@ const Form = (props) => {
     }
   }
 
-  // single line form rows
-  var singleLineFormRows = _.map(rows, (row) => {
+  // single input form rows
+  var singleInputFormRows = _.map(rows, (row) => {
     return (
-      <FormRowSingleLine
+      <FormRowSingleInput
         key={row.label}
         div={{ style : formRowStyle }}
         label={{
@@ -87,15 +74,15 @@ const Form = (props) => {
     );
   });
 
-  // multi line form rows
-  var multiLineFormRows = [];
+  // multi input form rows
+  var multiInputFormRows = [];
   if (props.menu) {
     for (var i = 0; i < props.menu.length; ++i) {
       var menu = props.menu[i];
-      multiLineFormRows.push((
+      multiInputFormRows.push((
         <div key={`menu${i}`}>
           <hr />
-          <FormRowMultiLine
+          <FormRowMultiInput
             menu={menu}
             index={i}
             onChange={props.onChange}
@@ -109,9 +96,9 @@ const Form = (props) => {
   return (
     <div style={formStyle}>
       <div style={{marginTop : '10px'}}>
-        {singleLineFormRows}
+        {singleInputFormRows}
         {
-          _.forEach(multiLineFormRows, (row) => {
+          _.forEach(multiInputFormRows, (row) => {
             return row;
           })
         }
