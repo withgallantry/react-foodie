@@ -82,7 +82,7 @@ const FormRowMultiLine = ({menu, index, onChange, onClick}) => {
         })
       }
       <div>
-        {createButton('plus', onClick, Event.ADD_MENU_ITEM, [index], btnNewMenuStyle)}
+        {createButton('plus', onClick, Event.NEW_MENU_ITEM, [index], btnNewMenuStyle)}
       </div>
     </div>
   );

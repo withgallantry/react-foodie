@@ -312,23 +312,33 @@ class Admin extends Component {
   }
 
   moveMenuUp(args) {
-    var menu = args[0];
-    var menus = this.state.menu;
-    menu = menus[menu];
-    if (menu.items.length > 1) {
-      var target = item - 1;
+    var index = args[0];
+    var menu = this.state.menu;
+    if (menu.length > 1) {
+      var target = index - 1;
       if (target < 0) {
-        target = menu.items.length - 1;
+        target = menu.length - 1;
       }
-      var temp = menu.items[target];
-      menu.items[target] = menu.items[item];
-      menu.items[item] = temp;
-      this.setState({ menu : menus });
+      var temp = menu[target];
+      menu[target] = menu[index];
+      menu[index] = temp;
+      this.setState({ menu });
     }
   }
 
-  moveMenuDown(menu) {
-
+  moveMenuDown(args) {
+    var index = args[0];
+    var menu = this.state.menu;
+    if (menu.length > 1) {
+      var target = index + 1;
+      if (target >= menu.length) {
+        target = 0;
+      }
+      var temp = menu[target];
+      menu[target] = menu[index];
+      menu[index] = temp;
+      this.setState({ menu });
+    }
   }
 
   onClick(id, args) {
