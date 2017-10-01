@@ -4,6 +4,9 @@ const Strings = Object.freeze({
   SEARCH_ADDRESS : 0
 });
 
+const min = 0;
+const max = Object.keys(Strings).length - 1;
+
 // lut for strings in different language
 var dictionary = [];
 
@@ -25,8 +28,8 @@ export const setLanguage = (lang) => {
 
 export const getString = (id) => {
   if (language !== undefined
-    && id >= Strings.SEARCH_ADDRESS
-    && id <= Strings.SEARCH_ADDRESS
+    && id >= min
+    && id <= max
   ) {
     return dictionary[language][id];
   }
