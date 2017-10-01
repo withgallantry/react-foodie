@@ -3,9 +3,9 @@ import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import Store from './store';
 import Header from './header';
 import Gallery from './gallery';
-import Language from '../util/localization/language';
+import Language from '../../util/localization/language';
 import Event from './event';
-import Strings, { setLanguage, getString } from '../util/localization/strings';
+import Strings, { setLanguage, getString } from '../../util/localization/strings';
 import Config, { getConfig, setConfig } from '../../util/config';
 
 const hrStyle = {
