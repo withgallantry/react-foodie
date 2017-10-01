@@ -1,12 +1,16 @@
 import React from 'react';
-import ButtonFilter from './button_filter';
-import ButtonSearch from './button_search';
+import Strings, { getString } from '../../../util/localization/strings';
+import { Event } from './gallery';
+import ButtonNavBar from './button_nav_bar';
+import SearchStore from './search_store';
 
-const NavBar = ({onClick}) => {
+const NavBar = ({onChange, onClick, searchExpanded}) => {
   return (
       <div>
-        <ButtonFilter onClick={onClick} />
-        <ButtonSearch onClick={onClick} />
+        <ButtonNavBar onClick={onClick} id={Event.FILTER} label={getString(Strings.FILTER)} />
+        {searchExpanded === true
+          ? <SearchStore onChange={onChange}/>
+          : <ButtonNavBar onClick={onClick} id={Event.SEARCH} label={getString(Strings.SEARCH)} />}
       </div>
   );
 };

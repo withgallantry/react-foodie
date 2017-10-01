@@ -8,7 +8,7 @@ const style = {
   width: '100%',
 };
 
-const SearchBarAddress = ({onChange}) => {
+const SearchAddress = ({onChange}) => {
   return (
     <div style={style}>
       <InputText
@@ -21,4 +21,4 @@ const SearchBarAddress = ({onChange}) => {
   );
 };
 
-export default SearchBarAddress;
+export default SearchAddress;

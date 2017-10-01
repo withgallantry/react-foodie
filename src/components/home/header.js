@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from './logo';
-import SearchBarAddress from './search_bar_address';
+import SearchAddress from './search_address';
 import NavBar from './nav_bar.js';
 
 const style = {
@@ -13,7 +13,7 @@ const Header = ({onChange, onClick, search, language, itemCount}) => {
   return (
       <div style={style}>
         <Logo />
-        <SearchBarAddress onChange={onChange}/>
+        <SearchAddress onChange={onChange}/>
         <NavBar
           language={language}
           itemCount={itemCount}
