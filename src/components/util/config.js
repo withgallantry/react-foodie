@@ -14,7 +14,7 @@ const valid = (property) => {
     && property <= max;
 };
 
-export const setConfig = (property, value) =>
+export const setConfig = (property, value) => {
   if (valid(property)) {
     config[property] = value;
   }

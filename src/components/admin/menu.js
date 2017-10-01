@@ -4,6 +4,8 @@ import Button from '../util/html/button';
 import FormCrud from './form_crud';
 import InputText from '../util/html/input_text';
 import Event from './event';
+import Config, { getConfig } from '../util/config';
+import { Link } from 'react-router-dom';
 
 const selectStyle = {
   height: '118px'
@@ -50,6 +52,19 @@ const Menu = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
 
   return (
     <div style={selectStyle}>
+      {getConfig(Config.DEBUG) === true
+        ? <Link to={'/home'}>
+            <button
+              className='btn btn-default'
+              style={{
+                position: 'absolute',
+                left: '40px',
+                top: '24px',
+              }}>
+              Home
+            </button>
+          </Link>
+        : void(0)}
       <div style={dropDownStyle} className="dropdown">
         <button
           className="btn btn-primary dropdown-toggle"

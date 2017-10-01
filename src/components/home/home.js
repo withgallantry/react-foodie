@@ -6,6 +6,7 @@ import Gallery from './gallery';
 import Language from '../util/localization/language';
 import Event from './event';
 import Strings, { setLanguage, getString } from '../util/localization/strings';
+import Config, { getConfig, setConfig } from '../util/config';
 
 const hrStyle = {
   margin: '0 !important'
@@ -21,6 +22,7 @@ class Home extends Component {
       language : Language.SV
     };
 
+    setConfig(Config.DEBUG, true);
     setLanguage(this.state.language);
     this.onClick = this.onClick.bind(this);
   }
