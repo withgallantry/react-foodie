@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from './nav_bar';
 
 const style = {
   position: 'absolute',
@@ -11,11 +12,9 @@ const style = {
 
 const Gallery = () => {
   return (
-      <div style={style}>
-        <div style={{marginTop: '10px'}}>
-          Gallery
-        </div>
-      </div>
+    <div style={style}>
+      <NavBar />
+    </div>
   );
 };
 

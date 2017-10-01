@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import Store from './store';
 import Header from './header';
-import Gallery from './gallery';
+import Gallery from './gallery/gallery';
 import Language from '../../util/localization/language';
 import Event from './event';
 import Strings, { setLanguage, getString } from '../../util/localization/strings';
@@ -19,12 +19,17 @@ class Home extends Component {
     this.state = {
       addressSearch : '',
       storeSearch : '',
-      language : Language.SV
+      language : Language.SV,
+      loading : true,
     };
 
     setConfig(Config.DEBUG, true);
     setLanguage(this.state.language);
     this.onClick = this.onClick.bind(this);
+  }
+
+  componentDidMount() {
+
   }
 
   onChange() {
@@ -68,6 +73,7 @@ class Home extends Component {
           )}/>
           <Route exact path='/gallery' component={() => (
             <Gallery
+              loading={this.state.loading}
             />
           )}/>
           <Redirect from='/' to='gallery'/>

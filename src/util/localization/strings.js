@@ -1,7 +1,9 @@
 import Language from './language';
 
 const Strings = Object.freeze({
-  SEARCH_ADDRESS : 0
+  SEARCH_ADDRESS  : 0,
+  FILTER          : 1,
+  SEARCH_STORE    : 2,
 });
 
 const min = 0;
@@ -12,11 +14,15 @@ var dictionary = [];
 
 dictionary[Language.SV] = [];
 var dict = dictionary[Language.SV];
-dict[Strings.SEARCH_ADDRESS] = 'Sök efter adress...'
+dict[Strings.SEARCH_ADDRESS]  = 'Sök efter adress...'
+dict[Strings.FILTER]          = 'Filtrera'
+dict[Strings.SEARCH_STORE]    = 'Sök'
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
-dict[Strings.SEARCH_ADDRESS] = 'Search for address...';
+dict[Strings.SEARCH_ADDRESS]  = 'Search for address...';
+dict[Strings.FILTER]          = 'Filter';
+dict[Strings.SEARCH_STORE]    = 'Search';
 
 var language = Language.SV;
 
