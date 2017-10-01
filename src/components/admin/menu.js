@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import Button from '../util/button';
+import Button from '../util/html/button';
 import FormCrud from './form_crud';
-import InputText from '../util/input_text';
+import InputText from '../util/html/input_text';
 import Event from './event';
 
 const selectStyle = {

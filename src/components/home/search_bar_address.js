@@ -1,14 +1,21 @@
 import React from 'react';
-import InputText from '../util/input_text';
+import InputText from '../util/html/input_text';
+import Strings, { getString } from '../util/localization/strings';
 
-const SearchBarAddress = (onChange, placeholder) => {
+const style = {
+  position: 'absolute',
+  textAlign: 'center',
+  width: '100%',
+};
+
+const SearchBarAddress = ({onChange}) => {
   return (
-    <li>
+    <div style={style}>
       <InputText
         onChange={onChange}
-        placeholder={placeholder}
+        placeholder={getString(Strings.SEARCH_ADDRESS)}
       />
-    </li>
+    </div>
   );
 };
 

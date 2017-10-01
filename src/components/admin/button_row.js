@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../util/button';
+import Button from '../util/html/button';
 
 export const createButton = (glyph, func, id, args, style) => {
   return (

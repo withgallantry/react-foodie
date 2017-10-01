@@ -1,17 +1,16 @@
 import React from 'react';
 
 const style = {
-  paddingLeft: '60px',
-  paddingTop: '16px'
+  position: 'absolute',
+  left: '40px',
+  top: '40px'
 };
 
 const Logo = () => {
   return (
-    <li>
-      <h1 style={style}>
-        &copy; Foodie
-      </h1>
-    </li>
+    <h3 style={style}>
+      &copy; Foodie
+    </h3>
   );
 };
 
