@@ -6,7 +6,7 @@ import Gallery from './gallery';
 import Language from '../util/localization/language';
 import Event from './event';
 import Strings, { setLanguage, getString } from '../util/localization/strings';
-import Config, { getConfig, setConfig } from '../util/config';
+import Config, { getConfig, setConfig } from '../../util/config';
 
 const hrStyle = {
   margin: '0 !important'

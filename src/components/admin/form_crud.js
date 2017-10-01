@@ -1,6 +1,6 @@
 import React from 'react';
 import Event from './event';
-import Button from '../util/html/button';
+import Button from '../html/button';
 
 const btnMenuStyle = {
   marginBottom: '20px'

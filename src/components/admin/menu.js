@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import Button from '../util/html/button';
+import Button from '../html/button';
 import FormCrud from './form_crud';
-import InputText from '../util/html/input_text';
+import InputText from '../html/input_text';
 import Event from './event';
-import Config, { getConfig } from '../util/config';
+import Config, { getConfig } from '../../util/config';
 import { Link } from 'react-router-dom';
 
 const selectStyle = {

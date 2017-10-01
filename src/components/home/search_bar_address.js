@@ -1,5 +1,5 @@
 import React from 'react';
-import InputText from '../util/html/input_text';
+import InputText from '../html/input_text';
 import Strings, { getString } from '../util/localization/strings';
 
 const style = {
@@ -12,7 +12,9 @@ const SearchBarAddress = ({onChange}) => {
   return (
     <div style={style}>
       <InputText
-        onChange={onChange}
+        onChange={{
+          func : onChange
+        }}
         placeholder={getString(Strings.SEARCH_ADDRESS)}
       />
     </div>

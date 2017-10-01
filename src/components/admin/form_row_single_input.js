@@ -1,6 +1,6 @@
 import React from 'react';
-import Label from '../util/html/label';
-import InputText from '../util/html/input_text';
+import Label from '../html/label';
+import InputText from '../html/input_text';
 
 const FormRowSingleLine = ({div, label, input}) => {
   return (

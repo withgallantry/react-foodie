@@ -3,7 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import Form from './form';
 import Menu from './menu';
-import { getTemplateItem } from '../util/util';
+import { getTemplateItem } from '../../util/util';
 import Event, { propToEvent } from './event';
 
 //const URL = 'https://agile-taiga-67906.herokuapp.com/';
