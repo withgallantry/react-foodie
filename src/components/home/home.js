@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
-import Store from './store';
+import Store from './store/store';
 import Header from './header';
-import Gallery from './gallery/gallery';
-import Language from '../../util/localization/language';
+import Gallery from './store/gallery';
+import Language, { setLanguage } from '../../util/localization/language';
 import Event from './event';
-import Strings, { setLanguage, getString } from '../../util/localization/strings';
+import Strings, { getString } from '../../util/localization/strings';
 import Config, { getConfig, setConfig } from '../../util/config';
 
 const hrStyle = {
@@ -20,7 +20,6 @@ class Home extends Component {
       addressSearch : '',
       storeSearch : '',
       language : Language.SV,
-      loading : true,
     };
 
     setConfig(Config.DEBUG, true);
@@ -68,13 +67,10 @@ class Home extends Component {
         <hr className='hr-home'/>
         <Switch>
           <Route exact path='/store' component={() => (
-            <Store
-            />
+            <Store />
           )}/>
           <Route exact path='/gallery' component={() => (
-            <Gallery
-              loading={this.state.loading}
-            />
+            <Gallery />
           )}/>
           <Redirect from='/' to='gallery'/>
         </Switch>

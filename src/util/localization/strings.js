@@ -1,4 +1,4 @@
-import Language from './language';
+import Language, { getLanguage } from './language';
 
 const Strings = Object.freeze({
   SEARCH_ADDRESS  : 0,
@@ -18,29 +18,22 @@ var dict = dictionary[Language.SV];
 dict[Strings.SEARCH_ADDRESS]  = 'Sök efter adress...';
 dict[Strings.FILTER]          = 'Filtrera';
 dict[Strings.SEARCH]          = 'Sök';
-dict[Strings.SEARCH_STORE]    = 'Sök efter restaurang...';
+dict[Strings.SEARCH_STORE]    = 'Sök efter restaurang & taggar...';
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
 dict[Strings.SEARCH_ADDRESS]  = 'Search for address...';
 dict[Strings.FILTER]          = 'Filter';
 dict[Strings.SEARCH]          = 'Search';
-dict[Strings.SEARCH_STORE]    = 'Search for store...';
-
-var language = Language.SV;
-
-export const setLanguage = (lang) => {
-  if (lang >= Language.EN && lang <= Language.SV) {
-    language = lang;
-  }
-};
+dict[Strings.SEARCH_STORE]    = 'Search for store & tags...';
 
 export const getString = (id) => {
-  if (language !== undefined
+  var lang = getLanguage();
+  if (lang !== undefined
     && id >= min
     && id <= max
   ) {
-    return dictionary[language][id];
+    return dictionary[lang][id];
   }
 };
 
