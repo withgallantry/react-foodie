@@ -85,7 +85,11 @@ class Gallery extends Component {
     stores = _.filter(stores, (store) => {
       return store.lang === lang;
     });
-    return _.map(stores, (store) => {
+    _.forEach(stores, (store) => {
+      store.isOpen = this.storeIsOpen(store.hours);
+    });
+    stores = _.orderBy(stores, ['isOpen'], ['desc']);
+    stores = _.map(stores, (store) => {
       return (
         <GalleryItem
           key={store._id}
@@ -93,10 +97,32 @@ class Gallery extends Component {
           hours={store.hours}
           tags={store.tags}
           images={store.images}
+          isOpen={store.isOpen}
         />
       );
     });
+
+    return _.orderBy(stores, ['isOpen'], ['asc']);
   }
+
+  storeIsOpen([opens, closes]) {
+    opens = opens.split('.');
+    closes = closes.split('.');
+    var date = new Date();
+
+    let opensAt = new Date(date);
+    opensAt.setHours(parseInt(opens[0]));
+    opensAt.setMinutes(parseInt(opens[1]));
+
+    let closesAt = new Date(date);
+    closesAt.setHours(parseInt(closes[0]));
+    closesAt.setMinutes(parseInt(closes[1]));
+    if (closesAt.getHours() < opensAt.getHours()) {
+      closesAt.setDate(closesAt.getDate() + 1);
+    }
+
+    return date > opensAt && date < closesAt;
+  };
 
   render() {
     if (this.state.loading) {
@@ -105,6 +131,8 @@ class Gallery extends Component {
     }
 
     var stores = this.createStores();
+
+
     return (
       <div style={divStyle}>
         <NavBar
