@@ -41,7 +41,7 @@ const Menu = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
   var items = _.map(foodPlaces, (foodPlace) => {
     return (
       <li onClick={() => onClick(Event.SHOW, [foodPlace.id])} key={foodPlace.id}>
-        <a href='#'>{`${foodPlace.name} (${foodPlace.lang})`}</a>
+        <a href='#/admin'>{`${foodPlace.name} (${foodPlace.lang})`}</a>
       </li>
     );
   });
