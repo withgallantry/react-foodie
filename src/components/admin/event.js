@@ -26,6 +26,8 @@ const Event = Object.freeze({
   MOVE_MENU_ITEM_DOWN   : 21,
   MOVE_MENU_UP          : 22,
   MOVE_MENU_DOWN        : 23,
+
+  GET_JSON              : 24,
 });
 
 const lut = {

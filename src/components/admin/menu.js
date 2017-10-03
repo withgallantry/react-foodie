@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import Button from '../html/button';
-import FormCrud from './form_crud';
+import FormButtonBar from './form_button_bar';
 import InputText from '../html/input_text';
 import Event from './event';
 import Config, { getConfig } from '../../util/config';
@@ -88,7 +88,7 @@ const Menu = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
         placeholder={'Search for restaurant name...'}
         onChange={{ func : onChange }}
       />
-      <FormCrud
+      <FormButtonBar
         onClick={onClick}
         deleteEnabled={deleteEnabled}
       />

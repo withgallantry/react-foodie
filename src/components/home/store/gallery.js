@@ -4,13 +4,12 @@ import GalleryItem from './gallery_item';
 import { getLanguage } from '../../../util/localization/language';
 import axios from 'axios';
 import _ from 'lodash';
+import { URL } from '../../../util/constants';
 
 export const Event = {
   FILTER : 0,
   SEARCH : 1
 };
-
-const URL = 'http://localhost:5000/foodplace';
 
 const divStyle = {
   position: 'absolute',
