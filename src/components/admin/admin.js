@@ -6,6 +6,7 @@ import Menu from './menu';
 import { getTemplateItems } from '../../util/util';
 import Event, { propToEvent } from './event';
 import { URL } from '../../util/constants';
+import Config, { getConfig } from '../../util/config';
 
 class Admin extends Component {
   constructor() {
@@ -128,7 +129,7 @@ class Admin extends Component {
         console.log(error);
       });
     } else {
-      axios.post(URL, item).then((response) => {
+      axios.post(URL, this.getCurrentItem()).then((response) => {
         console.log('added food place');
         this.load();
       })
@@ -167,7 +168,7 @@ class Admin extends Component {
       console.log('added food place');
       this.load((foodplaces) => {
         var match = _.find(foodplaces, (obj) => {
-          return obj._id === response.data._id;
+          return obj._id === response.data[0]._id;
         });
         if (match) {
           this.show(match._id);

@@ -5,7 +5,8 @@ const Strings = Object.freeze({
   FILTER          : 1,
   SEARCH          : 2,
   SEARCH_STORE    : 3,
-  CLOSED          : 4
+  CLOSED          : 4,
+  EDITOR          : 5,
 });
 
 const min = 0;
@@ -21,6 +22,7 @@ dict[Strings.FILTER]          = 'Filtrera';
 dict[Strings.SEARCH]          = 'Sök';
 dict[Strings.SEARCH_STORE]    = 'Sök efter restaurang & taggar...';
 dict[Strings.CLOSED]          = 'Stängd';
+dict[Strings.EDITOR]          = 'Editor';
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
@@ -29,6 +31,7 @@ dict[Strings.FILTER]          = 'Filter';
 dict[Strings.SEARCH]          = 'Search';
 dict[Strings.SEARCH_STORE]    = 'Search for store & tags...';
 dict[Strings.CLOSED]          = 'Closed';
+dict[Strings.EDITOR]          = 'Editor';
 
 export const getString = (id) => {
   var lang = getLanguage();

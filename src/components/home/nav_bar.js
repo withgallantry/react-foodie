@@ -2,8 +2,8 @@ import React from 'react';
 import Button from '../html/button';
 import Language from '../../util/localization/language';
 import Event from './event';
-import Config, { getConfig } from '../../util/config';
 import { Link } from 'react-router-dom';
+import Strings, { getString } from '../../util/localization/strings';
 
 const divStyle = {
   position: 'absolute',
@@ -18,15 +18,13 @@ const btnStyle = {
 const NavBar = ({onClick, language, itemCount}) => {
   return (
     <div style={divStyle}>
-      {getConfig(Config.DEBUG) === true
-        ? <Link to={'/admin'}>
-            <button
-              className='btn btn-default'
-              style={btnStyle}>
-              Admin
-            </button>
-          </Link>
-        : void(0)}
+      <Link to={'/admin'}>
+        <button
+          className='btn btn-default'
+          style={btnStyle}>
+          {getString(Strings.EDITOR)}
+        </button>
+      </Link>
       <Button
         style={btnStyle}
         label={language === Language.EN

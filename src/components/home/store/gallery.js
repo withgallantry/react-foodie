@@ -5,6 +5,7 @@ import { getLanguage } from '../../../util/localization/language';
 import axios from 'axios';
 import _ from 'lodash';
 import { URL } from '../../../util/constants';
+import Config, { getConfig } from '../../../util/config';
 
 export const Event = {
   FILTER : 0,
