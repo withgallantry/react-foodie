@@ -3,7 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import Form from './form';
 import Menu from './menu';
-import { getTemplateItem } from '../../util/util';
+import { getTemplateItems } from '../../util/util';
 import Event, { propToEvent } from './event';
 import { URL } from '../../util/constants';
 
@@ -220,11 +220,12 @@ class Admin extends Component {
   }
 
   addTemplate() {
-    axios.post(URL, getTemplateItem()).then((response) => {
+    axios.post(URL, getTemplateItems()).then((response) => {
       console.log('added food place');
+      console.log(response);
       this.load((foodPlaces) => {
         var match = _.find(foodPlaces, (obj) => {
-          return obj._id === response.data._id;
+          return obj._id === response.data[0]._id;
         });
         if (match) {
           this.show(match._id);

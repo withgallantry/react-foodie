@@ -16,7 +16,7 @@ const tagStyle = {
 const GalleryItem = (props) => {
   return (
     <div style={style}>
-      <img className='gallery-img' src='img/temp.png' />
+      <img className='gallery-img' src={props.images.gallery} />
       {props.isOpen === true
         ? void (0)
         : (
