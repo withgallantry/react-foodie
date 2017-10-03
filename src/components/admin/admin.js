@@ -39,6 +39,7 @@ class Admin extends Component {
     assign(this.events, this.moveMenuItemDown, Event.MOVE_MENU_ITEM_DOWN);
     assign(this.events, this.moveMenuUp,       Event.MOVE_MENU_UP);
     assign(this.events, this.moveMenuDown,     Event.MOVE_MENU_DOWN);
+    assign(this.events, this.deleteAll,        Event.DELETE_ALL);
   }
 
   componentDidMount() {
@@ -64,6 +65,7 @@ class Admin extends Component {
       hours: [],
       tags: [],
       deleteEnabled: true,
+      deleteAllEnabled: true,
       images: null,
       menu: null,
       currentId: null
@@ -201,6 +203,19 @@ class Admin extends Component {
       .catch((error) => {
         console.log(error);
       })
+    }
+  }
+
+  deleteAll() {
+    if (this.state.foodPlaces.length > 0) {
+      this.setState({ deleteAllEnabled : false });
+
+      axios.delete(`${URL}/deleteAll`).then((response) => {
+        this.clearForm();
+        this.setState({ foodPlaces : [] });
+      }).catch((error) => {
+        console.log(error);
+      });
     }
   }
 
@@ -407,6 +422,7 @@ class Admin extends Component {
             })
           }
           deleteEnabled={this.state.deleteEnabled}
+          deleteAllEnabled={this.state.deleteAllEnabled}
         />
         <hr />
         <Form

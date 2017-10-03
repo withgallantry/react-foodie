@@ -29,7 +29,7 @@ const buttonStyle = {
 
 const searchSize = '32';
 
-const Menu = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
+const Menu = ({onClick, onChange, foodPlaces, deleteEnabled, deleteAllEnabled}) => {
   if (foodPlaces == null) {
     return (
       <div>
@@ -80,6 +80,18 @@ const Menu = ({onClick, onChange, foodPlaces, deleteEnabled}) => {
           style={buttonStyle}
           label='Add Template'
           onClick={{ func : onClick, id : Event.ADD_TEMPLATE }}
+        />
+        <Link to='/json'>
+          <Button
+            style={buttonStyle}
+            label='Get JSON'
+          />
+        </Link>
+        <Button
+          disabled={!deleteAllEnabled}
+          style={buttonStyle}
+          label='Delete All'
+          onClick={{ func : onClick, id : Event.DELETE_ALL }}
         />
       </div>
       <InputText

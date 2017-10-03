@@ -1,7 +1,6 @@
 import React from 'react';
 import Event from './event';
 import Button from '../html/button';
-import { Link } from 'react-router-dom';
 
 const btnMenuStyle = {
   marginBottom: '20px'
@@ -33,12 +32,6 @@ const FormButtonBar = ({onClick, deleteEnabled}) => {
       {createButton(secondBtnStyle, onClick, false,          Event.NEW,      'New')}
       {createButton(secondBtnStyle, onClick, false,          Event.COPY,     'Copy')}
       {createButton(secondBtnStyle, onClick, !deleteEnabled, Event.DELETE,   'Delete')}
-      <Link to='/json'>
-        <Button
-          style={secondBtnStyle}
-          label='Get JSON'
-        />
-      </Link>
     </div>
   );
 };
