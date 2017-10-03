@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import Button from '../html/button';
+import ReactTooltip from 'react-tooltip';
 import FormButtonBar from './form_button_bar';
 import InputText from '../html/input_text';
 import Event from './event';
@@ -16,12 +17,18 @@ const dropDownStyle = {
   paddingTop: '5px'
 };
 
-const searchStyle = {
+const searchStoreStyle = {
   marginLeft: '160px',
   marginBottom: '10px'
 };
 
-const searchSize = '32';
+const searchKeyStyle = {
+  marginLeft: '20px',
+  marginBottom: '10px'
+};
+
+const searchStoreSize = '32';
+const searchKeySize = '20';
 
 const Menu = ({onClick, onChange, foodPlaces, deleteEnabled, deleteAllEnabled}) => {
   if (foodPlaces == null) {
@@ -34,14 +41,13 @@ const Menu = ({onClick, onChange, foodPlaces, deleteEnabled, deleteAllEnabled}) 
 
   var items = _.map(foodPlaces, (foodPlace) => {
     return (
-      <li onClick={() => onClick(Event.SHOW, [foodPlace.id])} key={foodPlace.id}>
+      <li onClick={() => onClick(Event.SHOW, [foodPlace.id])} key={`${foodPlace.name}${foodPlace.id}`}>
         <a href='#/admin'>{`${foodPlace.name} (${foodPlace.lang})`}</a>
       </li>
     );
   });
-
   items = _.orderBy(items, (item) => {
-    return item.name;
+    return item.key;
   });
 
   return (
@@ -59,11 +65,19 @@ const Menu = ({onClick, onChange, foodPlaces, deleteEnabled, deleteAllEnabled}) 
         </ul>
       </div>
       <InputText
-        size={searchSize}
-        style={searchStyle}
+        size={searchStoreSize}
+        style={searchStoreStyle}
         placeholder={'Search for restaurant name...'}
         onChange={{ func : onChange }}
       />
+      <InputText
+        size={searchKeySize}
+        style={searchKeyStyle}
+        placeholder={'Unique identifier...'}
+        onChange={{ func : onChange }}
+      />
+      <ReactTooltip type="info" effect="solid"/>
+      &#9911;
       <FormButtonBar
         onClick={onClick}
         deleteEnabled={deleteEnabled}
