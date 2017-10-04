@@ -15,8 +15,8 @@ admin -> save form when editing instead of clicking button
 # menu[0].items -> menu[0]['sv'].items
 admin -> dropdown lang [ SV (v)]
 change so that only the menu can be in different language
-  menu[0]['sv'].name = ...
-  menu[0]['sv'].items = ...
+  menu[0]['sv'].name = <stuff>
+  menu[0]['sv'].items = <stuff>
 tags = tags['sv']["Pizza", "Kebab", "Sallad"] ...
 removeMenuItem -> iterate through each lang
 moveMenuItem... -> iterate through each lang
