@@ -8,7 +8,6 @@ const Event = Object.freeze({
   SEARCH                : 6,
   ADD_TEMPLATE          : 7,
 
-  LANG_CHANGE           : 8,
   NAME_CHANGE           : 9,
   TAGS_CHANGE           : 10,
   HOURS_CHANGE          : 11,
@@ -30,10 +29,10 @@ const Event = Object.freeze({
 
   GET_JSON              : 25,
   CHANGE_KEY            : 26,
+  CHANGE_LANG           : 27,
 });
 
 const lut = {
-  lang : Event.LANG_CHANGE,
   name : Event.NAME_CHANGE,
   address : Event.ADDRESS_CHANGE,
   hours : Event.HOURS_CHANGE,

@@ -30,7 +30,7 @@ const inputItemDescSize = '100';
 const inputItemNameSize = inputMenuNameSize;
 const inputItemPriceSize = '4';
 
-const createInputText = (style, size, onChange, args, value) => {
+const createInputText = (style, size, onChange, args, value, lang) => {
   return (
     <InputText
       style={style}

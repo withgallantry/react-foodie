@@ -62,7 +62,6 @@ class Admin extends Component {
   getDefaultState() {
     return {
       foodPlaces: [],
-      lang: '',
       name: '',
       address: '',
       hours: [],
@@ -77,7 +76,6 @@ class Admin extends Component {
 
   getCurrentItem() {
     return {
-      lang: this.state.lang,
       name: this.state.name,
       address: this.state.address,
       hours: this.state.hours.constructor === Array
@@ -103,7 +101,6 @@ class Admin extends Component {
     axios.get(this.getUrl()).then((response) => {
       const foodPlaces = _.map(response.data, (foodPlace) => {
         return {
-          lang: foodPlace.lang,
           name: foodPlace.name,
           address: foodPlace.address,
           hours: foodPlace.hours,
@@ -154,7 +151,6 @@ class Admin extends Component {
     });
     if (foodPlace) {
       this.setState({
-        lang: foodPlace.lang,
         name: foodPlace.name,
         address: foodPlace.address,
         hours: foodPlace.hours,
@@ -376,8 +372,8 @@ class Admin extends Component {
 
     // events where only prop and value is needed
     const events = [
-      Event.LANG_CHANGE, Event.NAME_CHANGE,
-      Event.TAGS_CHANGE, Event.HOURS_CHANGE, Event.ADDRESS_CHANGE];
+      Event.NAME_CHANGE,  Event.TAGS_CHANGE,
+      Event.HOURS_CHANGE, Event.ADDRESS_CHANGE];
 
     if (events.includes(event)) {
       this.setState({ [label] : value })
@@ -402,7 +398,7 @@ class Admin extends Component {
     value = value.toLowerCase();
     const foodPlaces = this.state.foodPlace;
     var index = _.findIndex(this.state.foodPlaces, (foodPlace) => {
-      var name = `${foodPlace.name} (${foodPlace.lang})`.toLowerCase();
+      var name = foodPlace.name.toLowerCase();
       return _.includes(name, value);
     });
     if (index >= 0) {
@@ -436,7 +432,6 @@ class Admin extends Component {
               return {
                 name: foodPlace.name,
                 id:   foodPlace._id,
-                lang: foodPlace.lang
               };
             })
           }
@@ -447,7 +442,6 @@ class Admin extends Component {
         <hr />
         <Form
           singleInput={{
-            lang: this.state.lang,
             name: this.state.name,
             tags: this.state.tags,
             images: this.state.images,
