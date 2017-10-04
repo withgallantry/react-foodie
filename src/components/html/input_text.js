@@ -3,6 +3,7 @@ import React from 'react';
 const InputText = (props) => {
     return (
       <input
+        data-tip={props.dataTip !== undefined ? props.dataTip : void(0)}
         style={props.style !== undefined ? props.style : {}}
         type="text"
         size={props.size !== undefined ? props.size : '35'}

@@ -6,7 +6,7 @@ import Menu from './menu';
 import { getTemplateItems } from '../../util/util';
 import Event, { propToEvent } from './event';
 import { URL } from '../../util/constants';
-import Config, { getConfig } from '../../util/config';
+import Config, { getConfig, setConfig } from '../../util/config';
 
 class Admin extends Component {
   constructor() {
@@ -18,6 +18,8 @@ class Admin extends Component {
     this.onChangeForm = this.onChangeForm.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onChangeSearchDebounced = _.debounce(this.onChangeSearch, 300);
+    this.onChangeKey = this.onChangeKey.bind(this);
+    this.onChangeKeyDebounced = _.debounce(this.onChangeKey, 300);
 
     this.events = [];
     const assign = (array, func, id) => {
@@ -59,7 +61,7 @@ class Admin extends Component {
 
   getDefaultState() {
     return {
-      foodPlaces: null,
+      foodPlaces: [],
       lang: '',
       name: '',
       address: '',
@@ -91,11 +93,14 @@ class Admin extends Component {
   }
 
   getUrl(id) {
-    return `${URL}/${id}`;
+    if (id !== undefined) {
+      return `${URL}/${getConfig(Config.KEY)}/${id}`;
+    }
+    return `${URL}/${getConfig(Config.KEY)}`;
   }
 
   load(onFinished) {
-    axios.get(URL).then((response) => {
+    axios.get(this.getUrl()).then((response) => {
       const foodPlaces = _.map(response.data, (foodPlace) => {
         return {
           lang: foodPlace.lang,
@@ -122,14 +127,14 @@ class Admin extends Component {
   save() {
     var currentId = this.state.currentId;
     if (currentId !== null) {
-      axios.put(this.getUrl(currentId), this.getCurrentItem()).then((response) => {
+      axios.put(`${URL}/${currentId}`, this.getCurrentItem()).then((response) => {
         console.log(`updated food place with id ${currentId}`);
         this.load();
       }).catch((error) => {
         console.log(error);
       });
     } else {
-      axios.post(URL, this.getCurrentItem()).then((response) => {
+      axios.post(this.getUrl(), this.getCurrentItem()).then((response) => {
         console.log('added food place');
         this.load();
       })
@@ -164,7 +169,7 @@ class Admin extends Component {
   copy() {
     var item = this.getCurrentItem();
     item.name = `${item.name} (copy)`;
-    axios.post(URL, item).then((response) => {
+    axios.post(this.getUrl(), item).then((response) => {
       console.log('added food place');
       this.load((foodplaces) => {
         var match = _.find(foodplaces, (obj) => {
@@ -186,7 +191,7 @@ class Admin extends Component {
     });
     if (currentId) {
       this.setState({ deleteEnabled : false });
-      axios.delete(this.getUrl(currentId)).then((response) => {
+      axios.delete(`${URL}/${currentId}`).then((response) => {
         console.log(`deleted food place with id ${currentId}`);
         this.load((foodPlaces) => {
           this.setState({ deleteEnabled : true });
@@ -203,7 +208,7 @@ class Admin extends Component {
       })
       .catch((error) => {
         console.log(error);
-      })
+      });
     }
   }
 
@@ -211,7 +216,7 @@ class Admin extends Component {
     if (this.state.foodPlaces.length > 0) {
       this.setState({ deleteAllEnabled : false });
 
-      axios.delete(`${URL}/deleteAll`).then((response) => {
+      axios.delete(`${this.getUrl()}/deleteAll`).then((response) => {
         this.clearForm();
         this.setState({ foodPlaces : [] });
       }).catch((error) => {
@@ -221,9 +226,8 @@ class Admin extends Component {
   }
 
   addTemplate() {
-    axios.post(URL, getTemplateItems()).then((response) => {
+    axios.post(this.getUrl(), getTemplateItems()).then((response) => {
       console.log('added food place');
-      console.log(response);
       this.load((foodPlaces) => {
         var match = _.find(foodPlaces, (obj) => {
           return obj._id === response.data[0]._id;
@@ -242,7 +246,6 @@ class Admin extends Component {
   }
 
   changeMenuItem(menuIndex, itemIndex, prop, value) {
-    console.log("blä");
     var menu = this.state.menu;
     menu[menuIndex].items[itemIndex][prop] = value;
     this.setState({ menu });
@@ -368,7 +371,6 @@ class Admin extends Component {
 
   onChangeForm(value, args) {
     var label = args[0];
-    console.log(label);
     var event = propToEvent(label);
     console.log(`onChangeForm(${value}, ${args})[event=${event}]`);
 
@@ -408,12 +410,27 @@ class Admin extends Component {
     }
   }
 
+  onChangeKey(value) {
+    value = value.replace(/\s/g,'');
+    console.log(value);
+    if (value.length > 0) {
+        setConfig(Config.KEY, value);
+        this.clearForm();
+        this.load((foodPlaces) => {
+          if (foodPlaces.length > 0) {
+            this.show(foodPlaces[0]._id);
+          }
+        });
+    }
+  }
+
   render() {
     return (
       <div>
         <Menu
           onClick={this.onClick}
-          onChange={this.onChangeSearchDebounced}
+          onChangeSearch={this.onChangeSearchDebounced}
+          onChangeKey={this.onChangeKeyDebounced}
           foodPlaces={
             _.map(this.state.foodPlaces, (foodPlace) => {
               return {
@@ -425,6 +442,7 @@ class Admin extends Component {
           }
           deleteEnabled={this.state.deleteEnabled}
           deleteAllEnabled={this.state.deleteAllEnabled}
+          _key={getConfig(Config.KEY)}
         />
         <hr />
         <Form

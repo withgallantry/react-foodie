@@ -24,13 +24,14 @@ const searchStoreStyle = {
 
 const searchKeyStyle = {
   marginLeft: '20px',
-  marginBottom: '10px'
+  marginBottom: '10px',
+  marginRight: '2px'
 };
 
 const searchStoreSize = '32';
 const searchKeySize = '20';
 
-const Menu = ({onClick, onChange, foodPlaces, deleteEnabled, deleteAllEnabled}) => {
+const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, deleteAllEnabled, _key}) => {
   if (foodPlaces == null) {
     return (
       <div>
@@ -39,15 +40,16 @@ const Menu = ({onClick, onChange, foodPlaces, deleteEnabled, deleteAllEnabled}) 
     );
   }
 
-  var items = _.map(foodPlaces, (foodPlace) => {
+  let items = _.map(foodPlaces, (foodPlace) => {
     return (
       <li onClick={() => onClick(Event.SHOW, [foodPlace.id])} key={`${foodPlace.name}${foodPlace.id}`}>
         <a href='#/admin'>{`${foodPlace.name} (${foodPlace.lang})`}</a>
       </li>
     );
   });
-  items = _.orderBy(items, (item) => {
-    return item.key;
+
+  items.sort((a, b) => {
+    return a.key.localeCompare(b.key) > 0;
   });
 
   return (
@@ -64,19 +66,21 @@ const Menu = ({onClick, onChange, foodPlaces, deleteEnabled, deleteAllEnabled}) 
           {items}
         </ul>
       </div>
+      {/* Search bars */}
       <InputText
         size={searchStoreSize}
         style={searchStoreStyle}
         placeholder={'Search for restaurant name...'}
-        onChange={{ func : onChange }}
+        onChange={{ func : onChangeSearch }}
       />
       <InputText
+        dataTip='Unique identifier for a set of stores.'
         size={searchKeySize}
         style={searchKeyStyle}
-        placeholder={'Unique identifier...'}
-        onChange={{ func : onChange }}
+        placeholder={_key}
+        onChange={{ func : onChangeKey }}
       />
-      <ReactTooltip type="info" effect="solid"/>
+      <ReactTooltip type="warning" effect="solid"/>
       &#9911;
       <FormButtonBar
         onClick={onClick}

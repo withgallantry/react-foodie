@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { URL } from '../util/constants';
+import Config, { getConfig } from '../util/config';
 import _ from 'lodash';
 
 class Json extends Component {
@@ -13,7 +14,7 @@ class Json extends Component {
   }
 
   componentDidMount() {
-    axios.get(URL).then((response) => {
+    axios.get(`${URL}/${getConfig(Config.KEY)}`).then((response) => {
       const stores = _.map(response.data, (store) => {
         return {
           lang: store.lang,
