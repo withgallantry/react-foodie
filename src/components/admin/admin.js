@@ -248,6 +248,7 @@ class Admin extends Component {
   }
 
   changeMenuItem([menuIndex, itemIndex, prop, lang], value) {
+    console.log(lang);
     var menu = this.state.menu;
     menu[lang][menuIndex].items[itemIndex][prop] = value;
     this.setState({ menu });
