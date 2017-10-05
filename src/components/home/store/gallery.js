@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import NavBar from './nav_bar';
 import GalleryItem from './gallery_item';
-import { getLanguage } from '../../../util/localization/language';
+import { localize } from '../../../util/localization/strings';
 import axios from 'axios';
 import _ from 'lodash';
 import { URL } from '../../../util/constants';
 import Config, { getConfig } from '../../../util/config';
+import Language from '../../../util/localization/language';
 
 export const Event = {
   FILTER : 0,
@@ -80,11 +81,9 @@ class Gallery extends Component {
   }
 
   createStores() {
+    console.log("creating stores...");
+    console.log(localize(this.state.stores[0].tags, Language.SV));
     var stores = this.state.stores;
-    const lang = getLanguage()
-    stores = _.filter(stores, (store) => {
-      return store.lang === lang;
-    });
     _.forEach(stores, (store) => {
       store.isOpen = this.storeIsOpen(store.hours);
     });
@@ -95,7 +94,7 @@ class Gallery extends Component {
           key={store._id}
           name={store.name}
           hours={store.hours}
-          tags={store.tags}
+          tags={localize(store.tags, Language.SV)}
           images={store.images}
           isOpen={store.isOpen}
         />
@@ -131,7 +130,6 @@ class Gallery extends Component {
     }
 
     var stores = this.createStores();
-
 
     return (
       <div style={divStyle}>

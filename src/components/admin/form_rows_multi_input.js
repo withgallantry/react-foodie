@@ -45,23 +45,23 @@ const btnStyle = {
   marginRight: '6px'
 };
 
-const FormRowMultiLine = ({menu, index, onChange, onClick}) => {
-  var items = [];
+const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
+  let items = [];
   for (var i = 0; i < menu.items.length; ++i) {
-      var item = menu.items[i];
-      items.push((
-        <div
-          style={formRowStyle}
-          className="block"
-          key={`menu${index}.item${i}`}>
-          {createButton('trash',      onClick, Event.REMOVE_MENU_ITEM,    [index, i], btnStyle)}
-          {createButton('arrow-up',   onClick, Event.MOVE_MENU_ITEM_UP,   [index, i], btnStyle)}
-          {createButton('arrow-down', onClick, Event.MOVE_MENU_ITEM_DOWN, [index, i], btnStyle)}
-          {createInputText(itemInputStyle, inputItemNameSize,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'name'],  item.name)}
-          {createInputText(itemInputStyle, inputItemDescSize,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'desc'],  item.desc)}
-          {createInputText(itemInputStyle, inputItemPriceSize, onChange, [Event.CHANGE_MENU_ITEM, index, i, 'price'], item.price)}
-        </div>
-      ));
+    let item = menu.items[i];
+    items.push((
+      <div
+        style={formRowStyle}
+        className="block"
+        key={`menu${index}.lang${lang}.item${i}`}>
+        {createButton('trash',      onClick, Event.REMOVE_MENU_ITEM,    [index, i], btnStyle)}
+        {createButton('arrow-up',   onClick, Event.MOVE_MENU_ITEM_UP,   [index, i], btnStyle)}
+        {createButton('arrow-down', onClick, Event.MOVE_MENU_ITEM_DOWN, [index, i], btnStyle)}
+        {createInputText(itemInputStyle, inputItemNameSize,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'name',  lang], item.name)}
+        {createInputText(itemInputStyle, inputItemDescSize,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'desc',  lang], item.desc)}
+        {createInputText(itemInputStyle, inputItemPriceSize, onChange, [Event.CHANGE_MENU_ITEM, index, i, 'price', lang], item.price)}
+      </div>
+    ));
   }
 
   return (
@@ -73,17 +73,17 @@ const FormRowMultiLine = ({menu, index, onChange, onClick}) => {
       {createButton('trash',      onClick, Event.REMOVE_MENU,    [index], btnStyle)}
       {createButton('arrow-up',   onClick, Event.MOVE_MENU_UP,   [index], btnStyle)}
       {createButton('arrow-down', onClick, Event.MOVE_MENU_DOWN, [index], btnStyle)}
-      {createInputText({}, inputMenuNameSize, onChange, [Event.CHANGE_MENU_NAME, index], menu.name)}
+      {createInputText({}, inputMenuNameSize, onChange, [Event.CHANGE_MENU_NAME, index, lang], menu.name)}
       {
         _.forEach(items, (item) => {
           return item;
         })
       }
       <div>
-        {createButton('plus', onClick, Event.NEW_MENU_ITEM, [index], btnNewMenuStyle)}
+        {createButton('plus', onClick, Event.NEW_MENU_ITEM, [index, lang], btnNewMenuStyle)}
       </div>
     </div>
   );
 };
 
-export default FormRowMultiLine;
+export default FormRowsMultiInput;

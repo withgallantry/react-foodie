@@ -11,6 +11,7 @@ tags -> select from drop down, type-ahead ish?
   Can then store translations for all tags, so a
   predefined set of tags I guess?
 admin -> save form when editing instead of clicking button
+loading gif
 
 # menu[0].items -> menu[0]['sv'].items
 admin -> dropdown lang [ SV (v)]
@@ -22,3 +23,4 @@ removeMenuItem -> iterate through each lang
 moveMenuItem... -> iterate through each lang
 changeMenuItem -> filter with 'lang'
 node.js -> update crud
+changeMenuItem() -> check index boundries

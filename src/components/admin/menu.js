@@ -31,7 +31,7 @@ const searchKeyStyle = {
 const searchStoreSize = '32';
 const searchKeySize = '20';
 
-const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, deleteAllEnabled, _key}) => {
+const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, deleteAllEnabled, _key, lang}) => {
   if (foodPlaces == null) {
     return (
       <div>
@@ -43,7 +43,7 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, 
   let items = _.map(foodPlaces, (foodPlace) => {
     return (
       <li onClick={() => onClick(Event.SHOW, [foodPlace.id])} key={`${foodPlace.name}${foodPlace.id}`}>
-        <a href='#/admin'>{`${foodPlace.name} (${foodPlace.lang})`}</a>
+        <a href='#/admin'>{foodPlace.name}</a>
       </li>
     );
   });
@@ -80,12 +80,13 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, 
         placeholder={_key}
         onChange={{ func : onChangeKey }}
       />
-      <ReactTooltip type="warning" effect="solid"/>
+      <ReactTooltip type="info" effect="solid"/>
       &#9911;
       <FormButtonBar
         onClick={onClick}
         deleteEnabled={deleteEnabled}
         deleteAllEnabled={deleteAllEnabled}
+        lang={lang}
       />
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import Label from '../html/label';
 import InputText from '../html/input_text';
 
-const FormRowSingleLine = ({div, label, input}) => {
+const FormRowSingleInput = ({div, label, input}) => {
   return (
     <div
       style={div.style !== undefined ? div.style : {}}
@@ -30,4 +30,4 @@ const FormRowSingleLine = ({div, label, input}) => {
   );
 };
 
-export default FormRowSingleLine;
+export default FormRowSingleInput;

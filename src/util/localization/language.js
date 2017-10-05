@@ -15,4 +15,8 @@ export const getLanguage = () => {
   return language;
 };
 
+export const getLanguages = () => {
+  return [Language.SV, Language.EN];
+};
+
 export default Language;

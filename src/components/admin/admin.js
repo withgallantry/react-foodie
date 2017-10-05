@@ -7,6 +7,7 @@ import { getTemplateItems } from '../../util/util';
 import Event, { propToEvent } from './event';
 import { URL } from '../../util/constants';
 import Config, { getConfig, setConfig } from '../../util/config';
+import Language from '../../util/localization/language';
 
 class Admin extends Component {
   constructor() {
@@ -43,6 +44,7 @@ class Admin extends Component {
     assign(this.events, this.moveMenuUp,       Event.MOVE_MENU_UP);
     assign(this.events, this.moveMenuDown,     Event.MOVE_MENU_DOWN);
     assign(this.events, this.deleteAll,        Event.DELETE_ALL);
+    assign(this.events, this.changeLang,       Event.CHANGE_LANG);
   }
 
   componentDidMount() {
@@ -70,7 +72,8 @@ class Admin extends Component {
       deleteAllEnabled: true,
       images: null,
       menu: null,
-      currentId: null
+      currentId: null,
+      lang: Language.SV,
     };
   }
 
@@ -85,7 +88,10 @@ class Admin extends Component {
         ? this.state.tags
         : this.state.tags.replace(/\s/g,'').split(','),
       menu: this.state.menu,
-      images: this.state.images,
+      images:
+        this.state.images === undefined
+          ? { gallery : '', banner : ''}
+          : this.state.images,
       modified: new Date().toISOString()
     };
   }
@@ -241,118 +247,130 @@ class Admin extends Component {
     this.clearForm();
   }
 
-  changeMenuItem(menuIndex, itemIndex, prop, value) {
+  changeMenuItem([menuIndex, itemIndex, prop, lang], value) {
     var menu = this.state.menu;
-    menu[menuIndex].items[itemIndex][prop] = value;
+    menu[lang][menuIndex].items[itemIndex][prop] = value;
     this.setState({ menu });
   }
 
-  changeMenuName(menuIndex, value) {
+  changeMenuName([menuIndex, lang], value) {
     var menu = this.state.menu;
-    menu[menuIndex].name = value;
+    menu[lang][menuIndex].name = value;
     this.setState({ menu });
   }
 
-  removeMenuItem(args) {
-    const menuIndex = args[0];
-    const itemIndex = args[1];
+  removeMenuItem([menuIndex, itemIndex]) {
     var menu = this.state.menu;
-    menu[menuIndex].items.splice(itemIndex, 1);
+    menu[Language.SV][menuIndex].items.splice(itemIndex, 1);
+    menu[Language.EN][menuIndex].items.splice(itemIndex, 1);
     this.setState({ menu });
   }
 
-  removeMenu(args) {
-    const menuIndex = args[0];
+  removeMenu([menuIndex]) {
     var menu = this.state.menu;
-    menu.splice(menuIndex, 1);
+    menu[Language.SV].splice(menuIndex, 1);
+    menu[Language.EN].splice(menuIndex, 1);
     this.setState({ menu });
   }
 
-  newMenuItem(args) {
-    const menuIndex = args[0];
+  newMenuItem([menuIndex]) {
     var menu = this.state.menu;
-    menu[menuIndex].items.push({
-      name :  '',
-      desc :  '',
+    var newItem = {
+      name : '',
+      desc : '',
       price : ''
-    });
+    };
+    menu[Language.SV][menuIndex].items.push(newItem);
+    menu[Language.EN][menuIndex].items.push(newItem);
     this.setState({ menu });
   }
 
   newMenu() {
     var menu = this.state.menu;
-    if (! menu) {
-      menu = [];
-    }
-    menu.push({
-      name  : '',
+    menu[Language.SV].push({
+      name : '',
       items : []
     });
+    menu[Language.EN].push({
+      name : '',
+      items : []
+    });
+
     this.setState({ menu })
   }
 
-  moveMenuItemUp(args) {
-    var menu = args[0];
-    var item = args[1];
-    var menus = this.state.menu;
-    menu = menus[menu];
-    if (menu.items.length > 1) {
-      var target = item - 1;
-      if (target < 0) {
-        target = menu.items.length - 1;
+  moveMenuItemUp([menuIndex, itemIndex]) {
+    let menu = this.state.menu;
+    let lang = [Language.SV, Language.EN];
+    for (let i = 0; i < 2; ++i) {
+      if (menu[lang[i]][menuIndex].items.length > 1) {
+        let target = itemIndex - 1;
+        if (target < 0) {
+          target = menu[lang[i]][menuIndex].items.length - 1;
+        }
+        var temp = menu[lang[i]][menuIndex].items[target];
+        menu[lang[i]][menuIndex].items[target] = menu[lang[i]][menuIndex].items[itemIndex];
+        menu[lang[i]][menuIndex].items[itemIndex] = temp;
+        this.setState({ menu });
       }
-      var temp = menu.items[target];
-      menu.items[target] = menu.items[item];
-      menu.items[item] = temp;
-      this.setState({ menu : menus });
     }
   }
 
-  moveMenuItemDown(args) {
-    var menu = args[0];
-    var item = args[1];
-    var menus = this.state.menu;
-    menu = menus[menu];
-    if (menu.items.length > 1) {
-      var target = item + 1;
-      if (target >= menu.items.length) {
-        target = 0;
-      }
-      var temp = menu.items[target];
-      menu.items[target] = menu.items[item];
-      menu.items[item] = temp;
-      this.setState({ menu : menus });
-    }
-  }
-
-  moveMenuUp(args) {
-    var index = args[0];
+  moveMenuItemDown([menuIndex, itemIndex]) {
     var menu = this.state.menu;
-    if (menu.length > 1) {
-      var target = index - 1;
-      if (target < 0) {
-        target = menu.length - 1;
+    let lang = [Language.SV, Language.EN];
+    for (let i = 0; i < 2; ++i) {
+      if (menu[lang[i]][menuIndex].items.length > 1) {
+        let target = itemIndex + 1;
+        if (target >= menu[lang[i]][menuIndex].items.length) {
+          target = 0;
+        }
+        var temp = menu[lang[i]][menuIndex].items[target];
+        menu[lang[i]][menuIndex].items[target] = menu[lang[i]][menuIndex].items[itemIndex];
+        menu[lang[i]][menuIndex].items[itemIndex] = temp;
+        this.setState({ menu });
       }
-      var temp = menu[target];
-      menu[target] = menu[index];
-      menu[index] = temp;
-      this.setState({ menu });
     }
   }
 
-  moveMenuDown(args) {
-    var index = args[0];
+  moveMenuUp([index]) {
     var menu = this.state.menu;
-    if (menu.length > 1) {
-      var target = index + 1;
-      if (target >= menu.length) {
-        target = 0;
+    let lang = [Language.SV, Language.EN];
+    for (let i = 0; i < 2; ++i) {
+      if (menu[lang[i]].length > 1) {
+        var target = index - 1;
+        if (target < 0) {
+          target = menu[lang[i]].length - 1;
+        }
+        var temp = menu[lang[i]][target];
+        menu[lang[i]][target] = menu[lang[i]][index];
+        menu[lang[i]][index] = temp;
+        this.setState({ menu });
       }
-      var temp = menu[target];
-      menu[target] = menu[index];
-      menu[index] = temp;
-      this.setState({ menu });
     }
+  }
+
+  moveMenuDown([index]) {
+    var menu = this.state.menu;
+    let lang = [Language.SV, Language.EN];
+    for (let i = 0; i < 2; ++i) {
+      if (menu[lang[i]].length > 1) {
+        var target = index + 1;
+        if (target >= menu[lang[i]].length) {
+          target = 0;
+        }
+        var temp = menu[lang[i]][target];
+        menu[lang[i]][target] = menu[lang[i]][index];
+        menu[lang[i]][index] = temp;
+        this.setState({ menu });
+      }
+    }
+  }
+
+  changeLang() {
+    var lang = this.state.lang;
+    lang = lang === Language.SV ? Language.EN : Language.SV;
+    this.setState({ lang });
   }
 
   onClick(id, args) {
@@ -388,9 +406,9 @@ class Admin extends Component {
       this.setState({ images });
     }
     else if (label === Event.CHANGE_MENU_ITEM) {
-      this.changeMenuItem(args[1], args[2], args[3], value);
+      this.changeMenuItem(args.slice(1), value);
     } else if (label === Event.CHANGE_MENU_NAME) {
-      this.changeMenuName(args[1], value);
+      this.changeMenuName(args.slice(1), value);
     }
   }
 
@@ -438,6 +456,7 @@ class Admin extends Component {
           deleteEnabled={this.state.deleteEnabled}
           deleteAllEnabled={this.state.deleteAllEnabled}
           _key={getConfig(Config.KEY)}
+          lang={this.state.lang}
         />
         <hr />
         <Form
@@ -451,6 +470,7 @@ class Admin extends Component {
           menu={this.state.menu}
           onClick={this.onClick}
           onChange={this.onChangeForm}
+          lang={this.state.lang}
         />
       </div>
     );
