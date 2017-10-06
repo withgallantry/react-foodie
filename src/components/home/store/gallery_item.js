@@ -30,7 +30,7 @@ const GalleryItem = (props) => {
         return <p key={`${props.name}${tag}`} style={tagStyle}>&bull; {tag} </p>
       })}
       {<p style={tagStyle}>&bull;</p>} <br />
-      {props.hours[0]} - {props.hours[1]}
+      {props.hours.opensAt} - {props.hours.closesAt}
     </div>
   );
 };

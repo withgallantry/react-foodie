@@ -67,7 +67,7 @@ class Admin extends Component {
       foodPlaces: [],
       name: '',
       address: '',
-      hours: [],
+      hours: null,
       tags: [],
       deleteEnabled: true,
       deleteAllEnabled: true,
@@ -82,9 +82,10 @@ class Admin extends Component {
     return {
       name: this.state.name,
       address: this.state.address,
-      hours: this.state.hours.constructor === Array
-        ? this.state.hours
-        : removeWhiteSpace(this.state.hours).split(','),
+      hours:
+        this.state.hours === undefined
+          ? { opensAt : '', closesAt : ''}
+          : this.state.hours,
       tags: this.state.tags.constructor === Array
         ? this.state.tags
         : removeWhiteSpace(this.state.tags).split(','),
@@ -408,19 +409,37 @@ class Admin extends Component {
     console.log(`onChangeForm(${value}, ${args})[event=${event}]`);
 
     // events where only prop and value is needed
-    const events = [
-      Event.NAME_CHANGE,  Event.TAGS_CHANGE,
-      Event.HOURS_CHANGE, Event.ADDRESS_CHANGE];
+    const events = [Event.NAME_CHANGE, Event.TAGS_CHANGE, Event.ADDRESS_CHANGE];
 
     if (events.includes(event)) {
       this.setState({ [label] : value })
+    } else if (event == Event.HOURS_OPENS_CHANGE) {
+      let hours = this.state.hours;
+      if (! hours) {
+        hours = { opensAt : '', closesAt : ''};
+      }
+      hours.opensAt = value;
+      this.setState({ hours });
+    } else if (event == Event.HOURS_CLOSES_CHANGE) {
+      if (! hours) {
+        hours = { opensAt : '', closesAt : ''};
+      }
+      let hours = this.state.hours;
+      hours.closesAt = value;
+      this.setState({ hours });
     } else if (event === Event.IMAGES_GALLERY_CHANGE) {
       let images = this.state.images;
+      if (! images) {
+        images = { gallery : '', banner : ''};
+      }
       images.gallery = value;
       this.setState({ images });
     }
     else if (event === Event.IMAGES_BANNER_CHANGE) {
       let images = this.state.images;
+      if (! images) {
+        images = { gallery : '', banner : ''};
+      }
       images.banner = value;
       this.setState({ images });
     }

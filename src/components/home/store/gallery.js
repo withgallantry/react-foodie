@@ -81,11 +81,9 @@ class Gallery extends Component {
   }
 
   createStores() {
-    console.log("creating stores...");
-    console.log(localize(this.state.stores[0].tags, Language.SV));
     var stores = this.state.stores;
     _.forEach(stores, (store) => {
-      store.isOpen = this.storeIsOpen(store.hours);
+      store.isOpen = this.storeIsOpen([store.hours.opensAt, store.hours.closesAt]);
     });
     stores = _.orderBy(stores, ['isOpen'], ['desc']);
     stores = _.map(stores, (store) => {

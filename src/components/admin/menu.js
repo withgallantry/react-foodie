@@ -5,6 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import FormButtonBar from './form_button_bar';
 import InputText from '../html/input_text';
 import Event from './event';
+import DropDown from '../html/drop_down';
 
 const selectStyle = {
   height: '118px'
@@ -40,32 +41,30 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, 
     );
   }
 
-  let items = _.map(foodPlaces, (foodPlace) => {
-    return (
-      <li onClick={() => onClick(Event.SHOW, [foodPlace.id])} key={`${foodPlace.name}${foodPlace.id}`}>
-        <a href='#/admin'>{foodPlace.name}</a>
-      </li>
-    );
+  let rows = _.map(foodPlaces, (foodPlace) => {
+    return {
+      value : foodPlace.name,
+      args : [foodPlace.id]
+    };
   });
 
-  items.sort((a, b) => {
-    return a.key.localeCompare(b.key) > 0;
+  rows.sort((a, b) => {
+    return a.value.localeCompare(b.key) > 0;
   });
 
   return (
     <div style={selectStyle}>
-      <div style={dropDownStyle} className="dropdown">
-        <button
-          className="btn btn-primary dropdown-toggle"
-          type="button"
-          data-toggle="dropdown">
-          Food places ({items.length}) &nbsp;
-          <span className="caret"></span>
-        </button>
-        <ul className="dropdown-menu">
-          {items}
-        </ul>
-      </div>
+      <DropDown
+        style={dropDownStyle}
+        classes='btn-primary'
+        rows={rows}
+        onClick={{
+          func : onClick,
+          id : Event.SHOW
+        }}
+        title={`Stores (${rows.length})`}
+        href='#/admin'
+      />
       {/* Search bars */}
       <InputText
         size={searchStoreSize}

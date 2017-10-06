@@ -51,12 +51,30 @@ const Form = (props) => {
     };
   });
 
+  // remove 'hours' from rows, modify and add back.
+  let hoursIndex = _.findIndex(rows, (row) => {
+    return row.label === 'hours';
+  });
+  if (hoursIndex >= 0) {
+    let hours = rows.splice(hoursIndex, 1)[0];
+    if (! hours.value) {
+      hours.value = {
+        start : '',
+        end : ''
+      };
+    }
+    if (hours.value) {
+      rows.push({ label: 'hours.opensAt',  value: hours.value.opensAt });
+      rows.push({ label: 'hours.closesAt', value: hours.value.closesAt });
+    }
+  }
+
   // remove 'images' from rows, modify and add back.
   let imagesIndex = _.findIndex(rows, (row) => {
     return row.label === 'images';
   });
   if (imagesIndex >= 0) {
-    var images = rows.splice(imagesIndex, 1)[0];
+    let images = rows.splice(imagesIndex, 1)[0];
     if (! images.value) {
       images.value = {
         gallery : '',
@@ -87,6 +105,10 @@ const Form = (props) => {
             func : props.onChange,
             args : [row.label]
           }
+        }}
+        dropdown={{
+            values : ['1', '2', '3'],
+            id : 0
         }}
       />
     );

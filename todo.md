@@ -13,3 +13,6 @@ tags -> select from drop down, type-ahead ish?
 admin -> save form when editing instead of clicking button
 loading gif
 foodPlace -> store
+reorder events numbers (admin)
+new -> images error
+refactor admin.js
