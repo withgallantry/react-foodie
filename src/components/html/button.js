@@ -4,6 +4,7 @@ const Button = (props) => {
   return (
       <button
         data-tip={props.tooltip !== undefined ? props.tooltip : void(0)}
+        data-delay-show='500'
         disabled={props.disabled !== undefined ? props.disabled : false}
         className={props.classes !== undefined ? props.classes : 'btn btn-default'}
         style={props.style !== undefined ? props.style : {}}

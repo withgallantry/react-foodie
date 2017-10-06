@@ -130,6 +130,8 @@ class Admin extends Component {
   save() {
     var currentId = this.state.currentId;
     if (currentId !== null) {
+      console.log("saving...");
+      console.log(this.getCurrentItem());
       axios.put(`${URL}/${currentId}`, this.getCurrentItem()).then((response) => {
         console.log(`updated food place with id ${currentId}`);
         this.load();
@@ -248,9 +250,10 @@ class Admin extends Component {
   }
 
   changeMenuItem([menuIndex, itemIndex, prop, lang], value) {
-    console.log(lang);
     var menu = this.state.menu;
-    menu[lang][menuIndex].items[itemIndex][prop] = value;
+    console.log(menu);
+    menu[lang][menuIndex].items[itemIndex][prop] = 'asdf';
+    console.log(menu);
     this.setState({ menu });
   }
 
