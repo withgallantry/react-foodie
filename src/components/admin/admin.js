@@ -3,7 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import Form from './form';
 import Menu from './menu';
-import { getTemplateItems } from '../../util/util';
+import { removeWhiteSpace, getTemplateItems, cloneDeep } from '../../util/util';
 import Event, { propToEvent } from './event';
 import { URL } from '../../util/constants';
 import Config, { getConfig, setConfig } from '../../util/config';
@@ -45,6 +45,7 @@ class Admin extends Component {
     assign(this.events, this.moveMenuDown,     Event.MOVE_MENU_DOWN);
     assign(this.events, this.deleteAll,        Event.DELETE_ALL);
     assign(this.events, this.changeLang,       Event.CHANGE_LANG);
+    assign(this.events, this.clone,            Event.CLONE);
   }
 
   componentDidMount() {
@@ -56,7 +57,7 @@ class Admin extends Component {
   }
 
   clearForm() {
-    var state = this.getDefaultState();
+    const state = this.getDefaultState();
     state.foodPlaces = this.state.foodPlaces;
     this.setState(state);
   }
@@ -83,10 +84,10 @@ class Admin extends Component {
       address: this.state.address,
       hours: this.state.hours.constructor === Array
         ? this.state.hours
-        : this.state.hours.replace(/\s/g,'').split(','),
+        : removeWhiteSpace(this.state.hours).split(','),
       tags: this.state.tags.constructor === Array
         ? this.state.tags
-        : this.state.tags.replace(/\s/g,'').split(','),
+        : removeWhiteSpace(this.state.tags).split(','),
       menu: this.state.menu,
       images:
         this.state.images === undefined
@@ -128,7 +129,7 @@ class Admin extends Component {
   }
 
   save() {
-    var currentId = this.state.currentId;
+    let currentId = this.state.currentId;
     if (currentId !== null) {
       console.log("saving...");
       console.log(this.getCurrentItem());
@@ -150,7 +151,7 @@ class Admin extends Component {
   }
 
   show(args) {
-    var id = args;
+    let id = args;
     if (args.constructor === Array) {
       id = args[0];
     }
@@ -171,12 +172,12 @@ class Admin extends Component {
   }
 
   copy() {
-    var item = this.getCurrentItem();
+    const item = this.getCurrentItem();
     item.name = `${item.name} (copy)`;
     axios.post(this.getUrl(), item).then((response) => {
       console.log('added food place');
       this.load((foodplaces) => {
-        var match = _.find(foodplaces, (obj) => {
+        let match = _.find(foodplaces, (obj) => {
           return obj._id === response.data[0]._id;
         });
         if (match) {
@@ -233,7 +234,7 @@ class Admin extends Component {
     axios.post(this.getUrl(), getTemplateItems()).then((response) => {
       console.log('added food place');
       this.load((foodPlaces) => {
-        var match = _.find(foodPlaces, (obj) => {
+        let match = _.find(foodPlaces, (obj) => {
           return obj._id === response.data[0]._id;
         });
         if (match) {
@@ -250,36 +251,37 @@ class Admin extends Component {
   }
 
   changeMenuItem([menuIndex, itemIndex, prop, lang], value) {
-    var menu = this.state.menu;
-    console.log(menu);
-    menu[lang][menuIndex].items[itemIndex][prop] = 'asdf';
-    console.log(menu);
+    // TODO : for some reason i need to clone this deeply, otherwise
+    // some weird reference error appears, look into it when u got time.
+    // both language versions will get the changes if i dont clone, strangely.
+    const menu = cloneDeep(this.state.menu);
+    menu[lang][menuIndex].items[itemIndex][prop] = value;
     this.setState({ menu });
   }
 
   changeMenuName([menuIndex, lang], value) {
-    var menu = this.state.menu;
+    let menu = this.state.menu;
     menu[lang][menuIndex].name = value;
     this.setState({ menu });
   }
 
   removeMenuItem([menuIndex, itemIndex]) {
-    var menu = this.state.menu;
+    let menu = this.state.menu;
     menu[Language.SV][menuIndex].items.splice(itemIndex, 1);
     menu[Language.EN][menuIndex].items.splice(itemIndex, 1);
     this.setState({ menu });
   }
 
   removeMenu([menuIndex]) {
-    var menu = this.state.menu;
+    let menu = this.state.menu;
     menu[Language.SV].splice(menuIndex, 1);
     menu[Language.EN].splice(menuIndex, 1);
     this.setState({ menu });
   }
 
   newMenuItem([menuIndex]) {
-    var menu = this.state.menu;
-    var newItem = {
+    let menu = this.state.menu;
+    let newItem = {
       name : '',
       desc : '',
       price : ''
@@ -290,7 +292,7 @@ class Admin extends Component {
   }
 
   newMenu() {
-    var menu = this.state.menu;
+    let menu = this.state.menu;
     menu[Language.SV].push({
       name : '',
       items : []
@@ -321,7 +323,7 @@ class Admin extends Component {
   }
 
   moveMenuItemDown([menuIndex, itemIndex]) {
-    var menu = this.state.menu;
+    let menu = this.state.menu;
     let lang = [Language.SV, Language.EN];
     for (let i = 0; i < 2; ++i) {
       if (menu[lang[i]][menuIndex].items.length > 1) {
@@ -338,7 +340,7 @@ class Admin extends Component {
   }
 
   moveMenuUp([index]) {
-    var menu = this.state.menu;
+    let menu = this.state.menu;
     let lang = [Language.SV, Language.EN];
     for (let i = 0; i < 2; ++i) {
       if (menu[lang[i]].length > 1) {
@@ -355,7 +357,7 @@ class Admin extends Component {
   }
 
   moveMenuDown([index]) {
-    var menu = this.state.menu;
+    let menu = this.state.menu;
     let lang = [Language.SV, Language.EN];
     for (let i = 0; i < 2; ++i) {
       if (menu[lang[i]].length > 1) {
@@ -372,9 +374,22 @@ class Admin extends Component {
   }
 
   changeLang() {
-    var lang = this.state.lang;
+    let lang = this.state.lang;
     lang = lang === Language.SV ? Language.EN : Language.SV;
     this.setState({ lang });
+  }
+
+  clone([menuIndex, itemIndex]) {
+    const currentLang = this.state.lang;
+    let fetchLang = currentLang === Language.SV ? Language.EN : Language.SV;
+    const menu = cloneDeep(this.state.menu);
+    if (itemIndex !== undefined) {
+      menu[currentLang][menuIndex].items[itemIndex]
+        = menu[fetchLang][menuIndex].items[itemIndex];
+    } else {
+      menu[currentLang][menuIndex].name = menu[fetchLang][menuIndex].name;
+    }
+    this.setState({ menu });
   }
 
   onClick(id, args) {
@@ -388,8 +403,8 @@ class Admin extends Component {
   }
 
   onChangeForm(value, args) {
-    var label = args[0];
-    var event = propToEvent(label);
+    let label = args[0];
+    let event = propToEvent(label);
     console.log(`onChangeForm(${value}, ${args})[event=${event}]`);
 
     // events where only prop and value is needed
@@ -400,12 +415,12 @@ class Admin extends Component {
     if (events.includes(event)) {
       this.setState({ [label] : value })
     } else if (event === Event.IMAGES_GALLERY_CHANGE) {
-      var images = this.state.images;
+      let images = this.state.images;
       images.gallery = value;
       this.setState({ images });
     }
     else if (event === Event.IMAGES_BANNER_CHANGE) {
-      var images = this.state.images;
+      let images = this.state.images;
       images.banner = value;
       this.setState({ images });
     }
@@ -429,7 +444,7 @@ class Admin extends Component {
   }
 
   onChangeKey(value) {
-    value = value.replace(/\s/g,'');
+    value = removeWhiteSpace(value);
     console.log(value);
     if (value.length > 0) {
         setConfig(Config.KEY, value);

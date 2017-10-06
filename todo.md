@@ -12,6 +12,7 @@ tags -> select from drop down, type-ahead ish?
   predefined set of tags I guess?
 admin -> save form when editing instead of clicking button
 loading gif
+foodPlace -> store
 
 # menu[0].items -> menu[0]['sv'].items
 admin -> dropdown lang [ SV (v)]

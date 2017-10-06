@@ -8,28 +8,29 @@ const Event = Object.freeze({
   SEARCH                : 6,
   ADD_TEMPLATE          : 7,
 
-  NAME_CHANGE           : 9,
-  TAGS_CHANGE           : 10,
-  HOURS_CHANGE          : 11,
-  ADDRESS_CHANGE        : 12,
-  IMAGES_GALLERY_CHANGE : 13,
-  IMAGES_BANNER_CHANGE  : 14,
+  NAME_CHANGE           : 8,
+  TAGS_CHANGE           : 9,
+  HOURS_CHANGE          : 10,
+  ADDRESS_CHANGE        : 11,
+  IMAGES_GALLERY_CHANGE : 12,
+  IMAGES_BANNER_CHANGE  : 13,
 
-  CHANGE_MENU_ITEM      : 15,
-  CHANGE_MENU_NAME      : 16,
-  REMOVE_MENU_ITEM      : 17,
-  REMOVE_MENU           : 18,
-  NEW_MENU_ITEM         : 19,
-  NEW_MENU              : 20,
+  CHANGE_MENU_ITEM      : 14,
+  CHANGE_MENU_NAME      : 15,
+  REMOVE_MENU_ITEM      : 16,
+  REMOVE_MENU           : 17,
+  NEW_MENU_ITEM         : 18,
+  NEW_MENU              : 19,
 
-  MOVE_MENU_ITEM_UP     : 21,
-  MOVE_MENU_ITEM_DOWN   : 22,
-  MOVE_MENU_UP          : 23,
-  MOVE_MENU_DOWN        : 24,
+  MOVE_MENU_ITEM_UP     : 20,
+  MOVE_MENU_ITEM_DOWN   : 21,
+  MOVE_MENU_UP          : 22,
+  MOVE_MENU_DOWN        : 23,
 
-  GET_JSON              : 25,
-  CHANGE_KEY            : 26,
-  CHANGE_LANG           : 27,
+  GET_JSON              : 24,
+  CHANGE_KEY            : 25,
+  CHANGE_LANG           : 26,
+  CLONE                 : 27
 });
 
 const lut = {
@@ -49,7 +50,7 @@ export const propToEvent = (prop) => {
   }
 
   if (prop.indexOf('.') >= 0) {
-    var props = prop.split('.');
+    let props = prop.split('.');
     return lut[props[0]][props[1]];
   }
   return lut[prop];

@@ -1,12 +1,13 @@
 import React from 'react';
 import Button from '../html/button';
 
-export const createButton = (glyph, func, id, args, style) => {
+export const createButton = (glyph, func, id, args, style, tooltip) => {
   return (
     <ButtonRow
       style={style}
       glyphicon={glyph}
       onClick={{ func, id, args }}
+      tooltip={tooltip !== undefined ? tooltip : void(0)}
     />
   );
 };
@@ -22,6 +23,7 @@ const ButtonRow = (props) => {
         args : props.onClick.args
       }}
       classes=''
+      tooltip={props.tooltip !== undefined ? props.tooltip : void(0)}
     />
   );
 };

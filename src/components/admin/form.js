@@ -44,7 +44,7 @@ const langBtnStyle = {
 };
 
 const Form = (props) => {
-  var rows = _.map(Object.keys(props.singleInput), (key) => {
+  let rows = _.map(Object.keys(props.singleInput), (key) => {
     return {
       label: key,
       value: props.singleInput[key]
@@ -52,7 +52,7 @@ const Form = (props) => {
   });
 
   // remove 'images' from rows, modify and add back.
-  var imagesIndex = _.findIndex(rows, (row) => {
+  let imagesIndex = _.findIndex(rows, (row) => {
     return row.label === 'images';
   });
   if (imagesIndex >= 0) {
@@ -70,7 +70,7 @@ const Form = (props) => {
   }
 
   // single input form rows
-  var singleInputFormRows = _.map(rows, (row) => {
+  let singleInputFormRows = _.map(rows, (row) => {
     return (
       <FormRowSingleInput
         key={row.label}
@@ -93,7 +93,7 @@ const Form = (props) => {
   });
 
   // multi input form rows
-  var multiInputFormRows = [];
+  let multiInputFormRows = [];
   if (props.menu) {
     let menu = props.menu[props.lang];
     for (let i = 0; i < menu.length; ++i) {
