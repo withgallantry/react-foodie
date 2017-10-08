@@ -36,3 +36,13 @@ span.gallery-closed-text {
   text-align: center;
   color: rgb(235, 235, 235);
 }
+
+.dropdown-menu {
+  min-width: 0px;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}

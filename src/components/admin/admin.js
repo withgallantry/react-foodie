@@ -29,23 +29,27 @@ class Admin extends Component {
     }
 
     // assign functors for events
-    assign(this.events, this.new,              Event.NEW);
-    assign(this.events, this.save,             Event.SAVE);
-    assign(this.events, this.copy,             Event.COPY);
-    assign(this.events, this.show,             Event.SHOW);
-    assign(this.events, this.delete,           Event.DELETE);
-    assign(this.events, this.addTemplate,      Event.ADD_TEMPLATE);
-    assign(this.events, this.removeMenuItem,   Event.REMOVE_MENU_ITEM);
-    assign(this.events, this.removeMenu,       Event.REMOVE_MENU);
-    assign(this.events, this.newMenuItem,      Event.NEW_MENU_ITEM);
-    assign(this.events, this.newMenu,          Event.NEW_MENU);
-    assign(this.events, this.moveMenuItemUp,   Event.MOVE_MENU_ITEM_UP);
-    assign(this.events, this.moveMenuItemDown, Event.MOVE_MENU_ITEM_DOWN);
-    assign(this.events, this.moveMenuUp,       Event.MOVE_MENU_UP);
-    assign(this.events, this.moveMenuDown,     Event.MOVE_MENU_DOWN);
-    assign(this.events, this.deleteAll,        Event.DELETE_ALL);
-    assign(this.events, this.changeLang,       Event.CHANGE_LANG);
-    assign(this.events, this.clone,            Event.CLONE);
+    assign(this.events, this.new,                   Event.NEW);
+    assign(this.events, this.save,                  Event.SAVE);
+    assign(this.events, this.copy,                  Event.COPY);
+    assign(this.events, this.show,                  Event.SHOW);
+    assign(this.events, this.delete,                Event.DELETE);
+    assign(this.events, this.addTemplate,           Event.ADD_TEMPLATE);
+    assign(this.events, this.removeMenuItem,        Event.REMOVE_MENU_ITEM);
+    assign(this.events, this.removeMenu,            Event.REMOVE_MENU);
+    assign(this.events, this.newMenuItem,           Event.NEW_MENU_ITEM);
+    assign(this.events, this.newMenu,               Event.NEW_MENU);
+    assign(this.events, this.moveMenuItemUp,        Event.MOVE_MENU_ITEM_UP);
+    assign(this.events, this.moveMenuItemDown,      Event.MOVE_MENU_ITEM_DOWN);
+    assign(this.events, this.moveMenuUp,            Event.MOVE_MENU_UP);
+    assign(this.events, this.moveMenuDown,          Event.MOVE_MENU_DOWN);
+    assign(this.events, this.deleteAll,             Event.DELETE_ALL);
+    assign(this.events, this.changeLang,            Event.CHANGE_LANG);
+    assign(this.events, this.clone,                 Event.CLONE);
+    assign(this.events, this.hoursOpensChange,      Event.HOURS_OPENS_CHANGE);
+    assign(this.events, this.hoursClosesChange,     Event.HOURS_CLOSES_CHANGE);
+    assign(this.events, this.minutesOpensChange,    Event.MINUTES_OPENS_CHANGE);
+    assign(this.events, this.minutesClosesChange,   Event.MINUTES_CLOSES_CHANGE);
   }
 
   componentDidMount() {
@@ -84,7 +88,10 @@ class Admin extends Component {
       address: this.state.address,
       hours:
         this.state.hours === undefined
-          ? { opensAt : '', closesAt : ''}
+          ? {
+              opensAt  : { hours : '', minutes : '' },
+              closesAt : { hours : '', minutes : '' }
+            }
           : this.state.hours,
       tags: this.state.tags.constructor === Array
         ? this.state.tags
@@ -393,13 +400,36 @@ class Admin extends Component {
     this.setState({ menu });
   }
 
+  hoursOpensChange(arg) {
+    let hours = this.state.hours;
+    hours.opensAt.hours = arg;
+    this.setState({ hours });
+  }
+
+  hoursClosesChange(arg) {
+    let hours = this.state.hours;
+    hours.closesAt.hours = arg;
+    this.setState({ hours });
+  }
+
+  minutesOpensChange(arg) {
+    let hours = this.state.hours;
+    hours.opensAt.minutes = arg;
+    this.setState({ hours });
+  }
+
+  minutesClosesChange(arg) {
+    let hours = this.state.hours;
+    hours.closesAt.minutes = arg;
+    this.setState({ hours });
+  }
+
   onClick(id, args) {
     if (args) {
       console.log(`onClick[${id}](${args[0]}, ${args[1]}, ${args[2]})`);
     } else {
       console.log(`onClick[${id}](undefined)`);
     }
-
     this.events[id](args);
   }
 
@@ -413,21 +443,8 @@ class Admin extends Component {
 
     if (events.includes(event)) {
       this.setState({ [label] : value })
-    } else if (event == Event.HOURS_OPENS_CHANGE) {
-      let hours = this.state.hours;
-      if (! hours) {
-        hours = { opensAt : '', closesAt : ''};
-      }
-      hours.opensAt = value;
-      this.setState({ hours });
-    } else if (event == Event.HOURS_CLOSES_CHANGE) {
-      if (! hours) {
-        hours = { opensAt : '', closesAt : ''};
-      }
-      let hours = this.state.hours;
-      hours.closesAt = value;
-      this.setState({ hours });
-    } else if (event === Event.IMAGES_GALLERY_CHANGE) {
+    }
+    else if (event === Event.IMAGES_GALLERY_CHANGE) {
       let images = this.state.images;
       if (! images) {
         images = { gallery : '', banner : ''};

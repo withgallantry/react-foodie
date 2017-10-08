@@ -6,6 +6,7 @@ import Button from '../html/button';
 import { createButton } from './button_row';
 import Event from './event';
 import Language from '../../util/localization/language';
+import { replaceAt, sequence, cloneDeep } from '../../util/util';
 
 const formStyle = {
   position: 'absolute',
@@ -33,14 +34,25 @@ const newMenuBtnStyle = {
 };
 
 const dropDownStyle = {
-  marginLeft: '160px',
-  marginBottom: '10px',
-  paddingTop: '5px'
+  display: 'inline',
 };
 
 const langBtnStyle = {
   marginLeft: '160px',
   marginBottom: '15px'
+};
+
+const createListSequence = (begin, end, interval = 1) => {
+  let seq = sequence(begin, end, interval);
+  let result = [];
+  for (let i of seq) {
+    let str = i < 10 ? `0${i}` : i;
+    result.push({
+      value : str,
+      args : [str]
+    });
+  }
+  return result;
 };
 
 const Form = (props) => {
@@ -59,13 +71,34 @@ const Form = (props) => {
     let hours = rows.splice(hoursIndex, 1)[0];
     if (! hours.value) {
       hours.value = {
-        start : '',
-        end : ''
+        opensAt : { hours : '', minutes : '' },
+        closesAt : { hours : '', minutes : '' }
       };
     }
     if (hours.value) {
-      rows.push({ label: 'hours.opensAt',  value: hours.value.opensAt });
-      rows.push({ label: 'hours.closesAt', value: hours.value.closesAt });
+      let opensAt  = { label : 'hours.opensAt'  };
+      let closesAt = { label : 'hours.closesAt' };
+      let dropDown = {
+        count : 2,
+        style : dropDownStyle,
+        rows : [createListSequence(0, 23), createListSequence(0, 55, 5)],
+        href : "#/admin"
+      };
+
+      let opensAtDropDown = cloneDeep(dropDown);
+      opensAtDropDown.selected = [hours.value.opensAt.hours, hours.value.opensAt.minutes];
+      opensAtDropDown.ids = [Event.HOURS_OPENS_CHANGE, Event.MINUTES_OPENS_CHANGE];
+      opensAtDropDown.onClick = props.onClick;
+
+      let closesAtDropDown = cloneDeep(dropDown);
+      closesAtDropDown.selected = [hours.value.closesAt.hours, hours.value.closesAt.minutes];
+      closesAtDropDown.ids = [Event.HOURS_CLOSES_CHANGE, Event.MINUTES_CLOSES_CHANGE];
+      closesAtDropDown.onClick = props.onClick;
+
+      opensAt.dropDown = opensAtDropDown;
+      closesAt.dropDown = closesAtDropDown;
+      rows.push(opensAt);
+      rows.push(closesAt);
     }
   }
 
@@ -106,10 +139,7 @@ const Form = (props) => {
             args : [row.label]
           }
         }}
-        dropdown={{
-            values : ['1', '2', '3'],
-            id : 0
-        }}
+        dropDown={row.dropDown}
       />
     );
   });
