@@ -16,3 +16,4 @@ foodPlace -> store
 reorder events numbers (admin)
 new -> images error
 refactor admin.js
+store folder -> gallery
