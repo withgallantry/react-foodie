@@ -166,10 +166,12 @@ class Admin extends Component {
     if (args.constructor === Array) {
       id = args[0];
     }
+    console.log(this.state.foodPlaces);
     var foodPlace = _.find(this.state.foodPlaces, (foodPlace) => {
       return foodPlace._id === id;
     });
     if (foodPlace) {
+      console.log("found food place");
       this.setState({
         name: foodPlace.name,
         address: foodPlace.address,

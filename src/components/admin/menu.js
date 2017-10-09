@@ -60,7 +60,7 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, 
         rows={rows}
         onClick={{
           func : onClick,
-          id : Event.SHOW
+          id : Event.SHOW,
         }}
         title={`Stores (${rows.length})`}
         href='#/admin'
