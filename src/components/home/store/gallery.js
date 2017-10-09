@@ -83,7 +83,7 @@ class Gallery extends Component {
   createStores() {
     var stores = this.state.stores;
     _.forEach(stores, (store) => {
-      store.isOpen = this.storeIsOpen([store.hours.opensAt, store.hours.closesAt]);
+      store.isOpen = this.storeIsOpen(store.hours);
     });
     stores = _.orderBy(stores, ['isOpen'], ['desc']);
     stores = _.map(stores, (store) => {
@@ -102,23 +102,25 @@ class Gallery extends Component {
     return _.orderBy(stores, ['isOpen'], ['asc']);
   }
 
-  storeIsOpen([opens, closes]) {
-    opens = opens.split('.');
-    closes = closes.split('.');
+  storeIsOpen({ opensAt, closesAt }) {
+    let opensAtMinutes = opensAt.minutes;
+    let opensAtHours = opensAt.hours;
+    let closesAtMinutes = closesAt.minutes;
+    let closesAtHours = closesAt.hours;
     var date = new Date();
 
-    let opensAt = new Date(date);
-    opensAt.setHours(parseInt(opens[0]));
-    opensAt.setMinutes(parseInt(opens[1]));
+    let opensAtDate = new Date(date);
+    opensAtDate.setHours(parseInt(opensAtHours));
+    opensAtDate.setMinutes(parseInt(opensAtMinutes));
 
-    let closesAt = new Date(date);
-    closesAt.setHours(parseInt(closes[0]));
-    closesAt.setMinutes(parseInt(closes[1]));
-    if (closesAt.getHours() < opensAt.getHours()) {
-      closesAt.setDate(closesAt.getDate() + 1);
+    let closesAtDate = new Date(date);
+    closesAtDate.setHours(parseInt(closesAtHours));
+    closesAtDate.setMinutes(parseInt(closesAtMinutes));
+    if (closesAtDate.getHours() < opensAtDate.getHours()) {
+      closesAtDate.setDate(closesAtDate.getDate() + 1);
     }
 
-    return date > opensAt && date < closesAt;
+    return date > opensAtDate && date < closesAtDate;
   };
 
   render() {

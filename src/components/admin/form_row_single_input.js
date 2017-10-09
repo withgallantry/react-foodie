@@ -19,6 +19,15 @@ const createDropDowns = (dropDown) => {
         title={dropDown.selected[i]}
       />
     );
+    if (i % 2 == 0) {
+      items.push(
+        <div
+          key={`dropDown[${dropDown.ids[i][i]}]`}
+          style={{ display : 'inline' }}>
+          &nbsp;:&nbsp;
+          </div>
+      );
+    }
   }
 
   return (

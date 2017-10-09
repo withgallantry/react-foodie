@@ -16,7 +16,7 @@ const tagStyle = {
 const GalleryItem = (props) => {
   return (
     <div style={style}>
-      <img className='gallery-img' src={props.images.gallery} />
+      <img className='gallery-img' src={`img/${props.images.gallery}`} />
       {props.isOpen === true
         ? void (0)
         : (
@@ -30,7 +30,8 @@ const GalleryItem = (props) => {
         return <p key={`${props.name}${tag}`} style={tagStyle}>&bull; {tag} </p>
       })}
       {<p style={tagStyle}>&bull;</p>} <br />
-      {props.hours.opensAt} - {props.hours.closesAt}
+      {`${props.hours.opensAt.hours}:${props.hours.opensAt.minutes} -
+        ${props.hours.closesAt.hours}:${props.hours.closesAt.minutes}`}
     </div>
   );
 };
