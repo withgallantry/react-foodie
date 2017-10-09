@@ -427,12 +427,16 @@ class Admin extends Component {
     this.setState({ hours });
   }
 
-  setImageGallery(args) {
-    console.log(args);
+  setImageGallery(path) {
+    let image = this.state.images;
+    image.gallery = path;
+    this.setState({ image });
   }
 
-  setImageBanner(args) {
-    console.log(args);
+  setImageBanner(path) {
+    let image = this.state.images;
+    image.banner = path;
+    this.setState({ image });
   }
 
   onClick(id, args) {

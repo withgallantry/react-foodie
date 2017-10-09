@@ -33,16 +33,6 @@ const createImageSelection = ({value, label}) => {
   return (<div style={{ display : 'inline' }}></div>);
 };
 
-/*
-<button
-  className='btn'
-  type='button'
-  data-toggle='modal'
-  data-target='#informationModal'>
-  <span className='glyphicon glyphicon-info-sign'></span>
-</button>
-*/
-
 const createDropDowns = (props) => {
   let items = [];
   for (let i = 0; i < props.count; ++i) {

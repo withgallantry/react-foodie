@@ -1,41 +1,36 @@
 import React from 'react';
 import Event from './event';
 
+const gallery = [];
+const banners = [];
+
 const imageContainerStyle = {
   width: '95%',
   margin: 'auto'
 };
 
-const getGalleryList = (onClick) => {
-  const style = {
-    maxWidth: '174px',
-    padding: 1,
-  };
-  const buttonStyle = {
-    margin: '3px',
-    padding: 0,
-  };
-  var result = [];
-  for (let i = 0; i < 10; ++i) {
-    result.push(
-      <button
-        style={buttonStyle}
-        key={`imageList[${i}]`}
-        type='submit'
-        onClick={() => onClick(Event.SET_IMAGE_GALLERY, 'gallery.png')}>
-        <img
-          style={style}
-          src='img/gallery.png'>
-        </img>
-      </button>
-    );
+const fillImageLists = () => {
+  const imageCount = 18;
+  for (let i = 0; i < imageCount; ++i) {
+    gallery.push(`gallery${i}.png`);
+    banners.push(`banner${i}.png`);
   }
-  return result;
+}
+
+const getGalleryList = (onClick) => {
+  return getList(gallery, Event.SET_IMAGE_GALLERY, onClick, '174px', '100px');
 };
 
 const getBannerList = (onClick) => {
+  return getList(banners, Event.SET_IMAGE_BANNER, onClick, '174px', '70px');
+};
+
+const getList = (array, id, onClick, width, height) => {
   const style = {
-    maxWidth: '174px',
+    maxWidth: width,
+    minWidth: width,
+    maxHeight: height,
+    minHeight: height,
     padding: 1,
   };
   const buttonStyle = {
@@ -43,16 +38,17 @@ const getBannerList = (onClick) => {
     padding: 0,
   };
   var result = [];
-  for (let i = 0; i < 10; ++i) {
+  for (let i = 0; i < array.length; ++i) {
     result.push(
       <button
         style={buttonStyle}
-        key={`imageList[${i}]`}
-        type='submit'
-        onClick={() => onClick(Event.SET_IMAGE_BANNER, 'banner.png')}>
+        key={`arrayList[${id}][${i}]`}
+        type='button'
+        data-dismiss='modal'
+        onClick={() => onClick(id, array[i])}>
         <img
           style={style}
-          src='img/banner.png'>
+          src={`img/${array[i]}`}>
         </img>
       </button>
     );
@@ -61,6 +57,10 @@ const getBannerList = (onClick) => {
 };
 
 const Modals = ({onClick}) => {
+  if (gallery.length == 0 || banners.length == 0) {
+    fillImageLists();
+  }
+
   return (
     <div>
       <div className='modal fade' id={`imageModal${Event.SET_IMAGE_GALLERY}`} role="dialog">
