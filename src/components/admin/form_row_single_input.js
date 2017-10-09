@@ -2,27 +2,67 @@ import React from 'react';
 import Label from '../html/label';
 import InputText from '../html/input_text';
 import DropDown from '../html/drop_down';
+import { RowType } from './form';
+import Event from './event';
 
-const createDropDowns = (dropDown) => {
+const imageSelectionStyle = {
+  display: 'inline',
+  padding: '1px',
+};
+
+const imageStyle = {
+  maxWidth: '400px',
+  maxHeight: '100px',
+};
+
+const createImageSelection = ({value, label}) => {
+  const id = label.includes('gallery')
+    ? Event.SET_IMAGE_GALLERY
+    : Event.SET_IMAGE_BANNER;
+  if (value !== undefined && value.length > 0) {
+    return (
+      <button
+        style={imageSelectionStyle}
+        type='button'
+        data-toggle='modal'
+        data-target={`#imageModal${id}`}>
+        <img style={imageStyle} src={`img/${value}`} />
+      </button>
+    );
+  }
+  return (<div style={{ display : 'inline' }}></div>);
+};
+
+/*
+<button
+  className='btn'
+  type='button'
+  data-toggle='modal'
+  data-target='#informationModal'>
+  <span className='glyphicon glyphicon-info-sign'></span>
+</button>
+*/
+
+const createDropDowns = (props) => {
   let items = [];
-  for (let i = 0; i < dropDown.count; ++i) {
+  for (let i = 0; i < props.count; ++i) {
     items.push(
       <DropDown
-        key={`dropDown[${dropDown.ids[i]}]`}
-        href={dropDown.href}
+        key={`dropDown[${props.ids[i]}]`}
+        href={props.href}
         onClick={{
-          func : dropDown.onClick,
-          id : dropDown.ids[i],
+          func : props.onClick,
+          id : props.ids[i],
         }}
-        rows={dropDown.rows[i]}
-        style={dropDown.style}
-        title={dropDown.selected[i]}
+        rows={props.rows[i]}
+        style={props.style}
+        title={props.selected[i]}
       />
     );
     if (i % 2 == 0) {
       items.push(
         <div
-          key={`dropDown[${dropDown.ids[i][i]}]`}
+          key={`dropDown[${props.ids[i][i]}]`}
           style={{ display : 'inline' }}>
           &nbsp;:&nbsp;
           </div>
@@ -37,7 +77,27 @@ const createDropDowns = (dropDown) => {
   );
 };
 
-const FormRowSingleInput = ({div, label, input, dropDown}) => {
+const createInput = (props) => {
+  return (
+    <InputText
+      style={props.style !== undefined ? props.style : {}}
+      size={props.size !== undefined ? props.size : undefined}
+      id={props.id}
+      onChange={
+        props.onChange !== undefined
+          ? {
+              func : props.onChange.func,
+              args : props.onChange.args
+            }
+          : {}
+      }
+      value={props.value !== undefined ? props.value : ''}
+      placeholder={props.placeholder !== undefined ? props.placeholder : ''}
+    />
+  );
+};
+
+const FormRowSingleInput = ({div, label, input, type, dropDown, imageSelection}) => {
   return (
     <div
       style={div.style !== undefined ? div.style : {}}
@@ -46,24 +106,9 @@ const FormRowSingleInput = ({div, label, input, dropDown}) => {
         style={label.style !== undefined ? label.style : {}}
         text={label.text}
       />
-      {dropDown === undefined
-        ? <InputText
-            style={input.style !== undefined ? input.style : {}}
-            size={input.size !== undefined ? input.size : undefined}
-            id={input.id}
-            onChange={
-              input.onChange !== undefined
-                ? {
-                    func : input.onChange.func,
-                    args : input.onChange.args
-                  }
-                : {}
-            }
-            value={input.value !== undefined ? input.value : ''}
-            placeholder={input.placeholder !== undefined ? input.placeholder : ''}
-          />
-        : createDropDowns(dropDown)
-      }
+      {type === RowType.INPUT           ? createInput(input)                    : undefined}
+      {type === RowType.DROP_DOWN       ? createDropDowns(dropDown)             : undefined}
+      {type === RowType.IMAGE_SELECTION ? createImageSelection(imageSelection)  : undefined}
     </div>
   );
 };

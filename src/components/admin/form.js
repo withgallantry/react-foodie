@@ -8,6 +8,12 @@ import Event from './event';
 import Language from '../../util/localization/language';
 import { replaceAt, sequence, cloneDeep } from '../../util/util';
 
+export const RowType = Object.freeze({
+  INPUT           : 0,
+  DROP_DOWN       : 1,
+  IMAGE_SELECTION : 2,
+});
+
 const formStyle = {
   position: 'absolute',
   top: '160px',
@@ -59,7 +65,8 @@ const Form = (props) => {
   let rows = _.map(Object.keys(props.singleInput), (key) => {
     return {
       label: key,
-      value: props.singleInput[key]
+      value: props.singleInput[key],
+      type: RowType.INPUT,
     };
   });
 
@@ -96,7 +103,9 @@ const Form = (props) => {
       closesAtDropDown.onClick = props.onClick;
 
       opensAt.dropDown = opensAtDropDown;
+      opensAt.type = RowType.DROP_DOWN;
       closesAt.dropDown = closesAtDropDown;
+      closesAt.type = RowType.DROP_DOWN;
       rows.push(opensAt);
       rows.push(closesAt);
     }
@@ -115,8 +124,8 @@ const Form = (props) => {
       };
     }
     if (images.value) {
-      rows.push({ label: 'images.gallery', value: images.value.gallery });
-      rows.push({ label: 'images.banner',  value: images.value.banner });
+      rows.push({ label: 'images.gallery', value: images.value.gallery, type : RowType.IMAGE_SELECTION });
+      rows.push({ label: 'images.banner',  value: images.value.banner,  type : RowType.IMAGE_SELECTION });
     }
   }
 
@@ -131,6 +140,7 @@ const Form = (props) => {
           htmlFor : row.label,
           text : row.label
         }}
+        type={row.type}
         input={{
           id : row.label,
           value : row.value,
@@ -140,6 +150,11 @@ const Form = (props) => {
           }
         }}
         dropDown={row.dropDown}
+        imageSelection={{
+          onClick : props.onClick,
+          label : row.label,
+          value : row.value
+        }}
       />
     );
   });

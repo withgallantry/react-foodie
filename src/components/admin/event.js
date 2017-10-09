@@ -15,8 +15,6 @@ const Event = Object.freeze({
   MINUTES_OPENS_CHANGE  : 29,
   MINUTES_CLOSES_CHANGE : 30,
   ADDRESS_CHANGE        : 11,
-  IMAGES_GALLERY_CHANGE : 12,
-  IMAGES_BANNER_CHANGE  : 13,
 
   CHANGE_MENU_ITEM      : 14,
   CHANGE_MENU_NAME      : 15,
@@ -33,17 +31,16 @@ const Event = Object.freeze({
   GET_JSON              : 24,
   CHANGE_KEY            : 25,
   CHANGE_LANG           : 26,
-  CLONE                 : 27
+  CLONE                 : 27,
+  
+  SET_IMAGE_GALLERY     : 33,
+  SET_IMAGE_BANNER      : 34
 });
 
 const lut = {
   name : Event.NAME_CHANGE,
   address : Event.ADDRESS_CHANGE,
   tags : Event.TAGS_CHANGE,
-  images : {
-    gallery : Event.IMAGES_GALLERY_CHANGE,
-    banner : Event.IMAGES_BANNER_CHANGE
-  },
   hours : {
     opensAt : Event.HOURS_OPENS_CHANGE,
     closesAt : Event.HOURS_CLOSES_CHANGE

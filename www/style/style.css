@@ -38,11 +38,18 @@ span.gallery-closed-text {
 }
 
 .dropdown-menu {
-  min-width: 0px;
+  min-width: 0;
 }
 
 .scrollable-menu {
     height: auto;
     max-height: 200px;
     overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  .modal-xl {
+    width: 90%;
+    max-width:1200px;
+  }
 }

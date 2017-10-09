@@ -8,6 +8,7 @@ import Event, { propToEvent } from './event';
 import { URL } from '../../util/constants';
 import Config, { getConfig, setConfig } from '../../util/config';
 import Language from '../../util/localization/language';
+import Modals from './modals';
 
 class Admin extends Component {
   constructor() {
@@ -50,6 +51,8 @@ class Admin extends Component {
     assign(this.events, this.hoursClosesChange,     Event.HOURS_CLOSES_CHANGE);
     assign(this.events, this.minutesOpensChange,    Event.MINUTES_OPENS_CHANGE);
     assign(this.events, this.minutesClosesChange,   Event.MINUTES_CLOSES_CHANGE);
+    assign(this.events, this.setImageGallery,       Event.SET_IMAGE_GALLERY);
+    assign(this.events, this.setImageBanner,        Event.SET_IMAGE_BANNER);
   }
 
   componentDidMount() {
@@ -424,6 +427,14 @@ class Admin extends Component {
     this.setState({ hours });
   }
 
+  setImageGallery(args) {
+    console.log(args);
+  }
+
+  setImageBanner(args) {
+    console.log(args);
+  }
+
   onClick(id, args) {
     if (args) {
       console.log(`onClick[${id}](${args[0]}, ${args[1]}, ${args[2]})`);
@@ -496,6 +507,7 @@ class Admin extends Component {
   render() {
     return (
       <div>
+        <Modals onClick={this.onClick}/>
         <Menu
           onClick={this.onClick}
           onChangeSearch={this.onChangeSearchDebounced}
