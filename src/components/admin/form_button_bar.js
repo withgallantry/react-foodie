@@ -1,6 +1,6 @@
 import React from 'react';
 import Event from './event';
-import Button from '../html/button';
+import Button from '../shared/html/button';
 import { Link } from 'react-router-dom';
 import Language from '../../util/localization/language';
 import ReactTooltip from 'react-tooltip';

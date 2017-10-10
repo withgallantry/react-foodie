@@ -3,6 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 import Home from './home/home';
 import Admin from './admin/admin';
 import Json from './json';
+import Maps from './shared/maps';
 
 const App = () => {
   return (
@@ -10,6 +11,9 @@ const App = () => {
       <Switch>
         <Route exact path='/json' component={Json}/>
         <Route exact path='/admin' component={Admin}/>
+        <Route exact path='/search' component={() => {
+          return <Maps title={'asdf'}/>
+        }}/>
         <Route path='/' component={Home}/>
       </Switch>
     </div>

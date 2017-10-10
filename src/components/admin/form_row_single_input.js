@@ -1,7 +1,7 @@
 import React from 'react';
-import Label from '../html/label';
-import InputText from '../html/input_text';
-import DropDown from '../html/drop_down';
+import Label from '../shared/html/label';
+import InputText from '../shared/html/input_text';
+import DropDown from '../shared/html/drop_down';
 import { RowType } from './form';
 import Event from './event';
 

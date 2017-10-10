@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import Button from '../html/button';
+import Button from '../shared/html/button';
 import ReactTooltip from 'react-tooltip';
 import FormButtonBar from './form_button_bar';
-import InputText from '../html/input_text';
+import InputText from '../shared/html/input_text';
 import Event from './event';
-import DropDown from '../html/drop_down';
+import DropDown from '../shared/html/drop_down';
 
 const selectStyle = {
   height: '118px'

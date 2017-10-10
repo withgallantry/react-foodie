@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import InputText from '../html/input_text';
+import InputText from '../shared/html/input_text';
 import Event from './event';
 import { createButton } from './button_row';
 import ReactTooltip from 'react-tooltip';

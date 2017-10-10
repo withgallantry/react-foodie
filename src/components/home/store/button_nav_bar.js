@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../html/button';
+import Button from '../../shared/html/button';
 
 const ButtonNavBar = ({onClick, label, id}) => {
   return (

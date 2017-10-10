@@ -5,7 +5,7 @@ import Form from './form';
 import Menu from './menu';
 import { removeWhiteSpace, getTemplateItems, cloneDeep } from '../../util/util';
 import Event, { propToEvent } from './event';
-import { URL } from '../../util/constants';
+import { STORES_URL } from '../../util/constants';
 import Config, { getConfig, setConfig } from '../../util/config';
 import Language from '../../util/localization/language';
 import Modals from './modals';
@@ -110,9 +110,9 @@ class Admin extends Component {
 
   getUrl(id) {
     if (id !== undefined) {
-      return `${URL}/${getConfig(Config.KEY)}/${id}`;
+      return `${STORES_URL}/${getConfig(Config.KEY)}/${id}`;
     }
-    return `${URL}/${getConfig(Config.KEY)}`;
+    return `${STORES_URL}/${getConfig(Config.KEY)}`;
   }
 
   load(onFinished) {
@@ -144,7 +144,7 @@ class Admin extends Component {
     if (currentId !== null) {
       console.log("saving...");
       console.log(this.getCurrentItem());
-      axios.put(`${URL}/${currentId}`, this.getCurrentItem()).then((response) => {
+      axios.put(`${STORES_URL}/${currentId}`, this.getCurrentItem()).then((response) => {
         console.log(`updated food place with id ${currentId}`);
         this.load();
       }).catch((error) => {
@@ -207,7 +207,7 @@ class Admin extends Component {
     });
     if (currentId) {
       this.setState({ deleteEnabled : false });
-      axios.delete(`${URL}/${currentId}`).then((response) => {
+      axios.delete(`${STORES_URL}/${currentId}`).then((response) => {
         console.log(`deleted food place with id ${currentId}`);
         this.load((foodPlaces) => {
           this.setState({ deleteEnabled : true });

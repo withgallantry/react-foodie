@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../html/button';
+import Button from '../shared/html/button';
 import Language from '../../util/localization/language';
 import Event from './event';
 import { Link } from 'react-router-dom';

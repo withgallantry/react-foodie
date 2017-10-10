@@ -4,7 +4,7 @@ import GalleryItem from './gallery_item';
 import { localize } from '../../../util/localization/strings';
 import axios from 'axios';
 import _ from 'lodash';
-import { URL } from '../../../util/constants';
+import { STORES_URL } from '../../../util/constants';
 import Config, { getConfig } from '../../../util/config';
 import Language from '../../../util/localization/language';
 
@@ -48,7 +48,7 @@ class Gallery extends Component {
 
   load() {
     this.setState({ loading : true });
-    axios.get(`${URL}/${getConfig(Config.KEY)}`).then((response) => {
+    axios.get(`${STORES_URL}/${getConfig(Config.KEY)}`).then((response) => {
       const stores = _.map(response.data, (store) => {
         return {
           lang: store.lang,

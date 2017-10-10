@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import FormRowSingleInput from './form_row_single_input';
 import FormRowsMultiInput from './form_rows_multi_input';
-import Button from '../html/button';
+import Button from '../shared/html/button';
 import { createButton } from './button_row';
 import Event from './event';
 import Language from '../../util/localization/language';
