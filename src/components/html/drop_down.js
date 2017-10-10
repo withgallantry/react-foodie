@@ -4,7 +4,7 @@ const DropDown = (props) => {
   let counter = 0;
   let rows = _.map(props.rows, (row) => {
     return (
-      <li onClick={() => props.onClick.func(props.onClick.id, [row.value])} key={`${row.value}${counter++}`}>
+      <li onClick={() => props.onClick.func(props.onClick.id, row.args)} key={`${row.value}${counter++}`}>
         <a href={props.href}>{row.value}</a>
       </li>
     );
