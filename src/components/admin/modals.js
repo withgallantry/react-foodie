@@ -10,7 +10,7 @@ const imageContainerStyle = {
 };
 
 const fillImageLists = () => {
-  const imageCount = 18;
+  const imageCount = 30;
   for (let i = 0; i < imageCount; ++i) {
     gallery.push(`gallery${i}.png`);
     banners.push(`banner${i}.png`);
