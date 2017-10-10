@@ -6,7 +6,10 @@ import axios from 'axios';
 
 const SEARCH_BAR_ID = 'searchBarMaps';
 
-class Maps extends Component {
+/*
+ * Search addresses using the Google Places API
+ */
+class AddressSearchBar extends Component {
   constructor(props) {
     super(props);
   }
@@ -66,4 +69,4 @@ class Maps extends Component {
   }
 }
 
-export default Maps;
+export default AddressSearchBar;
