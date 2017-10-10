@@ -445,7 +445,6 @@ class Admin extends Component {
   }
 
   onClick(id, args) {
-    console.log(args);
     if (args) {
       console.log(`onClick[${id}](${args[0]}, ${args[1]}, ${args[2]})`);
     } else {
