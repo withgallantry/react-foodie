@@ -44,7 +44,7 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, 
   let rows = _.map(foodPlaces, (foodPlace) => {
     return {
       value : foodPlace.name,
-      args : [foodPlace.id]
+      args : foodPlace.id
     };
   });
 
