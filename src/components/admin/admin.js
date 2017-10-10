@@ -22,6 +22,7 @@ class Admin extends Component {
     this.onChangeSearchDebounced = _.debounce(this.onChangeSearch, 300);
     this.onChangeKey = this.onChangeKey.bind(this);
     this.onChangeKeyDebounced = _.debounce(this.onChangeKey, 300);
+    this.onAddressChange = this.onAddressChange.bind(this);
 
     this.events = [];
     const assign = (array, func, id) => {
@@ -439,6 +440,10 @@ class Admin extends Component {
     this.setState({ image });
   }
 
+  onAddressChange(address) {
+    this.setState({ address });
+  }
+
   onClick(id, args) {
     console.log(args);
     if (args) {
@@ -497,7 +502,7 @@ class Admin extends Component {
 
   onChangeKey(value) {
     value = removeWhiteSpace(value);
-    console.log(value);
+    console.log(`onChangeKey(${value})`);
     if (value.length > 0) {
         setConfig(Config.KEY, value);
         this.clearForm();
@@ -517,6 +522,7 @@ class Admin extends Component {
           onClick={this.onClick}
           onChangeSearch={this.onChangeSearchDebounced}
           onChangeKey={this.onChangeKeyDebounced}
+          onAddressChange={this.onAddressChange}
           foodPlaces={
             _.map(this.state.foodPlaces, (foodPlace) => {
               return {
@@ -542,6 +548,7 @@ class Admin extends Component {
           menu={this.state.menu}
           onClick={this.onClick}
           onChange={this.onChangeForm}
+          onAddressChange={this.onAddressChange}
           lang={this.state.lang}
         />
       </div>

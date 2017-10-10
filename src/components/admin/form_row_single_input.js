@@ -4,6 +4,7 @@ import InputText from '../shared/html/input_text';
 import DropDown from '../shared/html/drop_down';
 import { RowType } from './form';
 import Event from './event';
+import AddressSearchBar from '../shared/address_search_bar';
 
 const imageSelectionStyle = {
   display: 'inline',
@@ -13,6 +14,14 @@ const imageSelectionStyle = {
 const imageStyle = {
   maxWidth: '400px',
   maxHeight: '100px',
+};
+
+const createSearchBar = ({onChange, placeholder}) => {
+  return (
+    <AddressSearchBar
+      onAddressChange={onChange}
+      placeholder={placeholder}/>
+  );
 };
 
 const createImageSelection = ({value, label}) => {
@@ -87,7 +96,7 @@ const createInput = (props) => {
   );
 };
 
-const FormRowSingleInput = ({div, label, input, type, dropDown, imageSelection}) => {
+const FormRowSingleInput = ({div, label, input, type, dropDown, imageSelection, searchBar}) => {
   return (
     <div
       style={div.style !== undefined ? div.style : {}}
@@ -99,6 +108,7 @@ const FormRowSingleInput = ({div, label, input, type, dropDown, imageSelection})
       {type === RowType.INPUT           ? createInput(input)                    : undefined}
       {type === RowType.DROP_DOWN       ? createDropDowns(dropDown)             : undefined}
       {type === RowType.IMAGE_SELECTION ? createImageSelection(imageSelection)  : undefined}
+      {type === RowType.SEARCH_BAR      ? createSearchBar(searchBar)            : undefined}
     </div>
   );
 };

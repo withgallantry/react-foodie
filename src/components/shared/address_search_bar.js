@@ -63,7 +63,11 @@ class AddressSearchBar extends Component {
       <InputText
         style={this.props.style !== undefined ? this.props.style : {}}
         id={SEARCH_BAR_ID}
-        placeholder={getString(Strings.SEARCH_ADDRESS)}
+        placeholder={
+          this.props.placeholder !== undefined
+            ? this.props.placeholder
+            : getString(Strings.SEARCH_ADDRESS)
+        }
       />
     );
   }

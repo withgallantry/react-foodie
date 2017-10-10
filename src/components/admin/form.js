@@ -12,6 +12,7 @@ export const RowType = Object.freeze({
   INPUT           : 0,
   DROP_DOWN       : 1,
   IMAGE_SELECTION : 2,
+  SEARCH_BAR      : 3,
 });
 
 const formStyle = {
@@ -69,6 +70,20 @@ const Form = (props) => {
       type: RowType.INPUT,
     };
   });
+
+  // remove 'address' from rows, modify and add back
+  let addressIndex = _.findIndex(rows, (row) => {
+    return row.label === 'address';
+  })
+  if (addressIndex > 0) {
+    let address = rows.splice(addressIndex, 1)[0];
+    address.type = RowType.SEARCH_BAR;
+    address.searchBar = {
+      onChange: props.onAddressChange,
+      placeholder: address.value
+    };
+    rows.push(address);
+  }
 
   // remove 'hours' from rows, modify and add back.
   let hoursIndex = _.findIndex(rows, (row) => {
@@ -155,6 +170,7 @@ const Form = (props) => {
           label : row.label,
           value : row.value
         }}
+        searchBar={row.searchBar}
       />
     );
   });
