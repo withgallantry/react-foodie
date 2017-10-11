@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 import Language from '../../util/localization/language';
 import ReactTooltip from 'react-tooltip';
 
-const btnMenuStyle = {
+const BTN_MENU_STYLE = {
   marginBottom: '20px'
 };
 
-const firstBtnStyle = {
+const FIRST_BTN_STYLE = {
   marginLeft: '160px'
 };
 
-const secondBtnStyle = {
+const SECOND_BTN_STYLE = {
   marginLeft: '10px'
 };
 
@@ -31,12 +31,12 @@ const createButton = (style, label, func, disabled, id, tooltip) => {
 
 const FormButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
   return (
-    <div style={{btnMenuStyle}}>
+    <div style={{BTN_MENU_STYLE}}>
       <Link to={'/home'}>
-        {createButton(firstBtnStyle, 'Home')}
+        {createButton(FIRST_BTN_STYLE, 'Home')}
       </Link>
       {createButton(
-        secondBtnStyle,
+        SECOND_BTN_STYLE,
         lang === Language.EN
           ? (<div><b>En</b> | Sv</div>)
           : (<div>En | <b>Sv</b></div>),
@@ -45,14 +45,14 @@ const FormButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
         Event.CHANGE_LANG,
         'Language only applies for the menu.')}
       <ReactTooltip type='info' effect='solid' />
-      {createButton(secondBtnStyle, 'Save',         onClick, false,             Event.SAVE)}
-      {createButton(secondBtnStyle, 'New',          onClick, false,             Event.NEW)}
-      {createButton(secondBtnStyle, 'Copy',         onClick, false,             Event.COPY)}
-      {createButton(secondBtnStyle, 'Delete',       onClick, !deleteEnabled,    Event.DELETE)}
-      {createButton(secondBtnStyle, 'Delete All',   onClick, !deleteAllEnabled, Event.DELETE_ALL)}
-      {createButton(secondBtnStyle, 'Add Template', onClick, false,             Event.ADD_TEMPLATE)}
+      {createButton(SECOND_BTN_STYLE, 'Save',         onClick, false,             Event.SAVE)}
+      {createButton(SECOND_BTN_STYLE, 'New',          onClick, false,             Event.NEW)}
+      {createButton(SECOND_BTN_STYLE, 'Copy',         onClick, false,             Event.COPY)}
+      {createButton(SECOND_BTN_STYLE, 'Delete',       onClick, !deleteEnabled,    Event.DELETE)}
+      {createButton(SECOND_BTN_STYLE, 'Delete All',   onClick, !deleteAllEnabled, Event.DELETE_ALL)}
+      {createButton(SECOND_BTN_STYLE, 'Add Template', onClick, false,             Event.ADD_TEMPLATE)}
       <Link to='/json'>
-        {createButton(secondBtnStyle, 'Get JSON')}
+        {createButton(SECOND_BTN_STYLE, 'Get JSON')}
       </Link>
     </div>
   );

@@ -6,12 +6,12 @@ import { RowType } from './form';
 import Event from './event';
 import AddressSearchBar from '../shared/address_search_bar';
 
-const imageSelectionStyle = {
+const IMAGE_SELECTION_STYLE = {
   display: 'inline',
   padding: '1px',
 };
 
-const imageStyle = {
+const IMAGE_STYLE = {
   maxWidth: '400px',
   maxHeight: '100px',
 };
@@ -31,11 +31,11 @@ const createImageSelection = ({value, label}) => {
   if (value !== undefined && value.length > 0) {
     return (
       <button
-        style={imageSelectionStyle}
+        style={IMAGE_SELECTION_STYLE}
         type='button'
         data-toggle='modal'
         data-target={`#imageModal${id}`}>
-        <img style={imageStyle} src={`img/${value}`} />
+        <img style={IMAGE_STYLE} src={`img/${value}`} />
       </button>
     );
   }

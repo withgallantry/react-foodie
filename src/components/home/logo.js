@@ -1,6 +1,6 @@
 import React from 'react';
 
-const style = {
+const STYLE = {
   position: 'absolute',
   left: '40px',
   top: '40px'
@@ -8,7 +8,7 @@ const style = {
 
 const Logo = () => {
   return (
-    <h3 style={style}>
+    <h3 style={STYLE}>
       &copy; Foodie
     </h3>
   );

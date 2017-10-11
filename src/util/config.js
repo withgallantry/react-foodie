@@ -6,7 +6,7 @@ const Config = Object.freeze({
 const min = 0;
 const max = Object.keys(Config).length - 1;
 
-var config = [];
+let config = [];
 config[Config.DEBUG] = true;
 config[Config.KEY]   = 'xRhjaTRs';
 

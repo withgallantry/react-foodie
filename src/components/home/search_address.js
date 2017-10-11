@@ -2,7 +2,7 @@ import React from 'react';
 import InputText from '../shared/html/input_text';
 import Strings, { getString } from '../../util/localization/strings';
 
-const style = {
+const STYLE = {
   position: 'absolute',
   textAlign: 'center',
   width: '100%',
@@ -10,7 +10,7 @@ const style = {
 
 const SearchAddress = ({onChange}) => {
   return (
-    <div style={style}>
+    <div style={STYLE}>
       <InputText
         onChange={{
           func : onChange

@@ -13,7 +13,7 @@ export const Event = {
   SEARCH : 1
 };
 
-const divStyle = {
+const DIV_STYLE = {
   position: 'absolute',
   top: '70px',
   left: '0px',
@@ -22,7 +22,7 @@ const divStyle = {
   overflowY: 'scroll'
 };
 
-const galleryStyle = {
+const GALLERY_STYLE = {
   width: '89%',
   marginLeft: 'auto',
   marginRight: 'auto',
@@ -81,7 +81,7 @@ class Gallery extends Component {
   }
 
   createStores() {
-    var stores = this.state.stores;
+    let stores = this.state.stores;
     _.forEach(stores, (store) => {
       store.isOpen = this.storeIsOpen(store.hours);
     });
@@ -107,7 +107,7 @@ class Gallery extends Component {
     let opensAtHours = opensAt.hours;
     let closesAtMinutes = closesAt.minutes;
     let closesAtHours = closesAt.hours;
-    var date = new Date();
+    let date = new Date();
 
     let opensAtDate = new Date(date);
     opensAtDate.setHours(parseInt(opensAtHours));
@@ -129,16 +129,16 @@ class Gallery extends Component {
       return (<div></div>);
     }
 
-    var stores = this.createStores();
+    let stores = this.createStores();
 
     return (
-      <div style={divStyle}>
+      <div style={DIV_STYLE}>
         <NavBar
           onClick={this.onClick}
           onChange={this.onChange}
           searchExpanded={this.state.searchExpanded}
         />
-        <div style={galleryStyle}>
+        <div style={GALLERY_STYLE}>
           {stores}
         </div>
       </div>

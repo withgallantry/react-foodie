@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
-import Store from './store/store';
 import Header from './header';
-import Gallery from './store/gallery';
+import Gallery from './gallery/gallery';
 import Language, { setLanguage } from '../../util/localization/language';
 import Event from './event';
 import Strings, { getString } from '../../util/localization/strings';
 import Config, { getConfig, setConfig } from '../../util/config';
-
-const hrStyle = {
-  margin: '0 !important'
-};
 
 class Home extends Component {
   constructor() {
@@ -36,7 +31,7 @@ class Home extends Component {
   }
 
   changeLanguage() {
-    var language = this.state.language;
+    let language = this.state.language;
     if (language === Language.SV) {
       language = Language.EN;
     } else {

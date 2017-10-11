@@ -73,13 +73,25 @@ class Admin extends Component {
   getDefaultState() {
     return {
       foodPlaces: [],
-      name: '',
+      name: 'New',
       address: '',
-      hours: null,
+      hours: {
+        opensAt: {
+          hours: '10',
+          minutes: '00'
+        },
+        closesAt: {
+          hours: '21',
+          minutes: '00'
+        }
+      },
       tags: [],
       deleteEnabled: true,
       deleteAllEnabled: true,
-      images: null,
+      images: {
+        gallery: 'gallery0.png',
+        banner: 'banner0.png',
+      },
       menu: null,
       currentId: null,
       lang: Language.SV,
@@ -167,7 +179,7 @@ class Admin extends Component {
     if (args.constructor === Array) {
       id = args[0];
     }
-    var foodPlace = _.find(this.state.foodPlaces, (foodPlace) => {
+    let foodPlace = _.find(this.state.foodPlaces, (foodPlace) => {
       return foodPlace._id === id;
     });
     if (foodPlace) {
@@ -203,7 +215,7 @@ class Admin extends Component {
 
   delete() {
     const currentId = this.state.currentId;
-    var index = _.findIndex(this.state.foodPlaces, (obj) => {
+    let index = _.findIndex(this.state.foodPlaces, (obj) => {
       return obj._id === currentId;
     });
     if (currentId) {
@@ -326,7 +338,7 @@ class Admin extends Component {
         if (target < 0) {
           target = menu[lang[i]][menuIndex].items.length - 1;
         }
-        var temp = menu[lang[i]][menuIndex].items[target];
+        let temp = menu[lang[i]][menuIndex].items[target];
         menu[lang[i]][menuIndex].items[target] = menu[lang[i]][menuIndex].items[itemIndex];
         menu[lang[i]][menuIndex].items[itemIndex] = temp;
         this.setState({ menu });
@@ -343,7 +355,7 @@ class Admin extends Component {
         if (target >= menu[lang[i]][menuIndex].items.length) {
           target = 0;
         }
-        var temp = menu[lang[i]][menuIndex].items[target];
+        let temp = menu[lang[i]][menuIndex].items[target];
         menu[lang[i]][menuIndex].items[target] = menu[lang[i]][menuIndex].items[itemIndex];
         menu[lang[i]][menuIndex].items[itemIndex] = temp;
         this.setState({ menu });
@@ -356,11 +368,11 @@ class Admin extends Component {
     let lang = [Language.SV, Language.EN];
     for (let i = 0; i < 2; ++i) {
       if (menu[lang[i]].length > 1) {
-        var target = index - 1;
+        let target = index - 1;
         if (target < 0) {
           target = menu[lang[i]].length - 1;
         }
-        var temp = menu[lang[i]][target];
+        let temp = menu[lang[i]][target];
         menu[lang[i]][target] = menu[lang[i]][index];
         menu[lang[i]][index] = temp;
         this.setState({ menu });
@@ -373,11 +385,11 @@ class Admin extends Component {
     let lang = [Language.SV, Language.EN];
     for (let i = 0; i < 2; ++i) {
       if (menu[lang[i]].length > 1) {
-        var target = index + 1;
+        let target = index + 1;
         if (target >= menu[lang[i]].length) {
           target = 0;
         }
-        var temp = menu[lang[i]][target];
+        let temp = menu[lang[i]][target];
         menu[lang[i]][target] = menu[lang[i]][index];
         menu[lang[i]][index] = temp;
         this.setState({ menu });
@@ -490,8 +502,8 @@ class Admin extends Component {
   onChangeSearch(value) {
     value = value.toLowerCase();
     const foodPlaces = this.state.foodPlace;
-    var index = _.findIndex(this.state.foodPlaces, (foodPlace) => {
-      var name = foodPlace.name.toLowerCase();
+    let index = _.findIndex(this.state.foodPlaces, (foodPlace) => {
+      let name = foodPlace.name.toLowerCase();
       return _.includes(name, value);
     });
     if (index >= 0) {

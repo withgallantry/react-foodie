@@ -15,7 +15,7 @@ export const RowType = Object.freeze({
   SEARCH_BAR      : 3,
 });
 
-const formStyle = {
+const FORM_STYLE = {
   position: 'absolute',
   top: '160px',
   left: '0px',
@@ -24,29 +24,24 @@ const formStyle = {
   overflowY: 'scroll'
 };
 
-const labelStyle = {
+const LABEL_STYLE = {
   display: 'inline-block',
   width: '140px',
   textAlign: 'right',
   marginRight: '20px'
 };
 
-const formRowStyle = {
+const FORM_ROW_STYLE = {
   marginTop: '2px'
 };
 
-const newMenuBtnStyle = {
+const NEW_MENU_BTN_STYLE = {
   marginLeft: '160px',
   marginBottom: '40px'
 };
 
-const dropDownStyle = {
+const DROP_DOWN_STYLE = {
   display: 'inline',
-};
-
-const langBtnStyle = {
-  marginLeft: '160px',
-  marginBottom: '15px'
 };
 
 const createListSequence = (begin, end, interval = 1) => {
@@ -102,7 +97,7 @@ const Form = (props) => {
       let closesAt = { label : 'hours.closesAt' };
       let dropDown = {
         count : 2,
-        style : dropDownStyle,
+        style : DROP_DOWN_STYLE,
         rows : [createListSequence(0, 23), createListSequence(0, 55, 5)],
         href : "#/admin"
       };
@@ -149,9 +144,9 @@ const Form = (props) => {
     return (
       <FormRowSingleInput
         key={row.label}
-        div={{ style : formRowStyle }}
+        div={{ style : FORM_ROW_STYLE }}
         label={{
-          style : labelStyle,
+          style : LABEL_STYLE,
           htmlFor : row.label,
           text : row.label
         }}
@@ -197,7 +192,7 @@ const Form = (props) => {
   }
 
   return (
-    <div style={formStyle}>
+    <div style={FORM_STYLE}>
       <div style={{marginTop : '10px'}}>
         {singleInputFormRows}
         {
@@ -207,7 +202,7 @@ const Form = (props) => {
         }
       </div>
       <hr />
-      {createButton('plus', props.onClick, Event.NEW_MENU, 0, newMenuBtnStyle)}
+      {createButton('plus', props.onClick, Event.NEW_MENU, 0, NEW_MENU_BTN_STYLE)}
     </div>
   );
 };

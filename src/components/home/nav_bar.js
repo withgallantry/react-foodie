@@ -5,28 +5,28 @@ import Event from './event';
 import { Link } from 'react-router-dom';
 import Strings, { getString } from '../../util/localization/strings';
 
-const divStyle = {
+const DIV_STYLE = {
   position: 'absolute',
   top: '32px',
   right: '40px',
 };
 
-const btnStyle = {
+const BTN_STYLE = {
   marginRight: '5px'
 };
 
 const NavBar = ({onClick, language, itemCount}) => {
   return (
-    <div style={divStyle}>
+    <div style={DIV_STYLE}>
       <Link to={'/admin'}>
         <button
           className='btn btn-default'
-          style={btnStyle}>
+          style={BTN_STYLE}>
           {getString(Strings.EDITOR)}
         </button>
       </Link>
       <Button
-        style={btnStyle}
+        style={BTN_STYLE}
         label={language === Language.EN
           ? (<div><b>En</b> | Sv</div>)
           : (<div>En | <b>Sv</b></div>)}
@@ -36,7 +36,7 @@ const NavBar = ({onClick, language, itemCount}) => {
         }}
       />
       <Button
-        style={btnStyle}
+        style={BTN_STYLE}
         glyphicon={'shopping-cart'}
         label={` (${itemCount})`}
       />

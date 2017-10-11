@@ -2,14 +2,14 @@ import React from 'react';
 import InputText from '../../shared/html/input_text';
 import Strings, { getString } from '../../../util/localization/strings';
 
-const style = {
+const STYLE = {
   height: '32px',
 };
 
 const SearchStore = ({onChange}) => {
   return (
     <InputText
-      style={style}
+      style={STYLE}
       onChange={{
         func : onChange,
         args : []

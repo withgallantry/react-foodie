@@ -1,10 +1,10 @@
 import React from 'react';
 import Event from './event';
 
-const gallery = [];
-const banners = [];
+let gallery = [];
+let banners = [];
 
-const imageContainerStyle = {
+const IMAGE_CONTAINER_STYLE = {
   width: '95%',
   margin: 'auto'
 };
@@ -37,7 +37,7 @@ const getList = (array, id, onClick, width, height) => {
     margin: '3px',
     padding: 0,
   };
-  var result = [];
+  let result = [];
   for (let i = 0; i < array.length; ++i) {
     result.push(
       <button
@@ -56,6 +56,29 @@ const getList = (array, id, onClick, width, height) => {
   return result;
 };
 
+const createModal = (text, id, list) => {
+  return (
+    <div className='modal fade' id={`imageModal${id}`} role="dialog">
+      <div className='modal-dialog modal-xl'>
+        <div className='modal-content'>
+          <div className='modal-header'>
+            <button type='button' className='close' data-dismiss='modal'>&times;</button>
+            <h4 className='modal-title'>{text}</h4>
+          </div>
+          <div className='modal-body'>
+            <div style={IMAGE_CONTAINER_STYLE}>
+              {list}
+            </div>
+          </div>
+          <div className='modal-footer'>
+            <button type='button' className='btn btn-default' data-dismiss='modal'>Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Modals = ({onClick}) => {
   if (gallery.length == 0 || banners.length == 0) {
     fillImageLists();
@@ -63,42 +86,8 @@ const Modals = ({onClick}) => {
 
   return (
     <div>
-      <div className='modal fade' id={`imageModal${Event.SET_IMAGE_GALLERY}`} role="dialog">
-        <div className='modal-dialog modal-xl'>
-          <div className='modal-content'>
-            <div className='modal-header'>
-              <button type='button' className='close' data-dismiss='modal'>&times;</button>
-              <h4 className='modal-title'>Select image for gallery</h4>
-            </div>
-            <div className='modal-body'>
-              <div style={imageContainerStyle}>
-                {getGalleryList(onClick)}
-              </div>
-            </div>
-            <div className='modal-footer'>
-              <button type='button' className='btn btn-default' data-dismiss='modal'>Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='modal fade' id={`imageModal${Event.SET_IMAGE_BANNER}`} role="dialog">
-        <div className='modal-dialog modal-xl'>
-          <div className='modal-content'>
-            <div className='modal-header'>
-              <button type='button' className='close' data-dismiss='modal'>&times;</button>
-              <h4 className='modal-title'>Select image for banner</h4>
-            </div>
-            <div className='modal-body'>
-              <div style={imageContainerStyle}>
-                {getBannerList(onClick)}
-              </div>
-            </div>
-            <div className='modal-footer'>
-              <button type='button' className='btn btn-default' data-dismiss='modal'>Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      {createModal('Select image for gallery', Event.SET_IMAGE_GALLERY, getGalleryList(onClick))}
+      {createModal('Select image for banner',  Event.SET_IMAGE_BANNER,  getBannerList(onClick))}
     </div>
   );
 };
