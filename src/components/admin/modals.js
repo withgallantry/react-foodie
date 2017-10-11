@@ -37,7 +37,7 @@ const getList = (array, id, onClick, width, height) => {
     margin: '3px',
     padding: 0,
   };
-  var result = [];
+  let result = [];
   for (let i = 0; i < array.length; ++i) {
     result.push(
       <button

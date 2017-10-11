@@ -3,7 +3,7 @@ const Language = Object.freeze({
   EN : 'en',
 });
 
-var language = Language.SV;
+let language = Language.SV;
 
 export const setLanguage = (lang) => {
   if (lang >= Language.EN && lang <= Language.SV) {

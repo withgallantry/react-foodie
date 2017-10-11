@@ -48,7 +48,7 @@ const btnStyle = {
 
 const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
   let items = [];
-  for (var i = 0; i < menu.items.length; ++i) {
+  for (let i = 0; i < menu.items.length; ++i) {
     let item = menu.items[i];
     items.push((
       <div

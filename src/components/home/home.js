@@ -36,7 +36,7 @@ class Home extends Component {
   }
 
   changeLanguage() {
-    var language = this.state.language;
+    let language = this.state.language;
     if (language === Language.SV) {
       language = Language.EN;
     } else {
