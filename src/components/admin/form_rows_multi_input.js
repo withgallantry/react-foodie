@@ -4,7 +4,7 @@ import InputText from '../shared/html/input_text';
 import Event from './event';
 import { createButton } from './button_row';
 import ReactTooltip from 'react-tooltip';
-import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN } from '../../util/constants';
+import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN, ADMIN_FORM_ROW_MARGIN_TOP } from '../../util/constants';
 
 const LABEL_STYLE = {
   display: 'inline-block',
@@ -14,7 +14,7 @@ const LABEL_STYLE = {
 };
 
 const FORM_ROW_STYLE = {
-  marginTop: '2px',
+  marginTop: ADMIN_FORM_ROW_MARGIN_TOP,
   marginLeft: ADMIN_MARGIN_LEFT
 };
 

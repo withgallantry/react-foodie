@@ -7,7 +7,8 @@ import { createButton } from './button_row';
 import Event from './event';
 import Language from '../../util/localization/language';
 import { replaceAt, sequence, cloneDeep } from '../../util/util';
-import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN } from '../../util/constants';
+import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN,
+  ADMIN_FORM_TOP, ADMIN_FORM_ROW_MARGIN_TOP, ADMIN_SECTION_MARGIN_HEIGHT } from '../../util/constants';
 
 export const RowType = Object.freeze({
   INPUT           : 0,
@@ -18,7 +19,7 @@ export const RowType = Object.freeze({
 
 const FORM_STYLE = {
   position: 'absolute',
-  top: '160px',
+  top: ADMIN_FORM_TOP,
   left: '0px',
   right: '0px',
   bottom: '0px',
@@ -33,7 +34,7 @@ const LABEL_STYLE = {
 };
 
 const FORM_ROW_STYLE = {
-  marginTop: '2px'
+  marginTop: ADMIN_FORM_ROW_MARGIN_TOP
 };
 
 const NEW_MENU_BTN_STYLE = {
@@ -43,6 +44,13 @@ const NEW_MENU_BTN_STYLE = {
 
 const DROP_DOWN_STYLE = {
   display: 'inline',
+};
+
+const HR_STYLE = {
+  margin: '0',
+  padding: '0',
+  paddingTop: ADMIN_SECTION_MARGIN_HEIGHT,
+  marginTop: ADMIN_SECTION_MARGIN_HEIGHT,
 };
 
 const createListSequence = (begin, end, interval = 1) => {
@@ -179,7 +187,7 @@ const Form = (props) => {
       let current = menu[i];
       multiInputFormRows.push((
         <div key={`current${i}`}>
-          <hr />
+          <hr style={HR_STYLE}/>
           <FormRowsMultiInput
             menu={current}
             index={i}
@@ -194,7 +202,7 @@ const Form = (props) => {
 
   return (
     <div style={FORM_STYLE}>
-      <div style={{marginTop : '10px'}}>
+      <div style={{marginTop : ADMIN_SECTION_MARGIN_HEIGHT}}>
         {singleInputFormRows}
         {
           _.forEach(multiInputFormRows, (row) => {

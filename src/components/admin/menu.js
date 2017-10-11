@@ -6,17 +6,16 @@ import FormButtonBar from './form_button_bar';
 import InputText from '../shared/html/input_text';
 import Event from './event';
 import DropDown from '../shared/html/drop_down';
-import { ADMIN_MARGIN_LEFT } from '../../util/constants';
+import { ADMIN_MARGIN_LEFT, ADMIN_MENU_HEIGHT, ADMIN_SECTION_MARGIN_HEIGHT, ADMIN_MENU_BUTTON_MARGIN} from '../../util/constants';
 
 const SELECT_STYLE = {
-  height: '118px'
+  height: ADMIN_MENU_HEIGHT
 };
 
 const DROP_DOWN_STYLE = {
   marginLeft: ADMIN_MARGIN_LEFT,
-  marginTop: '20px',
+  marginTop: ADMIN_SECTION_MARGIN_HEIGHT,
   marginBottom: '10px',
-  paddingTop: '5px'
 };
 
 const SEARCH_STORE_STYLE = {
@@ -25,7 +24,7 @@ const SEARCH_STORE_STYLE = {
 };
 
 const SEARCH_KEY_STYLE = {
-  marginLeft: '20px',
+  marginLeft: ADMIN_MENU_BUTTON_MARGIN,
   marginBottom: '10px',
   marginRight: '2px'
 };
