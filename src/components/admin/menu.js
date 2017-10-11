@@ -65,7 +65,6 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, 
         title={`Select Store (${rows.length})`}
         href='#/admin'
       />
-      {/* Search bars */}
       <InputText
         size={SEARCH_STORE_SIZE}
         style={SEARCH_STORE_STYLE}
