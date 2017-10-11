@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
-import Store from './store/store';
 import Header from './header';
-import Gallery from './store/gallery';
+import Gallery from './gallery/gallery';
 import Language, { setLanguage } from '../../util/localization/language';
 import Event from './event';
 import Strings, { getString } from '../../util/localization/strings';
 import Config, { getConfig, setConfig } from '../../util/config';
-
-const hrStyle = {
-  margin: '0 !important'
-};
 
 class Home extends Component {
   constructor() {

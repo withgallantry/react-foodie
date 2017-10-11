@@ -4,7 +4,7 @@ import Event from './event';
 const gallery = [];
 const banners = [];
 
-const imageContainerStyle = {
+const IMAGE_CONTAINER_STYLE = {
   width: '95%',
   margin: 'auto'
 };
@@ -71,7 +71,7 @@ const Modals = ({onClick}) => {
               <h4 className='modal-title'>Select image for gallery</h4>
             </div>
             <div className='modal-body'>
-              <div style={imageContainerStyle}>
+              <div style={IMAGE_CONTAINER_STYLE}>
                 {getGalleryList(onClick)}
               </div>
             </div>
@@ -89,7 +89,7 @@ const Modals = ({onClick}) => {
               <h4 className='modal-title'>Select image for banner</h4>
             </div>
             <div className='modal-body'>
-              <div style={imageContainerStyle}>
+              <div style={IMAGE_CONTAINER_STYLE}>
                 {getBannerList(onClick)}
               </div>
             </div>

@@ -32,12 +32,12 @@ const Event = Object.freeze({
   CHANGE_KEY            : 25,
   CHANGE_LANG           : 26,
   CLONE                 : 27,
-  
+
   SET_IMAGE_GALLERY     : 33,
   SET_IMAGE_BANNER      : 34
 });
 
-const lut = {
+const LUT = {
   name : Event.NAME_CHANGE,
   address : Event.ADDRESS_CHANGE,
   tags : Event.TAGS_CHANGE,
@@ -54,9 +54,9 @@ export const propToEvent = (prop) => {
 
   if (prop.indexOf('.') >= 0) {
     let props = prop.split('.');
-    return lut[props[0]][props[1]];
+    return LUT[props[0]][props[1]];
   }
-  return lut[prop];
+  return LUT[prop];
 }
 
 export default Event;

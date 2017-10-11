@@ -73,13 +73,25 @@ class Admin extends Component {
   getDefaultState() {
     return {
       foodPlaces: [],
-      name: '',
+      name: 'New',
       address: '',
-      hours: null,
+      hours: {
+        opensAt: {
+          hours: '10',
+          minutes: '00'
+        },
+        closesAt: {
+          hours: '21',
+          minutes: '00'
+        }
+      },
       tags: [],
       deleteEnabled: true,
       deleteAllEnabled: true,
-      images: null,
+      images: {
+        gallery: 'gallery0.png',
+        banner: 'banner0.png',
+      },
       menu: null,
       currentId: null,
       lang: Language.SV,
@@ -445,7 +457,6 @@ class Admin extends Component {
   }
 
   onClick(id, args) {
-    console.log(args);
     if (args) {
       console.log(`onClick[${id}](${args[0]}, ${args[1]}, ${args[2]})`);
     } else {

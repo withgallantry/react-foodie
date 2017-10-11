@@ -13,7 +13,7 @@ export const Event = {
   SEARCH : 1
 };
 
-const divStyle = {
+const DIV_STYLE = {
   position: 'absolute',
   top: '70px',
   left: '0px',
@@ -22,7 +22,7 @@ const divStyle = {
   overflowY: 'scroll'
 };
 
-const galleryStyle = {
+const GALLERY_STYLE = {
   width: '89%',
   marginLeft: 'auto',
   marginRight: 'auto',
@@ -132,13 +132,13 @@ class Gallery extends Component {
     let stores = this.createStores();
 
     return (
-      <div style={divStyle}>
+      <div style={DIV_STYLE}>
         <NavBar
           onClick={this.onClick}
           onChange={this.onChange}
           searchExpanded={this.state.searchExpanded}
         />
-        <div style={galleryStyle}>
+        <div style={GALLERY_STYLE}>
           {stores}
         </div>
       </div>
