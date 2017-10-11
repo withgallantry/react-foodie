@@ -4,13 +4,14 @@ import Button from '../shared/html/button';
 import { Link } from 'react-router-dom';
 import Language from '../../util/localization/language';
 import ReactTooltip from 'react-tooltip';
+import { ADMIN_MARGIN_LEFT } from '../../util/constants';
 
 const BTN_MENU_STYLE = {
   marginBottom: '20px'
 };
 
 const FIRST_BTN_STYLE = {
-  marginLeft: '160px'
+  marginLeft: ADMIN_MARGIN_LEFT
 };
 
 const SECOND_BTN_STYLE = {

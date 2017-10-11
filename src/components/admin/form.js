@@ -7,6 +7,7 @@ import { createButton } from './button_row';
 import Event from './event';
 import Language from '../../util/localization/language';
 import { replaceAt, sequence, cloneDeep } from '../../util/util';
+import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN } from '../../util/constants';
 
 export const RowType = Object.freeze({
   INPUT           : 0,
@@ -26,9 +27,9 @@ const FORM_STYLE = {
 
 const LABEL_STYLE = {
   display: 'inline-block',
-  width: '140px',
+  width: ADMIN_LABEL_WIDTH,
   textAlign: 'right',
-  marginRight: '20px'
+  marginRight: ADMIN_LABEL_MARGIN,
 };
 
 const FORM_ROW_STYLE = {
@@ -36,7 +37,7 @@ const FORM_ROW_STYLE = {
 };
 
 const NEW_MENU_BTN_STYLE = {
-  marginLeft: '160px',
+  marginLeft: ADMIN_MARGIN_LEFT,
   marginBottom: '40px'
 };
 

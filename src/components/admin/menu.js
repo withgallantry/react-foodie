@@ -6,20 +6,21 @@ import FormButtonBar from './form_button_bar';
 import InputText from '../shared/html/input_text';
 import Event from './event';
 import DropDown from '../shared/html/drop_down';
+import { ADMIN_MARGIN_LEFT } from '../../util/constants';
 
 const SELECT_STYLE = {
   height: '118px'
 };
 
 const DROP_DOWN_STYLE = {
-  marginLeft: '160px',
+  marginLeft: ADMIN_MARGIN_LEFT,
   marginTop: '20px',
   marginBottom: '10px',
   paddingTop: '5px'
 };
 
 const SEARCH_STORE_STYLE = {
-  marginLeft: '160px',
+  marginLeft: ADMIN_MARGIN_LEFT,
   marginBottom: '10px'
 };
 
@@ -36,7 +37,7 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, 
   if (foodPlaces == null) {
     return (
       <div>
-        Loading food places...
+        Loading stores...
       </div>
     );
   }

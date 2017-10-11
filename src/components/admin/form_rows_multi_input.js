@@ -4,17 +4,18 @@ import InputText from '../shared/html/input_text';
 import Event from './event';
 import { createButton } from './button_row';
 import ReactTooltip from 'react-tooltip';
+import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN } from '../../util/constants';
 
 const LABEL_STYLE = {
   display: 'inline-block',
-  width: '140px',
+  width: ADMIN_LABEL_WIDTH,
   textAlign: 'right',
-  marginRight: '20px'
+  marginRight: ADMIN_LABEL_MARGIN
 };
 
 const FORM_ROW_STYLE = {
   marginTop: '2px',
-  marginLeft: '160px'
+  marginLeft: ADMIN_MARGIN_LEFT
 };
 
 const ITEM_INPUT_STYLE = {
@@ -22,7 +23,7 @@ const ITEM_INPUT_STYLE = {
 };
 
 const BTN_NEW_MENU_STYLE = {
-  marginLeft: '160px',
+  marginLeft: ADMIN_MARGIN_LEFT,
   marginTop: '3px'
 };
 
