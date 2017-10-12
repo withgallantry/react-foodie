@@ -9,6 +9,8 @@ import { STORES_URL } from '../../util/constants';
 import Config, { getConfig, setConfig } from '../../util/config';
 import Language from '../../util/localization/language';
 import Modals from './modals';
+import { validateModel } from '../../util/model_validator';
+import Models from '../../util/models';
 
 class Admin extends Component {
   constructor() {
@@ -115,7 +117,7 @@ class Admin extends Component {
   load(onFinished) {
     axios.get(this.getUrl()).then((response) => {
       const stores = response.data;
-      this.validateStoreModel(stores);
+      this.validateStores(stores);
       this.setState({ stores });
       if (onFinished) {
         onFinished(stores);
@@ -126,24 +128,18 @@ class Admin extends Component {
     })
   }
 
-  validateStoreModel(stores) {
+  validateStores(stores) {
+    // remove extra props
     for (const store of stores) {
-      if (! store.hours) {
-        store.hours = {
-          opensAt  : { hours : '', minutes : '' },
-          closesAt : { hours : '', minutes : '' }
-        };
-        if (! store.hours.opensAt) {
-          store.hours.opensAt = { hours : '10', minutes : '00' };
-        }
-        if (! store.hours.closesAt) {
-          store.hours.closesAt = { hours : '21', minutes : '30' };
-        }
-      }
-      if (! store.images) {
-        store.images = { gallery : 'gallery0.png', banner : 'banner0.png' };
-      };
+      delete store.__v;
     }
+    _.remove(stores, (store) => {
+      const isValid = validateModel(store, Models.STORE);
+      if (isValid === false) {
+        console.log(`removed invalid store with id: ${store._id}`);
+      }
+      return !isValid;
+    });
   }
 
   save() {

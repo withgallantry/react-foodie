@@ -57,9 +57,9 @@ export const localize = (args, lang) => {
     isArray = false;
     args = [args];
   }
-  let currentLang = getLanguage();
+  const currentLang = getLanguage();
   for (let i = 0; i < args.length; ++i) {
-    let value = args[i].toLowerCase();
+    const value = args[i].toLowerCase();
     let match = false;
     for (let j = 0; j < dictionary[lang].length; ++j) {
       if (dictionary[lang][j].toLowerCase().localeCompare(value) === 0) {
@@ -89,7 +89,7 @@ export const localize = (args, lang) => {
 };
 
 export const getString = (id) => {
-  let lang = getLanguage();
+  const lang = getLanguage();
   if (lang !== undefined
     && id >= min
     && id <= max

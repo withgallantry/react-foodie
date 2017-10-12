@@ -24,6 +24,7 @@ class Json extends Component {
           tags: store.tags,
           menu: store.menu,
           images: store.images,
+          modified: store.modified,
         };
       });
 
