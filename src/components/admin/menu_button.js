@@ -3,7 +3,7 @@ import Button from '../shared/html/button';
 
 export const createButton = (glyph, func, id, args, style, tooltip) => {
   return (
-    <ButtonRow
+    <MenuButton
       style={style}
       glyphicon={glyph}
       onClick={{ func, id, args }}
@@ -12,7 +12,7 @@ export const createButton = (glyph, func, id, args, style, tooltip) => {
   );
 };
 
-const ButtonRow = (props) => {
+const MenuButton = (props) => {
   return (
     <Button
       style={props.style !== undefined ? props.style : {}}
@@ -28,4 +28,4 @@ const ButtonRow = (props) => {
   );
 };
 
-export default ButtonRow;
+export default MenuButton;

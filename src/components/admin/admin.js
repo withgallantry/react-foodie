@@ -102,21 +102,12 @@ class Admin extends Component {
     return {
       name: this.state.name,
       address: this.state.address,
-      hours:
-        this.state.hours === undefined
-          ? {
-              opensAt  : { hours : '', minutes : '' },
-              closesAt : { hours : '', minutes : '' }
-            }
-          : this.state.hours,
+      hours: this.state.hours,
       tags: this.state.tags.constructor === Array
         ? this.state.tags
         : removeWhiteSpace(this.state.tags).split(','),
       menu: this.state.menu,
-      images:
-        this.state.images === undefined
-          ? { gallery : '', banner : ''}
-          : this.state.images,
+      images: this.state.images,
       modified: new Date().toISOString()
     };
   }
@@ -142,6 +133,7 @@ class Admin extends Component {
         };
       });
 
+      this.validateStoreModel(foodPlaces);
       this.setState({ foodPlaces });
       if (onFinished) {
         onFinished(foodPlaces);
@@ -150,6 +142,26 @@ class Admin extends Component {
     .catch((error) => {
       console.log(error);
     })
+  }
+
+  validateStoreModel(stores) {
+    for (const store of stores) {
+      if (! store.hours) {
+        store.hours = {
+          opensAt  : { hours : '', minutes : '' },
+          closesAt : { hours : '', minutes : '' }
+        };
+        if (! store.hours.opensAt) {
+          store.hours.opensAt = { hours : '10', minutes : '00' };
+        }
+        if (! store.hours.closesAt) {
+          store.hours.closesAt = { hours : '21', minutes : '30' };
+        }
+      }
+      if (! store.images) {
+        store.images = { gallery : 'gallery0.png', banner : 'banner0.png' };
+      };
+    }
   }
 
   save() {

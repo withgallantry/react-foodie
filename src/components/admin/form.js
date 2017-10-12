@@ -3,7 +3,7 @@ import _ from 'lodash';
 import FormRowSingleInput from './form_row_single_input';
 import FormRowsMultiInput from './form_rows_multi_input';
 import Button from '../shared/html/button';
-import { createButton } from './button_row';
+import { createButton } from './menu_button';
 import Event from './event';
 import Language from '../../util/localization/language';
 import { replaceAt, sequence, cloneDeep } from '../../util/util';
@@ -66,44 +66,29 @@ const createListSequence = (begin, end, interval = 1) => {
   return result;
 };
 
-const Form = (props) => {
-  let rows = _.map(Object.keys(props.singleInput), (key) => {
-    return {
-      label: key,
-      value: props.singleInput[key],
-      type: RowType.INPUT,
-    };
-  });
-
-  // remove 'address' from rows, modify and add back
+const modifyAddress = (rows, props) => {
   let addressIndex = _.findIndex(rows, (row) => {
     return row.label === 'address';
   })
   if (addressIndex > 0) {
-    let address = rows.splice(addressIndex, 1)[0];
+    let address = rows[addressIndex];
     address.type = RowType.SEARCH_BAR;
     address.searchBar = {
       onChange: props.onAddressChange,
       placeholder: address.value
     };
-    rows.push(address);
   }
+};
 
-  // remove 'hours' from rows, modify and add back.
+const modifyHours = (rows, props) => {
   let hoursIndex = _.findIndex(rows, (row) => {
     return row.label === 'hours';
   });
   if (hoursIndex >= 0) {
     let hours = rows.splice(hoursIndex, 1)[0];
-    if (! hours.value) {
-      hours.value = {
-        opensAt : { hours : '', minutes : '' },
-        closesAt : { hours : '', minutes : '' }
-      };
-    }
     if (hours.value) {
-      let opensAt  = { label : 'hours.opensAt'  };
-      let closesAt = { label : 'hours.closesAt' };
+      let opensAt  = { label : 'hours.opensAt',  type : RowType.DROP_DOWN };
+      let closesAt = { label : 'hours.closesAt', type : RowType.DROP_DOWN };
       let dropDown = {
         count : 2,
         style : DROP_DOWN_STYLE,
@@ -122,31 +107,38 @@ const Form = (props) => {
       closesAtDropDown.onClick = props.onClick;
 
       opensAt.dropDown = opensAtDropDown;
-      opensAt.type = RowType.DROP_DOWN;
       closesAt.dropDown = closesAtDropDown;
-      closesAt.type = RowType.DROP_DOWN;
       rows.push(opensAt);
       rows.push(closesAt);
     }
   }
+};
 
-  // remove 'images' from rows, modify and add back.
+const modifyImages = (rows, props) => {
   let imagesIndex = _.findIndex(rows, (row) => {
     return row.label === 'images';
   });
   if (imagesIndex >= 0) {
     let images = rows.splice(imagesIndex, 1)[0];
-    if (! images.value) {
-      images.value = {
-        gallery : '',
-        banner : ''
-      };
-    }
     if (images.value) {
       rows.push({ label: 'images.gallery', value: images.value.gallery, type : RowType.IMAGE_SELECTION });
       rows.push({ label: 'images.banner',  value: images.value.banner,  type : RowType.IMAGE_SELECTION });
     }
   }
+};
+
+const Form = (props) => {
+  let rows = _.map(Object.keys(props.singleInput), (key) => {
+    return {
+      label: key,
+      value: props.singleInput[key],
+      type: RowType.INPUT,
+    };
+  });
+
+  modifyAddress(rows, props);
+  modifyHours(rows, props);
+  modifyImages(rows, props);
 
   // single input form rows
   let singleInputFormRows = _.map(rows, (row) => {
@@ -186,7 +178,7 @@ const Form = (props) => {
     for (let i = 0; i < menu.length; ++i) {
       let current = menu[i];
       multiInputFormRows.push((
-        <div key={`current${i}`}>
+        <div key={`multiInputFormRows${i}`}>
           <hr style={HR_STYLE}/>
           <FormRowsMultiInput
             menu={current}
@@ -204,11 +196,7 @@ const Form = (props) => {
     <div style={FORM_STYLE}>
       <div style={{marginTop : ADMIN_SECTION_MARGIN_HEIGHT}}>
         {singleInputFormRows}
-        {
-          _.forEach(multiInputFormRows, (row) => {
-            return row;
-          })
-        }
+        {multiInputFormRows}
       </div>
       <hr />
       {createButton('plus', props.onClick, Event.NEW_MENU, 0, NEW_MENU_BTN_STYLE)}

@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import InputText from '../shared/html/input_text';
 import Event from './event';
-import { createButton } from './button_row';
+import { createButton } from './menu_button';
 import ReactTooltip from 'react-tooltip';
 import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN, ADMIN_FORM_ROW_MARGIN_TOP } from '../../util/constants';
 
@@ -80,11 +80,7 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
       {createButton('cloud-download', onClick, Event.CLONE,          [index], BTN_STYLE, 'Fetch description from different language.')}
       <ReactTooltip type='info' effect='solid' />
       {createInputText({}, INPUT_MENU_NAME_SIZE, onChange, [Event.CHANGE_MENU_NAME, index, lang], menu.name)}
-      {
-        _.forEach(items, (item) => {
-          return item;
-        })
-      }
+      {items}
       <div>
         {createButton('plus', onClick, Event.NEW_MENU_ITEM, [index, lang], BTN_NEW_MENU_STYLE)}
       </div>

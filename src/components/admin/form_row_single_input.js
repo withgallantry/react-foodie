@@ -16,6 +16,10 @@ const IMAGE_STYLE = {
   maxHeight: '100px',
 };
 
+const INLINE_STYLE = {
+  display : 'inline'
+};
+
 const createSearchBar = ({onChange, placeholder}) => {
   return (
     <AddressSearchBar
@@ -39,7 +43,7 @@ const createImageSelection = ({value, label}) => {
       </button>
     );
   }
-  return (<div style={{ display : 'inline' }}></div>);
+  return (<div style={INLINE_STYLE}></div>);
 };
 
 const createDropDowns = (props) => {
@@ -62,7 +66,7 @@ const createDropDowns = (props) => {
       items.push(
         <div
           key={`dropDown[${props.ids[i][i]}]`}
-          style={{ display : 'inline' }}>
+          style={INLINE_STYLE}>
           &nbsp;:&nbsp;
           </div>
       );
@@ -70,7 +74,7 @@ const createDropDowns = (props) => {
   }
 
   return (
-    <div style={{ display : 'inline' }}>
+    <div style={INLINE_STYLE}>
       {items}
     </div>
   );
@@ -97,6 +101,12 @@ const createInput = (props) => {
 };
 
 const FormRowSingleInput = ({div, label, input, type, dropDown, imageSelection, searchBar}) => {
+  let element;
+  if      (type === RowType.INPUT)            { element = createInput(input);                   }
+  else if (type === RowType.DROP_DOWN)        { element = createDropDowns(dropDown);            }
+  else if (type === RowType.IMAGE_SELECTION)  { element = createImageSelection(imageSelection); }
+  else if (type === RowType.SEARCH_BAR)       { element = createSearchBar(searchBar);           }
+
   return (
     <div
       style={div.style !== undefined ? div.style : {}}
@@ -105,10 +115,7 @@ const FormRowSingleInput = ({div, label, input, type, dropDown, imageSelection, 
         style={label.style !== undefined ? label.style : {}}
         text={label.text}
       />
-      {type === RowType.INPUT           ? createInput(input)                    : undefined}
-      {type === RowType.DROP_DOWN       ? createDropDowns(dropDown)             : undefined}
-      {type === RowType.IMAGE_SELECTION ? createImageSelection(imageSelection)  : undefined}
-      {type === RowType.SEARCH_BAR      ? createSearchBar(searchBar)            : undefined}
+      {element}
     </div>
   );
 };

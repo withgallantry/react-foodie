@@ -30,7 +30,7 @@ const createButton = (style, label, func, disabled, id, tooltip) => {
   );
 };
 
-const FormButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
+const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
   return (
     <div style={{BTN_MENU_STYLE}}>
       <Link to={'/home'}>
@@ -59,4 +59,4 @@ const FormButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
   );
 };
 
-export default FormButtonBar;
+export default MenuButtonBar;

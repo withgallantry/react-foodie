@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import Button from '../shared/html/button';
 import ReactTooltip from 'react-tooltip';
-import FormButtonBar from './form_button_bar';
+import MenuButtonBar from './menu_button_bar';
 import InputText from '../shared/html/input_text';
 import Event from './event';
 import DropDown from '../shared/html/drop_down';
@@ -80,7 +80,7 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, 
       />
       <ReactTooltip type="info" effect="solid"/>
       &#9911;
-      <FormButtonBar
+      <MenuButtonBar
         onClick={onClick}
         deleteEnabled={deleteEnabled}
         deleteAllEnabled={deleteAllEnabled}
