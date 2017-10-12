@@ -11,30 +11,30 @@ const Event = Object.freeze({
   NAME_CHANGE           : 8,
   TAGS_CHANGE           : 9,
   HOURS_OPENS_CHANGE    : 10,
-  HOURS_CLOSES_CHANGE   : 28,
-  MINUTES_OPENS_CHANGE  : 29,
-  MINUTES_CLOSES_CHANGE : 30,
-  ADDRESS_CHANGE        : 11,
+  HOURS_CLOSES_CHANGE   : 11,
+  MINUTES_OPENS_CHANGE  : 12,
+  MINUTES_CLOSES_CHANGE : 13,
+  ADDRESS_CHANGE        : 14,
 
-  CHANGE_MENU_ITEM      : 14,
-  CHANGE_MENU_NAME      : 15,
-  REMOVE_MENU_ITEM      : 16,
-  REMOVE_MENU           : 17,
-  NEW_MENU_ITEM         : 18,
-  NEW_MENU              : 19,
+  CHANGE_MENU_ITEM      : 15,
+  CHANGE_MENU_NAME      : 16,
+  REMOVE_MENU_ITEM      : 17,
+  REMOVE_MENU           : 18,
+  NEW_MENU_ITEM         : 19,
+  NEW_MENU              : 20,
 
-  MOVE_MENU_ITEM_UP     : 20,
-  MOVE_MENU_ITEM_DOWN   : 21,
-  MOVE_MENU_UP          : 22,
-  MOVE_MENU_DOWN        : 23,
+  MOVE_MENU_ITEM_UP     : 21,
+  MOVE_MENU_ITEM_DOWN   : 22,
+  MOVE_MENU_UP          : 23,
+  MOVE_MENU_DOWN        : 24,
 
-  GET_JSON              : 24,
-  CHANGE_KEY            : 25,
-  CHANGE_LANG           : 26,
-  CLONE                 : 27,
+  GET_JSON              : 25,
+  CHANGE_KEY            : 26,
+  CHANGE_LANG           : 27,
+  CLONE                 : 28,
 
-  SET_IMAGE_GALLERY     : 33,
-  SET_IMAGE_BANNER      : 34
+  SET_IMAGE_GALLERY     : 29,
+  SET_IMAGE_BANNER      : 30
 });
 
 const LUT = {
