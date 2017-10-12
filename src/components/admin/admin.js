@@ -16,13 +16,14 @@ class Admin extends Component {
 
     this.state = this.getDefaultState();
 
-    this.onClick = this.onClick.bind(this);
-    this.onChangeForm = this.onChangeForm.bind(this);
-    this.onChangeSearch = this.onChangeSearch.bind(this);
+    this.onClick          = this.onClick.bind(this);
+    this.onChangeForm     = this.onChangeForm.bind(this);
+    this.onChangeSearch   = this.onChangeSearch.bind(this);
+    this.onChangeKey      = this.onChangeKey.bind(this);
+    this.onAddressChange  = this.onAddressChange.bind(this);
+
+    this.onChangeKeyDebounced    = _.debounce(this.onChangeKey,    300);
     this.onChangeSearchDebounced = _.debounce(this.onChangeSearch, 300);
-    this.onChangeKey = this.onChangeKey.bind(this);
-    this.onChangeKeyDebounced = _.debounce(this.onChangeKey, 300);
-    this.onAddressChange = this.onAddressChange.bind(this);
 
     this.events = [];
     const assign = (array, func, id) => {
@@ -57,41 +58,32 @@ class Admin extends Component {
   }
 
   componentDidMount() {
-    this.load((foodPlaces) => {
-      if (foodPlaces.length > 0) {
-        this.show(foodPlaces[0]._id);
+    this.load((stores) => {
+      if (stores.length > 0) {
+        this.show(stores[0]._id);
       }
     });
   }
 
   clearForm() {
     const state = this.getDefaultState();
-    state.foodPlaces = this.state.foodPlaces;
+    state.stores = this.state.stores;
     this.setState(state);
   }
 
   getDefaultState() {
     return {
-      foodPlaces: [],
+      stores: [],
       name: 'New',
       address: '',
       hours: {
-        opensAt: {
-          hours: '10',
-          minutes: '00'
-        },
-        closesAt: {
-          hours: '21',
-          minutes: '00'
-        }
+        opensAt:  { hours: '10', minutes: '00' },
+        closesAt: { hours: '21', minutes: '00' }
       },
       tags: [],
       deleteEnabled: true,
       deleteAllEnabled: true,
-      images: {
-        gallery: 'gallery0.png',
-        banner: 'banner0.png',
-      },
+      images: { gallery: 'gallery0.png', banner: 'banner0.png' },
       menu: null,
       currentId: null,
       lang: Language.SV,
@@ -103,6 +95,7 @@ class Admin extends Component {
       name: this.state.name,
       address: this.state.address,
       hours: this.state.hours,
+      // always store tags as an array of strings
       tags: this.state.tags.constructor === Array
         ? this.state.tags
         : removeWhiteSpace(this.state.tags).split(','),
@@ -121,22 +114,11 @@ class Admin extends Component {
 
   load(onFinished) {
     axios.get(this.getUrl()).then((response) => {
-      const foodPlaces = _.map(response.data, (foodPlace) => {
-        return {
-          name: foodPlace.name,
-          address: foodPlace.address,
-          hours: foodPlace.hours,
-          tags: foodPlace.tags,
-          menu: foodPlace.menu,
-          images: foodPlace.images,
-          _id: foodPlace._id
-        };
-      });
-
-      this.validateStoreModel(foodPlaces);
-      this.setState({ foodPlaces });
+      const stores = response.data;
+      this.validateStoreModel(stores);
+      this.setState({ stores });
       if (onFinished) {
-        onFinished(foodPlaces);
+        onFinished(stores);
       }
     })
     .catch((error) => {
@@ -191,17 +173,17 @@ class Admin extends Component {
     if (args.constructor === Array) {
       id = args[0];
     }
-    let foodPlace = _.find(this.state.foodPlaces, (foodPlace) => {
-      return foodPlace._id === id;
+    let store = _.find(this.state.stores, (store) => {
+      return store._id === id;
     });
-    if (foodPlace) {
+    if (store) {
       this.setState({
-        name: foodPlace.name,
-        address: foodPlace.address,
-        hours: foodPlace.hours,
-        tags: foodPlace.tags,
-        images: foodPlace.images,
-        menu: foodPlace.menu,
+        name: store.name,
+        address: store.address,
+        hours: store.hours,
+        tags: store.tags,
+        images: store.images,
+        menu: store.menu,
         currentId: id
       });
     }
@@ -212,8 +194,8 @@ class Admin extends Component {
     item.name = `${item.name} (copy)`;
     axios.post(this.getUrl(), item).then((response) => {
       console.log('added food place');
-      this.load((foodplaces) => {
-        let match = _.find(foodplaces, (obj) => {
+      this.load((stores) => {
+        let match = _.find(stores, (obj) => {
           return obj._id === response.data[0]._id;
         });
         if (match) {
@@ -227,20 +209,20 @@ class Admin extends Component {
 
   delete() {
     const currentId = this.state.currentId;
-    let index = _.findIndex(this.state.foodPlaces, (obj) => {
+    let index = _.findIndex(this.state.stores, (obj) => {
       return obj._id === currentId;
     });
     if (currentId) {
       this.setState({ deleteEnabled : false });
       axios.delete(`${STORES_URL}/${currentId}`).then((response) => {
         console.log(`deleted food place with id ${currentId}`);
-        this.load((foodPlaces) => {
+        this.load((stores) => {
           this.setState({ deleteEnabled : true });
-          if (foodPlaces.length > 0) {
+          if (stores.length > 0) {
             if (index >= 1) {
-              this.show(foodPlaces[index - 1]._id);
+              this.show(stores[index - 1]._id);
             } else {
-              this.show(foodPlaces[0]._id);
+              this.show(stores[0]._id);
             }
           } else {
             this.clearForm();
@@ -254,12 +236,11 @@ class Admin extends Component {
   }
 
   deleteAll() {
-    if (this.state.foodPlaces.length > 0) {
+    if (this.state.stores.length > 0) {
       this.setState({ deleteAllEnabled : false });
-
       axios.delete(`${this.getUrl()}/deleteAll`).then((response) => {
         this.clearForm();
-        this.setState({ foodPlaces : [] });
+        this.setState({ stores : [] });
       }).catch((error) => {
         console.log(error);
       });
@@ -269,8 +250,8 @@ class Admin extends Component {
   addTemplate() {
     axios.post(this.getUrl(), getTemplateItems()).then((response) => {
       console.log('added food place');
-      this.load((foodPlaces) => {
-        let match = _.find(foodPlaces, (obj) => {
+      this.load((stores) => {
+        let match = _.find(stores, (obj) => {
           return obj._id === response.data[0]._id;
         });
         if (match) {
@@ -287,7 +268,7 @@ class Admin extends Component {
   }
 
   changeMenuItem([menuIndex, itemIndex, prop, lang], value) {
-    // TODO : for some reason i need to clone this deeply, otherwise
+    // TODO : for some reason I need to clone this deeply, otherwise
     // some weird reference error appears, look into it when u got time.
     // both language versions will get the changes if i dont clone, strangely.
     const menu = cloneDeep(this.state.menu);
@@ -317,11 +298,7 @@ class Admin extends Component {
 
   newMenuItem([menuIndex]) {
     let menu = this.state.menu;
-    let newItem = {
-      name : '',
-      desc : '',
-      price : ''
-    };
+    let newItem = { name : '', desc : '', price : '' };
     menu[Language.SV][menuIndex].items.push(newItem);
     menu[Language.EN][menuIndex].items.push(newItem);
     this.setState({ menu });
@@ -329,84 +306,67 @@ class Admin extends Component {
 
   newMenu() {
     let menu = this.state.menu;
-    menu[Language.SV].push({
-      name : '',
-      items : []
-    });
-    menu[Language.EN].push({
-      name : '',
-      items : []
-    });
-
+    menu[Language.SV].push({ name : '', items : [] });
+    menu[Language.EN].push({ name : '', items : [] });
     this.setState({ menu })
   }
 
-  moveMenuItemUp([menuIndex, itemIndex]) {
-    let menu = this.state.menu;
-    let lang = [Language.SV, Language.EN];
+  moveMenuItem(menuIndex, itemIndex, dir) {
+    const menu = this.state.menu;
+    const lang = [Language.SV, Language.EN];
     for (let i = 0; i < 2; ++i) {
-      if (menu[lang[i]][menuIndex].items.length > 1) {
-        let target = itemIndex - 1;
-        if (target < 0) {
-          target = menu[lang[i]][menuIndex].items.length - 1;
+      let target = itemIndex + dir;
+      const condition = dir === 1
+        ? target >= menu[lang[i]][menuIndex].items.length
+        : target < 0;
+      if (condition === true) {
+        target = dir === 1
+          ? 0
+          : target = menu[lang[i]][menuIndex].items.length - 1;
+      }
+      let temp = menu[lang[i]][menuIndex].items[target];
+      menu[lang[i]][menuIndex].items[target] = menu[lang[i]][menuIndex].items[itemIndex];
+      menu[lang[i]][menuIndex].items[itemIndex] = temp;
+      this.setState({ menu });
+    }
+  }
+
+  moveMenu(index, dir) {
+    const menu = this.state.menu;
+    const lang = [Language.SV, Language.EN];
+    for (let i = 0; i < 2; ++i) {
+      if (menu[lang[i]].length > 1) {
+        let target = index + dir;
+        const condition = dir === 1
+          ? target >= menu[lang[i]].length
+          : target < 0;
+        if (condition === true) {
+          target = dir === 1
+            ? 0
+            : target = menu[lang[i]].length - 1;
         }
-        let temp = menu[lang[i]][menuIndex].items[target];
-        menu[lang[i]][menuIndex].items[target] = menu[lang[i]][menuIndex].items[itemIndex];
-        menu[lang[i]][menuIndex].items[itemIndex] = temp;
+        let temp = menu[lang[i]][target];
+        menu[lang[i]][target] = menu[lang[i]][index];
+        menu[lang[i]][index] = temp;
         this.setState({ menu });
       }
     }
+  }
+
+  moveMenuItemUp([menuIndex, itemIndex]) {
+    this.moveMenuItem(menuIndex, itemIndex, -1);
   }
 
   moveMenuItemDown([menuIndex, itemIndex]) {
-    let menu = this.state.menu;
-    let lang = [Language.SV, Language.EN];
-    for (let i = 0; i < 2; ++i) {
-      if (menu[lang[i]][menuIndex].items.length > 1) {
-        let target = itemIndex + 1;
-        if (target >= menu[lang[i]][menuIndex].items.length) {
-          target = 0;
-        }
-        let temp = menu[lang[i]][menuIndex].items[target];
-        menu[lang[i]][menuIndex].items[target] = menu[lang[i]][menuIndex].items[itemIndex];
-        menu[lang[i]][menuIndex].items[itemIndex] = temp;
-        this.setState({ menu });
-      }
-    }
+    this.moveMenuItem(menuIndex, itemIndex, 1);
   }
 
   moveMenuUp([index]) {
-    let menu = this.state.menu;
-    let lang = [Language.SV, Language.EN];
-    for (let i = 0; i < 2; ++i) {
-      if (menu[lang[i]].length > 1) {
-        let target = index - 1;
-        if (target < 0) {
-          target = menu[lang[i]].length - 1;
-        }
-        let temp = menu[lang[i]][target];
-        menu[lang[i]][target] = menu[lang[i]][index];
-        menu[lang[i]][index] = temp;
-        this.setState({ menu });
-      }
-    }
+    this.moveMenu(index, -1);
   }
 
   moveMenuDown([index]) {
-    let menu = this.state.menu;
-    let lang = [Language.SV, Language.EN];
-    for (let i = 0; i < 2; ++i) {
-      if (menu[lang[i]].length > 1) {
-        let target = index + 1;
-        if (target >= menu[lang[i]].length) {
-          target = 0;
-        }
-        let temp = menu[lang[i]][target];
-        menu[lang[i]][target] = menu[lang[i]][index];
-        menu[lang[i]][index] = temp;
-        this.setState({ menu });
-      }
-    }
+    this.moveMenu(index, 1);
   }
 
   changeLang() {
@@ -477,8 +437,7 @@ class Admin extends Component {
     this.events[id](args);
   }
 
-  onChangeForm(value, args) {
-    let label = args[0];
+  onChangeForm(value, [label, ...args]) {
     let event = propToEvent(label);
     console.log(`onChangeForm(${value}, ${args})[event=${event}]`);
 
@@ -490,36 +449,30 @@ class Admin extends Component {
     }
     else if (event === Event.IMAGES_GALLERY_CHANGE) {
       let images = this.state.images;
-      if (! images) {
-        images = { gallery : '', banner : ''};
-      }
       images.gallery = value;
       this.setState({ images });
     }
     else if (event === Event.IMAGES_BANNER_CHANGE) {
       let images = this.state.images;
-      if (! images) {
-        images = { gallery : '', banner : ''};
-      }
       images.banner = value;
       this.setState({ images });
     }
     else if (label === Event.CHANGE_MENU_ITEM) {
-      this.changeMenuItem(args.slice(1), value);
+      this.changeMenuItem(args, value);
     } else if (label === Event.CHANGE_MENU_NAME) {
-      this.changeMenuName(args.slice(1), value);
+      this.changeMenuName(args, value);
     }
   }
 
   onChangeSearch(value) {
     value = value.toLowerCase();
-    const foodPlaces = this.state.foodPlace;
-    let index = _.findIndex(this.state.foodPlaces, (foodPlace) => {
-      let name = foodPlace.name.toLowerCase();
+    const stores = this.state.stores;
+    let index = _.findIndex(this.state.stores, (store) => {
+      let name = store.name.toLowerCase();
       return _.includes(name, value);
     });
     if (index >= 0) {
-      this.show(this.state.foodPlaces[index]._id);
+      this.show(this.state.stores[index]._id);
     }
   }
 
@@ -529,9 +482,9 @@ class Admin extends Component {
     if (value.length > 0) {
         setConfig(Config.KEY, value);
         this.clearForm();
-        this.load((foodPlaces) => {
-          if (foodPlaces.length > 0) {
-            this.show(foodPlaces[0]._id);
+        this.load((stores) => {
+          if (stores.length > 0) {
+            this.show(stores[0]._id);
           }
         });
     }
@@ -546,11 +499,11 @@ class Admin extends Component {
           onChangeSearch={this.onChangeSearchDebounced}
           onChangeKey={this.onChangeKeyDebounced}
           onAddressChange={this.onAddressChange}
-          foodPlaces={
-            _.map(this.state.foodPlaces, (foodPlace) => {
+          stores={
+            _.map(this.state.stores, (store) => {
               return {
-                name: foodPlace.name,
-                id:   foodPlace._id,
+                name: store.name,
+                id:   store._id,
               };
             })
           }

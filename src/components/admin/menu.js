@@ -32,8 +32,8 @@ const SEARCH_KEY_STYLE = {
 const SEARCH_STORE_SIZE = '32';
 const SEARCH_KEY_SIZE = '20';
 
-const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, deleteAllEnabled, _key, lang}) => {
-  if (foodPlaces == null) {
+const Menu = ({onClick, onChangeSearch, onChangeKey, stores, deleteEnabled, deleteAllEnabled, _key, lang}) => {
+  if (stores == null) {
     return (
       <div>
         Loading stores...
@@ -41,10 +41,10 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, foodPlaces, deleteEnabled, 
     );
   }
 
-  let rows = _.map(foodPlaces, (foodPlace) => {
+  let rows = _.map(stores, (store) => {
     return {
-      value : foodPlace.name,
-      args : foodPlace.id
+      value : store.name,
+      args : store.id
     };
   });
 
