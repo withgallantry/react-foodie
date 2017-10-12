@@ -30,12 +30,14 @@ const compareKeysJson = (a, b) => {
 // properties.
 const compareKeysArray = (a, b) => {
   if (a.length > 0 && b.length > 0) {
-    if (a[0].constructor === {}.constructor) {
-      if (compareKeysJson(a[0], b[0]) === false) {
+    const elemA = a[0];
+    const elemB = b[0];
+    if (elemA.constructor === {}.constructor) {
+      if (compareKeysJson(elemA, elemB) === false) {
         return false;
       }
-    } else if (a[0].constructor === [].constructor) {
-      if (compareKeysArray(a[0], b[0]) === false) {
+    } else if (elemA.constructor === [].constructor) {
+      if (compareKeysArray(elemA, elemB) === false) {
         return false;
       }
     }
