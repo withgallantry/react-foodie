@@ -90,7 +90,7 @@ class Admin extends Component {
       menu: null,
       currentId: null,
       lang: Language.SV,
-      loading: true,
+      loading: false,
     };
   }
 
@@ -153,8 +153,9 @@ class Admin extends Component {
 
   save() {
     const currentId = this.state.currentId;
+    console.log(currentId);
     if (currentId !== null) {
-      console.log("saving...");
+      console.log('updating...');
       console.log(this.getCurrentItem());
       axios.put(`${STORES_URL}/${currentId}`, this.getCurrentItem()).then((response) => {
         console.log(`updated food place with id ${currentId}`);
@@ -163,9 +164,13 @@ class Admin extends Component {
         console.log(error);
       });
     } else {
+      console.log('saving...');
+      console.log(this.getCurrentItem());
       axios.post(this.getUrl(), this.getCurrentItem()).then((response) => {
         console.log('added food place');
-        this.load();
+        this.load(() => {
+          this.show(response.data[0]._id);
+        })
       })
       .catch((error) => {
         console.log(error);
