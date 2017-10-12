@@ -11,6 +11,7 @@ import Language from '../../util/localization/language';
 import Modals from './modals';
 import { validateModel } from '../../util/model_validator';
 import Models from '../../util/models';
+import { ADMIN_SECTION_MARGIN_HEIGHT, ADMIN_MARGIN_LEFT } from '../../util/constants';
 
 class Admin extends Component {
   constructor() {
@@ -89,6 +90,7 @@ class Admin extends Component {
       menu: null,
       currentId: null,
       lang: Language.SV,
+      loading: true,
     };
   }
 
@@ -115,16 +117,23 @@ class Admin extends Component {
   }
 
   load(onFinished) {
+    this.setState({ loading : true });
     axios.get(this.getUrl()).then((response) => {
       const stores = response.data;
       this.validateStores(stores);
+      // default sorting by name
+      stores.sort((a, b) => {
+        return a.name.localeCompare(b.name) > 0;
+      });
       this.setState({ stores });
       if (onFinished) {
         onFinished(stores);
       }
+      this.setState({ loading : false });
     })
     .catch((error) => {
       console.log(error);
+      this.setState({ loading : false });
     })
   }
 
@@ -508,20 +517,27 @@ class Admin extends Component {
           lang={this.state.lang}
         />
         <hr />
-        <Form
-          singleInput={{
-            name: this.state.name,
-            tags: this.state.tags,
-            images: this.state.images,
-            address: this.state.address,
-            hours: this.state.hours
-          }}
-          menu={this.state.menu}
-          onClick={this.onClick}
-          onChange={this.onChangeForm}
-          onAddressChange={this.onAddressChange}
-          lang={this.state.lang}
-        />
+        {this.state.loading === false
+          ? <Form
+              singleInput={{
+                name: this.state.name,
+                tags: this.state.tags,
+                images: this.state.images,
+                address: this.state.address,
+                hours: this.state.hours
+              }}
+              menu={this.state.menu}
+              onClick={this.onClick}
+              onChange={this.onChangeForm}
+              onAddressChange={this.onAddressChange}
+              lang={this.state.lang}
+            />
+          : <div style={{
+              marginLeft : ADMIN_MARGIN_LEFT,
+              marginTop : ADMIN_SECTION_MARGIN_HEIGHT}}>
+              loading...
+            </div>
+        }
       </div>
     );
   }

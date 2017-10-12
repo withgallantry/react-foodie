@@ -49,7 +49,7 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, stores, deleteEnabled, dele
   });
 
   rows.sort((a, b) => {
-    return a.value.localeCompare(b.key) > 0;
+    return a.value.localeCompare(b.value) > 0;
   });
 
   return (
