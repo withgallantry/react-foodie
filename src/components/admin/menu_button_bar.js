@@ -44,7 +44,7 @@ const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
         onClick,
         false,
         Event.CHANGE_LANG,
-        'Language only applies for the menu.')}
+        'Language only applies for the store menu items.')}
       <ReactTooltip type='info' effect='solid' />
       {createButton(SECOND_BTN_STYLE, 'Save',         onClick, false,             Event.SAVE)}
       {createButton(SECOND_BTN_STYLE, 'New',          onClick, false,             Event.NEW)}
