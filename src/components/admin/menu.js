@@ -14,7 +14,7 @@ const SELECT_STYLE = {
 
 const DROP_DOWN_STYLE = {
   marginLeft: ADMIN_MARGIN_LEFT,
-  marginTop: ADMIN_SECTION_MARGIN_HEIGHT,
+  marginTop: '16px',
   marginBottom: '10px',
 };
 
