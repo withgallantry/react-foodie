@@ -50,7 +50,7 @@ const createInputText = (style, size, onChange, args, value, lang) => {
 const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
   let items = [];
   for (let i = 0; i < menu.items.length; ++i) {
-    let item = menu.items[i];
+    const item = menu.items[i];
     items.push((
       <div
         style={FORM_ROW_STYLE}

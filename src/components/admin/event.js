@@ -53,7 +53,7 @@ export const propToEvent = (prop) => {
   }
 
   if (prop.indexOf('.') >= 0) {
-    let props = prop.split('.');
+    const props = prop.split('.');
     return LUT[props[0]][props[1]];
   }
   return LUT[prop];

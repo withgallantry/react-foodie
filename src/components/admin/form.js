@@ -54,10 +54,10 @@ const HR_STYLE = {
 };
 
 const createListSequence = (begin, end, interval = 1) => {
-  let seq = sequence(begin, end, interval);
+  const seq = sequence(begin, end, interval);
   let result = [];
   for (let i of seq) {
-    let str = i < 10 ? `0${i}` : i;
+    const str = i < 10 ? `0${i}` : i;
     result.push({
       value : str,
       args : [str]
@@ -67,11 +67,11 @@ const createListSequence = (begin, end, interval = 1) => {
 };
 
 const modifyAddress = (rows, props) => {
-  let addressIndex = _.findIndex(rows, (row) => {
+  const addressIndex = _.findIndex(rows, (row) => {
     return row.label === 'address';
   })
   if (addressIndex > 0) {
-    let address = rows[addressIndex];
+    const address = rows[addressIndex];
     address.type = RowType.SEARCH_BAR;
     address.searchBar = {
       onChange: props.onAddressChange,
@@ -81,11 +81,11 @@ const modifyAddress = (rows, props) => {
 };
 
 const modifyHours = (rows, props) => {
-  let hoursIndex = _.findIndex(rows, (row) => {
+  const hoursIndex = _.findIndex(rows, (row) => {
     return row.label === 'hours';
   });
   if (hoursIndex >= 0) {
-    let hours = rows.splice(hoursIndex, 1)[0];
+    const hours = rows.splice(hoursIndex, 1)[0];
     if (hours.value) {
       let opensAt  = { label : 'hours.opensAt',  type : RowType.DROP_DOWN };
       let closesAt = { label : 'hours.closesAt', type : RowType.DROP_DOWN };
@@ -96,12 +96,12 @@ const modifyHours = (rows, props) => {
         href : "#/admin"
       };
 
-      let opensAtDropDown = cloneDeep(dropDown);
+      const opensAtDropDown = cloneDeep(dropDown);
       opensAtDropDown.selected = [hours.value.opensAt.hours, hours.value.opensAt.minutes];
       opensAtDropDown.ids = [Event.HOURS_OPENS_CHANGE, Event.MINUTES_OPENS_CHANGE];
       opensAtDropDown.onClick = props.onClick;
 
-      let closesAtDropDown = cloneDeep(dropDown);
+      const closesAtDropDown = cloneDeep(dropDown);
       closesAtDropDown.selected = [hours.value.closesAt.hours, hours.value.closesAt.minutes];
       closesAtDropDown.ids = [Event.HOURS_CLOSES_CHANGE, Event.MINUTES_CLOSES_CHANGE];
       closesAtDropDown.onClick = props.onClick;
@@ -115,11 +115,11 @@ const modifyHours = (rows, props) => {
 };
 
 const modifyImages = (rows, props) => {
-  let imagesIndex = _.findIndex(rows, (row) => {
+  const imagesIndex = _.findIndex(rows, (row) => {
     return row.label === 'images';
   });
   if (imagesIndex >= 0) {
-    let images = rows.splice(imagesIndex, 1)[0];
+    const images = rows.splice(imagesIndex, 1)[0];
     if (images.value) {
       rows.push({ label: 'images.gallery', value: images.value.gallery, type : RowType.IMAGE_SELECTION });
       rows.push({ label: 'images.banner',  value: images.value.banner,  type : RowType.IMAGE_SELECTION });
@@ -128,7 +128,7 @@ const modifyImages = (rows, props) => {
 };
 
 const Form = (props) => {
-  let rows = _.map(Object.keys(props.singleInput), (key) => {
+  const rows = _.map(Object.keys(props.singleInput), (key) => {
     return {
       label: key,
       value: props.singleInput[key],
@@ -141,7 +141,7 @@ const Form = (props) => {
   modifyImages(rows, props);
 
   // single input form rows
-  let singleInputFormRows = _.map(rows, (row) => {
+  const singleInputFormRows = _.map(rows, (row) => {
     return (
       <FormRowSingleInput
         key={row.label}
@@ -174,9 +174,9 @@ const Form = (props) => {
   // multi input form rows
   let multiInputFormRows = [];
   if (props.menu) {
-    let menu = props.menu[props.lang];
+    const menu = props.menu[props.lang];
     for (let i = 0; i < menu.length; ++i) {
-      let current = menu[i];
+      const current = menu[i];
       multiInputFormRows.push((
         <div key={`multiInputFormRows${i}`}>
           <hr style={HR_STYLE}/>

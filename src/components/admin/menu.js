@@ -41,7 +41,7 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, stores, deleteEnabled, dele
     );
   }
 
-  let rows = _.map(stores, (store) => {
+  const rows = _.map(stores, (store) => {
     return {
       value : store.name,
       args : store.id

@@ -147,7 +147,7 @@ class Admin extends Component {
   }
 
   save() {
-    let currentId = this.state.currentId;
+    const currentId = this.state.currentId;
     if (currentId !== null) {
       console.log("saving...");
       console.log(this.getCurrentItem());
@@ -173,7 +173,7 @@ class Admin extends Component {
     if (args.constructor === Array) {
       id = args[0];
     }
-    let store = _.find(this.state.stores, (store) => {
+    const store = _.find(this.state.stores, (store) => {
       return store._id === id;
     });
     if (store) {
@@ -195,7 +195,7 @@ class Admin extends Component {
     axios.post(this.getUrl(), item).then((response) => {
       console.log('added food place');
       this.load((stores) => {
-        let match = _.find(stores, (obj) => {
+        const match = _.find(stores, (obj) => {
           return obj._id === response.data[0]._id;
         });
         if (match) {
@@ -209,7 +209,7 @@ class Admin extends Component {
 
   delete() {
     const currentId = this.state.currentId;
-    let index = _.findIndex(this.state.stores, (obj) => {
+    const index = _.findIndex(this.state.stores, (obj) => {
       return obj._id === currentId;
     });
     if (currentId) {
@@ -251,7 +251,7 @@ class Admin extends Component {
     axios.post(this.getUrl(), getTemplateItems()).then((response) => {
       console.log('added food place');
       this.load((stores) => {
-        let match = _.find(stores, (obj) => {
+        const match = _.find(stores, (obj) => {
           return obj._id === response.data[0]._id;
         });
         if (match) {
@@ -277,35 +277,34 @@ class Admin extends Component {
   }
 
   changeMenuName([menuIndex, lang], value) {
-    let menu = this.state.menu;
+    const menu = this.state.menu;
     menu[lang][menuIndex].name = value;
     this.setState({ menu });
   }
 
   removeMenuItem([menuIndex, itemIndex]) {
-    let menu = this.state.menu;
+    const menu = this.state.menu;
     menu[Language.SV][menuIndex].items.splice(itemIndex, 1);
     menu[Language.EN][menuIndex].items.splice(itemIndex, 1);
     this.setState({ menu });
   }
 
   removeMenu([menuIndex]) {
-    let menu = this.state.menu;
+    const menu = this.state.menu;
     menu[Language.SV].splice(menuIndex, 1);
     menu[Language.EN].splice(menuIndex, 1);
     this.setState({ menu });
   }
 
   newMenuItem([menuIndex]) {
-    let menu = this.state.menu;
-    let newItem = { name : '', desc : '', price : '' };
-    menu[Language.SV][menuIndex].items.push(newItem);
-    menu[Language.EN][menuIndex].items.push(newItem);
+    const menu = this.state.menu;
+    menu[Language.SV][menuIndex].items.push({ name : '', desc : '', price : '' });
+    menu[Language.EN][menuIndex].items.push({ name : '', desc : '', price : '' });
     this.setState({ menu });
   }
 
   newMenu() {
-    let menu = this.state.menu;
+    const menu = this.state.menu;
     menu[Language.SV].push({ name : '', items : [] });
     menu[Language.EN].push({ name : '', items : [] });
     this.setState({ menu })
@@ -324,7 +323,7 @@ class Admin extends Component {
           ? 0
           : target = menu[lang[i]][menuIndex].items.length - 1;
       }
-      let temp = menu[lang[i]][menuIndex].items[target];
+      const temp = menu[lang[i]][menuIndex].items[target];
       menu[lang[i]][menuIndex].items[target] = menu[lang[i]][menuIndex].items[itemIndex];
       menu[lang[i]][menuIndex].items[itemIndex] = temp;
       this.setState({ menu });
@@ -345,7 +344,7 @@ class Admin extends Component {
             ? 0
             : target = menu[lang[i]].length - 1;
         }
-        let temp = menu[lang[i]][target];
+        const temp = menu[lang[i]][target];
         menu[lang[i]][target] = menu[lang[i]][index];
         menu[lang[i]][index] = temp;
         this.setState({ menu });
@@ -377,7 +376,7 @@ class Admin extends Component {
 
   clone([menuIndex, itemIndex]) {
     const currentLang = this.state.lang;
-    let fetchLang = currentLang === Language.SV ? Language.EN : Language.SV;
+    const fetchLang = currentLang === Language.SV ? Language.EN : Language.SV;
     const menu = cloneDeep(this.state.menu);
     if (itemIndex !== undefined) {
       menu[currentLang][menuIndex].items[itemIndex]
@@ -389,37 +388,37 @@ class Admin extends Component {
   }
 
   hoursOpensChange(arg) {
-    let hours = this.state.hours;
+    const hours = this.state.hours;
     hours.opensAt.hours = arg;
     this.setState({ hours });
   }
 
   hoursClosesChange(arg) {
-    let hours = this.state.hours;
+    const hours = this.state.hours;
     hours.closesAt.hours = arg;
     this.setState({ hours });
   }
 
   minutesOpensChange(arg) {
-    let hours = this.state.hours;
+    const hours = this.state.hours;
     hours.opensAt.minutes = arg;
     this.setState({ hours });
   }
 
   minutesClosesChange(arg) {
-    let hours = this.state.hours;
+    const hours = this.state.hours;
     hours.closesAt.minutes = arg;
     this.setState({ hours });
   }
 
   setImageGallery(path) {
-    let image = this.state.images;
+    const image = this.state.images;
     image.gallery = path;
     this.setState({ image });
   }
 
   setImageBanner(path) {
-    let image = this.state.images;
+    const image = this.state.images;
     image.banner = path;
     this.setState({ image });
   }
@@ -448,12 +447,12 @@ class Admin extends Component {
       this.setState({ [label] : value })
     }
     else if (event === Event.IMAGES_GALLERY_CHANGE) {
-      let images = this.state.images;
+      const images = this.state.images;
       images.gallery = value;
       this.setState({ images });
     }
     else if (event === Event.IMAGES_BANNER_CHANGE) {
-      let images = this.state.images;
+      const images = this.state.images;
       images.banner = value;
       this.setState({ images });
     }
@@ -467,8 +466,8 @@ class Admin extends Component {
   onChangeSearch(value) {
     value = value.toLowerCase();
     const stores = this.state.stores;
-    let index = _.findIndex(this.state.stores, (store) => {
-      let name = store.name.toLowerCase();
+    const index = _.findIndex(this.state.stores, (store) => {
+      const name = store.name.toLowerCase();
       return _.includes(name, value);
     });
     if (index >= 0) {
