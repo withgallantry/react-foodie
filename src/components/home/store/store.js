@@ -1,7 +1,7 @@
 import React from 'react';
 import OrderDetails from './order_details';
 
-const Store = () => {
+const Store = (props) => {
   return (
       <div>
         Store

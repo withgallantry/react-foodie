@@ -6,6 +6,7 @@ import Language, { setLanguage } from '../../util/localization/language';
 import Event from './event';
 import Strings, { getString } from '../../util/localization/strings';
 import Config, { getConfig, setConfig } from '../../util/config';
+import Store from './store/store';
 
 class Home extends Component {
   constructor() {
@@ -17,17 +18,9 @@ class Home extends Component {
       language : Language.SV,
     };
 
-    setConfig(Config.DEBUG, true);
+    setConfig(Config.DEBUG, false);
     setLanguage(this.state.language);
     this.onClick = this.onClick.bind(this);
-  }
-
-  componentDidMount() {
-
-  }
-
-  onChange() {
-
   }
 
   changeLanguage() {
@@ -43,7 +36,6 @@ class Home extends Component {
 
   onClick(id) {
     console.log(`onClick(${id})`);
-
     if (id === Event.CHANGE_LANGUAGE) {
       this.changeLanguage();
     }
@@ -61,12 +53,8 @@ class Home extends Component {
         />
         <hr className='hr-home'/>
         <Switch>
-          <Route exact path='/store' component={() => (
-            <Store />
-          )}/>
-          <Route exact path='/gallery' component={() => (
-            <Gallery />
-          )}/>
+          <Route exact path='/store/:id' component={Store} />
+          <Route exact path='/gallery' component={Gallery} />
           <Redirect from='/' to='gallery'/>
         </Switch>
       </div>
