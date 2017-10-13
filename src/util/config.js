@@ -1,31 +1,27 @@
-const Config = Object.freeze({
-  DEBUG : 0,
-  KEY : 1,
-});
+export const DEBUG = 0;
+export const KEY   = 1;
 
 const min = 0;
-const max = Object.keys(Config).length - 1;
+const max = KEY;
 
 let config = [];
-config[Config.DEBUG] = true;
-config[Config.KEY]   = 'xRhjaTRs';
+config[DEBUG] = true;
+config[KEY]   = 'xRhjaTRs';
 
-const valid = (property) => {
+const isValid = (property) => {
   return property !== undefined
     && property >= min
     && property <= max;
 };
 
-export const setConfig = (property, value) => {
-  if (valid(property)) {
+export const set = (property, value) => {
+  if (isValid(property)) {
     config[property] = value;
   }
 };
 
-export const getConfig = (property) => {
-  if (valid(property)) {
+export const get = (property) => {
+  if (isValid(property)) {
     return config[property];
   }
 };
-
-export default Config;

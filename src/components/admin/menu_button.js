@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../shared/html/button';
 
-export const createButton = (glyph, func, id, args, style, tooltip) => {
+export const create = (glyph, func, id, args, style, tooltip) => {
   return (
     <MenuButton
       style={style}
@@ -27,5 +27,3 @@ const MenuButton = (props) => {
     />
   );
 };
-
-export default MenuButton;

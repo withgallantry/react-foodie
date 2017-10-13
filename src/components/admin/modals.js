@@ -1,5 +1,5 @@
 import React from 'react';
-import Event from './event';
+import * as Event from './event';
 
 let gallery = [];
 let banners = [];

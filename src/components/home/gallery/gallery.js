@@ -5,7 +5,7 @@ import { localize } from '../../../util/localization/strings';
 import axios from 'axios';
 import _ from 'lodash';
 import { STORES_URL } from '../../../util/constants';
-import Config, { getConfig } from '../../../util/config';
+import * as Config from '../../../util/config';
 import Language from '../../../util/localization/language';
 
 export const Event = {
@@ -48,7 +48,7 @@ class Gallery extends Component {
 
   load() {
     this.setState({ loading : true });
-    axios.get(`${STORES_URL}/${getConfig(Config.KEY)}`).then((response) => {
+    axios.get(`${STORES_URL}/${Config.get(Config.KEY)}`).then((response) => {
       const stores = _.map(response.data, (store) => {
         return {
           lang: store.lang,

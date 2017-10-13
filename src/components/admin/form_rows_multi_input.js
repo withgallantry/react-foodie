@@ -1,9 +1,11 @@
 import React from 'react';
-import _ from 'lodash';
-import InputText from '../shared/html/input_text';
-import Event from './event';
-import { createButton } from './menu_button';
 import ReactTooltip from 'react-tooltip';
+import _ from 'lodash';
+
+import InputText from '../shared/html/input_text';
+import * as Event from './event';
+import * as MenuButton from './menu_button';
+
 import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN, ADMIN_FORM_ROW_MARGIN_TOP } from '../../util/constants';
 
 const LABEL_STYLE = {
@@ -56,10 +58,10 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
         style={FORM_ROW_STYLE}
         className="block"
         key={`menu${index}.lang${lang}.item${i}`}>
-        {createButton('trash',          onClick, Event.REMOVE_MENU_ITEM,    [index, i], BTN_STYLE)}
-        {createButton('arrow-up',       onClick, Event.MOVE_MENU_ITEM_UP,   [index, i], BTN_STYLE)}
-        {createButton('arrow-down',     onClick, Event.MOVE_MENU_ITEM_DOWN, [index, i], BTN_STYLE)}
-        {createButton('cloud-download', onClick, Event.CLONE,               [index, i], BTN_STYLE, 'Fetch description from different language.')}
+        {MenuButton.create('trash',          onClick, Event.REMOVE_MENU_ITEM,    [index, i], BTN_STYLE)}
+        {MenuButton.create('arrow-up',       onClick, Event.MOVE_MENU_ITEM_UP,   [index, i], BTN_STYLE)}
+        {MenuButton.create('arrow-down',     onClick, Event.MOVE_MENU_ITEM_DOWN, [index, i], BTN_STYLE)}
+        {MenuButton.create('cloud-download', onClick, Event.CLONE,               [index, i], BTN_STYLE, 'Fetch description from different language.')}
         <ReactTooltip type='info' effect='solid' />
         {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_NAME_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'name',  lang], item.name)}
         {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_DESC_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'desc',  lang], item.desc)}
@@ -74,15 +76,15 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
         style={LABEL_STYLE}>
         {`menu${index + 1}`}:
       </label>
-      {createButton('trash',          onClick, Event.REMOVE_MENU,    [index], BTN_STYLE)}
-      {createButton('arrow-up',       onClick, Event.MOVE_MENU_UP,   [index], BTN_STYLE)}
-      {createButton('arrow-down',     onClick, Event.MOVE_MENU_DOWN, [index], BTN_STYLE)}
-      {createButton('cloud-download', onClick, Event.CLONE,          [index], BTN_STYLE, 'Fetch description from different language.')}
+      {MenuButton.create('trash',          onClick, Event.REMOVE_MENU,    [index], BTN_STYLE)}
+      {MenuButton.create('arrow-up',       onClick, Event.MOVE_MENU_UP,   [index], BTN_STYLE)}
+      {MenuButton.create('arrow-down',     onClick, Event.MOVE_MENU_DOWN, [index], BTN_STYLE)}
+      {MenuButton.create('cloud-download', onClick, Event.CLONE,          [index], BTN_STYLE, 'Fetch description from different language.')}
       <ReactTooltip type='info' effect='solid' />
       {createInputText({}, INPUT_MENU_NAME_SIZE, onChange, [Event.CHANGE_MENU_NAME, index, lang], menu.name)}
       {items}
       <div>
-        {createButton('plus', onClick, Event.NEW_MENU_ITEM, [index, lang], BTN_NEW_MENU_STYLE)}
+        {MenuButton.create('plus', onClick, Event.NEW_MENU_ITEM, [index, lang], BTN_NEW_MENU_STYLE)}
       </div>
     </div>
   );

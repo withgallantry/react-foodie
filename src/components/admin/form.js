@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import FormRowSingleInput from './form_row_single_input';
-import FormRowsMultiInput from './form_rows_multi_input';
+
 import Button from '../shared/html/button';
-import { createButton } from './menu_button';
-import Event from './event';
+import FormRowsMultiInput from './form_rows_multi_input';
+import FormRowSingleInput from './form_row_single_input';
 import Language from '../../util/localization/language';
-import { replaceAt, sequence, cloneDeep } from '../../util/util';
-import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN,
-  ADMIN_FORM_TOP, ADMIN_FORM_ROW_MARGIN_TOP, ADMIN_SECTION_MARGIN_HEIGHT } from '../../util/constants';
+import * as Constants  from '../../util/constants';
+import * as Event from './event';
+import * as MenuButton from './menu_button';
+import * as Util from '../../util/util';
 
 export const RowType = Object.freeze({
   INPUT           : 0,
@@ -19,7 +19,7 @@ export const RowType = Object.freeze({
 
 const FORM_STYLE = {
   position: 'absolute',
-  top: ADMIN_FORM_TOP,
+  top: Constants.ADMIN_FORM_TOP,
   left: '0px',
   right: '0px',
   bottom: '0px',
@@ -28,17 +28,17 @@ const FORM_STYLE = {
 
 const LABEL_STYLE = {
   display: 'inline-block',
-  width: ADMIN_LABEL_WIDTH,
+  width: Constants.ADMIN_LABEL_WIDTH,
   textAlign: 'right',
-  marginRight: ADMIN_LABEL_MARGIN,
+  marginRight: Constants.ADMIN_LABEL_MARGIN,
 };
 
 const FORM_ROW_STYLE = {
-  marginTop: ADMIN_FORM_ROW_MARGIN_TOP
+  marginTop: Constants.ADMIN_FORM_ROW_MARGIN_TOP
 };
 
 const NEW_MENU_BTN_STYLE = {
-  marginLeft: ADMIN_MARGIN_LEFT,
+  marginLeft: Constants.ADMIN_MARGIN_LEFT,
   marginBottom: '40px'
 };
 
@@ -49,12 +49,12 @@ const DROP_DOWN_STYLE = {
 const HR_STYLE = {
   margin: '0',
   padding: '0',
-  paddingTop: ADMIN_SECTION_MARGIN_HEIGHT,
-  marginTop: ADMIN_SECTION_MARGIN_HEIGHT,
+  paddingTop: Constants.ADMIN_SECTION_MARGIN_HEIGHT,
+  marginTop: Constants.ADMIN_SECTION_MARGIN_HEIGHT,
 };
 
 const createListSequence = (begin, end, interval = 1) => {
-  const seq = sequence(begin, end, interval);
+  const seq = Util.sequence(begin, end, interval);
   let result = [];
   for (let i of seq) {
     const str = i < 10 ? `0${i}` : i;
@@ -96,12 +96,12 @@ const modifyHours = (rows, props) => {
         href : "#/admin"
       };
 
-      const opensAtDropDown = cloneDeep(dropDown);
+      const opensAtDropDown = Util.cloneDeep(dropDown);
       opensAtDropDown.selected = [hours.value.opensAt.hours, hours.value.opensAt.minutes];
       opensAtDropDown.ids = [Event.HOURS_OPENS_CHANGE, Event.MINUTES_OPENS_CHANGE];
       opensAtDropDown.onClick = props.onClick;
 
-      const closesAtDropDown = cloneDeep(dropDown);
+      const closesAtDropDown = Util.cloneDeep(dropDown);
       closesAtDropDown.selected = [hours.value.closesAt.hours, hours.value.closesAt.minutes];
       closesAtDropDown.ids = [Event.HOURS_CLOSES_CHANGE, Event.MINUTES_CLOSES_CHANGE];
       closesAtDropDown.onClick = props.onClick;
@@ -194,12 +194,12 @@ const Form = (props) => {
 
   return (
     <div style={FORM_STYLE}>
-      <div style={{marginTop : ADMIN_SECTION_MARGIN_HEIGHT}}>
+      <div style={{marginTop : Constants.ADMIN_SECTION_MARGIN_HEIGHT}}>
         {singleInputFormRows}
         {multiInputFormRows}
       </div>
       <hr />
-      {createButton('plus', props.onClick, Event.NEW_MENU, 0, NEW_MENU_BTN_STYLE)}
+      {MenuButton.create('plus', props.onClick, Event.NEW_MENU, 0, NEW_MENU_BTN_STYLE)}
     </div>
   );
 };

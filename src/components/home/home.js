@@ -5,7 +5,7 @@ import Gallery from './gallery/gallery';
 import Language, { setLanguage } from '../../util/localization/language';
 import Event from './event';
 import Strings, { getString } from '../../util/localization/strings';
-import Config, { getConfig, setConfig } from '../../util/config';
+import * as Config from '../../util/config';
 import Store from './store/store';
 
 class Home extends Component {
@@ -18,7 +18,7 @@ class Home extends Component {
       language : Language.SV,
     };
 
-    setConfig(Config.DEBUG, false);
+    Config.set(Config.DEBUG, false);
     setLanguage(this.state.language);
     this.onClick = this.onClick.bind(this);
   }

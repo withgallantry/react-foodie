@@ -1,5 +1,5 @@
-import { cloneDeep } from './util';
-import { Store } from '../models/store';
+import { cloneDeep } from '../util';
+import { Store } from '../../models/store';
 
 const Models = Object.freeze({
   STORE : 0

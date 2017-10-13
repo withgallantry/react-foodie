@@ -1,10 +1,11 @@
 import React from 'react';
-import Label from '../shared/html/label';
-import InputText from '../shared/html/input_text';
-import DropDown from '../shared/html/drop_down';
-import { RowType } from './form';
-import Event from './event';
+
 import AddressSearchBar from '../shared/address_search_bar';
+import DropDown from '../shared/html/drop_down';
+import InputText from '../shared/html/input_text';
+import Label from '../shared/html/label';
+import { RowType } from './form';
+import * as Event from './event';
 
 const IMAGE_SELECTION_STYLE = {
   display: 'inline',

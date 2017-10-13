@@ -1,21 +1,22 @@
 import React from 'react';
-import Event from './event';
-import Button from '../shared/html/button';
-import { Link } from 'react-router-dom';
-import Language from '../../util/localization/language';
 import ReactTooltip from 'react-tooltip';
-import { ADMIN_MARGIN_LEFT, ADMIN_MENU_BUTTON_MARGIN } from '../../util/constants';
+import { Link } from 'react-router-dom';
+
+import Button from '../shared/html/button';
+import Language from '../../util/localization/language';
+import * as Event from './event';
+import * as Constants from '../../util/constants';
 
 const BTN_MENU_STYLE = {
   marginBottom: '20px'
 };
 
 const FIRST_BTN_STYLE = {
-  marginLeft: ADMIN_MARGIN_LEFT
+  marginLeft: Constants.ADMIN_MARGIN_LEFT
 };
 
 const SECOND_BTN_STYLE = {
-  marginLeft: ADMIN_MENU_BUTTON_MARGIN
+  marginLeft: Constants.ADMIN_MENU_BUTTON_MARGIN
 };
 
 const createButton = (style, label, func, disabled, id, tooltip) => {

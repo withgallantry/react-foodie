@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
-import Button from '../shared/html/button';
 import ReactTooltip from 'react-tooltip';
-import MenuButtonBar from './menu_button_bar';
-import InputText from '../shared/html/input_text';
-import Event from './event';
+import _ from 'lodash';
+
+import Button from '../shared/html/button';
 import DropDown from '../shared/html/drop_down';
-import { ADMIN_MARGIN_LEFT, ADMIN_MENU_HEIGHT, ADMIN_SECTION_MARGIN_HEIGHT, ADMIN_MENU_BUTTON_MARGIN} from '../../util/constants';
+import InputText from '../shared/html/input_text';
+import MenuButtonBar from './menu_button_bar';
+import * as Event from './event';
+import * as Constants from '../../util/constants';
 
 const SELECT_STYLE = {
-  height: ADMIN_MENU_HEIGHT
+  height: Constants.ADMIN_MENU_HEIGHT
 };
 
 const DROP_DOWN_STYLE = {
-  marginLeft: ADMIN_MARGIN_LEFT,
+  marginLeft: Constants.ADMIN_MARGIN_LEFT,
   marginTop: '16px',
   marginBottom: '10px',
 };
 
 const SEARCH_STORE_STYLE = {
-  marginLeft: ADMIN_MARGIN_LEFT,
+  marginLeft: Constants.ADMIN_MARGIN_LEFT,
   marginBottom: '10px'
 };
 
 const SEARCH_KEY_STYLE = {
-  marginLeft: ADMIN_MENU_BUTTON_MARGIN,
+  marginLeft: Constants.ADMIN_MENU_BUTTON_MARGIN,
   marginBottom: '10px',
   marginRight: '2px'
 };

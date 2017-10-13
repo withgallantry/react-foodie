@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
+
 import Form from './form';
-import Menu from './menu';
-import { removeWhiteSpace, getTemplateItems, cloneDeep } from '../../util/util';
-import Event, { propToEvent } from './event';
-import { STORES_URL } from '../../util/constants';
-import Config, { getConfig, setConfig } from '../../util/config';
 import Language from '../../util/localization/language';
+import Menu from './menu';
 import Modals from './modals';
-import { validateModel } from '../../util/model_validator';
-import Models from '../../util/models';
-import { ADMIN_SECTION_MARGIN_HEIGHT, ADMIN_MARGIN_LEFT } from '../../util/constants';
+import Models from '../../util/models/models';
+import * as Config from '../../util/config';
+import * as Constants from '../../util/constants';
+import * as Event from './event';
+import * as ModelValidator from '../../util/models/model_validator';
+import * as Util from '../../util/util';
 
 class Admin extends Component {
   constructor() {
@@ -102,7 +102,7 @@ class Admin extends Component {
       // always store tags as an array of strings
       tags: this.state.tags.constructor === Array
         ? this.state.tags
-        : removeWhiteSpace(this.state.tags).split(','),
+        : Util.removeWhiteSpace(this.state.tags).split(','),
       menu: this.state.menu,
       images: this.state.images,
       modified: new Date().toISOString()
@@ -111,9 +111,9 @@ class Admin extends Component {
 
   getUrl(id) {
     if (id !== undefined) {
-      return `${STORES_URL}/${getConfig(Config.KEY)}/${id}`;
+      return `${Constants.STORES_URL}/${Config.get(Config.KEY)}/${id}`;
     }
-    return `${STORES_URL}/${getConfig(Config.KEY)}`;
+    return `${Constants.STORES_URL}/${Config.get(Config.KEY)}`;
   }
 
   load(onFinished) {
@@ -143,7 +143,7 @@ class Admin extends Component {
       delete store.__v;
     }
     _.remove(stores, (store) => {
-      const isValid = validateModel(store, Models.STORE);
+      const isValid = ModelValidator.validate(store, Models.STORE);
       if (isValid === false) {
         console.log(`removed invalid store with id: ${store._id}`);
       }
@@ -157,7 +157,7 @@ class Admin extends Component {
     if (currentId !== null) {
       console.log('updating...');
       console.log(this.getCurrentItem());
-      axios.put(`${STORES_URL}/${currentId}`, this.getCurrentItem()).then((response) => {
+      axios.put(`${Constants.STORES_URL}/${currentId}`, this.getCurrentItem()).then((response) => {
         console.log(`updated food place with id ${currentId}`);
         this.load();
       }).catch((error) => {
@@ -224,7 +224,7 @@ class Admin extends Component {
     });
     if (currentId) {
       this.setState({ deleteEnabled : false });
-      axios.delete(`${STORES_URL}/${currentId}`).then((response) => {
+      axios.delete(`${Constants.STORES_URL}/${currentId}`).then((response) => {
         console.log(`deleted food place with id ${currentId}`);
         this.load((stores) => {
           this.setState({ deleteEnabled : true });
@@ -258,7 +258,7 @@ class Admin extends Component {
   }
 
   addTemplate() {
-    axios.post(this.getUrl(), getTemplateItems()).then((response) => {
+    axios.post(this.getUrl(), Util.getTemplateItems()).then((response) => {
       console.log('added food place');
       this.load((stores) => {
         const match = _.find(stores, (obj) => {
@@ -281,7 +281,7 @@ class Admin extends Component {
     // TODO : for some reason I need to clone this deeply, otherwise
     // some weird reference error appears, look into it when u got time.
     // both language versions will get the changes if i dont clone, strangely.
-    const menu = cloneDeep(this.state.menu);
+    const menu = Util.cloneDeep(this.state.menu);
     menu[lang][menuIndex].items[itemIndex][prop] = value;
     this.setState({ menu });
   }
@@ -387,7 +387,7 @@ class Admin extends Component {
   clone([menuIndex, itemIndex]) {
     const currentLang = this.state.lang;
     const fetchLang = currentLang === Language.SV ? Language.EN : Language.SV;
-    const menu = cloneDeep(this.state.menu);
+    const menu = Util.cloneDeep(this.state.menu);
     if (itemIndex !== undefined) {
       menu[currentLang][menuIndex].items[itemIndex]
         = menu[fetchLang][menuIndex].items[itemIndex];
@@ -447,7 +447,7 @@ class Admin extends Component {
   }
 
   onChangeForm(value, [label, ...args]) {
-    let event = propToEvent(label);
+    let event = Event.propToEvent(label);
     console.log(`onChangeForm(${value}, ${args})[event=${event}]`);
 
     // events where only prop and value is needed
@@ -486,10 +486,10 @@ class Admin extends Component {
   }
 
   onChangeKey(value) {
-    value = removeWhiteSpace(value);
+    value = Util.removeWhiteSpace(value);
     console.log(`onChangeKey(${value})`);
     if (value.length > 0) {
-        setConfig(Config.KEY, value);
+        Config.set(Config.KEY, value);
         this.clearForm();
         this.load((stores) => {
           if (stores.length > 0) {
@@ -518,31 +518,38 @@ class Admin extends Component {
           }
           deleteEnabled={this.state.deleteEnabled}
           deleteAllEnabled={this.state.deleteAllEnabled}
-          _key={getConfig(Config.KEY)}
+          _key={Config.get(Config.KEY)}
           lang={this.state.lang}
         />
         <hr />
-        {this.state.loading === false
-          ? <Form
-              singleInput={{
-                name: this.state.name,
-                tags: this.state.tags,
-                images: this.state.images,
-                address: this.state.address,
-                hours: this.state.hours
-              }}
-              menu={this.state.menu}
-              onClick={this.onClick}
-              onChange={this.onChangeForm}
-              onAddressChange={this.onAddressChange}
-              lang={this.state.lang}
-            />
-          : <div style={{
-              marginLeft : ADMIN_MARGIN_LEFT,
-              marginTop : ADMIN_SECTION_MARGIN_HEIGHT}}>
-              loading...
-            </div>
-        }
+        {(() => {
+          if (this.state.loading === false) {
+            return (
+              <Form
+                singleInput={{
+                  name: this.state.name,
+                  tags: this.state.tags,
+                  images: this.state.images,
+                  address: this.state.address,
+                  hours: this.state.hours
+                }}
+                menu={this.state.menu}
+                onClick={this.onClick}
+                onChange={this.onChangeForm}
+                onAddressChange={this.onAddressChange}
+                lang={this.state.lang}
+              />
+            );
+          } else {
+            return (
+              <div style={{
+                marginLeft : Constants.ADMIN_MARGIN_LEFT,
+                marginTop : Constants.ADMIN_SECTION_MARGIN_HEIGHT}}>
+                loading...
+              </div>
+            );
+          }
+        })()}
       </div>
     );
   }

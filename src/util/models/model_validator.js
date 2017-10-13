@@ -45,7 +45,7 @@ const compareKeysArray = (a, b) => {
   return true;
 }
 
-export const validateModel = (model, type) => {
+export const validate = (model, type) => {
   if (model !== undefined && !isNaN(type) && type >= min && type <= max) {
     const model2 = getModel(type);
     if (model2) {
