@@ -1,22 +1,6 @@
-const Language = Object.freeze({
-  SV : 'sv',
-  EN : 'en',
-});
+export const SV = 'sv';
+export const EN = 'en';
 
-let language = Language.SV;
-
-export const setLanguage = (lang) => {
-  if (lang >= Language.EN && lang <= Language.SV) {
-    language = lang;
-  }
+export const getAll = () => {
+  return [SV, EN];
 };
-
-export const getLanguage = () => {
-  return language;
-};
-
-export const getLanguages = () => {
-  return [Language.SV, Language.EN];
-};
-
-export default Language;

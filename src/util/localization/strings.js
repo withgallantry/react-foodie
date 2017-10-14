@@ -1,37 +1,36 @@
-import Language, { getLanguage } from './language';
+import * as Language from './language';
+import * as Settings from '../settings';
 
-const Strings = Object.freeze({
-  SEARCH_ADDRESS  : 0,
-  FILTER          : 1,
-  SEARCH          : 2,
-  SEARCH_STORE    : 3,
-  CLOSED          : 4,
-  EDITOR          : 5,
-});
+export const SEARCH_ADDRESS  = 0;
+export const FILTER          = 1;
+export const SEARCH          = 2;
+export const SEARCH_STORE    = 3;
+export const CLOSED          = 4;
+export const EDITOR          = 5;
 
 const min = 0;
-const max = Object.keys(Strings).length - 1;
+const max = EDITOR;
 
 // lut for strings in different language
 let dictionary = [];
 
 dictionary[Language.SV] = [];
 let dict = dictionary[Language.SV];
-dict[Strings.SEARCH_ADDRESS]  = 'Sök efter adress...';
-dict[Strings.FILTER]          = 'Filtrera';
-dict[Strings.SEARCH]          = 'Sök';
-dict[Strings.SEARCH_STORE]    = 'Sök efter restaurang & taggar...';
-dict[Strings.CLOSED]          = 'Stängd';
-dict[Strings.EDITOR]          = 'Editor';
+dict[SEARCH_ADDRESS]  = 'Sök efter adress...';
+dict[FILTER]          = 'Filtrera';
+dict[SEARCH]          = 'Sök';
+dict[SEARCH_STORE]    = 'Sök efter restaurang & taggar...';
+dict[CLOSED]          = 'Stängd';
+dict[EDITOR]          = 'Editor';
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
-dict[Strings.SEARCH_ADDRESS]  = 'Search for address...';
-dict[Strings.FILTER]          = 'Filter';
-dict[Strings.SEARCH]          = 'Search';
-dict[Strings.SEARCH_STORE]    = 'Search for store & tags...';
-dict[Strings.CLOSED]          = 'Closed';
-dict[Strings.EDITOR]          = 'Editor';
+dict[SEARCH_ADDRESS]  = 'Search for address...';
+dict[FILTER]          = 'Filter';
+dict[SEARCH]          = 'Search';
+dict[SEARCH_STORE]    = 'Search for store & tags...';
+dict[CLOSED]          = 'Closed';
+dict[EDITOR]          = 'Editor';
 
 const Tags = Object.freeze({
   SALAD : 0
@@ -57,7 +56,7 @@ export const localize = (args, lang) => {
     isArray = false;
     args = [args];
   }
-  const currentLang = getLanguage();
+  const currentLang = Settings.get(Settings.LANGUAGE);
   for (let i = 0; i < args.length; ++i) {
     const value = args[i].toLowerCase();
     let match = false;
@@ -88,8 +87,8 @@ export const localize = (args, lang) => {
   return result;
 };
 
-export const getString = (id) => {
-  const lang = getLanguage();
+export const get = (id) => {
+  const lang = Settings.get(Settings.LANGUAGE);
   if (lang !== undefined
     && id >= min
     && id <= max
@@ -97,5 +96,3 @@ export const getString = (id) => {
     return dictionary[lang][id];
   }
 };
-
-export default Strings;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Strings, { getString } from '../../../util/localization/strings';
+import * as Strings from '../../../util/localization/strings';
 import { Event } from './gallery';
 import ButtonNavBar from './button_nav_bar';
 import SearchStore from './search_store';
@@ -17,11 +17,11 @@ const SEARCH_STYLE = {
 const NavBar = ({onChange, onClick, searchExpanded}) => {
   return (
       <div style={STYLE}>
-        <ButtonNavBar onClick={onClick} id={Event.FILTER} label={getString(Strings.FILTER)} />
+        <ButtonNavBar onClick={onClick} id={Event.FILTER} label={Strings.get(Strings.FILTER)} />
         <div style={SEARCH_STYLE}>
           {searchExpanded === true
             ? <SearchStore onChange={onChange}/>
-            : <ButtonNavBar onClick={onClick} id={Event.SEARCH} label={getString(Strings.SEARCH)} />}
+            : <ButtonNavBar onClick={onClick} id={Event.SEARCH} label={Strings.get(Strings.SEARCH)} />}
         </div>
       </div>
   );

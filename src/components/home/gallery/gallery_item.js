@@ -1,5 +1,5 @@
 import React from 'react';
-import Strings, { getString } from '../../../util/localization/strings';
+import * as Strings from '../../../util/localization/strings';
 
 const STYLE = {
   position: 'relative',
@@ -22,7 +22,7 @@ const GalleryItem = (props) => {
         : (
           <div>
             <span className='gallery-closed-bg'></span>
-            <span className='gallery-closed-text'>{getString(Strings.CLOSED)}</span>
+            <span className='gallery-closed-text'>{Strings.get(Strings.CLOSED)}</span>
           </div>
         )}
       <b>{props.name}</b> <br />

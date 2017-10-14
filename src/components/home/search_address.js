@@ -1,6 +1,6 @@
 import React from 'react';
 import InputText from '../shared/html/input_text';
-import Strings, { getString } from '../../util/localization/strings';
+import * as Strings from '../../util/localization/strings';
 
 const STYLE = {
   position: 'absolute',
@@ -15,7 +15,7 @@ const SearchAddress = ({onChange}) => {
         onChange={{
           func : onChange
         }}
-        placeholder={getString(Strings.SEARCH_ADDRESS)}
+        placeholder={Strings.get(Strings.SEARCH_ADDRESS)}
       />
     </div>
   );

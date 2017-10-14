@@ -3,13 +3,13 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import Form from './form';
-import Language from '../../util/localization/language';
 import Menu from './menu';
 import Modals from './modals';
 import Models from '../../util/models/models';
-import * as Config from '../../util/config';
+import * as Settings from '../../util/settings';
 import * as Constants from '../../util/constants';
 import * as Event from './event';
+import * as Language from '../../util/localization/language';
 import * as ModelValidator from '../../util/models/model_validator';
 import * as Util from '../../util/util';
 
@@ -111,9 +111,9 @@ class Admin extends Component {
 
   getUrl(id) {
     if (id !== undefined) {
-      return `${Constants.STORES_URL}/${Config.get(Config.KEY)}/${id}`;
+      return `${Constants.STORES_URL}/${Settings.get(Settings.KEY)}/${id}`;
     }
-    return `${Constants.STORES_URL}/${Config.get(Config.KEY)}`;
+    return `${Constants.STORES_URL}/${Settings.get(Settings.KEY)}`;
   }
 
   load(onFinished) {
@@ -489,7 +489,7 @@ class Admin extends Component {
     value = Util.removeWhiteSpace(value);
     console.log(`onChangeKey(${value})`);
     if (value.length > 0) {
-        Config.set(Config.KEY, value);
+        Settings.set(Settings.KEY, value);
         this.clearForm();
         this.load((stores) => {
           if (stores.length > 0) {
@@ -518,7 +518,7 @@ class Admin extends Component {
           }
           deleteEnabled={this.state.deleteEnabled}
           deleteAllEnabled={this.state.deleteAllEnabled}
-          _key={Config.get(Config.KEY)}
+          _key={Settings.get(Settings.KEY)}
           lang={this.state.lang}
         />
         <hr />

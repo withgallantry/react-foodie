@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import NavBar from './nav_bar';
 import GalleryItem from './gallery_item';
-import { localize } from '../../../util/localization/strings';
+import * as Strings from '../../../util/localization/strings';
 import axios from 'axios';
 import _ from 'lodash';
 import { STORES_URL } from '../../../util/constants';
-import * as Config from '../../../util/config';
-import Language from '../../../util/localization/language';
+import * as Settings from '../../../util/settings';
+import * as Language from '../../../util/localization/language';
 
 export const Event = {
   FILTER : 0,
@@ -48,7 +48,7 @@ class Gallery extends Component {
 
   load() {
     this.setState({ loading : true });
-    axios.get(`${STORES_URL}/${Config.get(Config.KEY)}`).then((response) => {
+    axios.get(`${STORES_URL}/${Settings.get(Settings.KEY)}`).then((response) => {
       const stores = _.map(response.data, (store) => {
         return {
           lang: store.lang,
@@ -92,7 +92,7 @@ class Gallery extends Component {
           key={store._id}
           name={store.name}
           hours={store.hours}
-          tags={localize(store.tags, Language.SV)}
+          tags={Strings.localize(store.tags, Language.SV)}
           images={store.images}
           isOpen={store.isOpen}
         />

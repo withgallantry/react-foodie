@@ -4,9 +4,9 @@ import _ from 'lodash';
 import Button from '../shared/html/button';
 import FormRowsMultiInput from './form_rows_multi_input';
 import FormRowSingleInput from './form_row_single_input';
-import Language from '../../util/localization/language';
 import * as Constants  from '../../util/constants';
 import * as Event from './event';
+import * as Language from '../../util/localization/language';
 import * as MenuButton from './menu_button';
 import * as Util from '../../util/util';
 
@@ -23,7 +23,7 @@ const FORM_STYLE = {
   left: '0px',
   right: '0px',
   bottom: '0px',
-  overflowY: 'scroll'
+  overflowY: 'scroll',
 };
 
 const LABEL_STYLE = {

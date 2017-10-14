@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import InputText from './html/input_text';
-import Strings, { getString } from '../../util/localization/strings';
+import * as Strings from '../../util/localization/strings';
 import _ from 'lodash';
 import axios from 'axios';
 
@@ -66,7 +66,7 @@ class AddressSearchBar extends Component {
         placeholder={
           this.props.placeholder !== undefined
             ? this.props.placeholder
-            : getString(Strings.SEARCH_ADDRESS)
+            : Strings.get(Strings.SEARCH_ADDRESS)
         }
       />
     );

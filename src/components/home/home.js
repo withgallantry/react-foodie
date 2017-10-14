@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import Header from './header';
 import Gallery from './gallery/gallery';
-import Language, { setLanguage } from '../../util/localization/language';
+import * as Language from '../../util/localization/language';
 import Event from './event';
-import Strings, { getString } from '../../util/localization/strings';
-import * as Config from '../../util/config';
+import * as Settings from '../../util/settings';
 import Store from './store/store';
 
 class Home extends Component {
@@ -18,8 +17,8 @@ class Home extends Component {
       language : Language.SV,
     };
 
-    Config.set(Config.DEBUG, false);
-    setLanguage(this.state.language);
+    Settings.set(Settings.DEBUG, false);
+    Settings.set(Settings.LANGUAGE, this.state.language);
     this.onClick = this.onClick.bind(this);
   }
 
@@ -30,7 +29,7 @@ class Home extends Component {
     } else {
       language = Language.SV;
     }
-    setLanguage(language);
+    Settings.set(Settings.LANGUAGE, language);
     this.setState({ language });
   }
 

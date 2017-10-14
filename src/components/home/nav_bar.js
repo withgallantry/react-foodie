@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '../shared/html/button';
-import Language from '../../util/localization/language';
+import * as Language from '../../util/localization/language';
 import Event from './event';
 import { Link } from 'react-router-dom';
-import Strings, { getString } from '../../util/localization/strings';
+import * as Strings from '../../util/localization/strings';
 
 const DIV_STYLE = {
   position: 'absolute',
@@ -22,7 +22,7 @@ const NavBar = ({onClick, language, itemCount}) => {
         <button
           className='btn btn-default'
           style={BTN_STYLE}>
-          {getString(Strings.EDITOR)}
+          {Strings.get(Strings.EDITOR)}
         </button>
       </Link>
       <Button
