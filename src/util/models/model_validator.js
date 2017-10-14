@@ -1,4 +1,4 @@
-import Models, { getModel } from './models';
+import * as Models from './models';
 
 const min = 0;
 const max = Object.keys(Models).length - 1;
@@ -47,7 +47,7 @@ const compareKeysArray = (a, b) => {
 
 export const validate = (model, type) => {
   if (model !== undefined && !isNaN(type) && type >= min && type <= max) {
-    const model2 = getModel(type);
+    const model2 = Models.get(type);
     if (model2) {
       return compareKeysJson(model, model2);
     }

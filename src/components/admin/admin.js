@@ -5,12 +5,12 @@ import _ from 'lodash';
 import Form from './form';
 import Menu from './menu';
 import Modals from './modals';
-import Models from '../../util/models/models';
-import * as Settings from '../../util/settings';
 import * as Constants from '../../util/constants';
 import * as Event from './event';
 import * as Language from '../../util/localization/language';
+import * as Models from '../../util/models/models';
 import * as ModelValidator from '../../util/models/model_validator';
+import * as Settings from '../../util/settings';
 import * as Util from '../../util/util';
 
 class Admin extends Component {
