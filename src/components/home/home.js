@@ -13,7 +13,7 @@ class Home extends Component {
     super();
 
     this.state = {
-      addressSearch : '',
+      addressSearch : undefined,
       storeSearch : '',
       language : Language.SV,
     };
@@ -21,6 +21,7 @@ class Home extends Component {
     Settings.set(Settings.DEBUG, false);
     Settings.set(Settings.LANGUAGE, this.state.language);
     this.onClick = this.onClick.bind(this);
+    this.onAddressChange = this.onAddressChange.bind(this);
   }
 
   changeLanguage() {
@@ -32,6 +33,10 @@ class Home extends Component {
     }
     Settings.set(Settings.LANGUAGE, language);
     this.setState({ language });
+  }
+
+  onAddressChange(addressSearch) {
+    this.setState({ addressSearch });
   }
 
   onClick(id) {
@@ -47,6 +52,7 @@ class Home extends Component {
         <Header
           onChange={this.onChange}
           onClick={this.onClick}
+          onAddressChange={this.onAddressChange}
           search={this.state.addressSearch}
           language={this.state.language}
           itemCount={2} // temp

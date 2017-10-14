@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AddressSearchBar from '../shared/address_search_bar';
 import Logo from './logo';
 import NavBar from './nav_bar.js';
 import SearchAddress from './search_address';
@@ -10,11 +11,19 @@ const STYLE = {
   paddingTop: '40px', // temp,
 };
 
-const Header = ({onChange, onClick, search, language, itemCount}) => {
+const SEARCH_STYLE = {
+  position: 'absolute',
+  textAlign: 'center',
+  width: '100%',
+};
+
+const Header = ({onChange, onClick, onAddressChange, search, language, itemCount}) => {
   return (
       <div style={STYLE}>
         <Logo />
-        <SearchAddress onChange={onChange}/>
+        <div style={SEARCH_STYLE}>
+          <AddressSearchBar placeholder={search} onAddressChange={onAddressChange}/>
+        </div>
         <NavBar
           language={language}
           itemCount={itemCount}

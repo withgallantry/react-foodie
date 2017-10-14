@@ -114,10 +114,11 @@ class Gallery extends Component {
     closesAtDate.setHours(parseInt(closesAtHours));
     closesAtDate.setMinutes(parseInt(closesAtMinutes));
     if (closesAtDate.getHours() < opensAtDate.getHours()) {
-      closesAtDate.setDate(closesAtDate.getDate() + 1);
+      opensAtDate.setDate(opensAtDate.getDate() - 1);
     }
 
-    return date > opensAtDate && date < closesAtDate;
+    return (date > opensAtDate && date < closesAtDate)
+      || (closesAtDate < opensAtDate && date )
   };
 
   render() {

@@ -36,12 +36,12 @@ export const SET_IMAGE_GALLERY     = 29;
 export const SET_IMAGE_BANNER      = 30;
 
 const LUT = {
-  name : Event.NAME_CHANGE,
-  address : Event.ADDRESS_CHANGE,
-  tags : Event.TAGS_CHANGE,
+  name : NAME_CHANGE,
+  address : ADDRESS_CHANGE,
+  tags : TAGS_CHANGE,
   hours : {
-    opensAt : Event.HOURS_OPENS_CHANGE,
-    closesAt : Event.HOURS_CLOSES_CHANGE
+    opensAt : HOURS_OPENS_CHANGE,
+    closesAt : HOURS_CLOSES_CHANGE
   }
 };
 

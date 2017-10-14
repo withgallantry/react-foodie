@@ -99,10 +99,10 @@ class Admin extends Component {
       name: this.state.name,
       address: this.state.address,
       hours: this.state.hours,
-      // always store tags as an array of strings
+      // always store tags as an array of strings, and remove duplicates.
       tags: this.state.tags.constructor === Array
-        ? this.state.tags
-        : Util.removeWhiteSpace(this.state.tags).split(','),
+          ? [...new Set(this.state.tags)]
+          : [...new Set(Util.removeWhiteSpace(this.state.tags).split(','))],
       menu: this.state.menu,
       images: this.state.images,
       modified: new Date().toISOString()
