@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import _ from 'lodash';
+
 import { STORES_URL } from '../util/constants';
 import * as Settings from '../util/settings';
-import _ from 'lodash';
+
 
 class Json extends Component {
   constructor() {

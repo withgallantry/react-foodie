@@ -1,8 +1,9 @@
 import React from 'react';
-import * as Strings from '../../../util/localization/strings';
-import { Event } from './gallery';
+
 import ButtonNavBar from './button_nav_bar';
 import SearchStore from './search_store';
+import * as Event from './event';
+import * as Strings from '../../../util/localization/strings';
 
 const STYLE = {
   marginLeft: '7.5%',

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import * as Strings from '../../../util/localization/strings';
 
 const STYLE = {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import _ from 'lodash';
+
 import InputText from './html/input_text';
 import * as Strings from '../../util/localization/strings';
-import _ from 'lodash';
-import axios from 'axios';
 
 const SEARCH_BAR_ID = 'searchBarMaps';
 

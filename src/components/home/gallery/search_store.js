@@ -1,4 +1,5 @@
 import React from 'react';
+
 import InputText from '../../shared/html/input_text';
 import * as Strings from '../../../util/localization/strings';
 

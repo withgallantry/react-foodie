@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
-import Header from './header';
+
 import Gallery from './gallery/gallery';
-import * as Language from '../../util/localization/language';
-import Event from './event';
-import * as Settings from '../../util/settings';
+import Header from './header';
 import Store from './store/store';
+import * as Event from './event';
+import * as Language from '../../util/localization/language';
+import * as Settings from '../../util/settings';
 
 class Home extends Component {
   constructor() {

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import Button from '../shared/html/button';
-import * as Language from '../../util/localization/language';
 import Event from './event';
 import { Link } from 'react-router-dom';
+import * as Language from '../../util/localization/language';
 import * as Strings from '../../util/localization/strings';
 
 const DIV_STYLE = {

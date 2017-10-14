@@ -1,7 +1,8 @@
 import React from 'react';
+
 import Logo from './logo';
-import SearchAddress from './search_address';
 import NavBar from './nav_bar.js';
+import SearchAddress from './search_address';
 
 const STYLE = {
   height: '70px',

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import Home from './home/home';
+
 import Admin from './admin/admin';
+import Home from './home/home';
 import Json from './json';
 
 const App = () => {

@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import NavBar from './nav_bar';
-import GalleryItem from './gallery_item';
-import * as Strings from '../../../util/localization/strings';
 import axios from 'axios';
 import _ from 'lodash';
-import { STORES_URL } from '../../../util/constants';
-import * as Settings from '../../../util/settings';
-import * as Language from '../../../util/localization/language';
 
-export const Event = {
-  FILTER : 0,
-  SEARCH : 1
-};
+import GalleryItem from './gallery_item';
+import NavBar from './nav_bar';
+import { STORES_URL } from '../../../util/constants';
+import * as Event from './event';
+import * as Language from '../../../util/localization/language';
+import * as Settings from '../../../util/settings';
+import * as Strings from '../../../util/localization/strings';
 
 const DIV_STYLE = {
   position: 'absolute',
