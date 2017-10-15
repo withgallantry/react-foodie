@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import * as Strings from '../../../util/localization/strings';
 
 const STYLE = {
@@ -16,11 +18,16 @@ const INFO_STYLE = {
   overflow: 'hidden',
 };
 
-const GalleryItem = (props) => {
+const GalleryItem = ({images, onClick, isOpen, name, id, tags, hours}) => {
   return (
     <div style={STYLE}>
-      <img className='gallery-img' src={`img/${props.images.gallery}`} />
-      {props.isOpen === true
+      <Link to={`/store/${id}`}>
+        <img
+          className='gallery-img'
+          src={`img/${images.gallery}`}
+          onClick={() => onClick(Event.GO_TO_STORE, id)}/>
+      </Link>
+      {isOpen === true
         ? undefined
         : (
           <div>
@@ -28,11 +35,11 @@ const GalleryItem = (props) => {
             <span className='gallery-closed-text'>{Strings.get(Strings.CLOSED)}</span>
           </div>
         )}
-      <div style={INFO_STYLE}><b>{props.name}</b></div>
-      {<div style={INFO_STYLE}>{props.tags.join(" • ")}</div>}
+      <div style={INFO_STYLE}><b>{name}</b></div>
+      {<div style={INFO_STYLE}>{tags.join(" • ")}</div>}
       {<div style={INFO_STYLE}>{
-        `${props.hours.opensAt.hours}:${props.hours.opensAt.minutes} - `
-        + `${props.hours.closesAt.hours}:${props.hours.closesAt.minutes}`}</div>}
+        `${hours.opensAt.hours}:${hours.opensAt.minutes} - `
+        + `${hours.closesAt.hours}:${hours.closesAt.minutes}`}</div>}
     </div>
   );
 };

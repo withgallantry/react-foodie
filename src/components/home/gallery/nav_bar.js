@@ -2,12 +2,13 @@ import React from 'react';
 
 import ButtonNavBar from './button_nav_bar';
 import SearchStore from './search_store';
+import * as Constants from '../../../util/constants';
 import * as Event from './event';
 import * as Strings from '../../../util/localization/strings';
 
 const STYLE = {
-  marginLeft: '7.5%',
-  marginTop: '20px'
+  marginLeft: Constants.HOME_MARGIN_LEFT,
+  marginTop: Constants.HOME_MARGIN_TOP,
 };
 
 const SEARCH_STYLE = {

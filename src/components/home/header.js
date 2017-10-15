@@ -3,7 +3,6 @@ import React from 'react';
 import AddressSearchBar from '../shared/address_search_bar';
 import Logo from './logo';
 import NavBar from './nav_bar.js';
-import SearchAddress from './search_address';
 
 const STYLE = {
   height: '70px',

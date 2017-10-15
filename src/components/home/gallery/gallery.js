@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import GalleryItem from './gallery_item';
 import NavBar from './nav_bar';
-import { STORES_URL } from '../../../util/constants';
+import * as Constants from '../../../util/constants';
 import * as Event from './event';
 import * as Language from '../../../util/localization/language';
 import * as Settings from '../../../util/settings';
@@ -26,6 +26,11 @@ const GALLERY_STYLE = {
   marginTop: '15px',
 };
 
+const LOADING_STYLE = {
+  marginLeft: Constants.HOME_MARGIN_LEFT,
+  marginTop: Constants.HOME_MARGIN_TOP,
+};
+
 class Gallery extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +50,7 @@ class Gallery extends Component {
 
   load() {
     this.setState({ loading : true });
-    axios.get(`${STORES_URL}/${Settings.get(Settings.KEY)}`).then((response) => {
+    axios.get(`${Constants.STORES_URL}/${Settings.get(Settings.KEY)}`).then((response) => {
       const stores = _.map(response.data, (store) => {
         return {
           lang: store.lang,
@@ -65,7 +70,7 @@ class Gallery extends Component {
     });
   }
 
-  onClick(id) {
+  onClick(id, arg) {
     console.log(`Gallery.onClick(${id})`);
 
     if (id === Event.SEARCH) {
@@ -77,7 +82,7 @@ class Gallery extends Component {
 
   }
 
-  createStores() {
+  createStores(onClick) {
     let stores = this.state.stores;
     _.forEach(stores, (store) => {
       store.isOpen = this.storeIsOpen(store.hours);
@@ -87,11 +92,13 @@ class Gallery extends Component {
       return (
         <GalleryItem
           key={store._id}
+          id={store._id}
           name={store.name}
           hours={store.hours}
           tags={Strings.localize(store.tags, Language.SV)}
           images={store.images}
           isOpen={store.isOpen}
+          onClick={this.onClick}
         />
       );
     });
@@ -118,16 +125,16 @@ class Gallery extends Component {
     }
 
     return (date > opensAtDate && date < closesAtDate)
-      || (closesAtDate < opensAtDate && date )
+      || (closesAtDate < opensAtDate && date );
   };
 
   render() {
     if (this.state.loading) {
       // TODO : loading gif
-      return (<div></div>);
+      return (<div style={LOADING_STYLE}>Loading...</div>);
     }
 
-    let stores = this.createStores();
+    let stores = this.createStores(this.props.onClick);
 
     return (
       <div style={DIV_STYLE}>

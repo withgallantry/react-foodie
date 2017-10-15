@@ -5,4 +5,4 @@ loading gif
 delay when using heroku, test it
 react propTypes
 void(0) => undefined
-tags cant have duplicates
+*** LEARN SOME CSS FFS *** ..
