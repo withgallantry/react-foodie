@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import _ from 'lodash';
 
 import InputText from './html/input_text';

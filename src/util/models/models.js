@@ -1,5 +1,5 @@
 import { cloneDeep } from '../util';
-import { Store } from '../../models/store';
+import { Store } from './store';
 
 export const STORE = 0;
 

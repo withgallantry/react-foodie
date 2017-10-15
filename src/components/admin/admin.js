@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import _ from 'lodash';
 
 import Form from './form';
 import Menu from './menu';
 import Modals from './modals';
 import * as Constants from '../../util/constants';
+import * as Db from '../../util/db';
 import * as Event from './event';
 import * as Language from '../../util/localization/language';
 import * as Models from '../../util/models/models';
@@ -109,16 +109,9 @@ class Admin extends Component {
     };
   }
 
-  getUrl(id) {
-    if (id !== undefined) {
-      return `${Constants.STORES_URL}/${Settings.get(Settings.KEY)}/${id}`;
-    }
-    return `${Constants.STORES_URL}/${Settings.get(Settings.KEY)}`;
-  }
-
   load(onFinished) {
     this.setState({ loading : true });
-    axios.get(this.getUrl()).then((response) => {
+    Db.getAll().then((response) => {
       const stores = response.data;
       this.validateStores(stores);
       // default sorting by name
@@ -157,7 +150,7 @@ class Admin extends Component {
     if (currentId !== null) {
       console.log('updating...');
       console.log(this.getCurrentItem());
-      axios.put(`${Constants.STORES_URL}/${currentId}`, this.getCurrentItem()).then((response) => {
+      Db.update(currentId, this.getCurrentItem()).then((response) => {
         console.log(`updated food place with id ${currentId}`);
         this.load();
       }).catch((error) => {
@@ -166,7 +159,7 @@ class Admin extends Component {
     } else {
       console.log('saving...');
       console.log(this.getCurrentItem());
-      axios.post(this.getUrl(), this.getCurrentItem()).then((response) => {
+      Db.add(this.getCurrentItem()).then((response) => {
         console.log('added food place');
         this.load(() => {
           this.show(response.data[0]._id);
@@ -202,7 +195,7 @@ class Admin extends Component {
   copy() {
     const item = this.getCurrentItem();
     item.name = `${item.name} (copy)`;
-    axios.post(this.getUrl(), item).then((response) => {
+    Db.add(item).then((response) => {
       console.log('added food place');
       this.load((stores) => {
         const match = _.find(stores, (obj) => {
@@ -224,7 +217,7 @@ class Admin extends Component {
     });
     if (currentId) {
       this.setState({ deleteEnabled : false });
-      axios.delete(`${Constants.STORES_URL}/${currentId}`).then((response) => {
+      Db.remove(currentId).then((response) => {
         console.log(`deleted food place with id ${currentId}`);
         this.load((stores) => {
           this.setState({ deleteEnabled : true });
@@ -248,7 +241,7 @@ class Admin extends Component {
   deleteAll() {
     if (this.state.stores.length > 0) {
       this.setState({ deleteAllEnabled : false });
-      axios.delete(`${this.getUrl()}/deleteAll`).then((response) => {
+      Db.removeAll().then((response) => {
         this.clearForm();
         this.setState({ stores : [] });
       }).catch((error) => {
@@ -258,7 +251,7 @@ class Admin extends Component {
   }
 
   addTemplate() {
-    axios.post(this.getUrl(), Util.getTemplateItems()).then((response) => {
+    Db.add(Util.getTemplateItems()).then((response) => {
       console.log('added food place');
       this.load((stores) => {
         const match = _.find(stores, (obj) => {

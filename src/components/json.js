@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import _ from 'lodash';
 
 import { STORES_URL } from '../util/constants';
+import * as Db from '../util/db';
 import * as Settings from '../util/settings';
 
 
@@ -16,7 +16,7 @@ class Json extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${STORES_URL}/${Settings.get(Settings.KEY)}`).then((response) => {
+    Db.getAll().then((response) => {
       const stores = _.map(response.data, (store) => {
         return {
           lang: store.lang,
