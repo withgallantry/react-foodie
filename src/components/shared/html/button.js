@@ -3,7 +3,7 @@ import React from 'react';
 const Button = (props) => {
   return (
       <button
-        data-tip={props.tooltip !== undefined ? props.tooltip : void(0)}
+        data-tip={props.tooltip !== undefined ? props.tooltip : undefined}
         data-delay-show='500'
         disabled={props.disabled !== undefined ? props.disabled : false}
         className={props.classes !== undefined ? props.classes : 'btn btn-default'}
@@ -12,13 +12,13 @@ const Button = (props) => {
         onClick={
           props.onClick !== undefined
             ? () => {props.onClick.func(props.onClick.id, props.onClick.args)}
-            : void(0)}>
+            : undefined}>
         <span className={
           props.glyphicon !== undefined
             ? `glyphicon glyphicon-${props.glyphicon}`
             : ''
         }></span>
-        {props.label !== undefined ? props.label : void(0)}
+        {props.label !== undefined ? props.label : undefined}
       </button>
   );
 };

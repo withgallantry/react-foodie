@@ -1,8 +1,7 @@
 # todo.md
 
-foodPlace -> store (home/shared + crud)
-loading gif
+foodPlace -> store (crud)
 delay when using heroku, test it
 react propTypes
-void(0) => undefined
 *** LEARN SOME CSS FFS *** ..
+db.js

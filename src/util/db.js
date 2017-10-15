@@ -1,19 +1,19 @@
-export const load = () => {
+export const load = (onFinished) => {
 
-}
+};
 
-export const save = () => {
+export const save = (onFinished) => {
 
-}
+};
 
 export const update = () => {
 
-}
+};
 
 export const delete = () => {
 
-}
+};
 
 export const deleteAll = () => {
 
-}
+};

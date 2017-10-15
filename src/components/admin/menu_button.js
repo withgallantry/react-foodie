@@ -7,7 +7,7 @@ export const create = (glyph, func, id, args, style, tooltip) => {
       style={style}
       glyphicon={glyph}
       onClick={{ func, id, args }}
-      tooltip={tooltip !== undefined ? tooltip : void(0)}
+      tooltip={tooltip !== undefined ? tooltip : undefined}
     />
   );
 };
@@ -23,7 +23,7 @@ const MenuButton = (props) => {
         args : props.onClick.args
       }}
       classes=''
-      tooltip={props.tooltip !== undefined ? props.tooltip : void(0)}
+      tooltip={props.tooltip !== undefined ? props.tooltip : undefined}
     />
   );
 };
