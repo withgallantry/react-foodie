@@ -1,6 +1,5 @@
 // Middle layer for mongoose db in back end. Uses the current key which is
 // set in settings if needed.
-
 import axios from 'axios';
 
 import * as Constants from './constants';
@@ -24,7 +23,8 @@ const getUrl = (id, key) => {
 };
 
 export const get = (id) => {
-  return axios.get(getUrl(id));
+  return axios.get(
+    getUrl(undefined, Settings.get(Settings.KEY)), { params : { id }});
 };
 
 export const getAll = () => {

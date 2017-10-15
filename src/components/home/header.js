@@ -3,9 +3,10 @@ import React from 'react';
 import AddressSearchBar from '../shared/address_search_bar';
 import Logo from './logo';
 import NavBar from './nav_bar.js';
+import * as Constants from '../../util/constants';
 
 const STYLE = {
-  height: '70px',
+  height: Constants.HOME_HEADER_HEIGHT,
   backgroundColor: 'rgb(245,245,245)',
   paddingTop: '40px', // temp,
 };
