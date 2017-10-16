@@ -27,3 +27,4 @@ export const ADMIN_SECTION_MARGIN_HEIGHT  = toPx(ADMIN_SECTION_MARGIN_HEIGHT_VAL
 export const HOME_HEADER_HEIGHT = toPx(HOME_HEADER_HEIGHT_VALUE);
 export const HOME_MARGIN_LEFT   = '7.5%';
 export const HOME_MARGIN_TOP    = '20px';
+export const HOME_STORE_WIDTH   = '75%';

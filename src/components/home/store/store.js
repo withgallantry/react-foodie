@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import Header from './header';
-import OrderDetails from './order_details';
+import Order from './order';
+import Menu from './menu';
 import * as Constants from '../../../util/constants';
 import * as Db from '../../../util/db';
 
@@ -9,7 +10,7 @@ const STYLE = {
   backgroundColor: 'rgb(200, 200, 200)',
   position: 'absolute',
   top: Constants.HOME_HEADER_HEIGHT,
-  width: '75%',
+  width: Constants.HOME_STORE_WIDTH,
   zIndex: '100',
   overflowY: 'scroll',
 };
@@ -30,6 +31,7 @@ class Store extends Component {
     this.state = {
       id : props.match.params.id,
       store : undefined,
+      order : undefined,
     };
   }
 
@@ -56,11 +58,12 @@ class Store extends Component {
 
     return (
       <div>
-        <Header src={this.state.store.images.banner}/>
-        <div style={STYLE}>
-          Store
-        </div>
-        <OrderDetails />
+        <Header
+          img={this.state.store.images.banner}
+          store={this.state.store}
+        />
+        <Menu store={this.state.store}/>
+        <Order order={this.state.order} />
       </div>
     );
   }

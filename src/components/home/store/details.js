@@ -3,15 +3,15 @@ import React from 'react';
 import * as Constants from '../../../util/constants';
 
 const STYLE = {
-  width: '75%',
+  width: Constants.HOME_STORE_WIDTH,
 };
 
-const Banner = ({src}) => {
+const Details = ({store}) => {
   return (
     <div style={STYLE}>
-      <img style={{width: '100%', height: '100%'}} src={`img/${src}`} />
+      <b>{store.name}</b>{`, ${store.tags.join(" • ")}`}
     </div>
   );
 };
 
-export default Banner;
+export default Details;

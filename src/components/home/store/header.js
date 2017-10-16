@@ -1,12 +1,13 @@
 import React from 'react';
 
 import Banner from './banner';
+import Details from './details';
 
-const Header = ({src}) => {
+const Header = ({img, store}) => {
   return (
     <div>
-      <Banner src={src} />
-      <div>...</div>
+      <Banner src={img} />
+      <Details store={store} />
     </div>
   );
 };
