@@ -24,7 +24,9 @@ export const ADMIN_MENU_BUTTON_MARGIN     = toPx(ADMIN_MENU_BUTTON_MARGIN_VALUE)
 export const ADMIN_FORM_ROW_MARGIN_TOP    = toPx(ADMIN_FORM_ROW_MARGIN_TOP_VALUE);
 export const ADMIN_SECTION_MARGIN_HEIGHT  = toPx(ADMIN_SECTION_MARGIN_HEIGHT_VALUE);
 
-export const HOME_HEADER_HEIGHT = toPx(HOME_HEADER_HEIGHT_VALUE);
-export const HOME_MARGIN_LEFT   = '7.5%';
-export const HOME_MARGIN_TOP    = '20px';
-export const HOME_STORE_WIDTH   = '75%';
+export const HOME_HEADER_HEIGHT       = toPx(HOME_HEADER_HEIGHT_VALUE);
+export const HOME_GALLERY_MARGIN_LEFT = '7.2%';
+export const HOME_GALLERY_MARGIN_TOP  = '20px';
+export const HOME_GALLERY_WIDTH       = '89%';
+export const HOME_STORE_WIDTH         = '75%';
+export const HOME_STORE_MARGIN_LEFT   = '5%';

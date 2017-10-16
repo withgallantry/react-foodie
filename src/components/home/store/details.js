@@ -4,12 +4,17 @@ import * as Constants from '../../../util/constants';
 
 const STYLE = {
   width: Constants.HOME_STORE_WIDTH,
+  marginLeft: Constants.HOME_STORE_MARGIN_LEFT,
 };
 
 const Details = ({store}) => {
+  //<b>{store.name}</b>{`, ${store.tags.join(" • ")}`}
+  const title = <b>{store.name}</b>;
+  const tags = store.tags.join(" • ");
   return (
     <div style={STYLE}>
-      <b>{store.name}</b>{`, ${store.tags.join(" • ")}`}
+      {title}
+      {tags}
     </div>
   );
 };

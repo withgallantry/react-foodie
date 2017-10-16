@@ -15,6 +15,12 @@ const STYLE = {
   overflowY: 'scroll',
 };
 
+const HR_STYLE = {
+  margin: 0,
+  padding: 0,
+  width: Constants.HOME_STORE_WIDTH,
+};
+
 /*
 position: 'absolute',
 top: '70px',
@@ -62,6 +68,7 @@ class Store extends Component {
           img={this.state.store.images.banner}
           store={this.state.store}
         />
+        <hr style={HR_STYLE}/>
         <Menu store={this.state.store}/>
         <Order order={this.state.order} />
       </div>

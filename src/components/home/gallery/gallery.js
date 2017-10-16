@@ -20,15 +20,15 @@ const DIV_STYLE = {
 };
 
 const GALLERY_STYLE = {
-  width: '89%',
+  width: Constants.HOME_GALLERY_WIDTH,
   marginLeft: 'auto',
   marginRight: 'auto',
   marginTop: '15px',
 };
 
 const LOADING_STYLE = {
-  marginLeft: Constants.HOME_MARGIN_LEFT,
-  marginTop: Constants.HOME_MARGIN_TOP,
+  marginLeft: Constants.HOME_GALLERY_MARGIN_LEFT,
+  marginTop: Constants.HOME_GALLERY_MARGIN_TOP,
 };
 
 class Gallery extends Component {
