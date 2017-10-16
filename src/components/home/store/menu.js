@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
+import SubMenu from './sub_menu';
 import * as Constants from '../../../util/constants';
 import * as Event from './event';
 
@@ -10,8 +11,8 @@ const STYLE = {
 
 const UL_STYLE = {
   margin: 0,
-  marginBottom: '20px',
-  marginTop: '20px',
+  marginBottom: Constants.HOME_STORE_MARGIN_VERTICAL,
+  marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
   padding: 0,
 };
 
@@ -19,11 +20,17 @@ const LI_STYLE = {
   marginRight: '20px',
 };
 
+const HR_STYLE = {
+  margin: 0,
+  padding: 0
+};
+
 const Menu = ({items, onClick}) => {
-  let listItems = [];
+  let navBarItems = [];
+  let menuItems = [];
   for (let i = 0; i < items.length; ++i) {
     const item = items[i];
-    listItems.push((
+    navBarItems.push((
       <li
         className='menu-item'
         style={LI_STYLE}
@@ -32,12 +39,24 @@ const Menu = ({items, onClick}) => {
         {item.name}
       </li>
     ));
+    menuItems.push((
+      <SubMenu
+        key={`subMenu${i}`}
+        onClick={onClick}
+        item={item}
+        index={i}
+      />
+    ));
   }
   return (
-    <div style={STYLE}>
-      <ul style={UL_STYLE}>
-        {listItems}
-      </ul>
+    <div>
+      <div style={STYLE}>
+        <ul style={UL_STYLE}>
+          {navBarItems}
+        </ul>
+      </div>
+      <hr style={HR_STYLE}/>
+      {menuItems}
     </div>
   );
 };

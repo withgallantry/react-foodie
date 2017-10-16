@@ -120,12 +120,19 @@ class Gallery extends Component {
     let closesAtDate = new Date(date);
     closesAtDate.setHours(parseInt(closesAtHours));
     closesAtDate.setMinutes(parseInt(closesAtMinutes));
+
     if (closesAtDate.getHours() < opensAtDate.getHours()) {
-      opensAtDate.setDate(opensAtDate.getDate() - 1);
+      if (date < opensAtDate) {
+        opensAtDate.setDate(opensAtDate.getDate() - 1);
+      } else {
+        closesAtDate.setDate(closesAtDate.getDate() + 1);
+      }
     }
 
-    return (date > opensAtDate && date < closesAtDate)
-      || (closesAtDate < opensAtDate && date );
+    console.log(date);
+    console.log(opensAtDate);
+    console.log(closesAtDate);
+    return date > opensAtDate && date < closesAtDate;
   };
 
   render() {
