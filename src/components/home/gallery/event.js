@@ -1,2 +1,2 @@
-const FILTER = 0;
-const SEARCH = 1;
+export const FILTER = 0;
+export const SEARCH = 1;

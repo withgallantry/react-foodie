@@ -5,6 +5,8 @@ import * as Constants from '../../../util/constants';
 const STYLE = {
   width: Constants.HOME_STORE_WIDTH,
   marginLeft: Constants.HOME_STORE_MARGIN_LEFT,
+  marginBottom: '20px',
+  marginTop: '20px',
 };
 
 const Details = ({store}) => {
@@ -14,6 +16,7 @@ const Details = ({store}) => {
   return (
     <div style={STYLE}>
       {title}
+      &nbsp;
       {tags}
     </div>
   );

@@ -5,20 +5,26 @@ import Order from './order';
 import Menu from './menu';
 import * as Constants from '../../../util/constants';
 import * as Db from '../../../util/db';
+import * as Language from '../../../util/localization/language';
+import * as Settings from '../../../util/settings';
+
+// const STYLE = {
+//   backgroundColor: 'rgb(200, 200, 200)',
+//   position: 'absolute',
+//   top: Constants.HOME_HEADER_HEIGHT,
+//   width: Constants.HOME_STORE_WIDTH,
+//   zIndex: '100',
+//   overflowY: 'scroll',
+// };
 
 const STYLE = {
-  backgroundColor: 'rgb(200, 200, 200)',
-  position: 'absolute',
-  top: Constants.HOME_HEADER_HEIGHT,
+  border: '1px solid gray',
   width: Constants.HOME_STORE_WIDTH,
-  zIndex: '100',
-  overflowY: 'scroll',
 };
 
 const HR_STYLE = {
   margin: 0,
-  padding: 0,
-  width: Constants.HOME_STORE_WIDTH,
+  padding: 0
 };
 
 /*
@@ -39,6 +45,8 @@ class Store extends Component {
       store : undefined,
       order : undefined,
     };
+
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +61,13 @@ class Store extends Component {
     });
   }
 
+  onClick(id, arg) {
+    console.log(`onClick(${id}, ${arg})`);
+    if (id === Event.GO_TO_MENU_ITEM) {
+
+    }
+  }
+
   render() {
     if (this.state.store === undefined) {
       return (
@@ -63,13 +78,20 @@ class Store extends Component {
     }
 
     return (
-      <div>
+      <div style={STYLE}>
         <Header
           img={this.state.store.images.banner}
           store={this.state.store}
         />
         <hr style={HR_STYLE}/>
-        <Menu store={this.state.store}/>
+        <Menu
+          items={
+            Settings.get(Settings.LANGUAGE) === Language.SV
+              ? this.state.store.menu.sv
+              : this.state.store.menu.en
+          }
+          onClick={this.onClick}
+        />
         <Order order={this.state.order} />
       </div>
     );

@@ -47,6 +47,11 @@ span.gallery-closed-text {
     overflow-x: hidden;
 }
 
+.menu-item:hover {
+  cursor: pointer;
+  text-shadow: 1px 0px 0px black;
+}
+
 @media (min-width: 768px) {
   .modal-xl {
     width: 90%;
