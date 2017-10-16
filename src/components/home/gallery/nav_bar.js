@@ -7,8 +7,8 @@ import * as Event from './event';
 import * as Strings from '../../../util/localization/strings';
 
 const STYLE = {
-  marginLeft: Constants.HOME_MARGIN_LEFT,
-  marginTop: Constants.HOME_MARGIN_TOP,
+  marginLeft: Constants.HOME_GALLERY_MARGIN_LEFT,
+  marginTop: Constants.HOME_GALLERY_MARGIN_TOP,
 };
 
 const SEARCH_STYLE = {
