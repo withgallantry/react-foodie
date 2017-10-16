@@ -10,19 +10,26 @@ const IMAGE_CONTAINER_STYLE = {
 };
 
 const fillImageLists = () => {
-  const imageCount = 30;
-  for (let i = 0; i < imageCount; ++i) {
+  const galleryCount = 30;
+  const bannerCount = 32;
+  for (let i = 0; i < galleryCount; ++i) {
     gallery.push(`gallery${i}.png`);
+  }
+  for (let i = 0; i < bannerCount; ++i) {
     banners.push(`banner${i}.png`);
   }
 }
 
 const getGalleryList = (onClick) => {
-  return getList(gallery, Event.SET_IMAGE_GALLERY, onClick, '174px', '100px');
+  const width = 174;
+  const height = width * (200/300);
+  return getList(gallery, Event.SET_IMAGE_GALLERY, onClick, `${width}px`, `${height}px`);
 };
 
 const getBannerList = (onClick) => {
-  return getList(banners, Event.SET_IMAGE_BANNER, onClick, '174px', '70px');
+  const width = 265;
+  const height = width * (360/1440);
+  return getList(banners, Event.SET_IMAGE_BANNER, onClick, `${width}px`, `${height}px`);
 };
 
 const getList = (array, id, onClick, width, height) => {
