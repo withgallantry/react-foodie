@@ -46,24 +46,24 @@ tags[Language.EN] = [];
 t = tags[Language.EN];
 t[Tags.SALAD] = 'Salad';
 
-// localize strings to current language,
+// localizes strings
 // (looks in Strings and Tags for a match)
 // lang = input language
-export const localize = (args, lang) => {
+// target = target input language
+export const localize = (args, lang, target = Settings.get(Settings.LANGUAGE)) => {
   let result = [];
   let isArray = true;
   if (args.constructor !== Array) {
     isArray = false;
     args = [args];
   }
-  const currentLang = Settings.get(Settings.LANGUAGE);
   for (let i = 0; i < args.length; ++i) {
     const value = args[i].toLowerCase();
     let match = false;
     for (let j = 0; j < dictionary[lang].length; ++j) {
       if (dictionary[lang][j].toLowerCase().localeCompare(value) === 0) {
         match = true;
-        result.push(dictionary[currentLang][j]);
+        result.push(dictionary[target][j]);
         break;
       }
     }
@@ -71,7 +71,7 @@ export const localize = (args, lang) => {
       for (let j = 0; j < tags[lang].length; ++j) {
         if (tags[lang][j].toLowerCase().localeCompare(value) === 0) {
           match = true;
-          result.push(tags[currentLang][j]);
+          result.push(tags[target][j]);
           break;
         }
       }

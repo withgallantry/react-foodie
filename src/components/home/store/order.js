@@ -2,6 +2,7 @@ import React from 'react';
 
 import OrderItem from './order_item';
 import * as Constants from '../../../util/constants';
+import * as Util from '../../../util/util';
 
 const STYLE = {
   position: 'absolute',
@@ -13,10 +14,17 @@ const STYLE = {
   overflowY: 'scroll',
 };
 
+const getTotal = (items) => {
+  let total = 0;
+  for (let item of items) {
+    total += (Util.getNumericValue(item.price) * item.quantity);
+  }
+  return `${total} SEK`;
+}
+
 const Order = ({items}) => {
   let orderItems = [];
-  for (let i = 0; i < items.length; ++i) {
-    const item = items[i];
+  for (let item of items) {
     orderItems.push((
       <OrderItem
         key={item.id}
@@ -30,6 +38,8 @@ const Order = ({items}) => {
   return (
       <div style={STYLE}>
         {orderItems}
+        <br />
+        <p>Total: <span style={{ float: 'right' }}>{getTotal(items)}</span></p>
       </div>
   );
 };

@@ -38,7 +38,8 @@ class Gallery extends Component {
     this.state = {
       loading : true,
       searchExpanded : false,
-      stores : []
+      stores : [],
+      language : props.language,
     };
 
     this.onClick = this.onClick.bind(this);
@@ -46,6 +47,10 @@ class Gallery extends Component {
 
   componentDidMount() {
     this.load();
+  }
+
+  componentWillReceiveProps({ language }) {
+    this.setState({ language });
   }
 
   load() {
@@ -95,7 +100,7 @@ class Gallery extends Component {
           id={store._id}
           name={store.name}
           hours={store.hours}
-          tags={Strings.localize(store.tags, Language.SV)}
+          tags={Strings.localize(store.tags, Language.SV, this.state.language)}
           images={store.images}
           isOpen={store.isOpen}
           onClick={this.onClick}

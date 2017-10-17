@@ -36,7 +36,8 @@ class Store extends Component {
     this.state = {
       id : props.match.params.id,
       store : undefined,
-      orderItems : []
+      orderItems : [],
+      language : props.language,
     };
 
     this.onClick = this.onClick.bind(this);
@@ -44,6 +45,11 @@ class Store extends Component {
 
   componentDidMount() {
     this.load();
+  }
+
+  componentWillReceiveProps({ language }) {
+    this.setState({ language });
+    this.getCookies(language);
   }
 
   load() {
@@ -55,14 +61,15 @@ class Store extends Component {
     });
   }
 
-  getCookies() {
+  getCookies(language) {
     const store = this.state.store;
     let orderItems = [];
     let cookie = Cookies.get(`${COOKIE_PREFIX}${store._id}`);
     for (let i in cookie) {
       if (cookie.hasOwnProperty(i)) {
         let item = cookie[i];
-        let storeItem = store.menu[Settings.get(Settings.LANGUAGE)][item.m].items[item.i];
+        const lang = language === undefined ? this.state.language : language;
+        let storeItem = store.menu[lang][item.m].items[item.i];
         orderItems.push({
           name: storeItem.name,
           price: storeItem.price,
@@ -82,8 +89,8 @@ class Store extends Component {
 
   addItem(menuIndex, itemIndex) {
     let orderItems = this.state.orderItems;
-    const LANGUAGE = Settings.get(Settings.LANGUAGE);
-    let item = this.state.store.menu[LANGUAGE][menuIndex].items[itemIndex];
+    const language = Settings.get(Settings.LANGUAGE);
+    let item = this.state.store.menu[language][menuIndex].items[itemIndex];
     const index = _.findIndex(orderItems, (item) => {
       return item.menuIndex === menuIndex && item.itemIndex === itemIndex;
     })
@@ -161,14 +168,16 @@ class Store extends Component {
           <hr style={HR_STYLE}/>
           <Menu
             items={
-              Settings.get(Settings.LANGUAGE) === Language.SV
+              this.state.language === Language.SV
                 ? this.state.store.menu.sv
                 : this.state.store.menu.en
             }
             onClick={this.onClick}
           />
         </div>
-        <Order items={this.state.orderItems} />
+        <Order
+          items={this.state.orderItems}
+          language={this.state.language}/>
       </div>
     );
   }

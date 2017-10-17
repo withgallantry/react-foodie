@@ -56,6 +56,24 @@ class Home extends Component {
   }
 
   render() {
+    const MyStore = (props) => {
+      return (
+        <Store
+          {...props}
+          language={this.state.language}
+         />
+       );
+    };
+
+    const myGallery = (props) => {
+      return (
+        <Gallery
+          {...props}
+          language={this.state.language}
+         />
+       );
+    };
+
     return (
       <div>
         <Header
@@ -68,8 +86,8 @@ class Home extends Component {
         />
         <hr className='hr-home'/>
         <Switch>
-          <Route exact path='/store/:id' component={Store} />
-          <Route exact path='/gallery' component={Gallery} />
+          <Route exact path='/store/:id' render={(props) => MyStore(props)} />
+          <Route exact path='/gallery' render={(props) => myGallery(props)} />
           <Redirect from='/' to='gallery'/>
         </Switch>
       </div>
