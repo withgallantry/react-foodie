@@ -17,7 +17,7 @@ const SEARCH_STYLE = {
   width: '100%',
 };
 
-const Header = ({onChange, onClick, onAddressChange, search, language, itemCount}) => {
+const Header = ({onChange, onClick, onAddressChange, search, language, storeId}) => {
   return (
       <div style={STYLE}>
         <Logo />
@@ -26,7 +26,7 @@ const Header = ({onChange, onClick, onAddressChange, search, language, itemCount
         </div>
         <NavBar
           language={language}
-          itemCount={itemCount}
+          storeId={storeId}
           onClick={onClick}
         />
       </div>

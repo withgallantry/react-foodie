@@ -37,3 +37,4 @@ export const HOME_STORE_MARGIN_LEFT           = '5%';
 export const HOME_STORE_MARGIN_VERTICAL       = '20px';
 export const HOME_STORE_ITEM_MARGIN_VERTICAL  = '10px';
 export const HOME_ORDER_WIDTH                 = toPc(100-HOME_STORE_WIDTH_VALUE);
+export const HOME_ORDER_MARGIN_LEFT           = '5%';

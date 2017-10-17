@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 
 import Button from '../shared/html/button';
 import { Link } from 'react-router-dom';
@@ -17,7 +18,13 @@ const BTN_STYLE = {
   marginRight: '5px'
 };
 
-const NavBar = ({onClick, language, itemCount}) => {
+const CART_STYLE = {
+  marginRight: '5px',
+  paddingLeft: '15px',
+  paddingRight: '15px',
+}
+
+const NavBar = ({onClick, language, storeId}) => {
   return (
     <div style={DIV_STYLE}>
       {(() => {
@@ -58,11 +65,23 @@ const NavBar = ({onClick, language, itemCount}) => {
           id : Event.CHANGE_LANGUAGE
         }}
       />
-      <Button
-        style={BTN_STYLE}
-        glyphicon={'shopping-cart'}
-        label={` (${itemCount})`}
-      />
+      {storeId !== undefined
+        ?
+          <Link to={`/store/${storeId}`}>
+            <Button
+              style={CART_STYLE}
+              glyphicon={'shopping-cart'}
+              tooltip={Strings.get(Strings.GO_TO_ORDER)}
+            />
+          </Link>
+        :
+          <Button
+            style={CART_STYLE}
+            glyphicon={'shopping-cart'}
+            tooltip={Strings.get(Strings.GO_TO_ORDER)}
+          />
+      }
+      <ReactTooltip type='info' effect='solid' />
     </div>
   );
 };

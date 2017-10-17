@@ -47,13 +47,18 @@ class Store extends Component {
     this.load();
   }
 
-  componentWillReceiveProps({ language }) {
-    this.setState({ language });
-    this.getCookies(language);
+  componentWillReceiveProps(props) {
+    if (props.language !== this.state.language) {
+      this.setState({ language : props.language });
+      this.getCookies(props.language);
+    }
+    if (this.state.id !== props.match.params.id) {
+      this.load(props.match.params.id);
+    }
   }
 
-  load() {
-    Db.get(this.state.id).then((response) => {
+  load(id) {
+    Db.get(id = id === undefined ? this.state.id : id).then((response) => {
       this.setState({ store : response.data });
       this.getCookies();
     }).catch((error) => {
@@ -107,11 +112,12 @@ class Store extends Component {
       });
     }
     this.updateCookies(1, menuIndex, itemIndex);
+    this.props.onOrderChange(this.state.store._id);
     this.setState({ orderItems });
   }
 
   removeItem(menuIndex, itemIndex) {
-
+    this.props.onOrderChange(this.state.store._id);
   }
 
   updateCookies(inc, menuIndex, itemIndex) {

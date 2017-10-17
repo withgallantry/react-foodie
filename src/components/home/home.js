@@ -9,6 +9,8 @@ import * as Event from './event';
 import * as Language from '../../util/localization/language';
 import * as Settings from '../../util/settings';
 
+const COOKIE_TAG = 'latest';
+
 class Home extends Component {
   constructor() {
     super();
@@ -17,10 +19,19 @@ class Home extends Component {
       addressSearch : undefined,
       storeSearch : '',
       language : Settings.get(Settings.LANGUAGE),
+      storeId : undefined,
     };
 
     this.onClick = this.onClick.bind(this);
     this.onAddressChange = this.onAddressChange.bind(this);
+    this.onOrderChange = this.onOrderChange.bind(this);
+  }
+
+  componentDidMount() {
+    const storeId = Cookies.get(COOKIE_TAG);
+    if (storeId) {
+      this.setState({ storeId });
+    }
   }
 
   changeLanguage() {
@@ -44,6 +55,11 @@ class Home extends Component {
     window.location.reload();
   }
 
+  onOrderChange(storeId) {
+    this.setState({ storeId });
+    Cookies.set(COOKIE_TAG, storeId);
+  }
+
   onClick(id) {
     console.log(`onClick(${id})`);
     if (id === Event.CHANGE_LANGUAGE) {
@@ -61,6 +77,7 @@ class Home extends Component {
         <Store
           {...props}
           language={this.state.language}
+          onOrderChange={this.onOrderChange}
          />
        );
     };
@@ -82,7 +99,7 @@ class Home extends Component {
           onAddressChange={this.onAddressChange}
           search={this.state.addressSearch}
           language={this.state.language}
-          itemCount={2} // temp
+          storeId={this.state.storeId}
         />
         <hr className='hr-home'/>
         <Switch>

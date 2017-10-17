@@ -7,9 +7,10 @@ export const SEARCH          = 2;
 export const SEARCH_STORE    = 3;
 export const CLOSED          = 4;
 export const EDITOR          = 5;
+export const GO_TO_ORDER     = 6;
 
 const min = 0;
-const max = EDITOR;
+const max = GO_TO_ORDER;
 
 // lut for strings in different language
 let dictionary = [];
@@ -22,6 +23,7 @@ dict[SEARCH]          = 'Sök';
 dict[SEARCH_STORE]    = 'Sök efter restaurang & taggar...';
 dict[CLOSED]          = 'Stängd';
 dict[EDITOR]          = 'Editor';
+dict[GO_TO_ORDER]     = 'Gå till senaste modifierade order'
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
@@ -31,6 +33,7 @@ dict[SEARCH]          = 'Search';
 dict[SEARCH_STORE]    = 'Search for store & tags...';
 dict[CLOSED]          = 'Closed';
 dict[EDITOR]          = 'Editor';
+dict[GO_TO_ORDER]     = 'Go to latest modified order';
 
 const Tags = Object.freeze({
   SALAD : 0
