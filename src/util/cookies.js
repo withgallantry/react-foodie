@@ -22,6 +22,7 @@ export const removeAll = () => {
   }
 }
 
+// for debugging purposes
 export const print = () => {
   console.log(cookies.getAll());
 }

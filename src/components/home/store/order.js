@@ -1,5 +1,6 @@
 import React from 'react';
 
+import OrderItem from './order_item';
 import * as Constants from '../../../util/constants';
 
 const STYLE = {
@@ -12,10 +13,23 @@ const STYLE = {
   overflowY: 'scroll',
 };
 
-const Order = () => {
+const Order = ({items}) => {
+  let orderItems = [];
+  for (let i = 0; i < items.length; ++i) {
+    const item = items[i];
+    orderItems.push((
+      <OrderItem
+        key={item.id}
+        id={item.id}
+        name={item.name}
+        price={item.price}
+        quantity={item.quantity}
+      />
+    ));
+  }
   return (
       <div style={STYLE}>
-        Order
+        {orderItems}
       </div>
   );
 };

@@ -9,6 +9,7 @@ import * as Db from '../../../util/db';
 import * as Event from './event';
 import * as Language from '../../../util/localization/language';
 import * as Settings from '../../../util/settings';
+import * as Util from '../../../util/util';
 
 const STYLE = {
   position: 'absolute',
@@ -25,6 +26,8 @@ const HR_STYLE = {
   margin: 0,
   padding: 0
 };
+
+const COOKIE_PREFIX = 'items_';
 
 class Store extends Component {
   constructor(props) {
@@ -46,9 +49,31 @@ class Store extends Component {
   load() {
     Db.get(this.state.id).then((response) => {
       this.setState({ store : response.data });
+      this.getCookies();
     }).catch((error) => {
       console.log(error);
     });
+  }
+
+  getCookies() {
+    const store = this.state.store;
+    let orderItems = [];
+    let cookie = Cookies.get(`${COOKIE_PREFIX}${store._id}`);
+    for (let i in cookie) {
+      if (cookie.hasOwnProperty(i)) {
+        let item = cookie[i];
+        let storeItem = store.menu[Settings.get(Settings.LANGUAGE)][item.m].items[item.i];
+        orderItems.push({
+          name: storeItem.name,
+          price: storeItem.price,
+          quantity: item.q,
+          menuIndex: item.m,
+          itemIndex: item.i,
+          id: Util.generateKey()
+        });
+      }
+    }
+    this.setState({ orderItems });
   }
 
   goToMenu(menuIndex) {
@@ -58,8 +83,22 @@ class Store extends Component {
   addItem(menuIndex, itemIndex) {
     let orderItems = this.state.orderItems;
     const LANGUAGE = Settings.get(Settings.LANGUAGE);
-    const item = this.state.store.menu[LANGUAGE][menuIndex].items[itemIndex];
-    orderItems.push(item);
+    let item = this.state.store.menu[LANGUAGE][menuIndex].items[itemIndex];
+    const index = _.findIndex(orderItems, (item) => {
+      return item.menuIndex === menuIndex && item.itemIndex === itemIndex;
+    })
+    if (index >= 0) {
+      ++orderItems[index].quantity;
+    } else {
+      orderItems.push({
+        name : item.name,
+        price : item.price,
+        quantity : 1,
+        menuIndex : menuIndex,
+        itemIndex : itemIndex,
+        id : Util.generateKey(),
+      });
+    }
     this.updateCookies(1, menuIndex, itemIndex);
     this.setState({ orderItems });
   }
@@ -70,8 +109,7 @@ class Store extends Component {
 
   updateCookies(inc, menuIndex, itemIndex) {
     const storeId = this.state.store._id;
-    const tag = 'items_';
-    let items = Cookies.get(`${tag}${storeId}`);
+    let items = Cookies.get(`${COOKIE_PREFIX}${storeId}`);
     if (! items) {
       items = [];
     }
@@ -92,7 +130,7 @@ class Store extends Component {
         });
       }
     }
-    Cookies.set(`${tag}${storeId}`, items);
+    Cookies.set(`${COOKIE_PREFIX}${storeId}`, items);
   }
 
   onClick(id, args) {
@@ -130,7 +168,7 @@ class Store extends Component {
             onClick={this.onClick}
           />
         </div>
-        <Order order={this.state.order} />
+        <Order items={this.state.orderItems} />
       </div>
     );
   }

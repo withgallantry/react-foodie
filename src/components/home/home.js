@@ -38,12 +38,18 @@ class Home extends Component {
     this.setState({ addressSearch });
   }
 
+  // for debugging purposes
+  deleteCookies() {
+    Cookies.removeAll();
+    window.location.reload();
+  }
+
   onClick(id) {
     console.log(`onClick(${id})`);
     if (id === Event.CHANGE_LANGUAGE) {
       this.changeLanguage();
     } else if (id === Event.DELETE_COOKIES) {
-      Cookies.removeAll();
+      this.deleteCookies();
     } else if (id === Event.PRINT_COOKIES) {
       Cookies.print();
     }
