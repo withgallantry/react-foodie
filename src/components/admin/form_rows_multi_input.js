@@ -3,6 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import _ from 'lodash';
 
 import InputText from '../shared/html/input_text';
+import * as Constants from '../../util/constants';
 import * as Event from './event';
 import * as MenuButton from './menu_button';
 
@@ -36,7 +37,7 @@ const BTN_STYLE = {
 const INPUT_MENU_NAME_SIZE = '35';
 const INPUT_ITEM_DESC_SIZE = '100';
 const INPUT_ITEM_NAME_SIZE = INPUT_MENU_NAME_SIZE;
-const INPUT_ITEM_PRICE_SIZE = '4';
+const INPUT_ITEM_PRICE_SIZE = '1';
 
 const createInputText = (style, size, onChange, args, value, lang) => {
   return (
@@ -66,6 +67,7 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
         {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_NAME_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'name',  lang], item.name)}
         {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_DESC_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'desc',  lang], item.desc)}
         {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_PRICE_SIZE, onChange, [Event.CHANGE_MENU_ITEM, index, i, 'price', lang], item.price)}
+        {Constants.CURRENCY}
       </div>
     ));
   }

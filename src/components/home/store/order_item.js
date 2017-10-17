@@ -17,7 +17,7 @@ const OrderItem = ({name, price, quantity, id}) => {
   return (
     <div style={STYLE}>
       {`(${quantity})${name}`}
-      <span style={PRICE_STYLE}>{`${price}`}</span>
+      <span style={PRICE_STYLE}>{`${price} ${Constants.CURRENCY}`}</span>
     </div>
   );
 };

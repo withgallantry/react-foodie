@@ -27,7 +27,7 @@ const SubMenuItem = ({onClick, item, index, menu}) => {
       onClick={() => onClick(Event.ADD_ITEM, [menu, index])}>
       <p>{item.name}</p>
       <span style={DESC_STYLE}>• &nbsp; {item.desc}</span>
-      <span style={PRICE_STYLE}>{item.price}</span>
+      <span style={PRICE_STYLE}>{`${item.price} ${Constants.CURRENCY}`}</span>
     </div>
   );
 };
