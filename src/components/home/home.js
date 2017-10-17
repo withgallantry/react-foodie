@@ -4,6 +4,7 @@ import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import Gallery from './gallery/gallery';
 import Header from './header';
 import Store from './store/store';
+import * as Cookies from '../../util/cookies';
 import * as Event from './event';
 import * as Language from '../../util/localization/language';
 import * as Settings from '../../util/settings';
@@ -15,11 +16,9 @@ class Home extends Component {
     this.state = {
       addressSearch : undefined,
       storeSearch : '',
-      language : Language.SV,
+      language : Settings.get(Settings.LANGUAGE),
     };
 
-    Settings.set(Settings.DEBUG, false);
-    Settings.set(Settings.LANGUAGE, this.state.language);
     this.onClick = this.onClick.bind(this);
     this.onAddressChange = this.onAddressChange.bind(this);
   }
@@ -43,6 +42,10 @@ class Home extends Component {
     console.log(`onClick(${id})`);
     if (id === Event.CHANGE_LANGUAGE) {
       this.changeLanguage();
+    } else if (id === Event.DELETE_COOKIES) {
+      Cookies.removeAll();
+    } else if (id === Event.PRINT_COOKIES) {
+      Cookies.print();
     }
   }
 

@@ -2,7 +2,7 @@ import * as Language from './localization/language';
 
 export const DEBUG      = 0;
 export const KEY        = 1;
-export const LANGUAGE   = 3;
+export const LANGUAGE   = 2;
 
 const min = 0;
 const max = LANGUAGE;

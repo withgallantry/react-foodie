@@ -17,7 +17,6 @@ const HR_STYLE = {
 const ITEM_STYLE = {
   marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
   marginBottom: Constants.HOME_STORE_MARGIN_VERTICAL,
-  color: 'rgb(0, 0, 0)',
 };
 
 const SubMenu = ({onClick, item, index}) => {
@@ -30,6 +29,7 @@ const SubMenu = ({onClick, item, index}) => {
         item={element}
         index={i}
         menu={index}
+        onClick={onClick}
       />
     ));
   }

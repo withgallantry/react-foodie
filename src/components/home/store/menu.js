@@ -17,7 +17,7 @@ const UL_STYLE = {
 };
 
 const LI_STYLE = {
-  marginRight: '20px',
+  marginRight: '10px',
 };
 
 const HR_STYLE = {
@@ -35,10 +35,15 @@ const Menu = ({items, onClick}) => {
         className='menu-item'
         style={LI_STYLE}
         key={`item${i}`}
-        onClick={() => onClick(Event.GO_TO_MENU_ITEM, i)}>
+        onClick={() => onClick(Event.GO_TO_MENU, [i])}>
         {item.name}
       </li>
     ));
+    if ((i + 1) < items.length) {
+      navBarItems.push((
+        <li style={LI_STYLE} key={`dot${i}`}>•</li>
+      ));
+    }
     menuItems.push((
       <SubMenu
         key={`subMenu${i}`}

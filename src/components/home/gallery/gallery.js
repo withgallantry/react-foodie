@@ -129,9 +129,6 @@ class Gallery extends Component {
       }
     }
 
-    console.log(date);
-    console.log(opensAtDate);
-    console.log(closesAtDate);
     return date > opensAtDate && date < closesAtDate;
   };
 

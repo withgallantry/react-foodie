@@ -1,9 +1,10 @@
 import React from 'react';
 
 import Button from '../shared/html/button';
-import Event from './event';
 import { Link } from 'react-router-dom';
+import * as Event from './event';
 import * as Language from '../../util/localization/language';
+import * as Settings from '../../util/settings';
 import * as Strings from '../../util/localization/strings';
 
 const DIV_STYLE = {
@@ -19,6 +20,27 @@ const BTN_STYLE = {
 const NavBar = ({onClick, language, itemCount}) => {
   return (
     <div style={DIV_STYLE}>
+      {(() => {
+        return Settings.get(Settings.DEBUG) &&
+          <span>
+            <Button
+              style={BTN_STYLE}
+              label={'Print Cookies'}
+              onClick={{
+                func : onClick,
+                id : Event.PRINT_COOKIES
+              }}
+            />
+            <Button
+              style={BTN_STYLE}
+              label={'Delete Cookies'}
+              onClick={{
+                func : onClick,
+                id : Event.DELETE_COOKIES
+              }}
+            />
+          </span>
+      })()}
       <Link to={'/admin'}>
         <button
           className='btn btn-default'

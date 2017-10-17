@@ -5,11 +5,15 @@ const ADMIN_MENU_BUTTON_MARGIN_VALUE    = 10;
 const ADMIN_FORM_ROW_MARGIN_TOP_VALUE   = 2;
 const ADMIN_SECTION_MARGIN_HEIGHT_VALUE = 16;
 const ADMIN_FORM_TOP_VALUE              = 156;
+const HOME_STORE_WIDTH_VALUE            = 75;
 
 const HOME_HEADER_HEIGHT_VALUE = 70;
 
 const toPx = (value) => {
   return `${value}px`;
+};
+const toPc = (value) => {
+  return `${value}%`;
 };
 
 //const STORES_URL = 'https://agile-taiga-67906.herokuapp.com/';
@@ -28,7 +32,8 @@ export const HOME_HEADER_HEIGHT               = toPx(HOME_HEADER_HEIGHT_VALUE);
 export const HOME_GALLERY_MARGIN_LEFT         = '7.2%';
 export const HOME_GALLERY_MARGIN_TOP          = '20px';
 export const HOME_GALLERY_WIDTH               = '89%';
-export const HOME_STORE_WIDTH                 = '75%';
+export const HOME_STORE_WIDTH                 = toPc(HOME_STORE_WIDTH_VALUE);
 export const HOME_STORE_MARGIN_LEFT           = '5%';
 export const HOME_STORE_MARGIN_VERTICAL       = '20px';
 export const HOME_STORE_ITEM_MARGIN_VERTICAL  = '10px';
+export const HOME_ORDER_WIDTH                 = toPc(100-HOME_STORE_WIDTH_VALUE);

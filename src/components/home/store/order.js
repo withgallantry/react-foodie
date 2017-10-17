@@ -5,9 +5,11 @@ import * as Constants from '../../../util/constants';
 const STYLE = {
   position: 'absolute',
   right: 0,
+  bottom: 0,
+  left: Constants.HOME_STORE_WIDTH,
   top: Constants.HOME_HEADER_HEIGHT,
-  width: '25%',
-  backgroundColor: 'rgb(230, 230, 230)',
+  width: Constants.HOME_ORDER_WIDTH,
+  overflowY: 'scroll',
 };
 
 const Order = () => {
