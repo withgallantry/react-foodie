@@ -67,21 +67,26 @@ const NavBar = ({onClick, language, storeId}) => {
       />
       {storeId !== undefined
         ?
-          <Link to={`/store/${storeId}`}>
+          <span>
+            <Link to={`/store/${storeId}`}>
+              <Button
+                style={CART_STYLE}
+                glyphicon={'shopping-cart'}
+                tooltip={Strings.get(Strings.GO_TO_ORDER)}
+              />
+              <ReactTooltip type='info' effect='solid' />
+            </Link>
+          </span>
+        :
+          <span>
             <Button
               style={CART_STYLE}
               glyphicon={'shopping-cart'}
               tooltip={Strings.get(Strings.GO_TO_ORDER)}
             />
-          </Link>
-        :
-          <Button
-            style={CART_STYLE}
-            glyphicon={'shopping-cart'}
-            tooltip={Strings.get(Strings.GO_TO_ORDER)}
-          />
+            <ReactTooltip type='info' effect='solid' />
+          </span>
       }
-      <ReactTooltip type='info' effect='solid' />
     </div>
   );
 };
