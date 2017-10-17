@@ -37,7 +37,7 @@ const SubMenu = ({onClick, item, index}) => {
   return (
     <div>
       <div style={STYLE}>
-        <p style={{ textAlign: 'center' }}> •  •  • &nbsp; {item.name} &nbsp; •  •  • </p>
+        <p style={{ textAlign: 'center' }}> •  •  • &nbsp; {item.name.toUpperCase()} &nbsp; •  •  • </p>
       </div>
       <hr style={HR_STYLE}/>
       <div style={ITEM_STYLE}>

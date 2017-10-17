@@ -9,15 +9,29 @@ const STYLE = {
   marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
 };
 
+const TITLE_STYLE = {
+  display: 'inline',
+};
+
+const TAG_STYLE = {
+  fontSize: '12pt',
+};
+
 const Details = ({store}) => {
   //<b>{store.name}</b>{`, ${store.tags.join(" • ")}`}
-  const title = <b>{store.name}</b>;
-  const tags = store.tags.join(" • ");
+  const title = <h2 style={TITLE_STYLE}>{store.name}</h2>;
+  const tags = <p style={TAG_STYLE}>{store.tags.join(" • ")}</p>;
+  const hours = <span>{
+    `Hours Open: ${store.hours.opensAt.hours}.${store.hours.opensAt.minutes}` +
+    ` - ${store.hours.closesAt.hours}.${store.hours.closesAt.minutes}`
+  }</span>;
+
   return (
     <div style={STYLE}>
       {title}
       &nbsp;
       {tags}
+      {hours}
     </div>
   );
 };

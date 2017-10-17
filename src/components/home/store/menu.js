@@ -36,7 +36,7 @@ const Menu = ({items, onClick}) => {
         style={LI_STYLE}
         key={`item${i}`}
         onClick={() => onClick(Event.GO_TO_MENU, [i])}>
-        {item.name}
+        {item.name.toUpperCase()}
       </li>
     ));
     if ((i + 1) < items.length) {
