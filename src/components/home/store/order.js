@@ -61,6 +61,8 @@ const ORDERS_STYLE = {
 const SWITCH_TEXT_STYLE = {
   marginLeft: '10px',
   marginRight: '10px',
+  marginTop: '-10px',
+  fontSize: FONT_SIZE,
 };
 
 const ORDER_MISSING_STYLE = {
@@ -75,7 +77,10 @@ const BTN_STYLE = {
   width: '95%',
   marginTop: '5px',
   marginLeft: '2.5%',
+  marginBottom: Constants.HOME_ORDER_MARGIN_LEFT,
 };
+
+const FONT_SIZE = '12pt';
 
 const getTotal = (items) => {
   let total = 0;
@@ -85,16 +90,20 @@ const getTotal = (items) => {
   return total;
 }
 
-const Order = ({onToggleSwitch, switched, address, name, items}) => {
+const Order = ({onClick, showMenuForItem, onEnter, onLeave, onToggleSwitch, switched, address, name, items}) => {
   let orderItems = [];
   for (let item of items) {
     orderItems.push((
       <OrderItem
         key={item.id}
+        onClick={onClick}
+        showMenu={showMenuForItem === item.id}
         id={item.id}
         name={item.name}
         price={item.price}
         quantity={item.quantity}
+        onEnter={onEnter}
+        onLeave={onLeave}
       />
     ));
   }

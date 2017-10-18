@@ -38,10 +38,13 @@ class Store extends Component {
       orderItems : [],
       language : props.language,
       switched : false,
+      showMenuForItem : undefined
     };
 
     this.onClick = this.onClick.bind(this);
     this.onToggleSwitch = this.onToggleSwitch.bind(this);
+    this.onOrderItemLeave = this.onOrderItemLeave.bind(this);
+    this.onOrderItemEnter = this.onOrderItemEnter.bind(this);
   }
 
   componentDidMount() {
@@ -147,6 +150,54 @@ class Store extends Component {
     Cookies.set(`${COOKIE_PREFIX}${storeId}`, items);
   }
 
+  onOrderItemEnter(id) {
+    this.setState({ showMenuForItem : id });
+  }
+
+  onOrderItemLeave() {
+    this.setState({ showMenuForItem : undefined });
+  }
+
+  increaseItem(id) {
+    this.updateItemQuantity(1, id);
+  }
+
+  decreaseItem(id) {
+    this.updateItemQuantity(-1, id);
+  }
+
+  updateItemQuantity(quantity, id) {
+    const orderItems = this.state.orderItems;
+    const index = _.findIndex(orderItems, (item) => {
+      return item.id === id;
+    })
+    if (index >= 0) {
+      let item = orderItems[index];
+      item.quantity += quantity;
+      if (item.quantity <= 0) {
+        this.removeItem(id);
+      } else {
+        this.setState({ orderItems });
+        this.updateCookies(quantity, item.menuIndex, item.itemIndex);
+      }
+    }
+  }
+
+  removeItem(id) {
+    const orderItems = this.state.orderItems;
+    const index = _.findIndex(orderItems, (item) => {
+      return item.id === id;
+    })
+    if (index >= 0) {
+      this.updateCookies(
+        Number.MIN_SAFE_INTEGER,
+        orderItems[index].menuIndex,
+        orderItems[index].itemIndex);
+      orderItems.splice(index, 1);
+      this.getCookies();
+    }
+  }
+
   onToggleSwitch() {
     const switched = !this.state.switched;
     this.setState({ switched });
@@ -158,6 +209,12 @@ class Store extends Component {
       this.goToMenu(...args);
     } else if (id === Event.ADD_ITEM) {
       this.addItem(...args);
+    } else if (id == Event.INCREASE_ITEM) {
+      this.increaseItem(...args);
+    } else if (id == Event.DECREASE_ITEM) {
+      this.decreaseItem(...args);
+    } else if (id == Event.REMOVE_ITEM) {
+      this.removeItem(...args);
     }
   }
 
@@ -188,6 +245,10 @@ class Store extends Component {
           />
         </div>
         <Order
+          onClick={this.onClick}
+          showMenuForItem={this.state.showMenuForItem}
+          onEnter={this.onOrderItemEnter}
+          onLeave={this.onOrderItemLeave}
           onToggleSwitch={this.onToggleSwitch}
           switched={this.state.switched}
           address={this.props.address}

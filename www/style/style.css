@@ -57,6 +57,11 @@ span.gallery-closed-text {
   cursor: pointer;
 }
 
+.order-item:hover {
+  box-shadow: 0 4px 20px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
+}
+
 @media (min-width: 768px) {
   .modal-xl {
     width: 90%;
