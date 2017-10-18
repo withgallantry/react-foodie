@@ -10,7 +10,8 @@ import * as Event from './event';
 import * as Language from '../../util/localization/language';
 import * as Settings from '../../util/settings';
 
-const COOKIE_TAG = 'latest';
+const COOKIE_LATEST  = 'latest';
+const COOKIE_ADDRESS = 'address';
 
 class Home extends Component {
   constructor() {
@@ -29,13 +30,18 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const storeId = Cookies.get(COOKIE_TAG);
+    const storeId = Cookies.get(COOKIE_LATEST);
     if (storeId) {
       this.setState({ storeId });
     }
 
     // if couldnt find address cookie:
-    this.setState({ addressSearch : Constants.DEFAULT_ADDRESS });
+    const addressSearch = Cookies.get(COOKIE_ADDRESS);
+    if (addressSearch) {
+      this.setState({ addressSearch });
+    } else {
+      this.setState({ addressSearch : Constants.DEFAULT_ADDRESS });
+    }
   }
 
   changeLanguage() {
@@ -50,6 +56,7 @@ class Home extends Component {
   }
 
   onAddressChange(addressSearch) {
+    Cookies.set(COOKIE_ADDRESS, addressSearch);
     this.setState({ addressSearch });
   }
 
@@ -61,7 +68,7 @@ class Home extends Component {
 
   onOrderChange(storeId) {
     this.setState({ storeId });
-    Cookies.set(COOKIE_TAG, storeId);
+    Cookies.set(COOKIE_LATEST, storeId);
   }
 
   onClick(id) {

@@ -17,7 +17,6 @@ const STYLE = {
   left: '0px',
   right: '0px',
   bottom: '0px',
-  border: '1px solid gray',
   width: Constants.HOME_STORE_WIDTH,
   overflowY: 'scroll',
 };
