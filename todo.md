@@ -11,6 +11,7 @@ style everything
 hook address on stores?
 delivery fee in backend?
 takeout time in backend?
+cleanup orders styles
 
 *** check and substitute ***
 id={item.id}

@@ -43,7 +43,9 @@ const TOTAL_PRICE_STYLE = {
 
 const HR_STYLE = {
   marginTop: Constants.HOME_ORDER_MARGIN_LEFT,
-  padding: 0
+  padding: 0,
+  marginLeft: Constants.HOME_ORDER_MARGIN_LEFT,
+  marginRight: Constants.HOME_ORDER_MARGIN_LEFT,
 };
 
 const SWITCH_STYLE = {
@@ -51,9 +53,20 @@ const SWITCH_STYLE = {
   marginTop: Constants.HOME_ORDER_MARGIN_LEFT,
 };
 
+const ORDERS_STYLE = {
+  marginTop: Constants.HOME_ORDER_MARGIN_LEFT,
+};
+
 const SWITCH_TEXT_STYLE = {
   marginLeft: '10px',
   marginRight: '10px',
+};
+
+const ORDER_MISSING_STYLE = {
+  textAlign: 'center',
+  marginLeft: Constants.HOME_ORDER_MARGIN_LEFT,
+  marginRight: Constants.HOME_ORDER_MARGIN_LEFT,
+  marginTop: Constants.HOME_ORDER_MARGIN_LEFT,
 };
 
 const getTotal = (items) => {
@@ -96,9 +109,13 @@ const Order = ({onToggleSwitch, switched, address, name, items}) => {
         }
         <h3 style={TITLE_STYLE}>{Strings.get(Strings.ORDER_FROM)}</h3>
         <h3 style={SUB_TITLE_STYLE}>{name}</h3>
+        {orderItems.length <= 0 &&
+          <p style={ORDER_MISSING_STYLE}>{Strings.get(Strings.ORDER_MISSING)}</p>
+        }
+        <div style={ORDERS_STYLE}>
+          {orderItems}
+        </div>
         <hr style={HR_STYLE}/>
-        {orderItems}
-        <br />
         <div style={TOTAL_STYLE}>
           {Strings.get(Strings.SUB_TOTAL)}: <span style={TOTAL_PRICE_STYLE}>{`${total} ${Constants.CURRENCY}`}</span><br/>
           {Strings.get(Strings.DELIVERY_FEE)}: <span style={TOTAL_PRICE_STYLE}>{`${deliveryFee} ${Constants.CURRENCY}`}</span><br/>
