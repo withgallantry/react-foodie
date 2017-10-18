@@ -1,9 +1,10 @@
+import * as Debug from '../debug';
 import * as Models from './models';
 
 const MIN = 0;
 const MAX = Object.keys(Models).length - 1;
 
-// compares js objects recursively so they have identical properties
+// compares js objects recursively so they have identical property names
 const compareKeysJson = (a, b) => {
   const aKeys = Object.keys(a).sort();
   const bKeys = Object.keys(b).sort();
@@ -24,7 +25,7 @@ const compareKeysJson = (a, b) => {
     }
   }
   return true;
-}
+};
 
 // compares only first element in array, assumes all elements have identical
 // properties.
@@ -43,7 +44,7 @@ const compareKeysArray = (a, b) => {
     }
   }
   return true;
-}
+};
 
 export const validate = (model, type) => {
   if (model !== undefined && !isNaN(type) && type >= MIN && type <= MAX) {
@@ -52,4 +53,7 @@ export const validate = (model, type) => {
       return compareKeysJson(model, model2);
     }
   }
-}
+  Debug.log('invalid input to validate');
+  Debug.log(model);
+  Debug.log(type);
+};

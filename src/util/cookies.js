@@ -11,6 +11,10 @@ export const get = (name) => {
   return cookies.get(`${PREFIX}${name}`);
 };
 
+export const getAll = () => {
+  return cookies.getAll();
+}
+
 export const remove = (name) => {
   cookies.remove(`${PREFIX}${name}`);
 };
@@ -20,9 +24,4 @@ export const removeAll = () => {
   for (let prop in result) {
     cookies.remove(prop);
   }
-}
-
-// for debugging purposes
-export const print = () => {
-  console.log(cookies.getAll());
-}
+};

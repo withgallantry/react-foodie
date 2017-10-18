@@ -8,11 +8,11 @@ function* range (begin, end, interval = 1) {
 
 export const getNumericValue = (str) => {
   return parseInt(str.replace(/[^\d.]/g, ''));
-}
+};
 
 export const generateKey = () => {
   return Math.random().toString(36).substr(2, 9);
-}
+};
 
 export const removeWhiteSpace = (str) => {
     return str.replace(/\s/g, '');

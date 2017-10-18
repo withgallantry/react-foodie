@@ -1,5 +1,7 @@
 import { cloneDeep } from '../util';
 import { Store } from './store';
+import * as Debug from '../debug';
+import * as Settings from '../settings';
 
 export const STORE = 0;
 
@@ -13,4 +15,5 @@ export const get = (model) => {
   if (!isNaN(model) && model >= MIN && model <= MAX) {
     return models[model]();
   }
-}
+  Debug.log(`missing Models.${model}`);
+};

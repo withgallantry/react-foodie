@@ -29,7 +29,7 @@ export const get = (id) => {
 
 export const getAll = () => {
   return axios.get(getUrl(undefined, Settings.get(Settings.KEY)));
-}
+};
 
 export const add = (store) => {
   return axios.post(getUrl(undefined, Settings.get(Settings.KEY)), store);

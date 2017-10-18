@@ -3,6 +3,7 @@ import ReactTooltip from 'react-tooltip';
 
 import Button from '../shared/html/button';
 import { Link } from 'react-router-dom';
+import * as Debug from '../../util/debug';
 import * as Event from './event';
 import * as Language from '../../util/localization/language';
 import * as Settings from '../../util/settings';
@@ -27,27 +28,11 @@ const CART_STYLE = {
 const NavBar = ({onClick, language, storeId}) => {
   return (
     <div style={DIV_STYLE}>
-      {(() => {
-        return Settings.get(Settings.DEBUG) &&
-          <span>
-            <Button
-              style={BTN_STYLE}
-              label={'Print Cookies'}
-              onClick={{
-                func : onClick,
-                id : Event.PRINT_COOKIES
-              }}
-            />
-            <Button
-              style={BTN_STYLE}
-              label={'Delete Cookies'}
-              onClick={{
-                func : onClick,
-                id : Event.DELETE_COOKIES
-              }}
-            />
-          </span>
-      })()}
+      {<span>
+        {Debug.createButton('Print Cookies',  () => Debug.logCookies(),    BTN_STYLE)}
+        {Debug.createButton('Delete Cookies', () => Debug.deleteCookies(), BTN_STYLE)}
+      </span>
+      }
       <Link to={'/admin'}>
         <button
           className='btn btn-default'

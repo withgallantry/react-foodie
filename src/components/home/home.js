@@ -60,12 +60,6 @@ class Home extends Component {
     this.setState({ addressSearch });
   }
 
-  // for debugging purposes
-  deleteCookies() {
-    Cookies.removeAll();
-    window.location.reload();
-  }
-
   onOrderChange(storeId) {
     this.setState({ storeId });
     Cookies.set(COOKIE_LATEST, storeId);
@@ -75,10 +69,6 @@ class Home extends Component {
     console.log(`onClick(${id})`);
     if (id === Event.CHANGE_LANGUAGE) {
       this.changeLanguage();
-    } else if (id === Event.DELETE_COOKIES) {
-      this.deleteCookies();
-    } else if (id === Event.PRINT_COOKIES) {
-      Cookies.print();
     }
   }
 

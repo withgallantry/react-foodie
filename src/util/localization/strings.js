@@ -1,3 +1,4 @@
+import * as Debug from '../debug';
 import * as Language from './language';
 import * as Settings from '../settings';
 
@@ -16,9 +17,10 @@ export const DELIVERING     = 11;
 export const DELIVERY       = 12;
 export const PICKUP         = 13;
 export const ORDER_MISSING  = 14;
+export const CHECKOUT       = 15;
 
 const MIN = 0;
-const MAX = ORDER_MISSING;
+const MAX = CHECKOUT;
 
 // lut for strings in different language
 let dictionary = [];
@@ -40,6 +42,7 @@ dict[DELIVERING]      = 'Levererar till';
 dict[DELIVERY]        = 'Leverans';
 dict[PICKUP]          = 'Pick-up';
 dict[ORDER_MISSING]   = 'Din varukorg är tom! Börja lägga till dina favoriträtter.';
+dict[CHECKOUT]        = 'Fortsätt till kassan';
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
@@ -58,6 +61,7 @@ dict[DELIVERING]      = 'Delivering to';
 dict[DELIVERY]        = 'Delivery';
 dict[PICKUP]          = 'Pick-up';
 dict[ORDER_MISSING]   = 'You haven’t added anything to your cart yet! Start adding your favourite dishes.';
+dict[CHECKOUT]        = 'Checkout';
 
 const Tags = Object.freeze({
   SALAD : 0
@@ -122,4 +126,5 @@ export const get = (id) => {
   ) {
     return dictionary[lang][id];
   }
+  Debug.log(`missing Strings.${id}`);
 };
