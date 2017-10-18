@@ -1,6 +1,7 @@
 import React from 'react';
 import Switch from 'react-toggle-switch';
 
+import Button from '../../shared/html/button';
 import OrderItem from './order_item';
 import * as Constants from '../../../util/constants';
 import * as Strings from '../../../util/localization/strings';
@@ -69,6 +70,13 @@ const ORDER_MISSING_STYLE = {
   marginTop: Constants.HOME_ORDER_MARGIN_LEFT,
 };
 
+const BTN_STYLE = {
+  fontSize: '14pt',
+  width: '95%',
+  marginTop: '5px',
+  marginLeft: '2.5%',
+};
+
 const getTotal = (items) => {
   let total = 0;
   for (let item of items) {
@@ -121,6 +129,14 @@ const Order = ({onToggleSwitch, switched, address, name, items}) => {
           {Strings.get(Strings.DELIVERY_FEE)}: <span style={TOTAL_PRICE_STYLE}>{`${deliveryFee} ${Constants.CURRENCY}`}</span><br/>
           <b>{Strings.get(Strings.TOTAL)}: <span style={TOTAL_PRICE_STYLE}>{`${(total + deliveryFee)} ${Constants.CURRENCY}`}</span></b><br/>
         </div>
+        {orderItems.length > 0 &&
+          <div style={BTN_STYLE}>
+            <Button
+              style={BTN_STYLE}
+              label={Strings.get(Strings.CHECKOUT)}
+            />
+          </div>
+        }
       </div>
   );
 };

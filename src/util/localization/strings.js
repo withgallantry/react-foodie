@@ -42,7 +42,7 @@ dict[DELIVERING]      = 'Levererar till';
 dict[DELIVERY]        = 'Leverans';
 dict[PICKUP]          = 'Pick-up';
 dict[ORDER_MISSING]   = 'Din varukorg är tom! Börja lägga till dina favoriträtter.';
-dict[CHECKOUT]        = 'Fortsätt till kassan';
+dict[CHECKOUT]        = 'Fortsätt till betalning';
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
