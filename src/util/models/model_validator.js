@@ -1,7 +1,7 @@
 import * as Models from './models';
 
-const min = 0;
-const max = Object.keys(Models).length - 1;
+const MIN = 0;
+const MAX = Object.keys(Models).length - 1;
 
 // compares js objects recursively so they have identical properties
 const compareKeysJson = (a, b) => {
@@ -46,7 +46,7 @@ const compareKeysArray = (a, b) => {
 }
 
 export const validate = (model, type) => {
-  if (model !== undefined && !isNaN(type) && type >= min && type <= max) {
+  if (model !== undefined && !isNaN(type) && type >= MIN && type <= MAX) {
     const model2 = Models.get(type);
     if (model2) {
       return compareKeysJson(model, model2);

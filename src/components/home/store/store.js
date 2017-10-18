@@ -38,9 +38,11 @@ class Store extends Component {
       store : undefined,
       orderItems : [],
       language : props.language,
+      switched : false,
     };
 
     this.onClick = this.onClick.bind(this);
+    this.onToggleSwitch = this.onToggleSwitch.bind(this);
   }
 
   componentDidMount() {
@@ -146,6 +148,11 @@ class Store extends Component {
     Cookies.set(`${COOKIE_PREFIX}${storeId}`, items);
   }
 
+  onToggleSwitch() {
+    const switched = !this.state.switched;
+    this.setState({ switched });
+  }
+
   onClick(id, args) {
     console.log(`onClick(${id}, ${args})`);
     if (id === Event.GO_TO_MENU) {
@@ -182,6 +189,10 @@ class Store extends Component {
           />
         </div>
         <Order
+          onToggleSwitch={this.onToggleSwitch}
+          switched={this.state.switched}
+          address={this.props.address}
+          name={this.state.store.name}
           items={this.state.orderItems}
           language={this.state.language}/>
       </div>

@@ -3,14 +3,14 @@ import { Store } from './store';
 
 export const STORE = 0;
 
-const min = 0;
-const max = STORE;
+const MIN = 0;
+const MAX = STORE;
 
 let models = [];
 models[STORE] = () => { return cloneDeep(Store) }
 
 export const get = (model) => {
-  if (!isNaN(model) && model >= min && model <= max) {
+  if (!isNaN(model) && model >= MIN && model <= MAX) {
     return models[model]();
   }
 }

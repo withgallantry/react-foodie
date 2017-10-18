@@ -4,8 +4,8 @@ export const DEBUG      = 0;
 export const KEY        = 1;
 export const LANGUAGE   = 2;
 
-const min = 0;
-const max = LANGUAGE;
+const MIN = 0;
+const MAX = LANGUAGE;
 
 let settings = [];
 settings[DEBUG]     = true;
@@ -14,8 +14,8 @@ settings[LANGUAGE]  = Language.SV;
 
 const isValid = (property) => {
   return property !== undefined
-    && property >= min
-    && property <= max;
+    && property >= MIN
+    && property <= MAX;
 };
 
 export const set = (property, value) => {

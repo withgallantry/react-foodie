@@ -8,9 +8,16 @@ export const SEARCH_STORE    = 3;
 export const CLOSED          = 4;
 export const EDITOR          = 5;
 export const GO_TO_ORDER     = 6;
+export const ORDER_FROM      = 7;
+export const SUB_TOTAL       = 8;
+export const DELIVERY_FEE    = 9;
+export const TOTAL           = 10;
+export const DELIVERING      = 11;
+export const DELIVERY        = 12;
+export const PICKUP          = 13;
 
-const min = 0;
-const max = GO_TO_ORDER;
+const MIN = 0;
+const MAX = PICKUP;
 
 // lut for strings in different language
 let dictionary = [];
@@ -23,7 +30,14 @@ dict[SEARCH]          = 'Sök';
 dict[SEARCH_STORE]    = 'Sök efter restaurang & taggar...';
 dict[CLOSED]          = 'Stängd';
 dict[EDITOR]          = 'Editor';
-dict[GO_TO_ORDER]     = 'Gå till senaste modifierade order'
+dict[GO_TO_ORDER]     = 'Gå till senaste modifierade order';
+dict[ORDER_FROM]      = 'Din beställning från';
+dict[SUB_TOTAL]       = 'Sub totalt';
+dict[DELIVERY_FEE]    = 'Leveransavgift';
+dict[TOTAL]           = 'Totalt';
+dict[DELIVERING]      = 'Levererar till';
+dict[DELIVERY]        = 'Leverans';
+dict[PICKUP]          = 'Upphämtning';
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
@@ -34,6 +48,13 @@ dict[SEARCH_STORE]    = 'Search for store & tags...';
 dict[CLOSED]          = 'Closed';
 dict[EDITOR]          = 'Editor';
 dict[GO_TO_ORDER]     = 'Go to latest modified order';
+dict[ORDER_FROM]      = 'Your order from';
+dict[SUB_TOTAL]       = 'Sub total';
+dict[DELIVERY_FEE]    = 'Delivery fee';
+dict[TOTAL]           = 'Total';
+dict[DELIVERING]      = 'Delivering to';
+dict[DELIVERY]        = 'Delivery';
+dict[PICKUP]          = 'Pickup';
 
 const Tags = Object.freeze({
   SALAD : 0
@@ -93,8 +114,8 @@ export const localize = (args, lang, target = Settings.get(Settings.LANGUAGE)) =
 export const get = (id) => {
   const lang = Settings.get(Settings.LANGUAGE);
   if (lang !== undefined
-    && id >= min
-    && id <= max
+    && id >= MIN
+    && id <= MAX
   ) {
     return dictionary[lang][id];
   }

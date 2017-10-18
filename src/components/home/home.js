@@ -5,6 +5,7 @@ import Gallery from './gallery/gallery';
 import Header from './header';
 import Store from './store/store';
 import * as Cookies from '../../util/cookies';
+import * as Constants from '../../util/constants';
 import * as Event from './event';
 import * as Language from '../../util/localization/language';
 import * as Settings from '../../util/settings';
@@ -32,6 +33,9 @@ class Home extends Component {
     if (storeId) {
       this.setState({ storeId });
     }
+
+    // if couldnt find address cookie:
+    this.setState({ addressSearch : Constants.DEFAULT_ADDRESS });
   }
 
   changeLanguage() {
@@ -76,6 +80,7 @@ class Home extends Component {
       return (
         <Store
           {...props}
+          address={this.state.addressSearch}
           language={this.state.language}
           onOrderChange={this.onOrderChange}
          />

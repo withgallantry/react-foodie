@@ -19,7 +19,9 @@ const toPc = (value) => {
 //const STORES_URL = 'https://agile-taiga-67906.herokuapp.com/';
 export const STORES_URL = 'http://localhost:5000/foodplace';
 
+export const DEFAULT_ADDRESS = 'Svarvargatan 13, 112 49, Stockholm';
 export const CURRENCY = 'SEK';
+export const DELIVERY_FEE = 49;
 
 export const ADMIN_MARGIN_LEFT            = toPx(ADMIN_MARGIN_LEFT_VALUE);
 export const ADMIN_LABEL_WIDTH            = toPx(ADMIN_MARGIN_LEFT_VALUE-ADMIN_LABEL_MARGIN_VALUE);
