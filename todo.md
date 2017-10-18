@@ -6,7 +6,6 @@ react propTypes
 *** LEARN SOME CSS FFS *** ..
 util -> misc
 store menu link scroll
-order details -> add/remove/removeAll
 style everything
 hook address on stores?
 delivery fee in backend?
@@ -15,6 +14,7 @@ cleanup orders styles
 zoom effect in gallery
 "closes in.." in gallery?
 move the switch down... (HOW?! AAAAA)
+if no restaurants... show something
 
 *** check and substitute ***
 id={item.id}
