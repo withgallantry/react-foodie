@@ -15,6 +15,9 @@ zoom effect in gallery
 "closes in.." in gallery?
 move the switch down... (HOW?! AAAAA)
 if no restaurants... show something
+cleanup Constants....ID
+fontello
+when deleting item, no popup menu
 
 *** check and substitute ***
 id={item.id}

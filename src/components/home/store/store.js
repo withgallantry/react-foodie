@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 import Header from './header';
-import Order from './order';
 import Menu from './menu';
+import Order from './order';
+import ScrollButton from './scroll_button';
 import * as Constants from '../../../util/constants';
 import * as Cookies from '../../../util/cookies';
 import * as Db from '../../../util/db';
@@ -38,13 +39,15 @@ class Store extends Component {
       orderItems : [],
       language : props.language,
       switched : false,
-      showMenuForItem : undefined
+      showMenuForItem : undefined,
+      showScrollButton : false,
     };
 
     this.onClick = this.onClick.bind(this);
     this.onToggleSwitch = this.onToggleSwitch.bind(this);
     this.onOrderItemLeave = this.onOrderItemLeave.bind(this);
     this.onOrderItemEnter = this.onOrderItemEnter.bind(this);
+    this.onScroll = this.onScroll.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +61,19 @@ class Store extends Component {
     }
     if (this.state.id !== props.match.params.id) {
       this.load(props.match.params.id);
+    }
+  }
+
+  onScroll() {
+    const scrollTop = document.getElementById(Constants.STORE_ID).scrollTop;
+    if (scrollTop >= Constants.SCROLL_THRESHOLD) {
+      if (this.state.showScrollButton !== true) {
+        this.setState({ showScrollButton : true });
+      }
+    } else {
+      if (this.state.showScrollButton !== false) {
+        this.setState({ showScrollButton : false });
+      }
     }
   }
 
@@ -93,7 +109,12 @@ class Store extends Component {
   }
 
   scrollToMenu(menuIndex) {
-    var element = document.getElementById(`subMenu${menuIndex}`);
+    const element = document.getElementById(`subMenu${menuIndex}`);
+    element.scrollIntoView(true);
+  }
+
+  scrollToTop() {
+    const element = document.getElementById(Constants.TOP_ID);
     element.scrollIntoView(true);
   }
 
@@ -210,12 +231,14 @@ class Store extends Component {
       this.scrollToMenu(...args);
     } else if (id === Event.ADD_ITEM) {
       this.addItem(...args);
-    } else if (id == Event.INCREASE_ITEM) {
+    } else if (id === Event.INCREASE_ITEM) {
       this.increaseItem(...args);
-    } else if (id == Event.DECREASE_ITEM) {
+    } else if (id === Event.DECREASE_ITEM) {
       this.decreaseItem(...args);
-    } else if (id == Event.REMOVE_ITEM) {
+    } else if (id === Event.REMOVE_ITEM) {
       this.removeItem(...args);
+    } else if (id === Event.SCROLL_TO_TOP) {
+      this.scrollToTop();
     }
   }
 
@@ -230,7 +253,7 @@ class Store extends Component {
 
     return (
       <div>
-        <div style={STYLE}>
+        <div id={Constants.STORE_ID} style={STYLE} onScroll={this.onScroll}>
           <Header
             img={this.state.store.images.banner}
             store={this.state.store}
@@ -244,6 +267,7 @@ class Store extends Component {
             }
             onClick={this.onClick}
           />
+          {this.state.showScrollButton && <ScrollButton onClick={this.onClick}/>}
         </div>
         <Order
           onClick={this.onClick}

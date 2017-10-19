@@ -6,6 +6,7 @@ const ADMIN_FORM_ROW_MARGIN_TOP_VALUE   = 2;
 const ADMIN_SECTION_MARGIN_HEIGHT_VALUE = 16;
 const ADMIN_FORM_TOP_VALUE              = 156;
 const HOME_STORE_WIDTH_VALUE            = 72;
+const BANNER_HEIGHT                     = 360;
 
 const HOME_HEADER_HEIGHT_VALUE = 70;
 
@@ -22,6 +23,10 @@ export const STORES_URL = 'http://localhost:5000/foodplace';
 export const DEFAULT_ADDRESS = 'Svarvargatan 13, 112 49, Stockholm';
 export const CURRENCY = 'SEK';
 export const DELIVERY_FEE = 49;
+export const STICKY_NAV_BAR_ID = 'stickyNavBar';
+export const STORE_ID = 'storeContainer';
+export const TOP_ID = 'topId';
+export const SCROLL_THRESHOLD = 500;
 
 export const ADMIN_MARGIN_LEFT            = toPx(ADMIN_MARGIN_LEFT_VALUE);
 export const ADMIN_LABEL_WIDTH            = toPx(ADMIN_MARGIN_LEFT_VALUE-ADMIN_LABEL_MARGIN_VALUE);

@@ -55,7 +55,7 @@ const Menu = ({items, onClick}) => {
   }
   return (
     <div>
-      <div style={STYLE}>
+      <div id={Constants.STICKY_NAV_BAR_ID} style={STYLE}>
         <ul style={UL_STYLE}>
           {navBarItems}
         </ul>
