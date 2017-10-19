@@ -92,8 +92,9 @@ class Store extends Component {
     this.setState({ orderItems });
   }
 
-  goToMenu(menuIndex) {
-
+  scrollToMenu(menuIndex) {
+    var element = document.getElementById(`subMenu${menuIndex}`);
+    element.scrollIntoView(true);
   }
 
   addItem(menuIndex, itemIndex) {
@@ -205,8 +206,8 @@ class Store extends Component {
 
   onClick(id, args) {
     console.log(`onClick(${id}, ${args})`);
-    if (id === Event.GO_TO_MENU) {
-      this.goToMenu(...args);
+    if (id === Event.SCROLL_TO_MENU) {
+      this.scrollToMenu(...args);
     } else if (id === Event.ADD_ITEM) {
       this.addItem(...args);
     } else if (id == Event.INCREASE_ITEM) {

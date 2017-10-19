@@ -35,7 +35,7 @@ const Menu = ({items, onClick}) => {
         className='menu-item'
         style={LI_STYLE}
         key={`item${i}`}
-        onClick={() => onClick(Event.GO_TO_MENU, [i])}>
+        onClick={() => onClick(Event.SCROLL_TO_MENU, [i])}>
         {item.name.toUpperCase()}
       </li>
     ));
