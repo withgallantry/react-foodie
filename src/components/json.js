@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-import { STORES_URL } from '../util/constants';
 import * as Db from '../util/db';
 import * as Settings from '../util/settings';
 
@@ -32,7 +31,7 @@ class Json extends Component {
 
       this.setState({ blob : JSON.stringify(stores) });
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       this.setState({ blob : 'error on load' })
     })
   }

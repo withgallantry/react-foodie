@@ -7,18 +7,16 @@ import * as Constants from '../../util/constants';
 import * as Event from './event';
 import * as MenuButton from './menu_button';
 
-import { ADMIN_MARGIN_LEFT, ADMIN_LABEL_WIDTH, ADMIN_LABEL_MARGIN, ADMIN_FORM_ROW_MARGIN_TOP } from '../../util/constants';
-
 const LABEL_STYLE = {
   display: 'inline-block',
-  width: ADMIN_LABEL_WIDTH,
+  width: Constants.ADMIN_LABEL_WIDTH,
   textAlign: 'right',
-  marginRight: ADMIN_LABEL_MARGIN
+  marginRight: Constants.ADMIN_LABEL_MARGIN
 };
 
 const FORM_ROW_STYLE = {
-  marginTop: ADMIN_FORM_ROW_MARGIN_TOP,
-  marginLeft: ADMIN_MARGIN_LEFT
+  marginTop: Constants.ADMIN_FORM_ROW_MARGIN_TOP,
+  marginLeft: Constants.ADMIN_MARGIN_LEFT
 };
 
 const ITEM_INPUT_STYLE = {
@@ -26,7 +24,7 @@ const ITEM_INPUT_STYLE = {
 };
 
 const BTN_NEW_MENU_STYLE = {
-  marginLeft: ADMIN_MARGIN_LEFT,
+  marginLeft: Constants.ADMIN_MARGIN_LEFT,
   marginTop: '3px'
 };
 

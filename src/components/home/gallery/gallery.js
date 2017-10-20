@@ -4,6 +4,7 @@ import _ from 'lodash';
 import GalleryItem from './gallery_item';
 import NavBar from './nav_bar';
 import * as Constants from '../../../util/constants';
+import * as Debug from '../../../util/debug';
 import * as Db from '../../../util/db';
 import * as Event from './event';
 import * as Language from '../../../util/localization/language';
@@ -71,13 +72,12 @@ class Gallery extends Component {
     })
     .catch((error) => {
       this.setState({ loading : false });
-      console.log(error);
+      console.error(error);
     });
   }
 
   onClick(id, arg) {
-    console.log(`Gallery.onClick(${id})`);
-
+    Debug.log(`Gallery.onClick(${id})`);
     if (id === Event.SEARCH) {
       this.setState({ searchExpanded : true });
     }

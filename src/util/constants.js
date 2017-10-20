@@ -17,19 +17,21 @@ const toPc = (value) => {
   return `${value}%`;
 };
 
-//const STORES_URL = 'https://agile-taiga-67906.herokuapp.com/';
-export const STORES_URL = 'http://localhost:5000/foodplace';
+//export const STORES_URL = 'https://agile-taiga-67906.herokuapp.com/store';
+export const STORES_URL = 'http://localhost:5000/store';
 
 export const REPO = 'https://github.com/jesperc/react-foodie';
 export const DEFAULT_ADDRESS = 'Svarvargatan 13, 112 49, Stockholm';
 export const CURRENCY = 'SEK';
 export const DELIVERY_FEE = 49;
-export const STICKY_NAV_BAR_ID = 'stickyNavBar';
 export const STORE_ID = 'storeContainer';
 export const TOP_ID = 'topId';
 export const SCROLL_THRESHOLD = 500;
 export const MODAL_CHECKOUT = 'modalCheckout';
 export const MODAL_INFO = 'modalInfo';
+export const COOKIE_LATEST  = 'latest';
+export const COOKIE_ADDRESS = 'address';
+export const COOKIE_ITEMS   = 'items';
 
 export const ADMIN_MARGIN_LEFT            = toPx(ADMIN_MARGIN_LEFT_VALUE);
 export const ADMIN_LABEL_WIDTH            = toPx(ADMIN_MARGIN_LEFT_VALUE-ADMIN_LABEL_MARGIN_VALUE);

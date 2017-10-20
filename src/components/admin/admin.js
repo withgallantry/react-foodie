@@ -5,6 +5,7 @@ import Form from './form';
 import Menu from './menu';
 import Modals from './modals';
 import * as Constants from '../../util/constants';
+import * as Debug from '../../util/debug';
 import * as Db from '../../util/db';
 import * as Event from './event';
 import * as Language from '../../util/localization/language';
@@ -125,7 +126,7 @@ class Admin extends Component {
       this.setState({ loading : false });
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
       this.setState({ loading : false });
     })
   }
@@ -138,7 +139,7 @@ class Admin extends Component {
     _.remove(stores, (store) => {
       const isValid = ModelValidator.validate(store, Models.STORE);
       if (isValid === false) {
-        console.log(`removed invalid store with id: ${store._id}`);
+        console.warn(`removed invalid store with id: ${store._id}`);
       }
       return !isValid;
     });
@@ -146,36 +147,32 @@ class Admin extends Component {
 
   save() {
     const currentId = this.state.currentId;
-    console.log(currentId);
     if (currentId !== null) {
-      console.log('updating...');
-      console.log(this.getCurrentItem());
+      Debug.log('updating...');
+      Debug.log(this.getCurrentItem());
       Db.update(currentId, this.getCurrentItem()).then((response) => {
-        console.log(`updated food place with id ${currentId}`);
+        Debug.log(`updated food place with id ${currentId}`);
         this.load();
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
       });
     } else {
-      console.log('saving...');
-      console.log(this.getCurrentItem());
+      Debug.log('saving...');
+      Debug.log(this.getCurrentItem());
       Db.add(this.getCurrentItem()).then((response) => {
-        console.log('added food place');
+        Debug.log('added food place');
         this.load(() => {
           this.show(response.data[0]._id);
         })
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
     }
   }
 
   show(args) {
-    let id = args;
-    if (args.constructor === Array) {
-      id = args[0];
-    }
+    const id = args.constructor === Array ? args[0] : args;
     const store = _.find(this.state.stores, (store) => {
       return store._id === id;
     });
@@ -196,7 +193,7 @@ class Admin extends Component {
     const item = this.getCurrentItem();
     item.name = `${item.name} (copy)`;
     Db.add(item).then((response) => {
-      console.log('added food place');
+      Debug.log('added food place');
       this.load((stores) => {
         const match = _.find(stores, (obj) => {
           return obj._id === response.data[0]._id;
@@ -206,7 +203,7 @@ class Admin extends Component {
         }
       });
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -218,7 +215,7 @@ class Admin extends Component {
     if (currentId) {
       this.setState({ deleteEnabled : false });
       Db.remove(currentId).then((response) => {
-        console.log(`deleted food place with id ${currentId}`);
+        Debug.log(`deleted food place with id ${currentId}`);
         this.load((stores) => {
           this.setState({ deleteEnabled : true });
           if (stores.length > 0) {
@@ -233,7 +230,7 @@ class Admin extends Component {
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
     }
   }
@@ -245,14 +242,14 @@ class Admin extends Component {
         this.clearForm();
         this.setState({ stores : [] });
       }).catch((error) => {
-        console.log(error);
+        console.error(error);
       });
     }
   }
 
   addTemplate() {
     Db.add(Util.getTemplateItems()).then((response) => {
-      console.log('added food place');
+      Debug.log('added food place');
       this.load((stores) => {
         const match = _.find(stores, (obj) => {
           return obj._id === response.data[0]._id;
@@ -262,7 +259,7 @@ class Admin extends Component {
         }
       });
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -432,16 +429,16 @@ class Admin extends Component {
 
   onClick(id, args) {
     if (args) {
-      console.log(`onClick[${id}](${args[0]}, ${args[1]}, ${args[2]})`);
+      Debug.log(`onClick[${id}](${args[0]}, ${args[1]}, ${args[2]})`);
     } else {
-      console.log(`onClick[${id}](undefined)`);
+      Debug.log(`onClick[${id}](undefined)`);
     }
     this.events[id](args);
   }
 
   onChangeForm(value, [label, ...args]) {
     let event = Event.propToEvent(label);
-    console.log(`onChangeForm(${value}, ${args})[event=${event}]`);
+    Debug.log(`onChangeForm(${value}, ${args})[event=${event}]`);
 
     // events where only prop and value is needed
     const events = [Event.NAME_CHANGE, Event.TAGS_CHANGE, Event.ADDRESS_CHANGE];
@@ -480,7 +477,7 @@ class Admin extends Component {
 
   onChangeKey(value) {
     value = Util.removeWhiteSpace(value);
-    console.log(`onChangeKey(${value})`);
+    Debug.log(`onChangeKey(${value})`);
     if (value.length > 0) {
         Settings.set(Settings.KEY, value);
         this.clearForm();

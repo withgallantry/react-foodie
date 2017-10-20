@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import { Link } from 'react-router-dom';
 
 import Button from '../shared/html/button';
-import { Link } from 'react-router-dom';
 import * as Constants from '../../util/constants';
 import * as Debug from '../../util/debug';
 import * as Event from './event';

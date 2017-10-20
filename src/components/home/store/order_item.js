@@ -19,6 +19,7 @@ const OrderItem = ({onClick, showMenu, onEnter, onLeave, name, price, quantity, 
     <div
       onMouseEnter={() => onEnter(id)}
       onMouseLeave={() => onLeave()}
+      onBlur={() => console.log('focus')}
       className='order-item'
       style={STYLE}>
       {`${quantity} x ${name}`}

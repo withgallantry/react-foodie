@@ -7,12 +7,10 @@ import Modals from './modals';
 import Store from './store/store';
 import * as Cookies from '../../util/cookies';
 import * as Constants from '../../util/constants';
+import * as Debug from '../../util/debug';
 import * as Event from './event';
 import * as Language from '../../util/localization/language';
 import * as Settings from '../../util/settings';
-
-const COOKIE_LATEST  = 'latest';
-const COOKIE_ADDRESS = 'address';
 
 class Home extends Component {
   constructor() {
@@ -31,16 +29,16 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const storeId = Cookies.get(COOKIE_LATEST);
+    const storeId = Cookies.get(Constants.COOKIE_LATEST);
     if (storeId) {
       this.setState({ storeId });
     }
 
-    // if couldnt find address cookie:
-    const addressSearch = Cookies.get(COOKIE_ADDRESS);
+    const addressSearch = Cookies.get(Constants.COOKIE_ADDRESS);
     if (addressSearch) {
       this.setState({ addressSearch });
     } else {
+      // if couldnt find address cookie, set default
       this.setState({ addressSearch : Constants.DEFAULT_ADDRESS });
     }
   }
@@ -57,17 +55,17 @@ class Home extends Component {
   }
 
   onAddressChange(addressSearch) {
-    Cookies.set(COOKIE_ADDRESS, addressSearch);
+    Cookies.set(Constants.COOKIE_ADDRESS, addressSearch);
     this.setState({ addressSearch });
   }
 
   onOrderChange(storeId) {
     this.setState({ storeId });
-    Cookies.set(COOKIE_LATEST, storeId);
+    Cookies.set(Constants.COOKIE_LATEST, storeId);
   }
 
   onClick(id) {
-    console.log(`onClick(${id})`);
+    Debug.log(`onClick(${id})`);
     if (id === Event.CHANGE_LANGUAGE) {
       this.changeLanguage();
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Button from '../shared/html/button';
 
 export const create = (glyph, func, id, args, style, tooltip) => {

@@ -1,11 +1,12 @@
 import React from 'react';
 
 import AddressSearchBar from '../shared/address_search_bar';
+import Button from '../shared/html/button';
 import DropDown from '../shared/html/drop_down';
 import InputText from '../shared/html/input_text';
 import Label from '../shared/html/label';
-import { RowType } from './form';
 import * as Event from './event';
+import * as RowType from './row_type';
 
 const IMAGE_SELECTION_STYLE = {
   display: 'inline',
@@ -35,13 +36,11 @@ const createImageSelection = ({value, label}) => {
     : Event.SET_IMAGE_BANNER;
   if (value !== undefined && value.length > 0) {
     return (
-      <button
+      <Button
         style={IMAGE_SELECTION_STYLE}
-        type='button'
-        data-toggle='modal'
-        data-target={`#imageModal${id}`}>
-        <img style={IMAGE_STYLE} src={`img/${value}`} />
-      </button>
+        modal={`imageModal${id}`}
+        image={{ style : IMAGE_STYLE, src : `img/${value}` }}
+      />
     );
   }
   return (<div style={INLINE_STYLE}></div>);

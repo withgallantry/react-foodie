@@ -151,14 +151,4 @@ const Order = ({onClick, showMenuForItem, onEnter, onLeave, onToggleSwitch, swit
   );
 };
 
-/*
-<button
-  style={IMAGE_SELECTION_STYLE}
-  type='button'
-  data-toggle='modal'
-  data-target={`#imageModal${id}`}>
-  <img style={IMAGE_STYLE} src={`img/${value}`} />
-</button>
-*/
-
 export default Order;

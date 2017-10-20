@@ -6,6 +6,7 @@ import Order from './order';
 import ScrollButton from './scroll_button';
 import * as Constants from '../../../util/constants';
 import * as Cookies from '../../../util/cookies';
+import * as Debug from '../../../util/debug';
 import * as Db from '../../../util/db';
 import * as Event from './event';
 import * as Language from '../../../util/localization/language';
@@ -26,8 +27,6 @@ const HR_STYLE = {
   margin: 0,
   padding: 0
 };
-
-const COOKIE_PREFIX = 'items_';
 
 class Store extends Component {
   constructor(props) {
@@ -82,14 +81,14 @@ class Store extends Component {
       this.setState({ store : response.data });
       this.getCookies();
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 
   getCookies(language) {
     const store = this.state.store;
     let orderItems = [];
-    let cookie = Cookies.get(`${COOKIE_PREFIX}${store._id}`);
+    let cookie = Cookies.get(`${Constants.COOKIE_ITEMS}${store._id}`);
     for (let i in cookie) {
       if (cookie.hasOwnProperty(i)) {
         let item = cookie[i];
@@ -148,7 +147,7 @@ class Store extends Component {
 
   updateCookies(inc, menuIndex, itemIndex) {
     const storeId = this.state.store._id;
-    let items = Cookies.get(`${COOKIE_PREFIX}${storeId}`);
+    let items = Cookies.get(`${Constants.COOKIE_ITEMS}${storeId}`);
     if (! items) {
       items = [];
     }
@@ -169,7 +168,7 @@ class Store extends Component {
         });
       }
     }
-    Cookies.set(`${COOKIE_PREFIX}${storeId}`, items);
+    Cookies.set(`${Constants.COOKIE_ITEMS}${storeId}`, items);
   }
 
   onOrderItemEnter(id) {
@@ -226,7 +225,7 @@ class Store extends Component {
   }
 
   onClick(id, args) {
-    console.log(`onClick(${id}, ${args})`);
+    Debug.log(`onClick(${id}, ${args})`);
     if (id === Event.SCROLL_TO_MENU) {
       this.scrollToMenu(...args);
     } else if (id === Event.ADD_ITEM) {

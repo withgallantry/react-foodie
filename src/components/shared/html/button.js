@@ -20,6 +20,9 @@ const Button = (props) => {
             ? `glyphicon glyphicon-${props.glyphicon}`
             : ''
         }></span>
+        {props.image !== undefined &&
+          <img style={props.image.style} src={props.image.src} />
+        }
         {props.label !== undefined ? props.label : undefined}
       </button>
   );

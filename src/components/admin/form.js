@@ -8,14 +8,8 @@ import * as Constants  from '../../util/constants';
 import * as Event from './event';
 import * as Language from '../../util/localization/language';
 import * as MenuButton from './menu_button';
+import * as RowType from './row_type';
 import * as Util from '../../util/util';
-
-export const RowType = Object.freeze({
-  INPUT           : 0,
-  DROP_DOWN       : 1,
-  IMAGE_SELECTION : 2,
-  SEARCH_BAR      : 3,
-});
 
 const FORM_STYLE = {
   position: 'absolute',
