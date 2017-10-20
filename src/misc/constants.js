@@ -1,4 +1,3 @@
-// admin route page styling
 const ADMIN_MARGIN_LEFT_VALUE           = 200;
 const ADMIN_LABEL_MARGIN_VALUE          = 20;
 const ADMIN_MENU_BUTTON_MARGIN_VALUE    = 10;

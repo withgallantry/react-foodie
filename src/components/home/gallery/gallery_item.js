@@ -22,10 +22,12 @@ const GalleryItem = ({images, onClick, isOpen, name, id, tags, hours}) => {
   return (
     <div style={STYLE}>
       <Link to={`/store/${id}`}>
-        <img
-          className='gallery-img'
-          src={`img/${images.gallery}`}
-          onClick={() => onClick(Event.GO_TO_STORE, id)}/>
+        <div className='gallery-img-container'>
+          <img
+            className='gallery-img'
+            src={`img/${images.gallery}`}
+            onClick={() => onClick(Event.GO_TO_STORE, id)}/>
+        </div>
       </Link>
       {isOpen === true
         ? undefined

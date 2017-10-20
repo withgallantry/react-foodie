@@ -15,9 +15,16 @@ li {
   display: inline !important;
 }
 
+.gallery-img-container {
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+}
+
 img.gallery-img:hover {
   cursor: pointer;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
 }
 
 span.gallery-closed-bg {

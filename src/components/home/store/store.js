@@ -244,7 +244,7 @@ class Store extends Component {
   render() {
     if (this.state.store === undefined) {
       return (
-        <div>
+        <div style={{ marginLeft : Constants.HOME_STORE_MARGIN_LEFT }}>
           Loading...
         </div>
       )
