@@ -3,6 +3,7 @@ import { Switch, Route, Link, Redirect } from 'react-router-dom';
 
 import Gallery from './gallery/gallery';
 import Header from './header';
+import Modals from './modals';
 import Store from './store/store';
 import * as Cookies from '../../util/cookies';
 import * as Constants from '../../util/constants';
@@ -95,6 +96,7 @@ class Home extends Component {
 
     return (
       <div>
+        <Modals />
         <Header
           onChange={this.onChange}
           onClick={this.onClick}

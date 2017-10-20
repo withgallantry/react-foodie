@@ -18,9 +18,11 @@ export const DELIVERY       = 12;
 export const PICKUP         = 13;
 export const ORDER_MISSING  = 14;
 export const CHECKOUT       = 15;
+export const PAYMENT        = 16;
+export const PAYMENT_DESC   = 17;
 
 const MIN = 0;
-const MAX = CHECKOUT;
+const MAX = PAYMENT_DESC;
 
 // lut for strings in different language
 let dictionary = [];
@@ -43,6 +45,8 @@ dict[DELIVERY]        = 'Leverans';
 dict[PICKUP]          = 'Pick-up';
 dict[ORDER_MISSING]   = 'Din varukorg är tom! Börja lägga till dina favoriträtter.';
 dict[CHECKOUT]        = 'Fortsätt till betalning';
+dict[PAYMENT]         = 'Betalning';
+dict[PAYMENT_DESC]    = 'Tyvärr är detta enbart en mockup-site, så det går ej att beställa mat. Förlåt :(';
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
@@ -62,6 +66,8 @@ dict[DELIVERY]        = 'Delivery';
 dict[PICKUP]          = 'Pick-up';
 dict[ORDER_MISSING]   = 'You haven’t added anything to your cart yet! Start adding your favourite dishes.';
 dict[CHECKOUT]        = 'Checkout';
+dict[PAYMENT]         = 'Payment';
+dict[PAYMENT_DESC]    = 'I\'m sorry this is just a mockup-site, you can\'t actually order food. I\'m sorry :(';
 
 const Tags = Object.freeze({
   SALAD : 0

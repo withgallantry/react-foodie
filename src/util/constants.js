@@ -27,6 +27,7 @@ export const STICKY_NAV_BAR_ID = 'stickyNavBar';
 export const STORE_ID = 'storeContainer';
 export const TOP_ID = 'topId';
 export const SCROLL_THRESHOLD = 500;
+export const MODAL_CHECKOUT_ID = 'modalCheckout';
 
 export const ADMIN_MARGIN_LEFT            = toPx(ADMIN_MARGIN_LEFT_VALUE);
 export const ADMIN_LABEL_WIDTH            = toPx(ADMIN_MARGIN_LEFT_VALUE-ADMIN_LABEL_MARGIN_VALUE);
