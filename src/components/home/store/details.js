@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as Constants from '../../../util/constants';
+import * as Constants from '../../../misc/constants';
 
 const STYLE = {
   width: Constants.HOME_STORE_WIDTH,

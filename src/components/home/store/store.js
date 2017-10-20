@@ -4,14 +4,14 @@ import Header from './header';
 import Menu from './menu';
 import Order from './order';
 import ScrollButton from './scroll_button';
-import * as Constants from '../../../util/constants';
-import * as Cookies from '../../../util/cookies';
-import * as Debug from '../../../util/debug';
-import * as Db from '../../../util/db';
+import * as Constants from '../../../misc/constants';
+import * as Cookies from '../../../misc/cookies';
+import * as Debug from '../../../misc/debug';
+import * as Db from '../../../misc/db';
 import * as Event from './event';
-import * as Language from '../../../util/localization/language';
-import * as Settings from '../../../util/settings';
-import * as Util from '../../../util/util';
+import * as Language from '../../../misc/localization/language';
+import * as Settings from '../../../misc/settings';
+import * as Util from '../../../misc/util';
 
 const STYLE = {
   position: 'absolute',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import * as Strings from '../../../util/localization/strings';
+import * as Strings from '../../../misc/localization/strings';
 
 const STYLE = {
   position: 'relative',

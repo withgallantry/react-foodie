@@ -3,13 +3,13 @@ import _ from 'lodash';
 
 import GalleryItem from './gallery_item';
 import NavBar from './nav_bar';
-import * as Constants from '../../../util/constants';
-import * as Debug from '../../../util/debug';
-import * as Db from '../../../util/db';
+import * as Constants from '../../../misc/constants';
+import * as Debug from '../../../misc/debug';
+import * as Db from '../../../misc/db';
 import * as Event from './event';
-import * as Language from '../../../util/localization/language';
-import * as Settings from '../../../util/settings';
-import * as Strings from '../../../util/localization/strings';
+import * as Language from '../../../misc/localization/language';
+import * as Settings from '../../../misc/settings';
+import * as Strings from '../../../misc/localization/strings';
 
 const DIV_STYLE = {
   position: 'absolute',

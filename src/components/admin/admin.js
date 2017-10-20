@@ -4,15 +4,15 @@ import _ from 'lodash';
 import Form from './form';
 import Menu from './menu';
 import Modals from './modals';
-import * as Constants from '../../util/constants';
-import * as Debug from '../../util/debug';
-import * as Db from '../../util/db';
+import * as Constants from '../../misc/constants';
+import * as Debug from '../../misc/debug';
+import * as Db from '../../misc/db';
 import * as Event from './event';
-import * as Language from '../../util/localization/language';
-import * as Models from '../../util/models/models';
-import * as ModelValidator from '../../util/models/model_validator';
-import * as Settings from '../../util/settings';
-import * as Util from '../../util/util';
+import * as Language from '../../misc/localization/language';
+import * as Models from '../../misc/models/models';
+import * as ModelValidator from '../../misc/models/model_validator';
+import * as Settings from '../../misc/settings';
+import * as Util from '../../misc/util';
 
 class Admin extends Component {
   constructor() {

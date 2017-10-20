@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SubMenuItem from './sub_menu_item';
-import * as Constants from '../../../util/constants';
+import * as Constants from '../../../misc/constants';
 
 const STYLE = {
   marginLeft: Constants.HOME_STORE_MARGIN_LEFT,

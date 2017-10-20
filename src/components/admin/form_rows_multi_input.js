@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import _ from 'lodash';
 
 import InputText from '../shared/html/input_text';
-import * as Constants from '../../util/constants';
+import * as Constants from '../../misc/constants';
 import * as Event from './event';
 import * as MenuButton from './menu_button';
 

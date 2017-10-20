@@ -7,7 +7,7 @@ import DropDown from '../shared/html/drop_down';
 import InputText from '../shared/html/input_text';
 import MenuButtonBar from './menu_button_bar';
 import * as Event from './event';
-import * as Constants from '../../util/constants';
+import * as Constants from '../../misc/constants';
 
 const SELECT_STYLE = {
   height: Constants.ADMIN_MENU_HEIGHT

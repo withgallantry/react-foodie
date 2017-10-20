@@ -5,12 +5,12 @@ import Gallery from './gallery/gallery';
 import Header from './header';
 import Modals from './modals';
 import Store from './store/store';
-import * as Cookies from '../../util/cookies';
-import * as Constants from '../../util/constants';
-import * as Debug from '../../util/debug';
+import * as Cookies from '../../misc/cookies';
+import * as Constants from '../../misc/constants';
+import * as Debug from '../../misc/debug';
 import * as Event from './event';
-import * as Language from '../../util/localization/language';
-import * as Settings from '../../util/settings';
+import * as Language from '../../misc/localization/language';
+import * as Settings from '../../misc/settings';
 
 class Home extends Component {
   constructor() {

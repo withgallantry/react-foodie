@@ -3,9 +3,9 @@ import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
 
 import Button from '../shared/html/button';
-import * as Constants from '../../util/constants';
+import * as Constants from '../../misc/constants';
 import * as Event from './event';
-import * as Language from '../../util/localization/language';
+import * as Language from '../../misc/localization/language';
 
 const BTN_MENU_STYLE = {
   marginBottom: '20px'

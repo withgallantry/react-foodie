@@ -2,7 +2,7 @@ import React from 'react';
 
 import Banner from './banner';
 import Details from './details';
-import * as Constants from '../../../util/constants';
+import * as Constants from '../../../misc/constants';
 
 const Header = ({img, store}) => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import InputText from '../../shared/html/input_text';
-import * as Strings from '../../../util/localization/strings';
+import * as Strings from '../../../misc/localization/strings';
 
 const STYLE = {
   height: '32px',

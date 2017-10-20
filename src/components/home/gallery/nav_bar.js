@@ -2,9 +2,9 @@ import React from 'react';
 
 import ButtonNavBar from './button_nav_bar';
 import SearchStore from './search_store';
-import * as Constants from '../../../util/constants';
+import * as Constants from '../../../misc/constants';
 import * as Event from './event';
-import * as Strings from '../../../util/localization/strings';
+import * as Strings from '../../../misc/localization/strings';
 
 const STYLE = {
   marginLeft: Constants.HOME_GALLERY_MARGIN_LEFT,

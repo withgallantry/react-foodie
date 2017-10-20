@@ -4,12 +4,12 @@ import _ from 'lodash';
 import Button from '../shared/html/button';
 import FormRowsMultiInput from './form_rows_multi_input';
 import FormRowSingleInput from './form_row_single_input';
-import * as Constants  from '../../util/constants';
+import * as Constants  from '../../misc/constants';
 import * as Event from './event';
-import * as Language from '../../util/localization/language';
+import * as Language from '../../misc/localization/language';
 import * as MenuButton from './menu_button';
 import * as RowType from './row_type';
-import * as Util from '../../util/util';
+import * as Util from '../../misc/util';
 
 const FORM_STYLE = {
   position: 'absolute',

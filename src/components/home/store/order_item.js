@@ -1,7 +1,7 @@
 import React from 'react';
 
 import OrderItemMenu from './order_item_menu';
-import * as Constants from '../../../util/constants';
+import * as Constants from '../../../misc/constants';
 
 const STYLE = {
   paddingLeft: Constants.HOME_ORDER_MARGIN_LEFT,

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-import * as Db from '../util/db';
-import * as Settings from '../util/settings';
+import * as Db from '../misc/db';
+import * as Settings from '../misc/settings';
 
 
 class Json extends Component {

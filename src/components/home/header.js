@@ -3,7 +3,7 @@ import React from 'react';
 import AddressSearchBar from '../shared/address_search_bar';
 import Logo from './logo';
 import NavBar from './nav_bar.js';
-import * as Constants from '../../util/constants';
+import * as Constants from '../../misc/constants';
 
 const STYLE = {
   height: Constants.HOME_HEADER_HEIGHT,

@@ -3,9 +3,9 @@ import Switch from 'react-toggle-switch';
 
 import Button from '../../shared/html/button';
 import OrderItem from './order_item';
-import * as Constants from '../../../util/constants';
-import * as Strings from '../../../util/localization/strings';
-import * as Util from '../../../util/util';
+import * as Constants from '../../../misc/constants';
+import * as Strings from '../../../misc/localization/strings';
+import * as Util from '../../../misc/util';
 
 const STYLE = {
   position: 'absolute',

@@ -4,7 +4,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 import Admin from './admin/admin';
 import Home from './home/home';
 import Json from './json';
-import * as Settings from '../util/settings';
+import * as Settings from '../misc/settings';
 
 const App = () => {
   Settings.set(Settings.DEBUG, true);

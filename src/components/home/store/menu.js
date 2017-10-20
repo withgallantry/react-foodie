@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import SubMenu from './sub_menu';
-import * as Constants from '../../../util/constants';
+import * as Constants from '../../../misc/constants';
 import * as Event from './event';
 
 const STYLE = {

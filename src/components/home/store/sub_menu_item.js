@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as Constants from '../../../util/constants';
+import * as Constants from '../../../misc/constants';
 import * as Event from './event';
 
 const STYLE = {

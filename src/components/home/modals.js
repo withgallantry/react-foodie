@@ -1,7 +1,7 @@
 import React from 'react';
 
-import * as Constants from '../../util/constants';
-import * as Strings from '../../util/localization/strings';
+import * as Constants from '../../misc/constants';
+import * as Strings from '../../misc/localization/strings';
 
 const createModal = (id, title, text, repo) => {
   return (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 import InputText from './html/input_text';
-import * as Strings from '../../util/localization/strings';
+import * as Strings from '../../misc/localization/strings';
 
 const SEARCH_BAR_ID = 'searchBarMaps';
 
