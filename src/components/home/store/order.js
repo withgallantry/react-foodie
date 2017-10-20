@@ -1,6 +1,7 @@
 import React from 'react';
 import Switch from 'react-toggle-switch';
 
+import Button from '../../shared/html/button';
 import OrderItem from './order_item';
 import * as Constants from '../../../util/constants';
 import * as Strings from '../../../util/localization/strings';
@@ -139,14 +140,11 @@ const Order = ({onClick, showMenuForItem, onEnter, onLeave, onToggleSwitch, swit
         </div>
         {orderItems.length > 0 &&
           <div style={BTN_STYLE}>
-            <button
+            <Button
               style={BTN_STYLE}
-              type='button'
-              className='btn btn-default'
-              data-toggle='modal'
-              data-target={`#${Constants.MODAL_CHECKOUT_ID}`}>
-              {Strings.get(Strings.CHECKOUT)}
-            </button>
+              modal={Constants.MODAL_CHECKOUT}
+              label={Strings.get(Strings.CHECKOUT)}
+            />
           </div>
         }
       </div>

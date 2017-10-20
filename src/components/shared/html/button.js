@@ -5,6 +5,8 @@ const Button = (props) => {
       <button
         data-tip={props.tooltip !== undefined ? props.tooltip : undefined}
         data-delay-show='500'
+        data-toggle={props.modal !== undefined ? 'modal' : undefined}
+        data-target={props.modal !== undefined ? `#${props.modal}` : undefined}
         disabled={props.disabled !== undefined ? props.disabled : false}
         className={props.classes !== undefined ? props.classes : 'btn btn-default'}
         style={props.style !== undefined ? props.style : {}}

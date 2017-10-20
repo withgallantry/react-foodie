@@ -3,6 +3,7 @@ import ReactTooltip from 'react-tooltip';
 
 import Button from '../shared/html/button';
 import { Link } from 'react-router-dom';
+import * as Constants from '../../util/constants';
 import * as Debug from '../../util/debug';
 import * as Event from './event';
 import * as Language from '../../util/localization/language';
@@ -24,6 +25,19 @@ const CART_STYLE = {
   paddingLeft: '15px',
   paddingRight: '15px',
 }
+
+const createCartButton = () => {
+  return (
+    <span>
+      <Button
+        style={CART_STYLE}
+        glyphicon={'shopping-cart'}
+        tooltip={Strings.get(Strings.GO_TO_ORDER)}
+      />
+      <ReactTooltip type='info' effect='solid' />
+    </span>
+  );
+};
 
 const NavBar = ({onClick, language, storeId}) => {
   return (
@@ -50,26 +64,21 @@ const NavBar = ({onClick, language, storeId}) => {
           id : Event.CHANGE_LANGUAGE
         }}
       />
+      <Button
+        style={BTN_STYLE}
+        glyphicon='info-sign'
+        modal={Constants.MODAL_INFO}
+      />
       {storeId !== undefined
         ?
           <span>
             <Link to={`/store/${storeId}`}>
-              <Button
-                style={CART_STYLE}
-                glyphicon={'shopping-cart'}
-                tooltip={Strings.get(Strings.GO_TO_ORDER)}
-              />
-              <ReactTooltip type='info' effect='solid' />
+              {createCartButton()}
             </Link>
           </span>
         :
           <span>
-            <Button
-              style={CART_STYLE}
-              glyphicon={'shopping-cart'}
-              tooltip={Strings.get(Strings.GO_TO_ORDER)}
-            />
-            <ReactTooltip type='info' effect='solid' />
+            {createCartButton()}
           </span>
       }
     </div>

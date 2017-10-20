@@ -1,3 +1,4 @@
+import * as Constants from '../constants';
 import * as Debug from '../debug';
 import * as Language from './language';
 import * as Settings from '../settings';
@@ -20,9 +21,11 @@ export const ORDER_MISSING  = 14;
 export const CHECKOUT       = 15;
 export const PAYMENT        = 16;
 export const PAYMENT_DESC   = 17;
+export const INFO           = 18;
+export const INFO_DESC      = 19;
 
 const MIN = 0;
-const MAX = PAYMENT_DESC;
+const MAX = INFO_DESC;
 
 // lut for strings in different language
 let dictionary = [];
@@ -47,6 +50,8 @@ dict[ORDER_MISSING]   = 'Din varukorg är tom! Börja lägga till dina favoritr�
 dict[CHECKOUT]        = 'Fortsätt till betalning';
 dict[PAYMENT]         = 'Betalning';
 dict[PAYMENT_DESC]    = 'Tyvärr är detta enbart en mockup-site, så det går ej att beställa mat. Förlåt :(';
+dict[INFO]            = 'Information';
+dict[INFO_DESC]       = 'Utkörning av mat, mockup-site gjord med React.';
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
@@ -68,6 +73,8 @@ dict[ORDER_MISSING]   = 'You haven’t added anything to your cart yet! Start ad
 dict[CHECKOUT]        = 'Checkout';
 dict[PAYMENT]         = 'Payment';
 dict[PAYMENT_DESC]    = 'I\'m sorry this is just a mockup-site, you can\'t actually order food. I\'m sorry :(';
+dict[INFO]            = 'Information';
+dict[INFO_DESC]       = 'Food delivery mockup site made with React.';
 
 const Tags = Object.freeze({
   SALAD : 0
