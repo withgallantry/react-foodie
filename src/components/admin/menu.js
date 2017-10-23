@@ -73,7 +73,8 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, stores, deleteEnabled, dele
         onChange={{ func : onChangeSearch }}
       />
       <InputText
-        dataTip='Unique identifier for a set of stores.'
+        dataTip={'Unique identifier for a set of stores. Change the default key'
+          + ' to create a new empty set which you then can modify as you like.'}
         size={SEARCH_KEY_SIZE}
         style={SEARCH_KEY_STYLE}
         placeholder={_key}

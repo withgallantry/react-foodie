@@ -34,3 +34,7 @@ export const updateTemplate = (stores) => {
 export const getTemplate = () => {
   return axios.get(Url.get(Url.TEMPLATE, undefined, false));
 }
+
+export const getDefaultKey = () => {
+  return axios.get(Url.get(Url.DEFAULT_KEY, undefined, false));
+}

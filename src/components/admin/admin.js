@@ -6,9 +6,11 @@ import LoadingBar from '../shared/loading_bar';
 import Menu from './menu';
 import Modals from './modals';
 import * as Constants from '../../misc/constants';
+import * as Cookies from '../../misc/cookies';
 import * as Debug from '../../misc/debug';
 import * as Db from '../../misc/db';
 import * as Event from './event';
+import * as Key from '../../misc/key';
 import * as Language from '../../misc/localization/language';
 import * as Models from '../../misc/models/models';
 import * as ModelValidator from '../../misc/models/model_validator';
@@ -61,13 +63,16 @@ class Admin extends Component {
     assign(this.events, this.minutesClosesChange,   Event.MINUTES_CLOSES_CHANGE);
     assign(this.events, this.setImageGallery,       Event.SET_IMAGE_GALLERY);
     assign(this.events, this.setImageBanner,        Event.SET_IMAGE_BANNER);
+    assign(this.events, this.reset,                 Event.RESET);
   }
 
   componentDidMount() {
-    this.load((stores) => {
-      if (stores.length > 0) {
-        this.show(stores[0]._id);
-      }
+    Key.update(() => {
+      this.load((stores) => {
+        if (stores.length > 0) {
+          this.show(stores[0]._id);
+        }
+      });
     });
   }
 
@@ -93,7 +98,7 @@ class Admin extends Component {
       menu: null,
       currentId: null,
       lang: Language.SV,
-      loading: false,
+      loading: true,
     };
   }
 
@@ -276,6 +281,11 @@ class Admin extends Component {
     }).catch((error) => {
       console.error(error);
     })
+  }
+
+  reset() {
+    Cookies.remove(Constants.COOKIES_KEY);
+    window.location.reload();
   }
 
   new() {
@@ -495,6 +505,7 @@ class Admin extends Component {
     Debug.log(`onChangeKey(${value})`);
     if (value.length > 0) {
         Settings.set(Settings.KEY, value);
+        Cookies.set(Constants.COOKIES_KEY, value);
         this.clearForm();
         this.load((stores) => {
           if (stores.length > 0) {

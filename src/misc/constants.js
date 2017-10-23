@@ -25,9 +25,12 @@ export const TOP_ID = 'topId';
 export const SCROLL_THRESHOLD = 500;
 export const MODAL_CHECKOUT = 'modalCheckout';
 export const MODAL_INFO = 'modalInfo';
+export const MODAL_ADMIN_INFO = 'modalAdminInfo';
+export const MODAL_IMAGE = 'modalImage';
 export const COOKIE_LATEST  = 'latest';
 export const COOKIE_ADDRESS = 'address';
 export const COOKIE_ITEMS   = 'items';
+export const COOKIE_KEY     = 'key';
 
 export const ADMIN_MARGIN_LEFT            = toPx(ADMIN_MARGIN_LEFT_VALUE);
 export const ADMIN_LABEL_WIDTH            = toPx(ADMIN_MARGIN_LEFT_VALUE-ADMIN_LABEL_MARGIN_VALUE);

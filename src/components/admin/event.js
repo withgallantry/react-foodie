@@ -35,6 +35,7 @@ export const CLONE                 = 29;
 
 export const SET_IMAGE_GALLERY     = 30;
 export const SET_IMAGE_BANNER      = 31;
+export const RESET                 = 32;
 
 const LUT = {
   name : NAME_CHANGE,

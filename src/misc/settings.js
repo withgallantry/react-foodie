@@ -1,15 +1,16 @@
+import * as Constants from './constants';
 import * as Language from './localization/language';
 
-export const DEBUG      = 0;
-export const KEY        = 1;
-export const LANGUAGE   = 2;
+export const DEBUG        = 0;
+export const KEY          = 1;
+export const LANGUAGE     = 2;
 
-const MIN = 0;
+const MIN = DEBUG;
 const MAX = LANGUAGE;
 
 let settings = [];
 settings[DEBUG]     = true;
-settings[KEY]       = 'xRhjaTRs';
+settings[KEY]       = undefined;
 settings[LANGUAGE]  = Language.EN;
 
 const isValid = (property) => {

@@ -5,6 +5,7 @@ import Button from '../shared/html/button';
 import DropDown from '../shared/html/drop_down';
 import InputText from '../shared/html/input_text';
 import Label from '../shared/html/label';
+import * as Constants from '../../misc/constants';
 import * as Event from './event';
 import * as RowType from './row_type';
 
@@ -38,7 +39,7 @@ const createImageSelection = ({value, label}) => {
     return (
       <Button
         style={IMAGE_SELECTION_STYLE}
-        modal={`imageModal${id}`}
+        modal={`${Constants.MODAL_IMAGE}${id}`}
         image={{ style : IMAGE_STYLE, src : `img/${value}` }}
       />
     );

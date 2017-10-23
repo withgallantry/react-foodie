@@ -4,9 +4,10 @@ import * as Settings from './settings';
 export const ROOT        = 0;
 export const DELETE_ALL  = 1;
 export const TEMPLATE    = 2;
+export const DEFAULT_KEY = 3;
 
 const min = DELETE_ALL;
-const max = TEMPLATE;
+const max = DEFAULT_KEY;
 
 //const ROOT_URL = 'https://agile-taiga-67906.herokuapp.com/store';
 const ROOT_URL = 'http://localhost:5000/store';
@@ -14,6 +15,7 @@ const ROOT_URL = 'http://localhost:5000/store';
 let urlTypes = [];
 urlTypes[DELETE_ALL]  = `delete-all`;
 urlTypes[TEMPLATE]    = `template`;
+urlTypes[DEFAULT_KEY] = 'default-key';
 
 export const get = (type, id, fetchKey = true) => {
   const key = fetchKey === true ? Settings.get(Settings.KEY) : undefined;

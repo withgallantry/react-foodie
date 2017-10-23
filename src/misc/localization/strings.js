@@ -24,9 +24,10 @@ export const PAYMENT_DESC   = 17;
 export const INFO           = 18;
 export const INFO_DESC      = 19;
 export const ADDRESS_DESC   = 20;
+export const CANT_EDIT      = 21;
 
-const MIN = 0;
-const MAX = ADDRESS_DESC;
+const MIN = SEARCH_ADDRESS;
+const MAX = CANT_EDIT;
 
 // lut for strings in different language
 let dictionary = [];
@@ -54,6 +55,8 @@ dict[PAYMENT_DESC]    = 'Tyvärr är detta enbart en mockup-site, så det går e
 dict[INFO]            = 'Information';
 dict[INFO_DESC]       = 'Utkörning av mat, mockup-site gjord med React.';
 dict[ADDRESS_DESC]    = 'Finns ingen koppling mellan adress & restaurang, enbart visuell feature.';
+dict[CANT_EDIT]       = 'Skapa ett nytt "set" genom att ändra nyckeln i ovanstående fält om du '
+                        + 'vill kunna modifiera egenskaper för en restaurang.';
 
 dictionary[Language.EN] = [];
 dict = dictionary[Language.EN];
@@ -78,6 +81,8 @@ dict[PAYMENT_DESC]    = 'I\'m sorry this is just a mockup-site, you can\'t actua
 dict[INFO]            = 'Information';
 dict[INFO_DESC]       = 'Food delivery mockup site made with React.';
 dict[ADDRESS_DESC]    = 'There is no connection between address & restaurant, this is only a visual feature.';
+dict[CANT_EDIT]       = 'Create a new "set" by changing the key in the above field if you\'d like to change '
+                        + 'the properties of a restaurant.';
 
 const Tags = Object.freeze({
   SALAD : 0

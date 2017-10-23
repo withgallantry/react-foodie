@@ -7,6 +7,7 @@ import SearchBar from './search_bar';
 import * as Constants from '../../../misc/constants';
 import * as Debug from '../../../misc/debug';
 import * as Db from '../../../misc/db';
+import * as Key from '../../../misc/key';
 import * as Language from '../../../misc/localization/language';
 import * as Settings from '../../../misc/settings';
 import * as Strings from '../../../misc/localization/strings';
@@ -44,7 +45,9 @@ class Gallery extends Component {
   }
 
   componentDidMount() {
-    this.load();
+    Key.update(() => {
+      this.load();
+    });
   }
 
   componentWillReceiveProps({ language }) {

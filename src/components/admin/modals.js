@@ -1,4 +1,6 @@
 import React from 'react';
+
+import * as Constants from '../../misc/constants';
 import * as Event from './event';
 
 let gallery = [];
@@ -65,7 +67,7 @@ const getList = (array, id, onClick, width, height) => {
 
 const createModal = (text, id, list) => {
   return (
-    <div className='modal fade' id={`imageModal${id}`} role="dialog">
+    <div className='modal fade' id={id} role="dialog">
       <div className='modal-dialog modal-xl'>
         <div className='modal-content'>
           <div className='modal-header'>
@@ -93,8 +95,21 @@ const Modals = ({onClick}) => {
 
   return (
     <div>
-      {createModal('Select image for gallery', Event.SET_IMAGE_GALLERY, getGalleryList(onClick))}
-      {createModal('Select image for banner',  Event.SET_IMAGE_BANNER,  getBannerList(onClick))}
+      {createModal(
+        'Select image for gallery',
+        `${Constants.MODAL_IMAGE}${Event.SET_IMAGE_GALLERY}`,
+        getGalleryList(onClick))}
+      {createModal(
+        'Select image for banner',
+        `${Constants.MODAL_IMAGE}${Event.SET_IMAGE_BANNER}`,
+        getBannerList(onClick))}
+      {createModal(
+        'Information',
+        Constants.MODAL_ADMIN_INFO,
+        'In order to create your own set '
+        + 'you need to change the key which is used for identifying a set of restaurants. When the key '
+        + 'is changed a new set will be created which you then can modify. The set will intially '
+        + 'be empty, but you can add template restaurants by pressing the "Add Template" button.')}
     </div>
   );
 };

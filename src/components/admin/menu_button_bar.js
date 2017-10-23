@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import Button from '../shared/html/button';
 import * as Constants from '../../misc/constants';
 import * as Event from './event';
+import * as Key from '../../misc/key';
 import * as Language from '../../misc/localization/language';
 import * as Settings from '../../misc/settings';
+import * as Strings from '../../misc/localization/strings';
 
 const BTN_MENU_STYLE = {
   marginBottom: '20px'
@@ -21,6 +23,11 @@ const SECOND_BTN_STYLE = {
 };
 
 const createButton = (style, label, func, disabled, id, tooltip) => {
+  if (Settings.get(Settings.DEBUG) !== true && Settings.get(Settings.KEY) === Key.getDefault()) {
+    if (label !== 'Home' && label !== 'Get JSON' && label !== 'Reset') {
+      disabled = true;
+    }
+  }
   return (
     <Button
       style={style}
@@ -28,6 +35,16 @@ const createButton = (style, label, func, disabled, id, tooltip) => {
       label={label}
       disabled={disabled}
       tooltip={tooltip}
+    />
+  );
+};
+
+const createButtonGlyph = (style, glyph, modal) => {
+  return (
+    <Button
+      style={style}
+      glyphicon={glyph}
+      modal={modal}
     />
   );
 };
@@ -60,6 +77,8 @@ const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
       <Link to='/json'>
         {createButton(SECOND_BTN_STYLE, 'Get JSON')}
       </Link>
+      {createButton(SECOND_BTN_STYLE, 'Reset', onClick, false, Event.RESET)}
+      {createButtonGlyph(SECOND_BTN_STYLE, 'info-sign', Constants.MODAL_ADMIN_INFO)}
     </div>
   );
 };
