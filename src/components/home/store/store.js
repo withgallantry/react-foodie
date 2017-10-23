@@ -214,8 +214,11 @@ class Store extends Component {
         Number.MIN_SAFE_INTEGER,
         orderItems[index].menuIndex,
         orderItems[index].itemIndex);
+      if (orderItems.length - 1 > index) {
+        this.setState({ showMenuForItem : orderItems[index + 1].id });
+      }
       orderItems.splice(index, 1);
-      this.getCookies();
+      this.setState({ orderItems });
     }
   }
 
