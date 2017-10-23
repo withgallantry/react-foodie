@@ -36,7 +36,8 @@ const Modals = () => {
       {createModal(
         Constants.MODAL_INFO,
         Strings.get(Strings.INFO),
-        Strings.get(Strings.INFO_DESC),
+        `${Strings.get(Strings.INFO_DESC)}
+        ${Strings.get(Strings.ADDRESS_DESC)}`,
         Constants.REPO)
       }
     </span>

@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 const STYLE = {
   position: 'absolute',
   left: '40px',
-  top: '40px',
+  top: '34px',
+  fontSize: '26pt',
   zIndex: 1000,
 };
 

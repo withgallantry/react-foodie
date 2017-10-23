@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 import GalleryItem from './gallery_item';
+import LoadingBar from '../../shared/loading_bar';
 import SearchBar from './search_bar';
 import * as Constants from '../../../misc/constants';
 import * as Debug from '../../../misc/debug';
@@ -13,7 +14,7 @@ import * as Util from '../../../misc/util';
 
 const DIV_STYLE = {
   position: 'absolute',
-  top: '70px',
+  top: Constants.HOME_HEADER_HEIGHT,
   left: '0px',
   right: '0px',
   bottom: '0px',
@@ -25,11 +26,6 @@ const GALLERY_STYLE = {
   marginLeft: 'auto',
   marginRight: 'auto',
   marginTop: '15px',
-};
-
-const LOADING_STYLE = {
-  marginLeft: Constants.HOME_GALLERY_MARGIN_LEFT,
-  marginTop: Constants.HOME_GALLERY_MARGIN_TOP,
 };
 
 class Gallery extends Component {
@@ -183,8 +179,7 @@ class Gallery extends Component {
 
   render() {
     if (this.state.loading) {
-      // TODO : loading gif
-      return (<div style={LOADING_STYLE}>Loading...</div>);
+      return (<LoadingBar />);
     }
 
     let stores = this.createStores();

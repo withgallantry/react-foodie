@@ -10,7 +10,7 @@ const MAX = LANGUAGE;
 let settings = [];
 settings[DEBUG]     = true;
 settings[KEY]       = 'xRhjaTRs';
-settings[LANGUAGE]  = Language.SV;
+settings[LANGUAGE]  = Language.EN;
 
 const isValid = (property) => {
   return property !== undefined

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 
 import InputText from '../../shared/html/input_text';
 import * as Constants from '../../../misc/constants';

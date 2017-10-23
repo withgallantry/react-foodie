@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 import Form from './form';
+import LoadingBar from '../shared/loading_bar';
 import Menu from './menu';
 import Modals from './modals';
 import * as Constants from '../../misc/constants';
@@ -545,13 +546,7 @@ class Admin extends Component {
               />
             );
           } else {
-            return (
-              <div style={{
-                marginLeft : Constants.ADMIN_MARGIN_LEFT,
-                marginTop : Constants.ADMIN_SECTION_MARGIN_HEIGHT}}>
-                loading...
-              </div>
-            );
+            return (<LoadingBar />);
           }
         })()}
       </div>

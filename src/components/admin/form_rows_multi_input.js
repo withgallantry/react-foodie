@@ -60,7 +60,7 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
         {MenuButton.create('trash',          onClick, Event.REMOVE_MENU_ITEM,    [index, i], BTN_STYLE)}
         {MenuButton.create('arrow-up',       onClick, Event.MOVE_MENU_ITEM_UP,   [index, i], BTN_STYLE)}
         {MenuButton.create('arrow-down',     onClick, Event.MOVE_MENU_ITEM_DOWN, [index, i], BTN_STYLE)}
-        {MenuButton.create('cloud-download', onClick, Event.CLONE,               [index, i], BTN_STYLE, 'Fetch description from different language.')}
+        {MenuButton.create('duplicate', onClick, Event.CLONE,               [index, i], BTN_STYLE, 'Fetch description from different language.')}
         <ReactTooltip type='info' effect='solid' />
         {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_NAME_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'name',  lang], item.name)}
         {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_DESC_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'desc',  lang], item.desc)}
@@ -79,7 +79,7 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
       {MenuButton.create('trash',          onClick, Event.REMOVE_MENU,    [index], BTN_STYLE)}
       {MenuButton.create('arrow-up',       onClick, Event.MOVE_MENU_UP,   [index], BTN_STYLE)}
       {MenuButton.create('arrow-down',     onClick, Event.MOVE_MENU_DOWN, [index], BTN_STYLE)}
-      {MenuButton.create('cloud-download', onClick, Event.CLONE,          [index], BTN_STYLE, 'Fetch description from different language.')}
+      {MenuButton.create('duplicate',      onClick, Event.CLONE,          [index], BTN_STYLE, 'Fetch description from different language.')}
       <ReactTooltip type='info' effect='solid' />
       {createInputText({}, INPUT_MENU_NAME_SIZE, onChange, [Event.CHANGE_MENU_NAME, index, lang], menu.name)}
       {items}

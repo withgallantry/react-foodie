@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from './header';
+import LoadingBar from '../../shared/loading_bar';
 import Menu from './menu';
 import Order from './order';
 import ScrollButton from './scroll_button';
@@ -246,11 +247,7 @@ class Store extends Component {
 
   render() {
     if (this.state.store === undefined) {
-      return (
-        <div style={{ marginLeft : Constants.HOME_STORE_MARGIN_LEFT }}>
-          Loading...
-        </div>
-      )
+      return (<LoadingBar />);
     }
 
     return (

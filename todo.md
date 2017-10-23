@@ -1,6 +1,5 @@
 # todo.md
-react propTypes
 style everything
-
-# tried, check later
-when deleting item, no popup menu
+add some mockup stores
+more pizza/hamburger pics
+too large names, add '...'
