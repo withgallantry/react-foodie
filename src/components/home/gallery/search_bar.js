@@ -9,7 +9,8 @@ const STYLE = {
   width: '50%',
   textAlign: 'center',
   marginTop: Constants.HOME_GALLERY_SEARCH_MARGIN_TOP,
-  marginBottom: Constants.HOME_GALLERY_MARGIN_TOP
+  marginBottom: Constants.HOME_GALLERY_MARGIN_TOP,
+  paddingTop: '4px',
 };
 
 const SearchBar = ({onSearch}) => {

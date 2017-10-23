@@ -18,7 +18,6 @@ const TAG_STYLE = {
 };
 
 const Details = ({store}) => {
-  //<b>{store.name}</b>{`, ${store.tags.join(" • ")}`}
   const title = <h2 style={TITLE_STYLE}>{store.name}</h2>;
   const tags = <p style={TAG_STYLE}>{store.tags.join(" • ")}</p>;
   const hours = <span>{

@@ -134,7 +134,6 @@ const Form = (props) => {
   modifyHours(rows, props);
   modifyImages(rows, props);
 
-  // single input form rows
   const singleInputFormRows = _.map(rows, (row) => {
     return (
       <FormRowSingleInput
@@ -165,7 +164,6 @@ const Form = (props) => {
     );
   });
 
-  // multi input form rows
   let multiInputFormRows = [];
   if (props.menu) {
     const menu = props.menu[props.lang];
