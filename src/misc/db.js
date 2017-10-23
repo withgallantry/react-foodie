@@ -1,48 +1,36 @@
-// Middle layer for mongoose db in back end. Uses the current key which is
-// set in settings if needed.
+// Middle layer for mongoose db in back end.
 import axios from 'axios';
 
-import * as Constants from './constants';
-import * as Settings from './settings';
-
-const getUrl = (id, key) => {
-  const url = Constants.STORES_URL;
-  if (id !== undefined) {
-    if (key !== undefined) {
-      return `${url}/${key}/${id}`;
-    } else {
-      return `${url}/${id}`;
-    }
-  } else {
-    if (key !== undefined) {
-      return `${url}/${key}`;
-    } else {
-      return url;
-    }
-  }
-};
+import * as Url from './url';
 
 export const get = (id) => {
-  return axios.get(
-    getUrl(undefined, Settings.get(Settings.KEY)), { params : { id }});
+  return axios.get(Url.get(Url.ROOT), { params : { id }});
 };
 
 export const getAll = () => {
-  return axios.get(getUrl(undefined, Settings.get(Settings.KEY)));
+  return axios.get(Url.get(Url.ROOT));
 };
 
 export const add = (store) => {
-  return axios.post(getUrl(undefined, Settings.get(Settings.KEY)), store);
+  return axios.post(Url.get(Url.ROOT), store);
 };
 
 export const update = (id, store) => {
-  return axios.put(getUrl(id), store);
+  return axios.put(Url.get(Url.ROOT, id, false), store);
 };
 
 export const remove = (id) => {
-  return axios.delete(getUrl(id));
+  return axios.delete(Url.get(Url.ROOT, id, false));
 };
 
 export const removeAll = () => {
-  return axios.delete(`${getUrl(undefined, Settings.get(Settings.KEY))}/deleteAll`);
+  return axios.delete(Url.get(Url.DELETE_ALL));
 };
+
+export const updateTemplate = (stores) => {
+  return axios.post(Url.get(Url.TEMPLATE, undefined, false), stores)
+};
+
+export const getTemplate = () => {
+  return axios.get(Url.get(Url.TEMPLATE, undefined, false));
+}

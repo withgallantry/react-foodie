@@ -42,6 +42,7 @@ class Admin extends Component {
     assign(this.events, this.show,                  Event.SHOW);
     assign(this.events, this.delete,                Event.DELETE);
     assign(this.events, this.addTemplate,           Event.ADD_TEMPLATE);
+    assign(this.events, this.setTemplate,           Event.SET_TEMPLATE);
     assign(this.events, this.removeMenuItem,        Event.REMOVE_MENU_ITEM);
     assign(this.events, this.removeMenu,            Event.REMOVE_MENU);
     assign(this.events, this.newMenuItem,           Event.NEW_MENU_ITEM);
@@ -151,7 +152,7 @@ class Admin extends Component {
       Debug.log('updating...');
       Debug.log(this.getCurrentItem());
       Db.update(currentId, this.getCurrentItem()).then((response) => {
-        Debug.log(`updated food place with id ${currentId}`);
+        Debug.log(`updated store with id ${currentId}`);
         this.load();
       }).catch((error) => {
         console.error(error);
@@ -160,7 +161,7 @@ class Admin extends Component {
       Debug.log('saving...');
       Debug.log(this.getCurrentItem());
       Db.add(this.getCurrentItem()).then((response) => {
-        Debug.log('added food place');
+        Debug.log('added store');
         this.load(() => {
           this.show(response.data[0]._id);
         })
@@ -193,7 +194,7 @@ class Admin extends Component {
     const item = this.getCurrentItem();
     item.name = `${item.name} (copy)`;
     Db.add(item).then((response) => {
-      Debug.log('added food place');
+      Debug.log('added store');
       this.load((stores) => {
         const match = _.find(stores, (obj) => {
           return obj._id === response.data[0]._id;
@@ -215,7 +216,7 @@ class Admin extends Component {
     if (currentId) {
       this.setState({ deleteEnabled : false });
       Db.remove(currentId).then((response) => {
-        Debug.log(`deleted food place with id ${currentId}`);
+        Debug.log(`deleted store with id ${currentId}`);
         this.load((stores) => {
           this.setState({ deleteEnabled : true });
           if (stores.length > 0) {
@@ -248,19 +249,32 @@ class Admin extends Component {
   }
 
   addTemplate() {
-    Db.add(Util.getTemplateItems()).then((response) => {
-      Debug.log('added food place');
-      this.load((stores) => {
-        const match = _.find(stores, (obj) => {
-          return obj._id === response.data[0]._id;
+    Db.getTemplate().then((response) => {
+      Db.add(response.data).then((response) => {
+        Debug.log('added template stores');
+        this.load((stores) => {
+          const match = _.find(stores, (obj) => {
+            return obj._id === response.data[0]._id;
+          });
+          if (match) {
+            this.show(match._id);
+          }
         });
-        if (match) {
-          this.show(match._id);
-        }
+      }).catch((error) => {
+        console.error(error);
       });
     }).catch((error) => {
       console.error(error);
     });
+  }
+
+  setTemplate() {
+    const stores = this.state.stores;
+    Db.updateTemplate(stores).then((response) => {
+      Debug.log("template stores updated");
+    }).catch((error) => {
+      console.error(error);
+    })
   }
 
   new() {

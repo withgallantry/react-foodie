@@ -6,6 +6,7 @@ import Button from '../shared/html/button';
 import * as Constants from '../../misc/constants';
 import * as Event from './event';
 import * as Language from '../../misc/localization/language';
+import * as Settings from '../../misc/settings';
 
 const BTN_MENU_STYLE = {
   marginBottom: '20px'
@@ -53,6 +54,9 @@ const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
       {createButton(SECOND_BTN_STYLE, 'Delete',       onClick, !deleteEnabled,    Event.DELETE)}
       {createButton(SECOND_BTN_STYLE, 'Delete All',   onClick, !deleteAllEnabled, Event.DELETE_ALL)}
       {createButton(SECOND_BTN_STYLE, 'Add Template', onClick, false,             Event.ADD_TEMPLATE)}
+      {Settings.get(Settings.DEBUG) === true
+        && createButton(SECOND_BTN_STYLE, 'Set Template', onClick, false, Event.SET_TEMPLATE)
+      }
       <Link to='/json'>
         {createButton(SECOND_BTN_STYLE, 'Get JSON')}
       </Link>

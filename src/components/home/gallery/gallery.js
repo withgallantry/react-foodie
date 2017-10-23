@@ -112,6 +112,10 @@ class Gallery extends Component {
   }
 
   storeIsOpen({ opensAt, closesAt }) {
+    if (Settings.get(Settings.DEBUG) === true) {
+      return true;
+    }
+
     let opensAtMinutes = opensAt.minutes;
     let opensAtHours = opensAt.hours;
     let closesAtMinutes = closesAt.minutes;

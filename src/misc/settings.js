@@ -28,5 +28,5 @@ export const get = (property) => {
   if (isValid(property)) {
     return settings[property];
   }
-  Debug.log(`missing Settings.${property}`)
+  Debug.log(`missing Settings.${property}`);
 };

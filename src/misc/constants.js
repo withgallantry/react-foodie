@@ -16,9 +16,6 @@ const toPc = (value) => {
   return `${value}%`;
 };
 
-//export const STORES_URL = 'https://agile-taiga-67906.herokuapp.com/store';
-export const STORES_URL = 'http://localhost:5000/store';
-
 export const REPO = 'https://github.com/jesperc/react-foodie';
 export const DEFAULT_ADDRESS = 'Svarvargatan 13, 112 49, Stockholm';
 export const CURRENCY = 'SEK';
