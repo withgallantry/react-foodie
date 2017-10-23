@@ -41,6 +41,7 @@ export const ADMIN_SECTION_MARGIN_HEIGHT  = toPx(ADMIN_SECTION_MARGIN_HEIGHT_VAL
 export const HOME_HEADER_HEIGHT               = toPx(HOME_HEADER_HEIGHT_VALUE);
 export const HOME_GALLERY_MARGIN_LEFT         = '7.2%';
 export const HOME_GALLERY_MARGIN_TOP          = '20px';
+export const HOME_GALLERY_SEARCH_MARGIN_TOP   = '40px';
 export const HOME_GALLERY_WIDTH               = '89%';
 export const HOME_STORE_WIDTH                 = toPc(HOME_STORE_WIDTH_VALUE);
 export const HOME_STORE_MARGIN_LEFT           = '5%';

@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 import GalleryItem from './gallery_item';
-import NavBar from './nav_bar';
+import SearchBar from './search_bar';
 import * as Constants from '../../../misc/constants';
 import * as Debug from '../../../misc/debug';
 import * as Db from '../../../misc/db';
-import * as Event from './event';
 import * as Language from '../../../misc/localization/language';
 import * as Settings from '../../../misc/settings';
 import * as Strings from '../../../misc/localization/strings';
+import * as Util from '../../../misc/util';
 
 const DIV_STYLE = {
   position: 'absolute',
@@ -38,12 +38,13 @@ class Gallery extends Component {
 
     this.state = {
       loading : true,
-      searchExpanded : false,
       stores : [],
+      filter : [],
       language : props.language,
     };
 
-    this.onClick = this.onClick.bind(this);
+    this.onSearch = this.onSearch.bind(this);
+    this.onSearchDebounced = _.debounce(this.onSearch, 300);
   }
 
   componentDidMount() {
@@ -76,23 +77,63 @@ class Gallery extends Component {
     });
   }
 
-  onClick(id, arg) {
-    Debug.log(`Gallery.onClick(${id})`);
-    if (id === Event.SEARCH) {
-      this.setState({ searchExpanded : true });
+  onSearch(value) {
+    // convert string to array of words
+    const words = Util
+      .replaceAll(value, ',', ' ')
+      .toLowerCase()
+      .split(' ')
+      .filter((e) => e); // removes empty values
+
+    const stores = this.state.stores;
+    // look for names & tags
+    let result = _.filter(stores, (store) => {
+      const names = store.name.toLowerCase().split(' ');
+      for (let word of words) {
+        for (let name of names) {
+          if (name.includes(word)) {
+            return true;
+          }
+        }
+        for (let tag of store.tags) {
+          if (tag.toLowerCase().includes(word)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+
+    if (result.length > 0) {
+      let ids = [];
+      let names = [];
+      for (let r of result) {
+        ids.push(r._id);
+        names.push(r.name);
+      }
+      Debug.log(names);
+      this.setState({ filter : ids });
+    } else {
+      this.setState({ filter : [] });
     }
   }
 
-  onChange(id, value) {
-
-  }
-
-  createStores(onClick) {
+  createStores() {
     let stores = this.state.stores;
+    let filter = this.state.filter;
     _.forEach(stores, (store) => {
       store.isOpen = this.storeIsOpen(store.hours);
     });
     stores = _.orderBy(stores, ['isOpen'], ['desc']);
+    stores = _.filter(stores, (store) => {
+      let match = filter.length <= 0;
+      for (let id of filter) {
+        if (id === store._id) {
+          match = true;
+        }
+      }
+      return match;
+    });
     stores = _.map(stores, (store) => {
       return (
         <GalleryItem
@@ -103,7 +144,6 @@ class Gallery extends Component {
           tags={Strings.localize(store.tags, Language.SV, this.state.language)}
           images={store.images}
           isOpen={store.isOpen}
-          onClick={this.onClick}
         />
       );
     });
@@ -147,15 +187,10 @@ class Gallery extends Component {
       return (<div style={LOADING_STYLE}>Loading...</div>);
     }
 
-    let stores = this.createStores(this.props.onClick);
-
+    let stores = this.createStores();
     return (
       <div style={DIV_STYLE}>
-        <NavBar
-          onClick={this.onClick}
-          onChange={this.onChange}
-          searchExpanded={this.state.searchExpanded}
-        />
+        <SearchBar onSearch={this.onSearchDebounced}/>
         <div style={GALLERY_STYLE}>
           {stores}
         </div>

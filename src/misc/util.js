@@ -30,6 +30,10 @@ export const replaceAt = (str, index, replacement) => {
   return str.substr(0, index) + replacement + str.substr(index + replacement.length);
 };
 
+export const replaceAll = (str, search, replacement) => {
+  return str.split(search).join(replacement);
+};
+
 export const sequence = (begin, end, interval = 1) => {
   let iter = range(begin, end, interval);
   let result = [];

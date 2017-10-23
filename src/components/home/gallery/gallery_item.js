@@ -18,7 +18,7 @@ const INFO_STYLE = {
   overflow: 'hidden',
 };
 
-const GalleryItem = ({images, onClick, isOpen, name, id, tags, hours}) => {
+const GalleryItem = ({images, isOpen, name, id, tags, hours}) => {
   return (
     <div style={STYLE}>
       <Link to={`/store/${id}`}>
@@ -26,7 +26,7 @@ const GalleryItem = ({images, onClick, isOpen, name, id, tags, hours}) => {
           <img
             className='gallery-img'
             src={`img/${images.gallery}`}
-            onClick={() => onClick(Event.GO_TO_STORE, id)}/>
+          />
         </div>
       </Link>
       {isOpen === true
