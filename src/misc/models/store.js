@@ -35,7 +35,6 @@ export const Store = {
       }],
     }],
   },
-  modified: '',
   key: '',
   _id: ''
 };

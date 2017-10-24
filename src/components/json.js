@@ -18,14 +18,12 @@ class Json extends Component {
     Db.getAll().then((response) => {
       const stores = _.map(response.data, (store) => {
         return {
-          lang: store.lang,
           name: store.name,
           address: store.address,
           hours: store.hours,
           tags: store.tags,
           menu: store.menu,
           images: store.images,
-          modified: store.modified,
         };
       });
 

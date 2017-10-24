@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Button from '../shared/html/button';
 import * as Constants from '../../misc/constants';
+import * as Debug from '../../misc/debug';
 import * as Event from './event';
 import * as Key from '../../misc/key';
 import * as Language from '../../misc/localization/language';
@@ -23,11 +24,12 @@ const SECOND_BTN_STYLE = {
 };
 
 const createButton = (style, label, func, disabled, id, tooltip) => {
-  if (Settings.get(Settings.DEBUG) !== true && Settings.get(Settings.KEY) === Key.getDefault()) {
+  if (Settings.get(Settings.KEY) === Key.getDefault()) {
     if (label !== 'Home' && label !== 'Get JSON' && label !== 'Reset') {
       disabled = true;
     }
   }
+
   return (
     <Button
       style={style}
@@ -71,9 +73,7 @@ const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
       {createButton(SECOND_BTN_STYLE, 'Delete',       onClick, !deleteEnabled,    Event.DELETE)}
       {createButton(SECOND_BTN_STYLE, 'Delete All',   onClick, !deleteAllEnabled, Event.DELETE_ALL)}
       {createButton(SECOND_BTN_STYLE, 'Add Template', onClick, false,             Event.ADD_TEMPLATE)}
-      {Settings.get(Settings.DEBUG) === true
-        && createButton(SECOND_BTN_STYLE, 'Set Template', onClick, false, Event.SET_TEMPLATE)
-      }
+      {Debug.createButton('Set Template', onClick, SECOND_BTN_STYLE, Event.SET_TEMPLATE)}
       <Link to='/json'>
         {createButton(SECOND_BTN_STYLE, 'Get JSON')}
       </Link>

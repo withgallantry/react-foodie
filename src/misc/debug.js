@@ -26,13 +26,13 @@ export const deleteCookies = () => {
   }
 }
 
-export const createButton = (label, onClick, style) => {
+export const createButton = (label, onClick, style, id) => {
   if (debug()) {
     return (
       <button
         className='btn btn-default'
         style={style}
-        onClick={onClick}>
+        onClick={() => onClick(id)}>
         {label}
       </button>
     );

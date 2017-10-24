@@ -78,6 +78,7 @@ class Admin extends Component {
 
   clearForm() {
     const state = this.getDefaultState();
+    state.loading = false;
     state.stores = this.state.stores;
     this.setState(state);
   }
@@ -113,7 +114,6 @@ class Admin extends Component {
           : [...new Set(Util.removeWhiteSpace(this.state.tags).split(','))],
       menu: this.state.menu,
       images: this.state.images,
-      modified: new Date().toISOString()
     };
   }
 
@@ -142,6 +142,7 @@ class Admin extends Component {
     // remove extra props
     for (const store of stores) {
       delete store.__v;
+      delete store.createdAt;
     }
     _.remove(stores, (store) => {
       const isValid = ModelValidator.validate(store, Models.STORE);
@@ -276,11 +277,11 @@ class Admin extends Component {
 
   setTemplate() {
     const stores = this.state.stores;
-    Db.updateTemplate(stores).then((response) => {
-      Debug.log("template stores updated");
+    Db.setTemplate(stores).then((response) => {
+      Debug.log("template stores was set");
     }).catch((error) => {
       console.error(error);
-    })
+    });
   }
 
   reset() {

@@ -7,12 +7,14 @@ const STYLE = {
   paddingLeft: Constants.HOME_STORE_MARGIN_LEFT,
   marginTop: Constants.HOME_STORE_ITEM_MARGIN_VERTICAL,
   marginBottom: Constants.HOME_STORE_ITEM_MARGIN_VERTICAL,
+  paddingRight: Constants.HOME_STORE_MARGIN_LEFT,
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
 };
 
 const PRICE_STYLE = {
   display: 'inline',
   float: 'right',
-  marginRight: Constants.HOME_STORE_MARGIN_LEFT,
 };
 
 const DESC_STYLE = {
@@ -25,7 +27,7 @@ const SubMenuItem = ({onClick, item, index, menu}) => {
       className='sub-menu-item'
       style={STYLE}
       onClick={() => onClick(Event.ADD_ITEM, [menu, index])}>
-      <p>{item.name}</p>
+      <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>{item.name}</p>
       <span style={DESC_STYLE}>• &nbsp; {item.desc}</span>
       <span style={PRICE_STYLE}>{`${item.price} ${Constants.CURRENCY}`}</span>
     </div>

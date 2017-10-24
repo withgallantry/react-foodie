@@ -7,6 +7,8 @@ const STYLE = {
   marginLeft: Constants.HOME_STORE_MARGIN_LEFT,
   marginBottom: Constants.HOME_STORE_MARGIN_VERTICAL,
   marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 };
 
 const TITLE_STYLE = {

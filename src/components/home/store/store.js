@@ -10,6 +10,7 @@ import * as Cookies from '../../../misc/cookies';
 import * as Debug from '../../../misc/debug';
 import * as Db from '../../../misc/db';
 import * as Event from './event';
+import * as Key from '../../../misc/key';
 import * as Language from '../../../misc/localization/language';
 import * as Settings from '../../../misc/settings';
 import * as Util from '../../../misc/util';
@@ -51,7 +52,9 @@ class Store extends Component {
   }
 
   componentDidMount() {
-    this.load();
+    Key.update(() => {
+      this.load();
+    })
   }
 
   componentWillReceiveProps(props) {

@@ -6,7 +6,10 @@ import * as Constants from '../../../misc/constants';
 import * as Event from './event';
 
 const STYLE = {
-  marginLeft: Constants.HOME_STORE_MARGIN_LEFT
+  marginLeft: Constants.HOME_STORE_MARGIN_LEFT,
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  marginRight: Constants.HOME_STORE_MARGIN_LEFT,
 };
 
 const UL_STYLE = {

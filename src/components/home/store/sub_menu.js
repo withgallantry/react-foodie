@@ -6,7 +6,8 @@ import * as Constants from '../../../misc/constants';
 const STYLE = {
   marginLeft: Constants.HOME_STORE_MARGIN_LEFT,
   marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
-  marginBottom: Constants.HOME_STORE_MARGIN_VERTICAL
+  marginBottom: Constants.HOME_STORE_MARGIN_VERTICAL,
+  marginRight: Constants.HOME_STORE_MARGIN_LEFT,
 };
 
 const HR_STYLE = {
@@ -37,7 +38,8 @@ const SubMenu = ({onClick, item, index}) => {
   return (
     <div>
       <div style={STYLE}>
-        <p id={`subMenu${index}`} style={{ textAlign: 'center' }}> •  •  • &nbsp; {item.name.toUpperCase()} &nbsp; •  •  • </p>
+        <p id={`subMenu${index}`} style={{ textAlign: 'center',   textOverflow: 'ellipsis',
+          overflow: 'hidden', }}> •  •  • &nbsp; {item.name.toUpperCase()} &nbsp; •  •  • </p>
       </div>
       <hr style={HR_STYLE}/>
       <div style={ITEM_STYLE}>

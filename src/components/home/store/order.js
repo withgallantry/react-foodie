@@ -25,6 +25,8 @@ const TITLE_STYLE = {
 
 const SUB_TITLE_STYLE = {
   textAlign: 'center',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
 };
 
 const TOTAL_STYLE = {

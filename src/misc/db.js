@@ -27,7 +27,7 @@ export const removeAll = () => {
   return axios.delete(Url.get(Url.DELETE_ALL));
 };
 
-export const updateTemplate = (stores) => {
+export const setTemplate = (stores) => {
   return axios.post(Url.get(Url.TEMPLATE, undefined, false), stores)
 };
 

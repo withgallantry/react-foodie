@@ -7,7 +7,9 @@ const STYLE = {
   paddingLeft: Constants.HOME_ORDER_MARGIN_LEFT,
   paddingRight: Constants.HOME_ORDER_MARGIN_LEFT,
   paddingTop: '8px',
-  paddingBottom: '8px'
+  paddingBottom: '8px',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
 };
 
 const PRICE_STYLE = {
