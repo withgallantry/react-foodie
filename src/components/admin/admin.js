@@ -96,7 +96,10 @@ class Admin extends Component {
       deleteEnabled: true,
       deleteAllEnabled: true,
       images: { gallery: 'gallery0.png', banner: 'banner0.png' },
-      menu: null,
+      menu: {
+        [Language.SV] : [],
+        [Language.EN] : [],
+      },
       currentId: null,
       lang: Language.SV,
       loading: true,
