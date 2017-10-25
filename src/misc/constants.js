@@ -22,12 +22,14 @@ export const DEFAULT_ADDRESS = 'Svarvargatan 13, 112 49, Stockholm';
 export const CURRENCY = 'SEK';
 export const DELIVERY_FEE = 49;
 export const STORE_ID = 'storeContainer';
-export const TOP_ID = 'topId';
+export const TOP_ID = 'topContainer';
 export const SCROLL_THRESHOLD = 500;
+
 export const MODAL_CHECKOUT = 'modalCheckout';
 export const MODAL_INFO = 'modalInfo';
 export const MODAL_ADMIN_INFO = 'modalAdminInfo';
 export const MODAL_IMAGE = 'modalImage';
+
 export const COOKIE_LATEST  = 'latest';
 export const COOKIE_ADDRESS = 'address';
 export const COOKIE_ITEMS   = 'items';
