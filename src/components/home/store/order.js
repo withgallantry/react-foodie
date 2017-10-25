@@ -12,7 +12,7 @@ const STYLE = {
   right: 0,
   bottom: 0,
   left: Constants.HOME_STORE_WIDTH,
-  top: Constants.HOME_HEADER_HEIGHT,
+  top: Constants.HOME_HEADER_HEIGHT_LANDSCAPE,
   width: Constants.HOME_ORDER_WIDTH,
   overflowY: 'scroll',
 };
@@ -31,6 +31,7 @@ const SUB_TITLE_STYLE = {
 
 const TOTAL_STYLE = {
   marginLeft: Constants.HOME_ORDER_MARGIN_LEFT,
+  textAlign: 'left',
 };
 
 const ADDRESS_STYLE = {
@@ -92,7 +93,7 @@ const getTotal = (items) => {
   return total;
 }
 
-const Order = ({onClick, showMenuForItem, onEnter, onLeave, onToggleSwitch, switched, address, name, items}) => {
+const Order = ({style, onClick, showMenuForItem, onEnter, onLeave, onToggleSwitch, switched, address, name, items}) => {
   let orderItems = [];
   for (let item of items) {
     orderItems.push((
@@ -114,7 +115,7 @@ const Order = ({onClick, showMenuForItem, onEnter, onLeave, onToggleSwitch, swit
   const deliveryFee = Constants.DELIVERY_FEE;
 
   return (
-      <div style={STYLE}>
+      <div style={style}>
         <div style={SWITCH_STYLE}>
           <span style={SWITCH_TEXT_STYLE}>{Strings.get(Strings.DELIVERY)}</span>
           <Switch onClick={onToggleSwitch} on={switched}/>

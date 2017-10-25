@@ -2,8 +2,7 @@ import React from 'react';
 
 import * as Constants from '../../../misc/constants';
 
-const STYLE = {
-  width: Constants.HOME_STORE_WIDTH,
+const div = {
   marginLeft: Constants.HOME_STORE_MARGIN_LEFT,
   marginBottom: Constants.HOME_STORE_MARGIN_VERTICAL,
   marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
@@ -19,7 +18,10 @@ const TAG_STYLE = {
   fontSize: '12pt',
 };
 
-const Details = ({store}) => {
+const Details = ({store, width, textAlign}) => {
+  div.width = width;
+  div.textAlign = textAlign;
+
   const title = <h2 style={TITLE_STYLE}>{store.name}</h2>;
   const tags = <p style={TAG_STYLE}>{store.tags.join(" • ")}</p>;
   const hours = <span>{
@@ -28,7 +30,7 @@ const Details = ({store}) => {
   }</span>;
 
   return (
-    <div style={STYLE}>
+    <div style={div}>
       {title}
       &nbsp;
       {tags}

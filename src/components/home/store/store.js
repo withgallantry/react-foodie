@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import MediaQuery from 'react-responsive';
+import _ from 'lodash';
 
-import Header from './header';
+import HeaderPortrait from './portrait/header';
+import HeaderLandscape from './landscape/header';
 import LoadingBar from '../../shared/loading_bar';
 import Menu from './menu';
 import Order from './order';
@@ -15,9 +18,9 @@ import * as Language from '../../../misc/localization/language';
 import * as Settings from '../../../misc/settings';
 import * as Util from '../../../misc/util';
 
-const STYLE = {
+const divLandscape = {
   position: 'absolute',
-  top: Constants.HOME_HEADER_HEIGHT,
+  top: Constants.HOME_HEADER_HEIGHT_LANDSCAPE,
   left: '0px',
   right: '0px',
   bottom: '0px',
@@ -25,7 +28,12 @@ const STYLE = {
   overflowY: 'scroll',
 };
 
-const HR_STYLE = {
+const divPortrait = _.clone(divLandscape);
+divPortrait.top = Constants.HOME_HEADER_HEIGHT_PORTRAIT;
+divPortrait.width = '100%';
+delete divPortrait.overflowY;
+
+const hr = {
   margin: 0,
   padding: 0
 };
@@ -253,35 +261,63 @@ class Store extends Component {
       return (<LoadingBar />);
     }
 
+    const headerProps = {
+      img : this.state.store.images.banner,
+      store : this.state.store,
+    };
+
+    const menuProps = {
+      items : this.state.language === Language.SV
+          ? this.state.store.menu.sv
+          : this.state.store.menu.en,
+      onClick : this.onClick,
+    };
+
+    const orderPortraitProps = {
+      onClick : this.onClick,
+      showMenuForItem : this.state.showMenuForItem,
+      onEnter : this.onOrderItemEnter,
+      onLeave : this.onOrderItemLeave,
+      onToggleSwitch : this.onToggleSwitch,
+      switched : this.state.switched,
+      address : this.props.address,
+      name : this.state.store.name,
+      items : this.state.orderItems,
+      language : this.state.language,
+      style : { textAlign : 'center'},
+    };
+
+    const orderLandscapeProps = _.clone(orderPortraitProps);
+    orderLandscapeProps.style = {
+      position: 'absolute',
+      right: 0,
+      bottom: 0,
+      left: Constants.HOME_STORE_WIDTH,
+      top: Constants.HOME_HEADER_HEIGHT_LANDSCAPE,
+      width: Constants.HOME_ORDER_WIDTH,
+      overflowY: 'scroll',
+    };
+
     return (
       <div>
-        <div id={Constants.STORE_ID} style={STYLE} onScroll={this.onScroll}>
-          <Header
-            img={this.state.store.images.banner}
-            store={this.state.store}
-          />
-          <hr style={HR_STYLE}/>
-          <Menu
-            items={
-              this.state.language === Language.SV
-                ? this.state.store.menu.sv
-                : this.state.store.menu.en
-            }
-            onClick={this.onClick}
-          />
-          {this.state.showScrollButton && <ScrollButton onClick={this.onClick}/>}
-        </div>
-        <Order
-          onClick={this.onClick}
-          showMenuForItem={this.state.showMenuForItem}
-          onEnter={this.onOrderItemEnter}
-          onLeave={this.onOrderItemLeave}
-          onToggleSwitch={this.onToggleSwitch}
-          switched={this.state.switched}
-          address={this.props.address}
-          name={this.state.store.name}
-          items={this.state.orderItems}
-          language={this.state.language}/>
+        <MediaQuery query='(orientation: landscape)'>
+          <div id={Constants.STORE_ID} style={divLandscape} onScroll={this.onScroll}>
+            <HeaderLandscape {...headerProps}/>
+            <hr style={hr}/>
+            <Menu {...menuProps}/>
+            {this.state.showScrollButton && <ScrollButton onClick={this.onClick}/>}
+          </div>
+          <Order {...orderLandscapeProps}/>
+        </MediaQuery>
+        <MediaQuery query='(orientation: portrait)'>
+          <div id={Constants.STORE_ID} style={divPortrait} onScroll={this.onScroll}>
+            <Order {...orderPortraitProps}/>
+            <HeaderPortrait {...headerProps}/>
+            <hr style={hr}/>
+            <Menu {...menuProps}/>
+            {this.state.showScrollButton && <ScrollButton onClick={this.onClick}/>}
+          </div>
+        </MediaQuery>
       </div>
     );
   }
