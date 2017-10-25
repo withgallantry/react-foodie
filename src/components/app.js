@@ -7,7 +7,7 @@ import Json from './json';
 import * as Settings from '../misc/settings';
 
 const App = () => {
-  Settings.set(Settings.DEBUG, true);
+  Settings.set(Settings.DEBUG, false);
   return (
     <div>
       <Switch>

@@ -17,6 +17,9 @@ import * as ModelValidator from '../../misc/models/model_validator';
 import * as Settings from '../../misc/settings';
 import * as Util from '../../misc/util';
 
+/*
+  Manage stores back end. This is designed for desktops.
+*/
 class Admin extends Component {
   constructor() {
     super();

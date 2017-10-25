@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MediaQuery from 'react-responsive';
 import _ from 'lodash';
 
 import GalleryItem from './gallery_item';
@@ -13,21 +14,27 @@ import * as Settings from '../../../misc/settings';
 import * as Strings from '../../../misc/localization/strings';
 import * as Util from '../../../misc/util';
 
-const DIV_STYLE = {
+const divLandscape = {
   position: 'absolute',
-  top: Constants.HOME_HEADER_HEIGHT,
+  top: Constants.HOME_HEADER_HEIGHT_LANDSCAPE,
   left: '0px',
   right: '0px',
   bottom: '0px',
   overflowY: 'scroll'
 };
 
-const GALLERY_STYLE = {
-  width: Constants.HOME_GALLERY_WIDTH,
-  marginLeft: 'auto',
-  marginRight: 'auto',
+const divPortrait = _.clone(divLandscape);
+divPortrait.top = Constants.HOME_HEADER_HEIGHT_PORTRAIT;
+
+const divGallery = {
+  textAlign: 'center',
+  marginLeft: Constants.HOME_GALLERY_MARGIN_LEFT,
+  marginRight: Constants.HOME_GALLERY_MARGIN_LEFT,
   marginTop: '15px',
 };
+
+const widthLandscape = '50%';
+const widthPortrait = '90%';
 
 class Gallery extends Component {
   constructor(props) {
@@ -180,19 +187,35 @@ class Gallery extends Component {
     return date > opensAtDate && date < closesAtDate;
   };
 
+  createGallery() {
+    const stores = this.createStores();
+    return (
+      <div style={divGallery}>
+        {stores}
+      </div>
+    );
+  }
+
   render() {
     if (this.state.loading) {
       return (<LoadingBar />);
     }
 
-    let stores = this.createStores();
     return (
-      <div style={DIV_STYLE}>
-        <SearchBar onSearch={this.onSearchDebounced}/>
-        <div style={GALLERY_STYLE}>
-          {stores}
-        </div>
-      </div>
+      <span>
+        <MediaQuery query='(orientation: portrait)'>
+          <div style={divPortrait}>
+            <SearchBar width={widthPortrait} onSearch={this.onSearchDebounced}/>
+            {this.createGallery()}
+          </div>
+        </MediaQuery>
+        <MediaQuery query='(orientation: landscape)'>
+          <div style={divLandscape}>
+            <SearchBar width={widthLandscape} onSearch={this.onSearchDebounced}/>
+            {this.createGallery()}
+          </div>
+        </MediaQuery>
+      </span>
     );
   }
 }

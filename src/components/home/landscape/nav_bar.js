@@ -2,13 +2,13 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
 
-import Button from '../shared/html/button';
-import * as Constants from '../../misc/constants';
-import * as Debug from '../../misc/debug';
-import * as Event from './event';
-import * as Language from '../../misc/localization/language';
-import * as Settings from '../../misc/settings';
-import * as Strings from '../../misc/localization/strings';
+import Button from '../../shared/html/button';
+import * as Constants from '../../../misc/constants';
+import * as Debug from '../../../misc/debug';
+import * as Event from './../event';
+import * as Language from '../../../misc/localization/language';
+import * as Settings from '../../../misc/settings';
+import * as Strings from '../../../misc/localization/strings';
 
 const DIV_STYLE = {
   position: 'absolute',

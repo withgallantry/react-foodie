@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
+import MediaQuery from 'react-responsive';
 
 import Gallery from './gallery/gallery';
-import Header from './header';
+import HeaderPortrait from './portrait/header';
+import HeaderLandscape from './landscape/header';
 import Modals from './modals';
 import Store from './store/store';
 import * as Cookies from '../../misc/cookies';
@@ -92,17 +94,24 @@ class Home extends Component {
        );
     };
 
+    const headerProps = {
+      onChange : this.onChange,
+      onClick : this.onClick,
+      onAddressChange : this.onAddressChange,
+      search : this.state.addressSearch,
+      language : this.state.language,
+      storeId : this.state.storeId,
+    };
+
     return (
       <div>
         <Modals />
-        <Header
-          onChange={this.onChange}
-          onClick={this.onClick}
-          onAddressChange={this.onAddressChange}
-          search={this.state.addressSearch}
-          language={this.state.language}
-          storeId={this.state.storeId}
-        />
+        <MediaQuery query='(orientation: landscape)'>
+          <HeaderLandscape {...headerProps}/>
+        </MediaQuery>
+        <MediaQuery query='(orientation: portrait)'>
+          <HeaderPortrait {...headerProps}/>
+        </MediaQuery>
         <hr className='hr-home'/>
         <Switch>
           <Route exact path='/store/:id' render={(props) => MyStore(props)} />

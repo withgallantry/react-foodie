@@ -7,7 +7,8 @@ const ADMIN_FORM_TOP_VALUE              = 156;
 const HOME_STORE_WIDTH_VALUE            = 72;
 const BANNER_HEIGHT                     = 360;
 
-const HOME_HEADER_HEIGHT_VALUE = 80;
+const HOME_HEADER_HEIGHT_LANDSCAPE_VALUE = 80;
+const HOME_HEADER_HEIGHT_PORTRAIT_VALUE = 175;
 
 const toPx = (value) => {
   return `${value}px`;
@@ -41,8 +42,9 @@ export const ADMIN_MENU_BUTTON_MARGIN     = toPx(ADMIN_MENU_BUTTON_MARGIN_VALUE)
 export const ADMIN_FORM_ROW_MARGIN_TOP    = toPx(ADMIN_FORM_ROW_MARGIN_TOP_VALUE);
 export const ADMIN_SECTION_MARGIN_HEIGHT  = toPx(ADMIN_SECTION_MARGIN_HEIGHT_VALUE);
 
-export const HOME_HEADER_HEIGHT               = toPx(HOME_HEADER_HEIGHT_VALUE);
-export const HOME_GALLERY_MARGIN_LEFT         = '7.2%';
+export const HOME_HEADER_HEIGHT_LANDSCAPE     = toPx(HOME_HEADER_HEIGHT_LANDSCAPE_VALUE);
+export const HOME_HEADER_HEIGHT_PORTRAIT      = toPx(HOME_HEADER_HEIGHT_PORTRAIT_VALUE);
+export const HOME_GALLERY_MARGIN_LEFT         = '7.0%';
 export const HOME_GALLERY_MARGIN_TOP          = '20px';
 export const HOME_GALLERY_SEARCH_MARGIN_TOP   = '35px';
 export const HOME_GALLERY_WIDTH               = '89%';
