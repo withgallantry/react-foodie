@@ -9,31 +9,34 @@ import MenuButtonBar from './menu_button_bar';
 import * as Event from './event';
 import * as Constants from '../../misc/constants';
 
-const SELECT_STYLE = {
+const div = {
   height: Constants.ADMIN_MENU_HEIGHT
 };
 
-const DROP_DOWN_STYLE = {
+const divDropDown = {
   marginLeft: Constants.ADMIN_MARGIN_LEFT,
   marginTop: '16px',
   marginBottom: '10px',
 };
 
-const SEARCH_STORE_STYLE = {
+const inputSearchStore = {
   marginLeft: Constants.ADMIN_MARGIN_LEFT,
   marginBottom: '10px'
 };
 
-const SEARCH_KEY_STYLE = {
+const inputSearchKey = {
   marginLeft: Constants.ADMIN_MENU_BUTTON_MARGIN,
   marginBottom: '10px',
   marginRight: '2px'
 };
 
-const SEARCH_STORE_SIZE = '32';
-const SEARCH_KEY_SIZE = '20';
+const searchStoreSize = '32';
+const searchKeySize = '20';
 
-const Menu = ({onClick, onChangeSearch, onChangeKey, stores, deleteEnabled, deleteAllEnabled, _key, lang}) => {
+const Menu = ({
+  onClick, onChangeSearch, onChangeKey, stores,
+  deleteEnabled, deleteAllEnabled, _key, lang}) =>
+{
   if (stores == null) {
     return (
       <div>
@@ -54,9 +57,9 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, stores, deleteEnabled, dele
   });
 
   return (
-    <div style={SELECT_STYLE}>
+    <div style={div}>
       <DropDown
-        style={DROP_DOWN_STYLE}
+        style={divDropDown}
         classes='btn-primary'
         rows={rows}
         onClick={{
@@ -67,16 +70,16 @@ const Menu = ({onClick, onChangeSearch, onChangeKey, stores, deleteEnabled, dele
         href='#/admin'
       />
       <InputText
-        size={SEARCH_STORE_SIZE}
-        style={SEARCH_STORE_STYLE}
+        size={searchStoreSize}
+        style={inputSearchStore}
         placeholder={'Search for restaurant name...'}
         onChange={{ func : onChangeSearch }}
       />
       <InputText
         dataTip={'Unique identifier for a set of stores. Change the default key'
           + ' to create a new empty set which you then can modify as you like.'}
-        size={SEARCH_KEY_SIZE}
-        style={SEARCH_KEY_STYLE}
+        size={searchKeySize}
+        style={inputSearchKey}
         placeholder={_key}
         onChange={{ func : onChangeKey }}
       />

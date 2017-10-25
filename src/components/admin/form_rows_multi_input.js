@@ -7,28 +7,28 @@ import * as Constants from '../../misc/constants';
 import * as Event from './event';
 import * as MenuButton from './menu_button';
 
-const LABEL_STYLE = {
+const label = {
   display: 'inline-block',
   width: Constants.ADMIN_LABEL_WIDTH,
   textAlign: 'right',
   marginRight: Constants.ADMIN_LABEL_MARGIN
 };
 
-const FORM_ROW_STYLE = {
+const div = {
   marginTop: Constants.ADMIN_FORM_ROW_MARGIN_TOP,
   marginLeft: Constants.ADMIN_MARGIN_LEFT
 };
 
-const ITEM_INPUT_STYLE = {
+const input = {
   marginRight: '4px'
 };
 
-const BTN_NEW_MENU_STYLE = {
+const btnNewMenu = {
   marginLeft: Constants.ADMIN_MARGIN_LEFT,
   marginTop: '3px'
 };
 
-const BTN_STYLE = {
+const btn = {
   marginRight: '6px'
 };
 
@@ -54,17 +54,17 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
     const item = menu.items[i];
     items.push((
       <div
-        style={FORM_ROW_STYLE}
+        style={div}
         className="block"
         key={`menu${index}.lang${lang}.item${i}`}>
-        {MenuButton.create('trash',          onClick, Event.REMOVE_MENU_ITEM,    [index, i], BTN_STYLE)}
-        {MenuButton.create('arrow-up',       onClick, Event.MOVE_MENU_ITEM_UP,   [index, i], BTN_STYLE)}
-        {MenuButton.create('arrow-down',     onClick, Event.MOVE_MENU_ITEM_DOWN, [index, i], BTN_STYLE)}
-        {MenuButton.create('duplicate', onClick, Event.CLONE,               [index, i], BTN_STYLE, 'Fetch description from different language.')}
+        {MenuButton.create('trash',          onClick, Event.REMOVE_MENU_ITEM,    [index, i], btn)}
+        {MenuButton.create('arrow-up',       onClick, Event.MOVE_MENU_ITEM_UP,   [index, i], btn)}
+        {MenuButton.create('arrow-down',     onClick, Event.MOVE_MENU_ITEM_DOWN, [index, i], btn)}
+        {MenuButton.create('duplicate', onClick, Event.CLONE,               [index, i], btn, 'Fetch description from different language.')}
         <ReactTooltip type='info' effect='solid' />
-        {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_NAME_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'name',  lang], item.name)}
-        {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_DESC_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'desc',  lang], item.desc)}
-        {createInputText(ITEM_INPUT_STYLE, INPUT_ITEM_PRICE_SIZE, onChange, [Event.CHANGE_MENU_ITEM, index, i, 'price', lang], item.price)}
+        {createInputText(input, INPUT_ITEM_NAME_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'name',  lang], item.name)}
+        {createInputText(input, INPUT_ITEM_DESC_SIZE,  onChange, [Event.CHANGE_MENU_ITEM, index, i, 'desc',  lang], item.desc)}
+        {createInputText(input, INPUT_ITEM_PRICE_SIZE, onChange, [Event.CHANGE_MENU_ITEM, index, i, 'price', lang], item.price)}
         {Constants.CURRENCY}
       </div>
     ));
@@ -73,18 +73,18 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
   return (
     <div>
       <label
-        style={LABEL_STYLE}>
+        style={label}>
         {`menu${index + 1}`}:
       </label>
-      {MenuButton.create('trash',          onClick, Event.REMOVE_MENU,    [index], BTN_STYLE)}
-      {MenuButton.create('arrow-up',       onClick, Event.MOVE_MENU_UP,   [index], BTN_STYLE)}
-      {MenuButton.create('arrow-down',     onClick, Event.MOVE_MENU_DOWN, [index], BTN_STYLE)}
-      {MenuButton.create('duplicate',      onClick, Event.CLONE,          [index], BTN_STYLE, 'Fetch description from different language.')}
+      {MenuButton.create('trash',          onClick, Event.REMOVE_MENU,    [index], btn)}
+      {MenuButton.create('arrow-up',       onClick, Event.MOVE_MENU_UP,   [index], btn)}
+      {MenuButton.create('arrow-down',     onClick, Event.MOVE_MENU_DOWN, [index], btn)}
+      {MenuButton.create('duplicate',      onClick, Event.CLONE,          [index], btn, 'Fetch description from different language.')}
       <ReactTooltip type='info' effect='solid' />
       {createInputText({}, INPUT_MENU_NAME_SIZE, onChange, [Event.CHANGE_MENU_NAME, index, lang], menu.name)}
       {items}
       <div>
-        {MenuButton.create('plus', onClick, Event.NEW_MENU_ITEM, [index, lang], BTN_NEW_MENU_STYLE)}
+        {MenuButton.create('plus', onClick, Event.NEW_MENU_ITEM, [index, lang], btnNewMenu)}
       </div>
     </div>
   );

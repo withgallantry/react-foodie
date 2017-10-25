@@ -11,7 +11,7 @@ import * as MenuButton from './menu_button';
 import * as RowType from './row_type';
 import * as Util from '../../misc/util';
 
-const FORM_STYLE = {
+const div = {
   position: 'absolute',
   top: Constants.ADMIN_FORM_TOP,
   left: '0px',
@@ -20,27 +20,27 @@ const FORM_STYLE = {
   overflowY: 'scroll',
 };
 
-const LABEL_STYLE = {
+const label = {
   display: 'inline-block',
   width: Constants.ADMIN_LABEL_WIDTH,
   textAlign: 'right',
   marginRight: Constants.ADMIN_LABEL_MARGIN,
 };
 
-const FORM_ROW_STYLE = {
+const divRow = {
   marginTop: Constants.ADMIN_FORM_ROW_MARGIN_TOP
 };
 
-const NEW_MENU_BTN_STYLE = {
+const btnNewMenu = {
   marginLeft: Constants.ADMIN_MARGIN_LEFT,
   marginBottom: '40px'
 };
 
-const DROP_DOWN_STYLE = {
+const divDropDown = {
   display: 'inline',
 };
 
-const HR_STYLE = {
+const hr = {
   margin: '0',
   padding: '0',
   paddingTop: Constants.ADMIN_SECTION_MARGIN_HEIGHT,
@@ -85,7 +85,7 @@ const modifyHours = (rows, props) => {
       let closesAt = { label : 'hours.closesAt', type : RowType.DROP_DOWN };
       let dropDown = {
         count : 2,
-        style : DROP_DOWN_STYLE,
+        style : divDropDown,
         rows : [createListSequence(0, 23), createListSequence(0, 55, 5)],
         href : "#/admin"
       };
@@ -130,6 +130,8 @@ const Form = (props) => {
     };
   });
 
+  // special form properties, not just a input field with text. Needs to be
+  // modified separately
   modifyAddress(rows, props);
   modifyHours(rows, props);
   modifyImages(rows, props);
@@ -138,9 +140,9 @@ const Form = (props) => {
     return (
       <FormRowSingleInput
         key={row.label}
-        div={{ style : FORM_ROW_STYLE }}
+        div={{ style : divRow }}
         label={{
-          style : LABEL_STYLE,
+          style : label,
           htmlFor : row.label,
           text : row.label
         }}
@@ -171,7 +173,7 @@ const Form = (props) => {
       const current = menu[i];
       multiInputFormRows.push((
         <div key={`multiInputFormRows${i}`}>
-          <hr style={HR_STYLE}/>
+          <hr style={hr}/>
           <FormRowsMultiInput
             menu={current}
             index={i}
@@ -185,13 +187,13 @@ const Form = (props) => {
   }
 
   return (
-    <div style={FORM_STYLE}>
+    <div style={div}>
       <div style={{marginTop : Constants.ADMIN_SECTION_MARGIN_HEIGHT}}>
         {singleInputFormRows}
         {multiInputFormRows}
       </div>
       <hr />
-      {MenuButton.create('plus', props.onClick, Event.NEW_MENU, 0, NEW_MENU_BTN_STYLE)}
+      {MenuButton.create('plus', props.onClick, Event.NEW_MENU, 0, btnNewMenu)}
     </div>
   );
 };

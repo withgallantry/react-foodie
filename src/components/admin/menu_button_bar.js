@@ -11,15 +11,15 @@ import * as Language from '../../misc/localization/language';
 import * as Settings from '../../misc/settings';
 import * as Strings from '../../misc/localization/strings';
 
-const BTN_MENU_STYLE = {
+const div = {
   marginBottom: '20px'
 };
 
-const FIRST_BTN_STYLE = {
+const btnFirst = {
   marginLeft: Constants.ADMIN_MARGIN_LEFT
 };
 
-const SECOND_BTN_STYLE = {
+const btn = {
   marginLeft: Constants.ADMIN_MENU_BUTTON_MARGIN
 };
 
@@ -53,12 +53,12 @@ const createButtonGlyph = (style, glyph, modal) => {
 
 const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
   return (
-    <div style={{BTN_MENU_STYLE}}>
+    <div style={div}>
       <Link to={'/home'}>
-        {createButton(FIRST_BTN_STYLE, 'Home')}
+        {createButton(btnFirst, 'Home')}
       </Link>
       {createButton(
-        SECOND_BTN_STYLE,
+        btn,
         lang === Language.EN
           ? (<div><b>En</b> | Sv</div>)
           : (<div>En | <b>Sv</b></div>),
@@ -67,18 +67,18 @@ const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
         Event.CHANGE_LANG,
         'Language only applies for store menu items.')}
       <ReactTooltip type='info' effect='solid' />
-      {createButton(SECOND_BTN_STYLE, 'Save',         onClick, false,             Event.SAVE)}
-      {createButton(SECOND_BTN_STYLE, 'New',          onClick, false,             Event.NEW)}
-      {createButton(SECOND_BTN_STYLE, 'Copy',         onClick, false,             Event.COPY)}
-      {createButton(SECOND_BTN_STYLE, 'Delete',       onClick, !deleteEnabled,    Event.DELETE)}
-      {createButton(SECOND_BTN_STYLE, 'Delete All',   onClick, !deleteAllEnabled, Event.DELETE_ALL)}
-      {createButton(SECOND_BTN_STYLE, 'Add Template', onClick, false,             Event.ADD_TEMPLATE)}
-      {Debug.createButton('Set Template', onClick, SECOND_BTN_STYLE, Event.SET_TEMPLATE)}
+      {createButton(btn, 'Save',         onClick, false,             Event.SAVE)}
+      {createButton(btn, 'New',          onClick, false,             Event.NEW)}
+      {createButton(btn, 'Copy',         onClick, false,             Event.COPY)}
+      {createButton(btn, 'Delete',       onClick, !deleteEnabled,    Event.DELETE)}
+      {createButton(btn, 'Delete All',   onClick, !deleteAllEnabled, Event.DELETE_ALL)}
+      {createButton(btn, 'Add Template', onClick, false,             Event.ADD_TEMPLATE)}
+      {Debug.createButton('Set Template', onClick, btn, Event.SET_TEMPLATE)}
       <Link to='/json'>
-        {createButton(SECOND_BTN_STYLE, 'Get JSON')}
+        {createButton(btn, 'Get JSON')}
       </Link>
-      {createButton(SECOND_BTN_STYLE, 'Reset', onClick, false, Event.RESET)}
-      {createButtonGlyph(SECOND_BTN_STYLE, 'info-sign', Constants.MODAL_ADMIN_INFO)}
+      {createButton(btn, 'Reset', onClick, false, Event.RESET)}
+      {createButtonGlyph(btn, 'info-sign', Constants.MODAL_ADMIN_INFO)}
     </div>
   );
 };

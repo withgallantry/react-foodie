@@ -6,7 +6,7 @@ import * as Event from './event';
 let gallery = [];
 let banners = [];
 
-const IMAGE_CONTAINER_STYLE = {
+const div = {
   width: '95%',
   margin: 'auto'
 };
@@ -75,7 +75,7 @@ const createModal = (text, id, list) => {
             <h4 className='modal-title'>{text}</h4>
           </div>
           <div className='modal-body'>
-            <div style={IMAGE_CONTAINER_STYLE}>
+            <div style={div}>
               {list}
             </div>
           </div>

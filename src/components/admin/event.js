@@ -1,3 +1,6 @@
+/*
+  All events that can happen for Admin route.
+*/
 export const NEW                   = 0;
 export const SAVE                  = 1;
 export const COPY                  = 2;

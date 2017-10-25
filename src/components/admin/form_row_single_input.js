@@ -9,17 +9,17 @@ import * as Constants from '../../misc/constants';
 import * as Event from './event';
 import * as RowType from './row_type';
 
-const IMAGE_SELECTION_STYLE = {
+const btn = {
   display: 'inline',
   padding: '1px',
 };
 
-const IMAGE_STYLE = {
+const img = {
   maxWidth: '400px',
   maxHeight: '100px',
 };
 
-const INLINE_STYLE = {
+const inline = {
   display : 'inline'
 };
 
@@ -38,13 +38,13 @@ const createImageSelection = ({value, label}) => {
   if (value !== undefined && value.length > 0) {
     return (
       <Button
-        style={IMAGE_SELECTION_STYLE}
+        style={btn}
         modal={`${Constants.MODAL_IMAGE}${id}`}
-        image={{ style : IMAGE_STYLE, src : `img/${value}` }}
+        image={{ style : img, src : `img/${value}` }}
       />
     );
   }
-  return (<div style={INLINE_STYLE}></div>);
+  return (<div style={inline}></div>);
 };
 
 const createDropDowns = (props) => {
@@ -67,7 +67,7 @@ const createDropDowns = (props) => {
       items.push(
         <div
           key={`dropDown[${props.ids[i][i]}]`}
-          style={INLINE_STYLE}>
+          style={inline}>
           &nbsp;:&nbsp;
           </div>
       );
@@ -75,7 +75,7 @@ const createDropDowns = (props) => {
   }
 
   return (
-    <div style={INLINE_STYLE}>
+    <div style={inline}>
       {items}
     </div>
   );
