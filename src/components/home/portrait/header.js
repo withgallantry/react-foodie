@@ -11,7 +11,7 @@ const div = {
   paddingTop: '20px',
 };
 
-const addressStyle = {
+const address = {
   textAlign: 'center',
   width: '80%',
   marginTop: '10px',
@@ -30,7 +30,7 @@ const Header = ({onChange, onClick, onAddressChange, search, language, storeId})
         />
         <div style={{ textAlign: 'center' }}>
           <AddressSearchBar
-            style={addressStyle}
+            style={address}
             placeholder={search}
             onAddressChange={onAddressChange}
           />

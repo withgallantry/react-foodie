@@ -3,7 +3,7 @@ import React from 'react';
 import * as Constants from '../../../misc/constants';
 import * as Event from './event';
 
-const STYLE = {
+const div = {
   paddingLeft: Constants.HOME_STORE_MARGIN_LEFT,
   marginTop: Constants.HOME_STORE_ITEM_MARGIN_VERTICAL,
   marginBottom: Constants.HOME_STORE_ITEM_MARGIN_VERTICAL,
@@ -12,12 +12,12 @@ const STYLE = {
   overflow: 'hidden',
 };
 
-const PRICE_STYLE = {
+const spanPrice = {
   display: 'inline',
   float: 'right',
 };
 
-const DESC_STYLE = {
+const spanDesc = {
   display: 'inline',
 };
 
@@ -25,11 +25,11 @@ const SubMenuItem = ({onClick, item, index, menu}) => {
   return (
     <div
       className='sub-menu-item'
-      style={STYLE}
+      style={div}
       onClick={() => onClick(Event.ADD_ITEM, [menu, index])}>
       <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>{item.name}</p>
-      <span style={DESC_STYLE}>• &nbsp; {item.desc}</span>
-      <span style={PRICE_STYLE}>{`${item.price} ${Constants.CURRENCY}`}</span>
+      <span style={spanDesc}>• &nbsp; {item.desc}</span>
+      <span style={spanPrice}>{`${item.price} ${Constants.CURRENCY}`}</span>
     </div>
   );
 };

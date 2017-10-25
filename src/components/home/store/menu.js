@@ -5,25 +5,25 @@ import SubMenu from './sub_menu';
 import * as Constants from '../../../misc/constants';
 import * as Event from './event';
 
-const STYLE = {
+const div = {
   marginLeft: Constants.HOME_STORE_MARGIN_LEFT,
   textOverflow: 'ellipsis',
   overflow: 'hidden',
   marginRight: Constants.HOME_STORE_MARGIN_LEFT,
 };
 
-const UL_STYLE = {
+const ul = {
   margin: 0,
   marginBottom: Constants.HOME_STORE_MARGIN_VERTICAL,
   marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
   padding: 0,
 };
 
-const LI_STYLE = {
+const li = {
   marginRight: '10px',
 };
 
-const HR_STYLE = {
+const hr = {
   margin: 0,
   padding: 0
 };
@@ -36,7 +36,7 @@ const Menu = ({items, onClick}) => {
     navBarItems.push((
       <li
         className='menu-item'
-        style={LI_STYLE}
+        style={li}
         key={`item${i}`}
         onClick={() => onClick(Event.SCROLL_TO_MENU, [i])}>
         {item.name.toUpperCase()}
@@ -44,7 +44,7 @@ const Menu = ({items, onClick}) => {
     ));
     if ((i + 1) < items.length) {
       navBarItems.push((
-        <li style={LI_STYLE} key={`dot${i}`}>•</li>
+        <li style={li} key={`dot${i}`}>•</li>
       ));
     }
     menuItems.push((
@@ -58,12 +58,12 @@ const Menu = ({items, onClick}) => {
   }
   return (
     <div>
-      <div style={STYLE}>
-        <ul style={UL_STYLE}>
+      <div style={div}>
+        <ul style={ul}>
           {navBarItems}
         </ul>
       </div>
-      <hr style={HR_STYLE}/>
+      <hr style={hr}/>
       {menuItems}
     </div>
   );

@@ -5,13 +5,13 @@ import Logo from './logo';
 import NavBar from './nav_bar.js';
 import * as Constants from '../../../misc/constants';
 
-const STYLE = {
+const div = {
   height: Constants.HOME_HEADER_HEIGHT_LANDSCAPE,
   backgroundColor: 'rgb(245,245,245)',
   paddingTop: '40px',
 };
 
-const SEARCH_STYLE = {
+const divSearch = {
   position: 'absolute',
   textAlign: 'center',
   width: '100%',
@@ -19,9 +19,9 @@ const SEARCH_STYLE = {
 
 const Header = ({onChange, onClick, onAddressChange, search, language, storeId}) => {
   return (
-      <div style={STYLE}>
+      <div style={div}>
         <Logo />
-        <div style={SEARCH_STYLE}>
+        <div style={divSearch}>
           <AddressSearchBar placeholder={search} onAddressChange={onAddressChange}/>
         </div>
         <NavBar

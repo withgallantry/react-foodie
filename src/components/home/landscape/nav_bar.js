@@ -10,17 +10,17 @@ import * as Language from '../../../misc/localization/language';
 import * as Settings from '../../../misc/settings';
 import * as Strings from '../../../misc/localization/strings';
 
-const DIV_STYLE = {
+const div = {
   position: 'absolute',
   top: '32px',
   right: '40px',
 };
 
-const BTN_STYLE = {
+const btn = {
   marginRight: '5px'
 };
 
-const CART_STYLE = {
+const btnCart = {
   marginRight: '5px',
   paddingLeft: '15px',
   paddingRight: '15px',
@@ -30,7 +30,7 @@ const createCartButton = () => {
   return (
     <span>
       <Button
-        style={CART_STYLE}
+        style={btnCart}
         glyphicon={'shopping-cart'}
         tooltip={Strings.get(Strings.GO_TO_ORDER)}
       />
@@ -41,21 +41,21 @@ const createCartButton = () => {
 
 const NavBar = ({onClick, language, storeId}) => {
   return (
-    <div style={DIV_STYLE}>
+    <div style={div}>
       {<span>
-        {Debug.createButton('Print Cookies',  () => Debug.logCookies(),    BTN_STYLE)}
-        {Debug.createButton('Delete Cookies', () => Debug.deleteCookies(), BTN_STYLE)}
+        {Debug.createButton('Print Cookies',  () => Debug.logCookies(),    btn)}
+        {Debug.createButton('Delete Cookies', () => Debug.deleteCookies(), btn)}
       </span>
       }
       <Link to={'/admin'}>
         <button
           className='btn btn-default'
-          style={BTN_STYLE}>
+          style={btn}>
           {Strings.get(Strings.EDITOR)}
         </button>
       </Link>
       <Button
-        style={BTN_STYLE}
+        style={btn}
         label={language === Language.EN
           ? (<div><b>En</b> | Sv</div>)
           : (<div>En | <b>Sv</b></div>)}
@@ -65,21 +65,15 @@ const NavBar = ({onClick, language, storeId}) => {
         }}
       />
       <Button
-        style={BTN_STYLE}
+        style={btn}
         glyphicon='info-sign'
         modal={Constants.MODAL_INFO}
       />
       {storeId !== undefined
-        ?
-          <span>
-            <Link to={`/store/${storeId}`}>
-              {createCartButton()}
-            </Link>
-          </span>
-        :
-          <span>
+        ? <Link to={`/store/${storeId}`}>
             {createCartButton()}
-          </span>
+          </Link>
+        : createCartButton()
       }
     </div>
   );

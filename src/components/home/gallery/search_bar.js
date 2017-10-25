@@ -5,7 +5,7 @@ import InputText from '../../shared/html/input_text';
 import * as Constants from '../../../misc/constants';
 import * as Strings from '../../../misc/localization/strings';
 
-const style = {
+const input = {
   height: '32px',
   width: '90%',
   textAlign: 'center',
@@ -15,11 +15,11 @@ const style = {
 };
 
 const SearchBar = ({onSearch, width}) => {
-  style.width = width;
+  input.width = width;
   return (
     <div style={{ textAlign : 'center' }}>
       <InputText
-        style={style}
+        style={input}
         onChange={{
           func : onSearch,
           args : []

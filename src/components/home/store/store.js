@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import MediaQuery from 'react-responsive';
 import _ from 'lodash';
 
-import HeaderPortrait from './portrait/header';
-import HeaderLandscape from './landscape/header';
+import Banner from './banner';
+import Details from './details';
 import LoadingBar from '../../shared/loading_bar';
 import Menu from './menu';
 import Order from './order';
@@ -261,11 +261,6 @@ class Store extends Component {
       return (<LoadingBar />);
     }
 
-    const headerProps = {
-      img : this.state.store.images.banner,
-      store : this.state.store,
-    };
-
     const menuProps = {
       items : this.state.language === Language.SV
           ? this.state.store.menu.sv
@@ -302,7 +297,10 @@ class Store extends Component {
       <div>
         <MediaQuery query='(orientation: landscape)'>
           <div id={Constants.STORE_ID} style={divLandscape} onScroll={this.onScroll}>
-            <HeaderLandscape {...headerProps}/>
+            <div id={Constants.TOP_ID}>
+              <Banner src={this.state.store.images.banner} />
+              <Details store={this.state.store}/>
+            </div>
             <hr style={hr}/>
             <Menu {...menuProps}/>
             {this.state.showScrollButton && <ScrollButton onClick={this.onClick}/>}
@@ -312,7 +310,9 @@ class Store extends Component {
         <MediaQuery query='(orientation: portrait)'>
           <div id={Constants.STORE_ID} style={divPortrait} onScroll={this.onScroll}>
             <Order {...orderPortraitProps}/>
-            <HeaderPortrait {...headerProps}/>
+            <div id={Constants.TOP_ID}>
+              <Details store={this.state.store}/>
+            </div>
             <hr style={hr}/>
             <Menu {...menuProps}/>
             {this.state.showScrollButton && <ScrollButton onClick={this.onClick}/>}

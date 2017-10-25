@@ -3,19 +3,25 @@ import React from 'react';
 import SubMenuItem from './sub_menu_item';
 import * as Constants from '../../../misc/constants';
 
-const STYLE = {
+const div = {
   marginLeft: Constants.HOME_STORE_MARGIN_LEFT,
   marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
   marginBottom: Constants.HOME_STORE_MARGIN_VERTICAL,
   marginRight: Constants.HOME_STORE_MARGIN_LEFT,
 };
 
-const HR_STYLE = {
+const hr = {
   margin: 0,
   padding: 0,
 };
 
-const ITEM_STYLE = {
+const p = {
+  textAlign: 'center',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+};
+
+const divItem = {
   marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
   marginBottom: Constants.HOME_STORE_MARGIN_VERTICAL,
 };
@@ -37,15 +43,18 @@ const SubMenu = ({onClick, item, index}) => {
 
   return (
     <div>
-      <div style={STYLE}>
-        <p id={`subMenu${index}`} style={{ textAlign: 'center',   textOverflow: 'ellipsis',
-          overflow: 'hidden', }}> •  •  • &nbsp; {item.name.toUpperCase()} &nbsp; •  •  • </p>
+      <div style={div}>
+        <p
+          id={`subMenu${index}`}
+          style={p}>
+          •  •  • &nbsp; {item.name.toUpperCase()} &nbsp; •  •  •
+        </p>
       </div>
-      <hr style={HR_STYLE}/>
-      <div style={ITEM_STYLE}>
+      <hr style={hr}/>
+      <div style={divItem}>
         {items}
       </div>
-      <hr style={HR_STYLE}/>
+      <hr style={hr}/>
     </div>
   );
 };

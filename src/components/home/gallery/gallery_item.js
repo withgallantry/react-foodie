@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import * as Strings from '../../../misc/localization/strings';
 
-const STYLE = {
+const div = {
   position: 'relative',
   width: '300px',
   height: '300px',
@@ -12,7 +12,7 @@ const STYLE = {
   overflow: 'hidden',
 };
 
-const INFO_STYLE = {
+const divInfo = {
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis' ,
   overflow: 'hidden',
@@ -20,7 +20,7 @@ const INFO_STYLE = {
 
 const GalleryItem = ({images, isOpen, name, id, tags, hours}) => {
   return (
-    <div style={STYLE}>
+    <div style={div}>
       <Link to={`/store/${id}`}>
         <div className='gallery-img-container'>
           <img
@@ -37,9 +37,9 @@ const GalleryItem = ({images, isOpen, name, id, tags, hours}) => {
             <span className='gallery-closed-text'>{Strings.get(Strings.CLOSED)}</span>
           </div>
         )}
-      <div style={INFO_STYLE}><b>{name}</b></div>
-      {<div style={INFO_STYLE}>{tags.join(" • ")}</div>}
-      {<div style={INFO_STYLE}>{
+      <div style={divInfo}><b>{name}</b></div>
+      {<div style={divInfo}>{tags.join(" • ")}</div>}
+      {<div style={divInfo}>{
         `${hours.opensAt.hours}:${hours.opensAt.minutes} - `
         + `${hours.closesAt.hours}:${hours.closesAt.minutes}`}</div>}
     </div>

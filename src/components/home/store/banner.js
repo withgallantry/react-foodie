@@ -2,10 +2,15 @@ import React from 'react';
 
 import * as Constants from '../../../misc/constants';
 
+const img = {
+  width: '100%',
+  height: '100%',
+};
+
 const Banner = ({src}) => {
   return (
     <div>
-      <img style={{width: '100%', height: '100%'}} src={`img/${src}`} />
+      <img style={img} src={`img/${src}`} />
     </div>
   );
 };

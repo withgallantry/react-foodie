@@ -14,7 +14,7 @@ const div = {
   marginTop: '10px'
 };
 
-const btnStyle = {
+const btn = {
   marginRight: '5px',
   paddingTop: '10px',
   paddingBottom: '10px',
@@ -23,7 +23,7 @@ const btnStyle = {
   display: 'inline-block',
 };
 
-const cartStyle = {
+const btnCart = {
   marginRight: '5px',
   paddingLeft: '20px',
   paddingRight: '20px',
@@ -35,7 +35,7 @@ const cartStyle = {
 const createCartButton = () => {
   return (
     <Button
-      style={cartStyle}
+      style={btnCart}
       glyphicon={'shopping-cart'}
     />
   );
@@ -45,7 +45,7 @@ const NavBar = ({onClick, language, storeId}) => {
   return (
     <div style={div}>
       <Button
-        style={btnStyle}
+        style={btn}
         label={language === Language.EN
           ? (<div><b>En</b> | Sv</div>)
           : (<div>En | <b>Sv</b></div>)}

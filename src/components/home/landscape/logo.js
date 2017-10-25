@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const STYLE = {
+const h3 = {
   position: 'absolute',
   left: '40px',
   top: '34px',
@@ -12,7 +12,7 @@ const STYLE = {
 const Logo = () => {
   return (
     <Link to='/'>
-      <h3 style={STYLE}>
+      <h3 style={h3}>
         &copy; Foodie
       </h3>
     </Link>

@@ -8,11 +8,11 @@ const h3 = {
 const Logo = () => {
   return (
     <div style={{ textAlign : 'center' }}>
-    <Link to='/'>
-      <h3 style={h3}>
-        &copy; Foodie
-      </h3>
-    </Link>
+      <Link to='/'>
+        <h3 style={h3}>
+          &copy; Foodie
+        </h3>
+      </Link>
     </div>
   );
 };

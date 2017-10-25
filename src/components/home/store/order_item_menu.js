@@ -3,11 +3,11 @@ import React from 'react';
 import Button from '../../shared/html/button';
 import * as Event from './event';
 
-const BUTTON_GROUP_STYLE = {
+const span = {
   float: 'left',
 };
 
-const STYLE = {
+const btn = {
   marginLeft: '2px',
   marginRight: '2px',
   paddingLeft: '5px',
@@ -33,10 +33,10 @@ const createButton = (onClick, id, event, style, glyph) => {
 
 const OrderItemMenu = ({onClick, id}) => {
   return (
-    <span style={BUTTON_GROUP_STYLE}>
-      {createButton(onClick, id, Event.INCREASE_ITEM, STYLE, 'plus')}
-      {createButton(onClick, id, Event.DECREASE_ITEM, STYLE, 'minus')}
-      {createButton(onClick, id, Event.REMOVE_ITEM,   STYLE, 'trash')}
+    <span style={span}>
+      {createButton(onClick, id, Event.INCREASE_ITEM, btn, 'plus')}
+      {createButton(onClick, id, Event.DECREASE_ITEM, btn, 'minus')}
+      {createButton(onClick, id, Event.REMOVE_ITEM,   btn, 'trash')}
     </span>
   );
 };
