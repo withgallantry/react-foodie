@@ -1,12 +1,12 @@
 import React from 'react';
 
-const STYLE = {
+const div = {
   textAlign: 'center',
 };
 
 const LoadingBar = () => {
   return (
-    <div style={STYLE}>
+    <div style={div}>
       <img src='img/loading.gif' />
     </div>
   );

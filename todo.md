@@ -4,3 +4,4 @@ more pizza/hamburger pics
 
 STYLES -> styles
 css cleanup
+cleanup constants

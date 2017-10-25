@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
+import LoadingBar from './shared/loading_bar';
 import * as Db from '../misc/db';
 import * as Settings from '../misc/settings';
 
-
+/*
+  Displays Json for the current set of stores, used mainly for getting a
+  backup json blob for the template store set.
+*/
 class Json extends Component {
   constructor() {
     super();
 
     this.state = {
-      blob : 'loading...'
+      blob : <LoadingBar />
     };
   }
 

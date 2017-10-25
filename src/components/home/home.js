@@ -40,7 +40,7 @@ class Home extends Component {
     if (addressSearch) {
       this.setState({ addressSearch });
     } else {
-      // if couldnt find address cookie, set default
+      // if couldnt find address cookie, set default address
       this.setState({ addressSearch : Constants.DEFAULT_ADDRESS });
     }
   }
@@ -115,7 +115,7 @@ class Home extends Component {
         <hr className='hr-home'/>
         <Switch>
           <Route exact path='/store/:id' render={(props) => MyStore(props)} />
-          <Route exact path='/gallery' render={(props) => myGallery(props)} />
+          <Route exact path='/gallery'   render={(props) => myGallery(props)} />
           <Redirect from='/' to='gallery'/>
         </Switch>
       </div>

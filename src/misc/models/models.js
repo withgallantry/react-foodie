@@ -5,7 +5,7 @@ import * as Settings from '../settings';
 
 export const STORE = 0;
 
-const MIN = 0;
+const MIN = STORE;
 const MAX = STORE;
 
 let models = [];

@@ -1,3 +1,6 @@
+/*
+  Debugging functions for logging, cookies, buttons and more.
+*/
 import React from 'react';
 
 import * as Cookies from './cookies';
