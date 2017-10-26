@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import _ from 'lodash';
 
@@ -6,8 +7,9 @@ import Button from '../shared/html/button';
 import DropDown from '../shared/html/drop_down';
 import InputText from '../shared/html/input_text';
 import MenuButtonBar from './menu_button_bar';
-import * as Event from './event';
 import * as Constants from '../../misc/constants';
+import * as Event from './event';
+import * as Language from '../../misc/localization/language';
 
 const div = {
   height: Constants.ADMIN_MENU_HEIGHT
@@ -93,6 +95,17 @@ const Menu = ({
       />
     </div>
   );
+};
+
+Menu.propTypes = {
+  onClick: PropTypes.func,
+  onChangeSearch: PropTypes.func,
+  onChangeKey: PropTypes.func,
+  stores : PropTypes.array,
+  deleteEnabled: PropTypes.bool,
+  deleteAllEnabled: PropTypes.bool,
+  _key: PropTypes.string,
+  lang: PropTypes.oneOf(Language.get()),
 };
 
 export default Menu;

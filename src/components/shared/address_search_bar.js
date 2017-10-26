@@ -75,7 +75,7 @@ class AddressSearchBar extends Component {
 }
 
 AddressSearchBar.propTypes = {
-  onAddressChange: PropTypes.func.isRequired,
+  onAddressChange: PropTypes.func,
   style: PropTypes.object,
   placeholder: PropTypes.string,
 };

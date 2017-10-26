@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../shared/html/button';
 
@@ -27,4 +28,15 @@ const MenuButton = (props) => {
       tooltip={props.tooltip !== undefined ? props.tooltip : undefined}
     />
   );
+};
+
+MenuButton.propTypes = {
+  style: PropTypes.object,
+  glyphicon: PropTypes.string,
+  onClick: PropTypes.shape({
+    func: PropTypes.func,
+    id: PropTypes.number,
+    args: PropTypes.array,
+  }),
+  tooltip: PropTypes.string,
 };

@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as Constants from '../../misc/constants';
 import * as Event from './event';
+import * as PropTypes from 'prop-types';
 
 let gallery = [];
 let banners = [];
@@ -112,6 +113,10 @@ const Modals = ({onClick}) => {
         + 'be empty, but you can add template restaurants by pressing the "Add Template" button.')}
     </div>
   );
+};
+
+Modals.propTypes = {
+  onClick: PropTypes.func,
 };
 
 export default Modals;

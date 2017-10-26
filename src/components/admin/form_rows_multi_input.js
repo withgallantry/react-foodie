@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import _ from 'lodash';
 
 import InputText from '../shared/html/input_text';
 import * as Constants from '../../misc/constants';
 import * as Event from './event';
+import * as Language from '../../misc/localization/language';
 import * as MenuButton from './menu_button';
 
 const label = {
@@ -88,6 +90,17 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
       </div>
     </div>
   );
+};
+
+FormRowsMultiInput.propTypes = {
+  menu: PropTypes.shape({
+    items: PropTypes.array,
+    name: PropTypes.string,
+  }),
+  index: PropTypes.number,
+  onChange: PropTypes.func,
+  onClick: PropTypes.func,
+  lang: PropTypes.oneOf(Language.get()),
 };
 
 export default FormRowsMultiInput;

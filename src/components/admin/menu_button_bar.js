@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
 
@@ -81,6 +82,13 @@ const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
       {createButtonGlyph(btn, 'info-sign', Constants.MODAL_ADMIN_INFO)}
     </div>
   );
+};
+
+MenuButtonBar.propTypes = {
+  onClick: PropTypes.func,
+  deleteEnabled: PropTypes.bool,
+  deleteAllEnabled: PropTypes.bool,
+  lang: PropTypes.oneOf(Language.get()),
 };
 
 export default MenuButtonBar;

@@ -28,12 +28,12 @@ const DropDown = (props) => {
 };
 
 DropDown.propTypes = {
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string,
   onClick: PropTypes.shape({
     func: PropTypes.func,
     args: PropTypes.array,
   }).isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   rows: PropTypes.array,
   classes: PropTypes.string,
   style: PropTypes.object,

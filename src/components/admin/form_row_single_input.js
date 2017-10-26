@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import AddressSearchBar from '../shared/address_search_bar';
 import Button from '../shared/html/button';
@@ -119,6 +120,44 @@ const FormRowSingleInput = ({div, label, input, type, dropDown, imageSelection, 
       {element}
     </div>
   );
+};
+
+FormRowSingleInput.propTypes = {
+  div: PropTypes.shape({
+    style: PropTypes.object,
+    classes: PropTypes.class,
+  }),
+  label: PropTypes.shape({
+    style: PropTypes.object,
+    text: PropTypes.string,
+  }),
+  input: PropTypes.shape({
+    style: PropTypes.object,
+    size: PropTypes.string,
+    id: PropTypes.string,
+    onChange: PropTypes.shape({
+      func: PropTypes.func,
+      args: PropTypes.array,
+    }),
+  }),
+  type: PropTypes.oneOf(RowType.get()),
+  dropDown: PropTypes.shape({
+    ids: PropTypes.array,
+    href: PropTypes.string,
+    onClick: PropTypes.func,
+    ids: PropTypes.array,
+    rows: PropTypes.array,
+    selected: PropTypes.array,
+    style: PropTypes.object,
+  }),
+  imageSelection: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }),
+  searchBar: PropTypes.shape({
+    onChange: PropTypes.func,
+    placeholder: PropTypes.string,
+  }),
 };
 
 export default FormRowSingleInput;

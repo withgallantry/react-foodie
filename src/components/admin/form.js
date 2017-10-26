@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Button from '../shared/html/button';
@@ -193,9 +194,39 @@ const Form = (props) => {
         {multiInputFormRows}
       </div>
       <hr />
-      {MenuButton.create('plus', props.onClick, Event.NEW_MENU, 0, btnNewMenu)}
+      {MenuButton.create('plus', props.onClick, Event.NEW_MENU, [], btnNewMenu)}
     </div>
   );
+};
+
+Form.propTypes = {
+  singleInput: PropTypes.shape({
+    name: PropTypes.string,
+    tags: PropTypes.string,
+    images: PropTypes.shape({
+      gallery: PropTypes.string,
+      banner: PropTypes.string,
+    }),
+    address: PropTypes.string,
+    hours: PropTypes.shape({
+      opensAt: PropTypes.shape({
+        hours: PropTypes.string,
+        minutes: PropTypes.string,
+      }),
+      closesAt: PropTypes.shape({
+        hours: PropTypes.string,
+        minutes: PropTypes.string,
+      }),
+    }),
+  }),
+  menu: PropTypes.shape({
+    [Language.SV] : PropTypes.array,
+    [Language.EN] : PropTypes.array,
+  }),
+  onClick: PropTypes.func,
+  onChange: PropTypes.func,
+  onAddressChange: PropTypes.func,
+  lang: PropTypes.oneOf(Language.get()),
 };
 
 export default Form;
