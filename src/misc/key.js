@@ -3,8 +3,11 @@ import * as Cookies from './cookies';
 import * as Db from './db';
 import * as Settings from './settings';
 
-let defaultKey;
+let defaultKey = 'default';
 
+/*
+  Updates the current key used for a set of stores.
+*/
 export const update = (onFinished) => {
   // get default from db
   Db.getDefaultKey().then((response) => {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import InputText from './html/input_text';
@@ -72,5 +73,11 @@ class AddressSearchBar extends Component {
     );
   }
 }
+
+AddressSearchBar.propTypes = {
+  onAddressChange: PropTypes.func.isRequired,
+  style: PropTypes.object,
+  placeholder: PropTypes.string,
+};
 
 export default AddressSearchBar;

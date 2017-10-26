@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const InputText = (props) => {
     return (
@@ -17,6 +18,19 @@ const InputText = (props) => {
         placeholder={props.placeholder !== undefined ? props.placeholder : undefined}>
       </input>
     );
+};
+
+InputText.propTypes = {
+  dataTip: PropTypes.string,
+  style: PropTypes.object,
+  size: PropTypes.string,
+  id: PropTypes.string,
+  onChange: PropTypes.shape({
+    func: PropTypes.func,
+    args: PropTypes.array,
+  }),
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 export default InputText;

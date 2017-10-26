@@ -6,9 +6,7 @@ import React from 'react';
 import * as Cookies from './cookies';
 import * as Settings from './settings';
 
-const debug = () => {
-  return Settings.get(Settings.DEBUG);
-};
+const debug = () =>  Settings.get(Settings.DEBUG);
 
 export const log = (msg) => {
   if (debug()) {

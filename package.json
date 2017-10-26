@@ -30,6 +30,7 @@
     "babel-preset-react": "^6.24.1",
     "express": "^4.15.4",
     "lodash": "^4.17.4",
+    "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-responsive": "^3.0.0",

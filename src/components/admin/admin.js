@@ -95,7 +95,7 @@ class Admin extends Component {
         opensAt:  { hours: '10', minutes: '00' },
         closesAt: { hours: '21', minutes: '00' }
       },
-      tags: [],
+      tags: '',
       deleteEnabled: true,
       deleteAllEnabled: true,
       images: { gallery: 'gallery0.png', banner: 'banner0.png' },
@@ -127,6 +127,10 @@ class Admin extends Component {
     this.setState({ loading : true });
     Db.getAll().then((response) => {
       const stores = response.data;
+      for (let store of stores) {
+        store.tags = store.tags.join(',');
+      }
+
       this.validateStores(stores);
       // default sorting by name
       stores.sort((a, b) => {

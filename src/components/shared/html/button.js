@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Button = (props) => {
   return (
@@ -26,6 +27,22 @@ const Button = (props) => {
         {props.label !== undefined ? props.label : undefined}
       </button>
   );
+};
+
+Button.propTypes = {
+  tooltip: PropTypes.string,
+  modal: PropTypes.string,
+  disabled: PropTypes.bool,
+  classes: PropTypes.string,
+  style: PropTypes.object,
+  type: PropTypes.string,
+  onClick: PropTypes.object,
+  glyphicon: PropTypes.string,
+  image: PropTypes.object,
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
 };
 
 export default Button;

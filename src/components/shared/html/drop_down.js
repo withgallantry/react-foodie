@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const DropDown = (props) => {
   let counter = 0;
@@ -24,6 +25,18 @@ const DropDown = (props) => {
       </ul>
     </div>
   );
+};
+
+DropDown.propTypes = {
+  href: PropTypes.string.isRequired,
+  onClick: PropTypes.shape({
+    func: PropTypes.func,
+    args: PropTypes.array,
+  }).isRequired,
+  title: PropTypes.string.isRequired,
+  rows: PropTypes.array,
+  classes: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default DropDown;

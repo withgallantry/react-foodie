@@ -10,12 +10,8 @@ const BANNER_HEIGHT                     = 360;
 const HOME_HEADER_HEIGHT_LANDSCAPE_VALUE = 80;
 const HOME_HEADER_HEIGHT_PORTRAIT_VALUE = 175;
 
-const toPx = (value) => {
-  return `${value}px`;
-};
-const toPc = (value) => {
-  return `${value}%`;
-};
+const toPx = (value) => `${value}px`;
+const toPc = (value) => `${value}%`;
 
 export const REPO = 'https://github.com/jesperc/react-foodie';
 export const DEFAULT_ADDRESS = 'Svarvargatan 13, 112 49, Stockholm';
@@ -25,10 +21,10 @@ export const STORE_ID = 'storeContainer';
 export const TOP_ID = 'topContainer';
 export const SCROLL_THRESHOLD = 500;
 
-export const MODAL_CHECKOUT = 'modalCheckout';
-export const MODAL_INFO = 'modalInfo';
+export const MODAL_CHECKOUT   = 'modalCheckout';
+export const MODAL_INFO       = 'modalInfo';
 export const MODAL_ADMIN_INFO = 'modalAdminInfo';
-export const MODAL_IMAGE = 'modalImage';
+export const MODAL_IMAGE      = 'modalImage';
 
 export const COOKIE_LATEST  = 'latest';
 export const COOKIE_ADDRESS = 'address';
