@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
 import InputText from '../../shared/html/input_text';
@@ -28,6 +29,11 @@ const SearchBar = ({onSearch, width}) => {
       />
     </div>
   );
+};
+
+SearchBar.propTypes = {
+  onSearch: PropTypes.func,
+  width: PropTypes.string,
 };
 
 export default SearchBar;

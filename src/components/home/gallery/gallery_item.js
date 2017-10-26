@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import * as Strings from '../../../misc/localization/strings';
@@ -18,14 +19,14 @@ const divInfo = {
   overflow: 'hidden',
 };
 
-const GalleryItem = ({images, isOpen, name, id, tags, hours}) => {
+const GalleryItem = ({gallery, isOpen, name, id, tags, hours}) => {
   return (
     <div style={div}>
       <Link to={`/store/${id}`}>
         <div className='gallery-img-container'>
           <img
             className='gallery-img'
-            src={`img/${images.gallery}`}
+            src={`img/${gallery}`}
           />
         </div>
       </Link>
@@ -44,6 +45,24 @@ const GalleryItem = ({images, isOpen, name, id, tags, hours}) => {
         + `${hours.closesAt.hours}:${hours.closesAt.minutes}`}</div>}
     </div>
   );
+};
+
+GalleryItem.propTypes = {
+  gallery: PropTypes.string,
+  isOpen: PropTypes.bool,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  tags: PropTypes.array,
+  hours: PropTypes.shape({
+    opensAt: PropTypes.shape({
+      hours: PropTypes.string,
+      minutes: PropTypes.string,
+    }),
+    closesAt: PropTypes.shape({
+      hours: PropTypes.string,
+      minutes: PropTypes.string,
+    }),
+  }),
 };
 
 export default GalleryItem;

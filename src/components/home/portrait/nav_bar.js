@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
 
@@ -63,6 +64,12 @@ const NavBar = ({onClick, language, storeId}) => {
       }
     </div>
   );
+};
+
+NavBar.propTypes = {
+  onClick: PropTypes.func,
+  language: PropTypes.oneOf(Language.get()),
+  storeId: PropTypes.string,
 };
 
 export default NavBar;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MediaQuery from 'react-responsive';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import GalleryItem from './gallery_item';
@@ -148,7 +149,7 @@ class Gallery extends Component {
           name={store.name}
           hours={store.hours}
           tags={Strings.localize(store.tags, Language.SV, this.state.language)}
-          images={store.images}
+          gallery={store.images.gallery}
           isOpen={store.isOpen}
         />
       );
@@ -219,5 +220,9 @@ class Gallery extends Component {
     );
   }
 }
+
+Gallery.propTypes = {
+  language: PropTypes.oneOf(Language.get()),
+};
 
 export default Gallery;
