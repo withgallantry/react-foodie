@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Switch from 'react-toggle-switch';
 
 import Button from '../../shared/html/button';
@@ -143,6 +144,24 @@ const Order = ({
         }
       </div>
   );
+};
+
+Order.propTypes = {
+  style: PropTypes.object,
+  onClick: PropTypes.func,
+  showMenuForItem: PropTypes.string,
+  onEnter: PropTypes.func,
+  onLeave: PropTypes.func,
+  onToggleSwitch: PropTypes.func,
+  switched: PropTypes.bool,
+  address: PropTypes.string,
+  name: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.string,
+    quantity: PropTypes.number
+  })),
 };
 
 export default Order;

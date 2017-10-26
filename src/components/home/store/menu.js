@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import SubMenu from './sub_menu';
@@ -67,6 +68,13 @@ const Menu = ({items, onClick}) => {
       {menuItems}
     </div>
   );
+};
+
+Menu.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+  })),
+  onClick: PropTypes.func,
 };
 
 export default Menu;

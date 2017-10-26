@@ -34,7 +34,10 @@ DropDown.propTypes = {
     args: PropTypes.array,
   }).isRequired,
   title: PropTypes.string,
-  rows: PropTypes.array,
+  rows: PropTypes.arrayOf(PropTypes.shape({
+    args: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  })),
   classes: PropTypes.string,
   style: PropTypes.object,
 };

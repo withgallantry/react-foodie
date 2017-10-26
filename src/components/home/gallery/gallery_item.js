@@ -52,7 +52,7 @@ GalleryItem.propTypes = {
   isOpen: PropTypes.bool,
   name: PropTypes.string,
   id: PropTypes.string,
-  tags: PropTypes.array,
+  tags: PropTypes.arrayOf(PropTypes.string),
   hours: PropTypes.shape({
     opensAt: PropTypes.shape({
       hours: PropTypes.string,

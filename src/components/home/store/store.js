@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import _ from 'lodash';
 
@@ -293,13 +294,20 @@ class Store extends Component {
       overflowY: 'scroll',
     };
 
+    const detailsProps = {
+      name: this.state.store.name,
+      tags: this.state.store.tags,
+      closesAt: this.state.store.hours.closesAt,
+      opensAt: this.state.store.hours.opensAt,
+    };
+
     return (
       <div>
         <MediaQuery query='(orientation: landscape)'>
           <div id={Constants.STORE_ID} style={divLandscape} onScroll={this.onScroll}>
             <div id={Constants.TOP_ID}>
               <Banner src={this.state.store.images.banner} />
-              <Details store={this.state.store}/>
+              <Details {...detailsProps}/>
             </div>
             <hr style={hr}/>
             <Menu {...menuProps}/>
@@ -311,7 +319,7 @@ class Store extends Component {
           <div id={Constants.STORE_ID} style={divPortrait} onScroll={this.onScroll}>
             <Order {...orderPortraitProps}/>
             <div id={Constants.TOP_ID}>
-              <Details store={this.state.store}/>
+              <Details {...detailsProps}/>
             </div>
             <hr style={hr}/>
             <Menu {...menuProps}/>
@@ -322,5 +330,11 @@ class Store extends Component {
     );
   }
 }
+
+Store.propTypes = {
+  address: PropTypes.string,
+  language: PropTypes.oneOf(Language.get()),
+  onOrderChange: PropTypes.func,
+};
 
 export default Store;

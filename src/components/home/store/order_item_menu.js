@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../../shared/html/button';
 import * as Event from './event';
@@ -39,6 +40,11 @@ const OrderItemMenu = ({onClick, id}) => {
       {createButton(onClick, id, Event.REMOVE_ITEM,   btn, 'trash')}
     </span>
   );
+};
+
+OrderItemMenu.propTypes = {
+  onClick: PropTypes.func,
+  id: PropTypes.string,
 };
 
 export default OrderItemMenu;

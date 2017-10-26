@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SubMenuItem from './sub_menu_item';
 import * as Constants from '../../../misc/constants';
@@ -57,6 +58,14 @@ const SubMenu = ({onClick, item, index}) => {
       <hr style={hr}/>
     </div>
   );
+};
+
+SubMenu.propTypes = {
+  onClick: PropTypes.func,
+  item: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+  index: PropTypes.number,
 };
 
 export default SubMenu;

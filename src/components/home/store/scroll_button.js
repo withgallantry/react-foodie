@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../../shared/html/button';
 import * as Event from './event';
@@ -21,6 +22,10 @@ const ScrollButton = ({onClick}) => {
       }}
     />
   );
+};
+
+ScrollButton.propTypes = {
+  onClick: PropTypes.func,
 };
 
 export default ScrollButton;

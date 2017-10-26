@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import OrderItemMenu from './order_item_menu';
 import * as Constants from '../../../misc/constants';
@@ -30,6 +31,17 @@ const OrderItem = ({onClick, showMenu, onEnter, onLeave, name, price, quantity, 
       <span style={priceSpan}>{`${(price * quantity)} ${Constants.CURRENCY}`}</span>
     </div>
   );
+};
+
+OrderItem.propTypes = {
+  onClick: PropTypes.func,
+  showMenu: PropTypes.bool,
+  onEnter: PropTypes.func,
+  onLeave: PropTypes.func,
+  name: PropTypes.string,
+  price: PropTypes.string,
+  quantity: PropTypes.number,
+  id: PropTypes.string,
 };
 
 export default OrderItem;

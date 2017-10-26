@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as Constants from '../../../misc/constants';
 import * as Event from './event';
@@ -32,6 +33,17 @@ const SubMenuItem = ({onClick, item, index, menu}) => {
       <span style={spanPrice}>{`${item.price} ${Constants.CURRENCY}`}</span>
     </div>
   );
+};
+
+SubMenuItem.propTypes = {
+  onClick: PropTypes.func,
+  item: PropTypes.shape({
+    price: PropTypes.string,
+    desc: PropTypes.string,
+    name: PropTypes.string,
+  }),
+  index: PropTypes.number,
+  menu: PropTypes.number,
 };
 
 export default SubMenuItem;

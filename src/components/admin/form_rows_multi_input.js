@@ -94,7 +94,11 @@ const FormRowsMultiInput = ({menu, index, onChange, onClick, lang}) => {
 
 FormRowsMultiInput.propTypes = {
   menu: PropTypes.shape({
-    items: PropTypes.array,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      desc: PropTypes.string,
+      price: PropTypes.string,
+    })),
     name: PropTypes.string,
   }),
   index: PropTypes.number,
