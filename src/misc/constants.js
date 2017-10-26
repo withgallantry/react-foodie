@@ -20,6 +20,8 @@ export const DELIVERY_FEE = 49;
 export const STORE_ID = 'storeContainer';
 export const TOP_ID = 'topContainer';
 export const SCROLL_THRESHOLD = 500;
+export const BANNER_RATIO = (360/1440);
+export const GALLERY_RATIO = (200/300);
 
 export const MODAL_CHECKOUT   = 'modalCheckout';
 export const MODAL_INFO       = 'modalInfo';

@@ -15,13 +15,14 @@ const btn = {
   padding: '1px',
 };
 
+const width = 400;
 const img = {
-  maxWidth: '400px',
-  maxHeight: '100px',
+  maxWidth: `${width}px`,
+  maxHeight: `${width * Constants.BANNER_RATIO}px`,
 };
 
 const inline = {
-  display : 'inline'
+  display : 'inline',
 };
 
 const createSearchBar = ({onChange, placeholder}) => {

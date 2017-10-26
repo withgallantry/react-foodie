@@ -25,13 +25,13 @@ const fillImageLists = () => {
 
 const getGalleryList = (onClick) => {
   const width = 174;
-  const height = width * (200/300);
+  const height = width * Constants.GALLERY_RATIO;
   return getList(gallery, Event.SET_IMAGE_GALLERY, onClick, `${width}px`, `${height}px`);
 };
 
 const getBannerList = (onClick) => {
   const width = 265;
-  const height = width * (360/1440);
+  const height = width * Constants.BANNER_RATIO;
   return getList(banners, Event.SET_IMAGE_BANNER, onClick, `${width}px`, `${height}px`);
 };
 
