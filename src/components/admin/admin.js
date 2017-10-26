@@ -106,6 +106,7 @@ class Admin extends Component {
       currentId: null,
       lang: Language.SV,
       loading: true,
+      error: false,
     };
   }
 
@@ -144,7 +145,7 @@ class Admin extends Component {
     })
     .catch((error) => {
       console.error(error);
-      this.setState({ loading : false });
+      this.setState({ loading : false, error : true });
     })
   }
 
@@ -531,6 +532,7 @@ class Admin extends Component {
       <div>
         <Modals onClick={this.onClick}/>
         <Menu
+          error={this.state.error}
           onClick={this.onClick}
           onChangeSearch={this.onChangeSearchDebounced}
           onChangeKey={this.onChangeKeyDebounced}
@@ -553,6 +555,7 @@ class Admin extends Component {
           if (this.state.loading === false) {
             return (
               <Form
+                error={this.state.error}
                 singleInput={{
                   name: this.state.name,
                   tags: this.state.tags,

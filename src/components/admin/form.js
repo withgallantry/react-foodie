@@ -5,6 +5,7 @@ import _ from 'lodash';
 import Button from '../shared/html/button';
 import FormRowsMultiInput from './form_rows_multi_input';
 import FormRowSingleInput from './form_row_single_input';
+import Info from '../shared/info';
 import * as Constants  from '../../misc/constants';
 import * as Event from './event';
 import * as Language from '../../misc/localization/language';
@@ -47,6 +48,8 @@ const hr = {
   paddingTop: Constants.ADMIN_SECTION_MARGIN_HEIGHT,
   marginTop: Constants.ADMIN_SECTION_MARGIN_HEIGHT,
 };
+
+const ERROR_MESSAGE = "Couldn\'t establish connection unfortunately...";
 
 const createListSequence = (begin, end, interval = 1) => {
   const seq = Util.sequence(begin, end, interval);
@@ -187,19 +190,24 @@ const Form = (props) => {
     }
   }
 
-  return (
-    <div style={div}>
-      <div style={{marginTop : Constants.ADMIN_SECTION_MARGIN_HEIGHT}}>
-        {singleInputFormRows}
-        {multiInputFormRows}
+  if (props.error) {
+    return <Info text={ERROR_MESSAGE}/>
+  } else {
+    return (
+      <div style={div}>
+        <div style={{marginTop : Constants.ADMIN_SECTION_MARGIN_HEIGHT}}>
+          {singleInputFormRows}
+          {multiInputFormRows}
+        </div>
+        <hr />
+        {MenuButton.create('plus', props.onClick, Event.NEW_MENU, [], btnNewMenu)}
       </div>
-      <hr />
-      {MenuButton.create('plus', props.onClick, Event.NEW_MENU, [], btnNewMenu)}
-    </div>
-  );
+    );
+  }
 };
 
 Form.propTypes = {
+  error: PropTypes.bool,
   singleInput: PropTypes.shape({
     name: PropTypes.string,
     tags: PropTypes.string,

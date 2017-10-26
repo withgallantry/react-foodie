@@ -24,11 +24,14 @@ const btn = {
   marginLeft: Constants.ADMIN_MENU_BUTTON_MARGIN
 };
 
-const createButton = (style, label, func, disabled, id, tooltip) => {
+const createButton = (error, style, label, func, disabled, id, tooltip) => {
   if (Settings.get(Settings.KEY) === Key.getDefault()) {
     if (label !== 'Home' && label !== 'Get JSON' && label !== 'Reset') {
       disabled = true;
     }
+  }
+  if (error && label !== 'Home') {
+    disabled = true;
   }
 
   return (
@@ -52,13 +55,14 @@ const createButtonGlyph = (style, glyph, modal) => {
   );
 };
 
-const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
+const MenuButtonBar = ({error, onClick, deleteEnabled, deleteAllEnabled, lang}) => {
   return (
     <div style={div}>
       <Link to={'/home'}>
-        {createButton(btnFirst, 'Home')}
+        {createButton(error, btnFirst, 'Home')}
       </Link>
       {createButton(
+        error,
         btn,
         lang === Language.EN
           ? (<div><b>En</b> | Sv</div>)
@@ -68,23 +72,24 @@ const MenuButtonBar = ({onClick, deleteEnabled, deleteAllEnabled, lang}) => {
         Event.CHANGE_LANG,
         'Language only applies for store menu items.')}
       <ReactTooltip type='info' effect='solid' />
-      {createButton(btn, 'Save',         onClick, false,             Event.SAVE)}
-      {createButton(btn, 'New',          onClick, false,             Event.NEW)}
-      {createButton(btn, 'Copy',         onClick, false,             Event.COPY)}
-      {createButton(btn, 'Delete',       onClick, !deleteEnabled,    Event.DELETE)}
-      {createButton(btn, 'Delete All',   onClick, !deleteAllEnabled, Event.DELETE_ALL)}
-      {createButton(btn, 'Add Template', onClick, false,             Event.ADD_TEMPLATE)}
+      {createButton(error, btn, 'Save',         onClick, false,             Event.SAVE)}
+      {createButton(error, btn, 'New',          onClick, false,             Event.NEW)}
+      {createButton(error, btn, 'Copy',         onClick, false,             Event.COPY)}
+      {createButton(error, btn, 'Delete',       onClick, !deleteEnabled,    Event.DELETE)}
+      {createButton(error, btn, 'Delete All',   onClick, !deleteAllEnabled, Event.DELETE_ALL)}
+      {createButton(error, btn, 'Add Template', onClick, false,             Event.ADD_TEMPLATE)}
       {Debug.createButton('Set Template', onClick, btn, Event.SET_TEMPLATE)}
       <Link to='/json'>
-        {createButton(btn, 'Get JSON')}
+        {createButton(error, btn, 'Get JSON')}
       </Link>
-      {createButton(btn, 'Reset', onClick, false, Event.RESET)}
+      {createButton(error, btn, 'Reset', onClick, false, Event.RESET)}
       {createButtonGlyph(btn, 'info-sign', Constants.MODAL_ADMIN_INFO)}
     </div>
   );
 };
 
 MenuButtonBar.propTypes = {
+  error: PropTypes.bool,
   onClick: PropTypes.func,
   deleteEnabled: PropTypes.bool,
   deleteAllEnabled: PropTypes.bool,

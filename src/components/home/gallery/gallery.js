@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import GalleryItem from './gallery_item';
+import Info from '../../shared/info';
 import LoadingBar from '../../shared/loading_bar';
 import SearchBar from './search_bar';
 import * as Constants from '../../../misc/constants';
@@ -190,11 +191,15 @@ class Gallery extends Component {
 
   createGallery() {
     const stores = this.createStores();
-    return (
-      <div style={divGallery}>
-        {stores}
-      </div>
-    );
+    if (stores.length <= 0) {
+      return (<Info text={Strings.get(Strings.EMPTY)}/>)
+    } else {
+      return (
+        <div style={divGallery}>
+          {stores}
+        </div>
+      );
+    }
   }
 
   render() {

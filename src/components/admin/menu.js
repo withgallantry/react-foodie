@@ -36,7 +36,7 @@ const searchStoreSize = '32';
 const searchKeySize = '20';
 
 const Menu = ({
-  onClick, onChangeSearch, onChangeKey, stores,
+  error, onClick, onChangeSearch, onChangeKey, stores,
   deleteEnabled, deleteAllEnabled, _key, lang}) =>
 {
   if (stores == null) {
@@ -88,6 +88,7 @@ const Menu = ({
       <ReactTooltip type="info" effect="solid"/>
       &#9911;
       <MenuButtonBar
+        error={error}
         onClick={onClick}
         deleteEnabled={deleteEnabled}
         deleteAllEnabled={deleteAllEnabled}
@@ -98,6 +99,7 @@ const Menu = ({
 };
 
 Menu.propTypes = {
+  error: PropTypes.bool,
   onClick: PropTypes.func,
   onChangeSearch: PropTypes.func,
   onChangeKey: PropTypes.func,
