@@ -9,8 +9,8 @@ export const DEFAULT_KEY = 3;
 const min = DELETE_ALL;
 const max = DEFAULT_KEY;
 
-const ROOT_URL = 'https://agile-taiga-67906.herokuapp.com/store';
-//const ROOT_URL = 'http://localhost:5000/store';
+//const ROOT_URL = 'https://agile-taiga-67906.herokuapp.com/store';
+const ROOT_URL = 'http://localhost:5000/store';
 
 let urlTypes = [];
 urlTypes[DELETE_ALL]  = `delete-all`;

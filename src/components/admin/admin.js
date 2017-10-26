@@ -296,7 +296,7 @@ class Admin extends Component {
   }
 
   reset() {
-    Cookies.remove(Constants.COOKIES_KEY);
+    Cookies.set(Constants.COOKIES_KEY, Key.getDefault());
     window.location.reload();
   }
 
