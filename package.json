@@ -33,6 +33,7 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-notification-system": "^0.2.16",
     "react-responsive": "^3.0.0",
     "react-router-dom": "^4.2.2",
     "react-toggle-switch": "^3.0.3",

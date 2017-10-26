@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
+import NotificationSystem from 'react-notification-system';
 import _ from 'lodash';
 
 import Banner from './banner';
@@ -17,6 +18,7 @@ import * as Event from './event';
 import * as Key from '../../../misc/key';
 import * as Language from '../../../misc/localization/language';
 import * as Settings from '../../../misc/settings';
+import * as Strings from '../../../misc/localization/strings';
 import * as Util from '../../../misc/util';
 
 const divLandscape = {
@@ -63,7 +65,7 @@ class Store extends Component {
   componentDidMount() {
     Key.update(() => {
       this.load();
-    })
+    });
   }
 
   componentWillReceiveProps(props) {
@@ -152,6 +154,12 @@ class Store extends Component {
     this.updateCookies(1, menuIndex, itemIndex);
     this.props.onOrderChange(this.state.store._id);
     this.setState({ orderItems });
+    this.notificationSystem.addNotification({
+      message: Strings.get(Strings.ITEM_ADDED),
+      level: 'success',
+      position: 'bc',
+      autoDismiss: 2,
+    });
   }
 
   removeItem(menuIndex, itemIndex) {
@@ -326,6 +334,7 @@ class Store extends Component {
             {this.state.showScrollButton && <ScrollButton onClick={this.onClick}/>}
           </div>
         </MediaQuery>
+        <NotificationSystem ref={a => this.notificationSystem = a} />
       </div>
     );
   }
