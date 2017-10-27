@@ -303,6 +303,7 @@ class Store extends Component {
     };
 
     const detailsProps = {
+      address: this.state.store.address,
       name: this.state.store.name,
       tags: this.state.store.tags,
       closesAt: this.state.store.hours.closesAt,

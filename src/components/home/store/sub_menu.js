@@ -20,6 +20,7 @@ const p = {
   textAlign: 'center',
   textOverflow: 'ellipsis',
   overflow: 'hidden',
+  fontSize: '16pt',
 };
 
 const divItem = {

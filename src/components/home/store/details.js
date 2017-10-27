@@ -16,13 +16,18 @@ const h2 = {
   display: 'inline',
 };
 
-const p = {
+const pTags = {
   fontSize: '12pt',
 };
 
-const Details = ({name, tags, opensAt, closesAt}) => {
+const pAddress = {
+  fontSize: '10pt',
+};
+
+const Details = ({address, name, tags, opensAt, closesAt}) => {
   const title = <h2 style={h2}>{name}</h2>;
-  const joinedTags = <p style={p}>{tags.join(" • ")}</p>;
+  const joinedTags = <p style={pTags}>{tags.join(" • ")}</p>;
+  address = <p style={pAddress}>{address}</p>;
   const hours = <span>{
     `Hours Open: ${opensAt.hours}.${opensAt.minutes}` +
     ` - ${closesAt.hours}.${closesAt.minutes}`
@@ -33,6 +38,7 @@ const Details = ({name, tags, opensAt, closesAt}) => {
       {title}
       &nbsp;
       {joinedTags}
+      {address}
       {hours}
     </div>
   );

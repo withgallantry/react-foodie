@@ -28,8 +28,8 @@ const SubMenuItem = ({onClick, item, index, menu}) => {
       className='sub-menu-item'
       style={div}
       onClick={() => onClick(Event.ADD_ITEM, [menu, index])}>
-      <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>{item.name}</p>
-      <span style={spanDesc}>• &nbsp; {item.desc}</span>
+      <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}><b>• &nbsp; {item.name}</b></p>
+      <span style={spanDesc}>{item.desc}</span>
       <span style={spanPrice}>{`${item.price} ${Constants.CURRENCY}`}</span>
     </div>
   );

@@ -25,8 +25,9 @@ const divLandscape = {
   overflowY: 'scroll'
 };
 
-const divPortrait = _.clone(divLandscape);
-divPortrait.top = Constants.HOME_HEADER_HEIGHT_PORTRAIT;
+const divPortrait = {
+
+};
 
 const divGallery = {
   marginLeft: Constants.HOME_GALLERY_MARGIN_LEFT,
