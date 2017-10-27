@@ -424,25 +424,25 @@ class Admin extends Component {
     this.setState({ menu });
   }
 
-  hoursOpensChange(arg) {
+  hoursOpensChange([arg]) {
     const hours = this.state.hours;
     hours.opensAt.hours = arg;
     this.setState({ hours });
   }
 
-  hoursClosesChange(arg) {
+  hoursClosesChange([arg]) {
     const hours = this.state.hours;
     hours.closesAt.hours = arg;
     this.setState({ hours });
   }
 
-  minutesOpensChange(arg) {
+  minutesOpensChange([arg]) {
     const hours = this.state.hours;
     hours.opensAt.minutes = arg;
     this.setState({ hours });
   }
 
-  minutesClosesChange(arg) {
+  minutesClosesChange([arg]) {
     const hours = this.state.hours;
     hours.closesAt.minutes = arg;
     this.setState({ hours });

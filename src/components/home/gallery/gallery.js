@@ -29,7 +29,6 @@ const divPortrait = _.clone(divLandscape);
 divPortrait.top = Constants.HOME_HEADER_HEIGHT_PORTRAIT;
 
 const divGallery = {
-  textAlign: 'center',
   marginLeft: Constants.HOME_GALLERY_MARGIN_LEFT,
   marginRight: Constants.HOME_GALLERY_MARGIN_LEFT,
   marginTop: '15px',
@@ -160,10 +159,6 @@ class Gallery extends Component {
   }
 
   storeIsOpen({ opensAt, closesAt }) {
-    if (Settings.get(Settings.DEBUG) === true) {
-      return true;
-    }
-
     let opensAtMinutes = opensAt.minutes;
     let opensAtHours = opensAt.hours;
     let closesAtMinutes = closesAt.minutes;

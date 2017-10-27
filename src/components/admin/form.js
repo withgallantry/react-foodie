@@ -55,7 +55,7 @@ const createListSequence = (begin, end, interval = 1) => {
   const seq = Util.sequence(begin, end, interval);
   let result = [];
   for (let i of seq) {
-    const str = i < 10 ? `0${i}` : i;
+    const str = i < 10 ? `0${i}` : `${i}`;
     result.push({
       value : str,
       args : [str]

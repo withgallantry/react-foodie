@@ -2,26 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import * as Settings from '../../../misc/settings';
 import * as Strings from '../../../misc/localization/strings';
 
 const div = {
   position: 'relative',
   width: '300px',
-  height: '300px',
+  height: '270px',
   display: 'inline-block',
   marginLeft: '2%',
   overflow: 'hidden',
+  marginTop: '15px',
 };
 
-const divInfo = {
+const divInfoItem = {
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis' ,
   overflow: 'hidden',
 };
 
+const divInfo = {
+  padding: '5px',
+};
+
 const GalleryItem = ({gallery, isOpen, name, id, tags, hours}) => {
+  // allow clicking on closed stores in debug
+  const jsxClosed = Settings.get(Settings.DEBUG)
+    ? (<div>
+        <Link to={`/store/${id}`}>
+          <span className='gallery-closed-bg'></span>
+          <span className='gallery-closed-text'>{Strings.get(Strings.CLOSED)}</span>
+        </Link>
+      </div>)
+    : (<div>
+        <span className='gallery-closed-bg'></span>
+        <span className='gallery-closed-text'>{Strings.get(Strings.CLOSED)}</span>
+      </div>);
+
   return (
-    <div style={div}>
+    <div style={div} className={isOpen ? 'gallery-item' : ''}>
       <Link to={`/store/${id}`}>
         <div className='gallery-img-container'>
           <img
@@ -30,19 +49,14 @@ const GalleryItem = ({gallery, isOpen, name, id, tags, hours}) => {
           />
         </div>
       </Link>
-      {isOpen === true
-        ? undefined
-        : (
-          <div>
-            <span className='gallery-closed-bg'></span>
-            <span className='gallery-closed-text'>{Strings.get(Strings.CLOSED)}</span>
-          </div>
-        )}
-      <div style={divInfo}><b>{name}</b></div>
-      {<div style={divInfo}>{tags.join(" • ")}</div>}
-      {<div style={divInfo}>{
-        `${hours.opensAt.hours}:${hours.opensAt.minutes} - `
-        + `${hours.closesAt.hours}:${hours.closesAt.minutes}`}</div>}
+      {isOpen === false && jsxClosed}
+      <div style={divInfo}>
+        <div style={divInfoItem}><b>{name}</b></div>
+        {<div style={divInfoItem}>{tags.join(" • ")}</div>}
+        {<div style={divInfoItem}>{
+          `${hours.opensAt.hours}:${hours.opensAt.minutes} - `
+          + `${hours.closesAt.hours}:${hours.closesAt.minutes}`}</div>}
+      </div>
     </div>
   );
 };
