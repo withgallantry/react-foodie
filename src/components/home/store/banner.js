@@ -11,7 +11,7 @@ const img = {
 const Banner = ({src}) => {
   return (
     <div>
-      <img style={img} src={`img/${src}`} />
+      <img style={img} src={`img/banner0.png`} />
     </div>
   );
 };

@@ -13,8 +13,8 @@ const div = {
 };
 
 const fillImageLists = () => {
-  const galleryCount = 30;
-  const bannerCount = 32;
+  const galleryCount = 1;
+  const bannerCount = 1;
   for (let i = 0; i < galleryCount; ++i) {
     gallery.push(`gallery${i}.png`);
   }

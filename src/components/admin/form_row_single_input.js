@@ -37,12 +37,15 @@ const createImageSelection = ({value, label}) => {
   const id = label.includes('gallery')
     ? Event.SET_IMAGE_GALLERY
     : Event.SET_IMAGE_BANNER;
+  const _value = label.includes('gallery')
+    ? 'gallery0.png'
+    : 'banner0.png';
   if (value !== undefined && value.length > 0) {
     return (
       <Button
         style={btn}
         modal={`${Constants.MODAL_IMAGE}${id}`}
-        image={{ style : img, src : `img/${value}` }}
+        image={{ style : img, src : `img/${_value}` }}
       />
     );
   }

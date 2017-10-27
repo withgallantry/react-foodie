@@ -45,7 +45,7 @@ const GalleryItem = ({gallery, isOpen, name, id, tags, hours}) => {
         <div className='gallery-img-container'>
           <img
             className='gallery-img'
-            src={`img/${gallery}`}
+            src={`img/gallery0.png`}
           />
         </div>
       </Link>
