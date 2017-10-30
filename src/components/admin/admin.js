@@ -167,6 +167,7 @@ class Admin extends Component {
   save() {
     const currentId = this.state.currentId;
     if (currentId !== null) {
+      this.setState({ loading : true });
       Debug.log('updating...');
       Debug.log(this.getCurrentItem());
       Db.update(currentId, this.getCurrentItem()).then((response) => {
@@ -176,6 +177,7 @@ class Admin extends Component {
         console.error(error);
       });
     } else {
+      this.setState({ loading : true });
       Debug.log('saving...');
       Debug.log(this.getCurrentItem());
       Db.add(this.getCurrentItem()).then((response) => {
@@ -211,6 +213,7 @@ class Admin extends Component {
   copy() {
     const item = this.getCurrentItem();
     item.name = `${item.name} (copy)`;
+    this.setState({ loading : true });
     Db.add(item).then((response) => {
       Debug.log('added store');
       this.load((stores) => {
@@ -232,7 +235,7 @@ class Admin extends Component {
       return obj._id === currentId;
     });
     if (currentId) {
-      this.setState({ deleteEnabled : false });
+      this.setState({ deleteEnabled : false, loading : true });
       Db.remove(currentId).then((response) => {
         Debug.log(`deleted store with id ${currentId}`);
         this.load((stores) => {
@@ -256,7 +259,7 @@ class Admin extends Component {
 
   deleteAll() {
     if (this.state.stores.length > 0) {
-      this.setState({ deleteAllEnabled : false });
+      this.setState({ deleteAllEnabled : false, loading : true });
       Db.removeAll().then((response) => {
         this.clearForm();
         this.setState({ stores : [] });
@@ -267,6 +270,7 @@ class Admin extends Component {
   }
 
   addTemplate() {
+    this.setState({ loading : true });
     Db.getTemplate().then((response) => {
       Db.add(response.data).then((response) => {
         Debug.log('added template stores');
@@ -288,14 +292,17 @@ class Admin extends Component {
 
   setTemplate() {
     const stores = this.state.stores;
+    this.setState({ loading : true });
     Db.setTemplate(stores).then((response) => {
       Debug.log("template stores was set");
+      this.reset();
     }).catch((error) => {
       console.error(error);
     });
   }
 
   reset() {
+    this.setState({ loading : true });
     Cookies.set(Constants.COOKIES_KEY, Key.getDefault());
     window.location.reload();
   }

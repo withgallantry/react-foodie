@@ -23,6 +23,7 @@ const divInfoItem = {
 
 const divInfo = {
   padding: '5px',
+  textAlign: 'center',
 };
 
 const GalleryItem = ({gallery, isOpen, name, id, tags, hours}) => {

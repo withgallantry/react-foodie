@@ -20,7 +20,7 @@ const p = {
   textAlign: 'center',
   textOverflow: 'ellipsis',
   overflow: 'hidden',
-  fontSize: '16pt',
+  fontSize: '14pt',
 };
 
 const divItem = {
@@ -49,7 +49,7 @@ const SubMenu = ({onClick, item, index}) => {
         <p
           id={`subMenu${index}`}
           style={p}>
-          •  •  • &nbsp; {item.name.toUpperCase()} &nbsp; •  •  •
+          •  •  • &nbsp; {item.name} &nbsp; •  •  •
         </p>
       </div>
       <hr style={hr}/>

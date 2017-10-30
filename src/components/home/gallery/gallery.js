@@ -137,7 +137,7 @@ class Gallery extends Component {
     _.forEach(stores, (store) => {
       store.isOpen = this.storeIsOpen(store.hours);
     });
-    stores = _.orderBy(stores, ['isOpen', 'name'], ['desc', 'desc']);
+    stores = _.orderBy(stores, ['isOpen', 'name'], ['desc', 'asc']);
     if (filter !== null) {
       stores = _.filter(stores, (store) => {
         for (let id of filter) {
@@ -150,13 +150,17 @@ class Gallery extends Component {
     }
 
     stores = _.map(stores, (store) => {
+      let tags = store.tags;
+      if (tags.length === 1) {
+        tags = tags[0].split(',');
+      }
       return (
         <GalleryItem
           key={store._id}
           id={store._id}
           name={store.name}
           hours={store.hours}
-          tags={Strings.localize(store.tags, Language.SV, this.state.language)}
+          tags={Strings.localize(tags, Language.SV, this.state.language)}
           gallery={store.images.gallery}
           isOpen={store.isOpen}
         />
