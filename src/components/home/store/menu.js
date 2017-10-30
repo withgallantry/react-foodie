@@ -42,7 +42,7 @@ const Menu = ({items, onClick}) => {
         style={li}
         key={`item${i}`}
         onClick={() => onClick(Event.SCROLL_TO_MENU, [i])}>
-        {item.name.toUpperCase()}
+        {item.name}
       </li>
     ));
     if ((i + 1) < items.length) {
