@@ -106,10 +106,10 @@ class Home extends Component {
     return (
       <div>
         <Modals />
-        <MediaQuery query='(orientation: landscape)'>
+        <MediaQuery minDeviceAspectRatio='1/1'>
           <HeaderLandscape {...headerProps}/>
         </MediaQuery>
-        <MediaQuery query='(orientation: portrait)'>
+        <MediaQuery maxDeviceAspectRatio='1/1'>
           <HeaderPortrait {...headerProps}/>
         </MediaQuery>
         <hr className='hr-home'/>

@@ -312,7 +312,7 @@ class Store extends Component {
 
     return (
       <div>
-        <MediaQuery query='(orientation: landscape)'>
+        <MediaQuery minDeviceAspectRatio='1/1'>
           <div id={Constants.STORE_ID} style={divLandscape} onScroll={this.onScroll}>
             <div id={Constants.TOP_ID}>
               <Banner src={this.state.store.images.banner} />
@@ -324,7 +324,7 @@ class Store extends Component {
           </div>
           <Order {...orderLandscapeProps}/>
         </MediaQuery>
-        <MediaQuery query='(orientation: portrait)'>
+        <MediaQuery maxDeviceAspectRatio='1/1'>
           <div id={Constants.STORE_ID} style={divPortrait} onScroll={this.onScroll}>
             <Order {...orderPortraitProps}/>
             <div id={Constants.TOP_ID}>

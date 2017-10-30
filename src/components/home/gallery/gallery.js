@@ -205,13 +205,13 @@ class Gallery extends Component {
 
     return (
       <span>
-        <MediaQuery query='(orientation: portrait)'>
+        <MediaQuery maxDeviceAspectRatio='1/1'>
           <div style={divPortrait}>
             <SearchBar width={widthPortrait} onSearch={this.onSearchDebounced}/>
             {this.createGallery()}
           </div>
         </MediaQuery>
-        <MediaQuery query='(orientation: landscape)'>
+        <MediaQuery minDeviceAspectRatio='1/1'>
           <div style={divLandscape}>
             <SearchBar width={widthLandscape} onSearch={this.onSearchDebounced}/>
             {this.createGallery()}
