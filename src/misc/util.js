@@ -9,6 +9,7 @@ function* range (begin, end, interval = 1) {
 export const getNumericValue  = (str) => parseInt(str.replace(/[^\d.]/g, ''));
 export const generateKey      = ()    => Math.random().toString(36).substr(2, 9);
 export const removeWhiteSpace = (str) => str.replace(/\s/g, '');
+export const isEmpty          = (str) =>  !str || !str.length;
 
 // NOTE : This method will also remove the keys from your object, which have
 // functions as their values, because the JSON doesn't support functions.

@@ -45,7 +45,7 @@ class Gallery extends Component {
     this.state = {
       loading : true,
       stores : [],
-      filter : [],
+      filter : null,
       language : props.language,
     };
 
@@ -86,6 +86,11 @@ class Gallery extends Component {
   }
 
   onSearch(value) {
+    if (Util.isEmpty(value)) {
+      this.setState({ filter : null });
+      return;
+    }
+
     // convert string to array of words
     const words = Util
       .replaceAll(value, ',', ' ')
@@ -132,16 +137,18 @@ class Gallery extends Component {
     _.forEach(stores, (store) => {
       store.isOpen = this.storeIsOpen(store.hours);
     });
-    stores = _.orderBy(stores, ['isOpen'], ['desc']);
-    stores = _.filter(stores, (store) => {
-      let match = filter.length <= 0;
-      for (let id of filter) {
-        if (id === store._id) {
-          match = true;
+    stores = _.orderBy(stores, ['isOpen', 'name'], ['desc', 'desc']);
+    if (filter !== null) {
+      stores = _.filter(stores, (store) => {
+        for (let id of filter) {
+          if (id === store._id) {
+            return true;
+          }
         }
-      }
-      return match;
-    });
+        return false;
+      });
+    }
+
     stores = _.map(stores, (store) => {
       return (
         <GalleryItem
