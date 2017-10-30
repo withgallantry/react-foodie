@@ -13,13 +13,18 @@ const div = {
   overflow: 'hidden',
 };
 
+const verticalMargin = '10px';
 const spanPrice = {
-  display: 'inline',
+  marginBottom: verticalMargin,
   float: 'right',
 };
 
-const spanDesc = {
-  display: 'inline',
+const spanName = {
+  marginTop: verticalMargin,
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  marginTop: verticalMargin,
+  display: 'block',
 };
 
 const SubMenuItem = ({onClick, item, index, menu}) => {
@@ -28,8 +33,8 @@ const SubMenuItem = ({onClick, item, index, menu}) => {
       className='sub-menu-item'
       style={div}
       onClick={() => onClick(Event.ADD_ITEM, [menu, index])}>
-      <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}><b>• &nbsp; {item.name}</b></p>
-      <span style={spanDesc}>{item.desc}</span>
+      <span style={spanName}><b>• &nbsp; {item.name}</b></span>
+      <span>{item.desc}</span>
       <span style={spanPrice}>{`${item.price} ${Constants.CURRENCY}`}</span>
     </div>
   );
