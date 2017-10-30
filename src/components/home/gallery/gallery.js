@@ -137,7 +137,7 @@ class Gallery extends Component {
     _.forEach(stores, (store) => {
       store.isOpen = this.storeIsOpen(store.hours);
     });
-    stores = _.orderBy(stores, ['isOpen', 'name'], ['desc', 'desc']);
+    stores = _.orderBy(stores, ['isOpen', 'name'], ['desc', 'asc']);
     if (filter !== null) {
       stores = _.filter(stores, (store) => {
         for (let id of filter) {
