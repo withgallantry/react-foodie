@@ -19,6 +19,7 @@ const ul = {
   marginTop: Constants.HOME_STORE_MARGIN_VERTICAL,
   padding: 0,
   fontSize: '12pt',
+  textAlign: 'center',
 };
 
 const li = {
