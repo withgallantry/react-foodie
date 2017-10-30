@@ -1,4 +1,5 @@
 import React from 'react';
+import MediaQuery from 'react-responsive';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -22,8 +23,13 @@ const ul = {
   textAlign: 'center',
 };
 
-const li = {
+const liLandscape = {
   marginRight: '10px',
+  display: 'inline',
+};
+
+const liPortrait = {
+  marginTop: '10px',
 };
 
 const hr = {
@@ -32,22 +38,37 @@ const hr = {
 };
 
 const Menu = ({items, onClick}) => {
+  const createListItem = (style, index, name) => {
+    return (
+      <li
+        className='menu-item'
+        style={style}
+        key={`item${index}`}
+        onClick={() => onClick(Event.SCROLL_TO_MENU, [index])}>
+        {name}
+      </li>
+    );
+  };
+
   let navBarItems = [];
   let menuItems = [];
   for (let i = 0; i < items.length; ++i) {
     const item = items[i];
     navBarItems.push((
-      <li
-        className='menu-item'
-        style={li}
-        key={`item${i}`}
-        onClick={() => onClick(Event.SCROLL_TO_MENU, [i])}>
-        {item.name}
-      </li>
+      <span key={`nav-bar-item-${i}`}>
+        <MediaQuery minDeviceAspectRatio='1/1'>
+          {createListItem(liLandscape, i, item.name)}
+        </MediaQuery>
+        <MediaQuery maxDeviceAspectRatio='1/1'>
+          {createListItem(liPortrait, i, item.name)}
+        </MediaQuery>
+      </span>
     ));
     if ((i + 1) < items.length) {
       navBarItems.push((
-        <li style={li} key={`dot${i}`}>•</li>
+        <MediaQuery key={`dot${i}`} minDeviceAspectRatio='1/1'>
+          <li style={liLandscape}>•</li>
+        </MediaQuery>
       ));
     }
     menuItems.push((
